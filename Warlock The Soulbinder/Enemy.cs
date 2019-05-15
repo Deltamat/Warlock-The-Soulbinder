@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Enemy : Character
+    public class Enemy : Character
     {
         private string monster;
         private int level;

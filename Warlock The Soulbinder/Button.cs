@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Button : GameObject
+    public class Button : GameObject
     {
         private MouseState previousMouse;
         private MouseState currentMouse;
