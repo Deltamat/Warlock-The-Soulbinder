@@ -40,7 +40,7 @@ namespace Warlock_The_Soulbinder
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            
         }
     }
 }

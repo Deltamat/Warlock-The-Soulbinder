@@ -9,20 +9,45 @@ namespace Warlock_The_Soulbinder
 {
     class Camera
     {
+        /// <summary>
+        /// The matrix used for the camera
+        /// </summary>
         public Matrix viewMatrix;
         private Vector2 halfScreenSize;
         private Vector2 position;
 
-        public Vector2 Position { get => position; set => position = value; }
-
-        public Camera()
+        /// <summary>
+        /// Property for the position
+        /// </summary>
+        public Vector2 Position
         {
+            get
+            {
+                return position;
+            }
 
+            set
+            {
+                position = value;
+                UpdateViewMatrix(); // Updates the camera as you set the new position
+            }
         }
 
-        public void UpdateViewMatrix()
+        /// <summary>
+        /// Camera constructor that sets the halfScreenSize to the center of the screen
+        /// </summary>
+        public Camera()
         {
+            halfScreenSize = new Vector2(GameWorld.ScreenSize.Width / 2, GameWorld.ScreenSize.Height / 2);
+            UpdateViewMatrix();
+        }
 
+        /// <summary>
+        /// Method that updates the camera position to the new position
+        /// </summary>
+        private void UpdateViewMatrix()
+        {
+            viewMatrix = Matrix.CreateTranslation(halfScreenSize.X - position.X, halfScreenSize.Y - position.Y, 0f);
         }
     }
 }
