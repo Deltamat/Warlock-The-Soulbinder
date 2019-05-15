@@ -20,7 +20,7 @@ namespace Warlock_The_Soulbinder
             this.name = name;
             this.monster = monster;
             this.level = level;
-            switch (monster)
+            switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
                 case "sheep":

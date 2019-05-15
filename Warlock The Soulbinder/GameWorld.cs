@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -32,10 +33,24 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        private static ContentManager content;
+        public static ContentManager ContentManager
+        {
+            get
+            {
+                return content;
+            }
+        }
+
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            content = Content;
+            //Sets the window size
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -46,8 +61,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -57,11 +71,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
-            collisionTexture = Content.Load<Texture2D>("Collision Texture");
+            collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -70,7 +82,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
         /// <summary>
@@ -83,7 +95,7 @@ namespace Warlock_The_Soulbinder
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            Player.Instance.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -95,12 +107,18 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin();
 
-            // TODO: Add your drawing code here
+            Player.Instance.Draw(spriteBatch);
 
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Draw collision boxes around the GameObject 'go'
+        /// </summary>
+        /// <param name="go">A GameObject</param>
         private void DrawCollisionBox(GameObject go)
         {
             Rectangle collisionBox = go.CollisionBox;

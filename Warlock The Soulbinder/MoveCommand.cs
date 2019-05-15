@@ -18,7 +18,7 @@ namespace Warlock_The_Soulbinder
 
         public void Execute(Player p)
         {
-            throw new NotImplementedException();
+            p.Move(direction);
         }
     }
 }

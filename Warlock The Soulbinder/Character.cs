@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock_The_Soulbinder
 {
@@ -20,6 +21,6 @@ namespace Warlock_The_Soulbinder
 
         }
 
-        protected string Name { get => name; }
+        protected string Name { get => name; }        
     }
 }

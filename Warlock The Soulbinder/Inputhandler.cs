@@ -32,6 +32,10 @@ namespace Warlock_The_Soulbinder
             keybinds.Add(Keys.S, new MoveCommand(new Vector2(0, 1)));
             keybinds.Add(Keys.D, new MoveCommand(new Vector2(1, 0)));
 
+            keybinds.Add(Keys.Up, new MoveCommand(new Vector2(0, -1)));
+            keybinds.Add(Keys.Left, new MoveCommand(new Vector2(-1, 0)));
+            keybinds.Add(Keys.Down, new MoveCommand(new Vector2(0, 1)));
+            keybinds.Add(Keys.Right, new MoveCommand(new Vector2(1, 0)));
         }
 
         public void Execute(Player p)
