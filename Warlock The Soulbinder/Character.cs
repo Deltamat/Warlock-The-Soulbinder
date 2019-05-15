@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-     public class Character : GameObject
+    public class Character : GameObject
     {
         protected float movementSpeed;
         private string name;
+
+        public Character()
+        {
+        }
 
         public Character(int index)
         {

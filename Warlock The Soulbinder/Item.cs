@@ -8,5 +8,6 @@ namespace Warlock_The_Soulbinder
 {
     class Item : GameObject
     {
+        protected string name;
     }
 }

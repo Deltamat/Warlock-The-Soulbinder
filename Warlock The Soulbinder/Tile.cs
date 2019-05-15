@@ -8,5 +8,8 @@ namespace Warlock_The_Soulbinder
 {
     class Tile : GameObject
     {
+        public Tile()
+        {
+        }
     }
 }

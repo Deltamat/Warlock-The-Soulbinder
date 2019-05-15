@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Player : CharacterCombat
+    public class Player : CharacterCombat
     {
         public Player(int index) : base(index)
         {
