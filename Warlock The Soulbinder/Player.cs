@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    public class Player : Character
+    public class Player : CharacterCombat
     {
         static Player instance;
         public static Player Instance
