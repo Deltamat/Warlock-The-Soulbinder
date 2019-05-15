@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class GameObject
+    public class GameObject
     {
         protected Texture2D sprite;
         private Vector2 position;

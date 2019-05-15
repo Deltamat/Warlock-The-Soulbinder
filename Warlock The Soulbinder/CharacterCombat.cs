@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    public class Enemy : Character
+    public class CharacterCombat : Character
     {
-        public Enemy(int index) : base(index)
+        public CharacterCombat(int index) : base(index)
         {
         }
     }

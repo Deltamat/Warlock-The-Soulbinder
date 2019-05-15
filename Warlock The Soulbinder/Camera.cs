@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Camera
+    public class Camera
     {
         public Matrix viewMatrix;
         private Vector2 halfScreenSize;
