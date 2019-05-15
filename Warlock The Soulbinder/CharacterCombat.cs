@@ -8,6 +8,10 @@ namespace Warlock_The_Soulbinder
 {
     public class CharacterCombat : Character
     {
+        public CharacterCombat()
+        {
+        }
+
         public CharacterCombat(int index) : base(index)
         {
         }
