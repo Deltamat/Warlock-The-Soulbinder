@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Model
+    public class CharacterCombat : Character
     {
-        private string connectionString;
-        private SQLiteConnection connection;
-        protected SQLiteCommand cmd;
+        public CharacterCombat()
+        {
+        }
 
-        public Model()
+        public CharacterCombat(int index) : base(index)
         {
         }
     }

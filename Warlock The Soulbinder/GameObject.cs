@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class GameObject
+    public class GameObject
     {
         protected Texture2D sprite;
         private Vector2 position;
@@ -33,12 +33,12 @@ namespace Warlock_The_Soulbinder
 
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             
         }

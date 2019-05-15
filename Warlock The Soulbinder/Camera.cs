@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Camera
+    public class Camera
     {
         /// <summary>
         /// The matrix used for the camera
