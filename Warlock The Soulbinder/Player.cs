@@ -72,11 +72,6 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            InputHandler.Instance.Execute(this);            
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
