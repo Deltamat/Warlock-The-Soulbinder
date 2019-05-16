@@ -97,7 +97,7 @@ namespace Warlock_The_Soulbinder
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera();
 
-            map = map = Content.Load<TiledMap>("test3"); //Temporary test
+            map = Content.Load<TiledMap>("test3"); //Temporary test
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
             foreach (var item in map.ObjectLayers)
             {
