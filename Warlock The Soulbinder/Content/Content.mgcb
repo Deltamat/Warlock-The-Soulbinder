@@ -134,10 +134,6 @@
 /processorParam:TextureFormat=Color
 /build:Enemy/Defender.png
 
-#begin Enemy/desktop.ini
-/importer:
-/processor:
-/build:Enemy/desktop.ini
 
 #begin Enemy/EarthDragon.png
 /importer:TextureImporter
