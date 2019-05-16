@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock_The_Soulbinder
@@ -13,6 +14,9 @@ namespace Warlock_The_Soulbinder
         private Enemy target;
 
         static Combat instance;
+        private Texture2D sheet;
+
+
 
         public static Combat Instance
             {
@@ -20,7 +24,7 @@ namespace Warlock_The_Soulbinder
                 {
                 if (instance == null)
                     {
-                    instance = new Player();
+                    instance = new Combat();
                     }
                 return instance;
                 }
@@ -30,14 +34,20 @@ namespace Warlock_The_Soulbinder
 
         }
 
+        public void LoadContent(ContentManager content)
+        {
+            sheet = content.Load<Texture2D>("Sheet");
+        }
+
+
         public override void Update(GameTime gameTime)
         {
             
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, Color.White);
+            spriteBatch.Draw(sheet,new Vector2(700,300),Color.White);
         }
 
 

@@ -23,6 +23,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D collisionTexture;
         private List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
+        private string gameState = "Combat";
 
         //Tiled
         TiledMap map;
@@ -103,6 +104,7 @@ namespace Warlock_The_Soulbinder
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera();
+            Combat.Instance.LoadContent(content);
 
             map = Content.Load<TiledMap>("test3"); //Temporary test with collision
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
@@ -161,6 +163,11 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            //Overworld draw
+
+            if (gameState == "Overworld")
+            {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null, null, null, null, null, camera.viewMatrix);
 
             mapRenderer.Draw(map, camera.viewMatrix); //temporary
@@ -177,9 +184,26 @@ namespace Warlock_The_Soulbinder
             DrawCollisionBox(Player.Instance);
 
             en.Draw(spriteBatch);
+     
 
             spriteBatch.End();
             base.Draw(gameTime);
+
+            }
+
+            //Combat Draw
+
+            if ( gameState == "Combat")
+              {
+            spriteBatch.Begin();
+
+            Combat.Instance.Draw(spriteBatch);
+
+            spriteBatch.End();
+              }
+
+            
+
         }
 
         /// <summary>
