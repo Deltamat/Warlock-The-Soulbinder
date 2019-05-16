@@ -38,7 +38,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public Camera()
         {
-            //halfScreenSize = new Vector2(GameWorld.ScreenSize.Width / 2, GameWorld.ScreenSize.Height / 2);
+            halfScreenSize = new Vector2(GameWorld.Instance.ScreenSize.Width / 2, GameWorld.Instance.ScreenSize.Height / 2);
             UpdateViewMatrix();
         }
 

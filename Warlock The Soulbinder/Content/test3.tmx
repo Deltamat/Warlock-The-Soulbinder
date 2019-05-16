@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="6" nextobjectid="29">
+ <tileset firstgid="1" name="tileset3" tilewidth="128" tileheight="128" tilecount="256" columns="16">
+  <image source="tileset3.png" width="2048" height="2048"/>
+ </tileset>
+ <layer id="1" name="Ground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJwTYmBgECKAGYFYHIiNgZgNiF2J0DNYzWKCYhYoZkbik+MuYwKYVD+6ALETlIZhZyQ2JeE1ikcxDFcDcQ0arqPAvG4g7kXD86hgXg+UngPEfVR2HyXmzaayeauBuIGK5mEzk1LzYGauAeK1QLwOiAEzmTWu
+  </data>
+ </layer>
+ <layer id="2" name="Top" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAPiCJCTQkJarIocAs+YIJHrgVKN1NoRwthJUSBjUC8CYg3A/EWIN5KgVlKQHwQiA8B8WEgPgLER6Fy6O5Fj6cWLOIgsYtAfAmILwPxFSC+SsANxITLIyB+DMRPsKgnNlyR1X0C4s9A/AVJDDl+OfFgLiAWgponRKTdbniwFNQcGCYmnZFiHgPUrfjCiVTzKHGfGQMiDGHhSAi4QzExZhID3NEwPjMJgX4s5uEyExaW6KAHid1LBfOQzcRlHrKZxUSY1wA1C4QBArs4Dg==
+  </data>
+ </layer>
+ <objectgroup id="3" name="Col">
+  <object id="1" type="Chest" x="512" y="256" width="128" height="128"/>
+  <object id="2" x="128" y="896" width="128" height="128"/>
+  <object id="3" x="896" y="896" width="128" height="128"/>
+  <object id="4" x="1920" y="128" width="128" height="128"/>
+  <object id="5" x="1024" y="2432" width="128" height="128"/>
+  <object id="23" x="768" y="256" width="128" height="128"/>
+  <object id="24" name="Tree" x="1536" y="1024" width="384" height="256"/>
+  <object id="25" x="256" y="896" width="384" height="128"/>
+  <object id="26" x="640" y="896" width="128" height="128"/>
+  <object id="27" x="768" y="896" width="128" height="128"/>
+ </objectgroup>
+</map>
