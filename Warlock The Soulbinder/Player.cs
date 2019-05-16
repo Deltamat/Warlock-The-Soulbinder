@@ -65,7 +65,6 @@ namespace Warlock_The_Soulbinder
                     if (CollisionBox.Intersects(item))
                     {
                         Position -= direction;
-                        return;
                     }
                 }
                 direction = Vector2.Zero; //resets direction
