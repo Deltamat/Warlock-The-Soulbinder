@@ -67,6 +67,14 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public Rectangle TileMapBounds
+        {
+            get
+            {
+                return new Rectangle(0, 0, map.WidthInPixels, map.HeightInPixels);
+            }
+        }
+
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -101,7 +109,7 @@ namespace Warlock_The_Soulbinder
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            camera = new Camera();
+            font = Content.Load<SpriteFont>("font");
 
             map = Content.Load<TiledMap>("test3"); //Temporary test with collision
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
@@ -117,6 +125,7 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
+            camera = new Camera();
         }
 
         /// <summary>
@@ -159,7 +168,7 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, null, null, null, null, camera.viewMatrix);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
             mapRenderer.Draw(map, camera.viewMatrix); //temporary
 
@@ -173,6 +182,8 @@ namespace Warlock_The_Soulbinder
             }
             Player.Instance.Draw(spriteBatch);
             DrawCollisionBox(Player.Instance);
+
+            spriteBatch.DrawString(font, $"X:{camera.viewMatrix.Translation.X} Y:{camera.viewMatrix.Translation.Y} ", Player.Instance.Position + new Vector2(100), Color.Red);
 
             spriteBatch.End();
             base.Draw(gameTime);

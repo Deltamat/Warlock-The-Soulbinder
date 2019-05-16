@@ -26,7 +26,7 @@ namespace Warlock_The_Soulbinder
         public Player()
         {
             sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
-            movementSpeed = 250;
+            movementSpeed = 1000;
             damage = 1;
             attackSpeed = 1f;
             health = 100;

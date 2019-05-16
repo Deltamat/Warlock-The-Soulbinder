@@ -15,16 +15,16 @@ namespace Warlock_The_Soulbinder
         static Combat instance;
 
         public static Combat Instance
-            {
+        {
             get
-                {
+            {
                 if (instance == null)
-                    {
-                    instance = new Player();
-                    }
-                return instance;
+                {
+                    instance = new Combat();
                 }
+                return instance;
             }
+        }
         private Combat()
         {
 
@@ -37,7 +37,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, Color.White);
+            //spriteBatch.Draw(sprite, position, Color.White);
         }
 
 
