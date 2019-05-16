@@ -10,6 +10,7 @@ namespace Warlock_The_Soulbinder
 {
     public class GameObject
     {
+        protected Random rng = new Random();
         protected Texture2D sprite;
         private Vector2 position;
 
@@ -40,7 +41,7 @@ namespace Warlock_The_Soulbinder
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Draw(sprite, Position, Color.White);
         }
     }
 }

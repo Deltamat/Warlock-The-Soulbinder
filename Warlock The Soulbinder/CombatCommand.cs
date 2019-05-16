@@ -8,6 +8,13 @@ namespace Warlock_The_Soulbinder
 {
     class CombatCommand : ICommand
     {
+        private int select;
+
+        public CombatCommand(int i)
+        {
+            select = i;
+        }
+
         public void Execute(Player p)
         {
             throw new NotImplementedException();

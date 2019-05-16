@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Warlock_The_Soulbinder
 {
@@ -12,9 +15,10 @@ namespace Warlock_The_Soulbinder
     {
         private GraphicsDeviceManager graphics; 
         private SpriteBatch spriteBatch;
-        public static float deltaTime;
+        public static double deltaTime;
         public SpriteFont font;
         private Texture2D collisionTexture;
+        private List<Enemy> enemies = new List<Enemy>();
 
         static GameWorld instance;
         static public GameWorld Instance
@@ -62,6 +66,7 @@ namespace Warlock_The_Soulbinder
         protected override void Initialize()
         {
             IsMouseVisible = true;
+            enemies.Add(new Enemy(1));
             base.Initialize();
         }
 
@@ -95,7 +100,13 @@ namespace Warlock_The_Soulbinder
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
+
             Player.Instance.Update(gameTime);
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update(gameTime);
+            }
 
             base.Update(gameTime);
         }
@@ -109,6 +120,10 @@ namespace Warlock_The_Soulbinder
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Draw(spriteBatch);
+            }
             Player.Instance.Draw(spriteBatch);
 
             spriteBatch.End();
@@ -131,6 +146,19 @@ namespace Warlock_The_Soulbinder
             spriteBatch.Draw(collisionTexture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(collisionTexture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+        }
+
+        /// <summary>
+        /// Returns a random int within x and y
+        /// </summary>
+        /// <param name="x">Lower bounds</param>
+        /// <param name="y">Upper bounds</param>
+        /// <returns></returns>
+        public int RandomInt(int x, int y)
+        {
+            Random rng = new Random();
+            Thread.Sleep(10);
+            return rng.Next(x, y);
         }
     }
 }
