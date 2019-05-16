@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Threading;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
-using System.Collections.Generic;
 
 namespace Warlock_The_Soulbinder
 {
@@ -74,6 +73,9 @@ namespace Warlock_The_Soulbinder
             //Sets the window size
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
+            #if !DEBUG
+            graphics.IsFullScreen = true;
+            #endif
             graphics.ApplyChanges();
         }
 
@@ -161,17 +163,21 @@ namespace Warlock_The_Soulbinder
 
             mapRenderer.Draw(map, camera.viewMatrix); //temporary
 
-            foreach (var item in collisionTest)
-            {
-                DrawRectangle(item);
-            }
+            
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
             }
             Player.Instance.Draw(spriteBatch);
-            DrawCollisionBox(Player.Instance);
 
+            //collisionboxes
+#if DEBUG
+            DrawCollisionBox(Player.Instance);
+            foreach (var item in collisionTest)
+            {
+                DrawRectangle(item);
+            }
+#endif
             spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -196,7 +202,6 @@ namespace Warlock_The_Soulbinder
 
         private void DrawRectangle(Rectangle collisionBox)
         {
-
             Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
             Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
             Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
