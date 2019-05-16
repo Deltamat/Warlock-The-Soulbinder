@@ -28,6 +28,7 @@ namespace Warlock_The_Soulbinder
         TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionTest = new List<Rectangle>();
 
+
         static GameWorld instance;
         static public GameWorld Instance
         {
@@ -62,6 +63,14 @@ namespace Warlock_The_Soulbinder
             get
             {
                 return graphics.GraphicsDevice.Viewport.Bounds;
+            }
+        }
+
+        public Rectangle TileMapBounds
+        {
+            get
+            {
+                return new Rectangle(0, 0, map.WidthInPixels, map.HeightInPixels);
             }
         }
 
@@ -102,9 +111,9 @@ namespace Warlock_The_Soulbinder
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            camera = new Camera();
+            font = Content.Load<SpriteFont>("font");
 
-            map = Content.Load<TiledMap>("test3"); //Temporary test
+            map = Content.Load<TiledMap>("test3"); //Temporary test with collision
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
             foreach (var item in map.ObjectLayers)
             {
@@ -112,11 +121,13 @@ namespace Warlock_The_Soulbinder
                 {
                     if (go.Type == "Chest")
                     {
-
+                        
                     }
                     collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
                 }
             }
+
+            camera = new Camera();
         }
 
         /// <summary>
@@ -148,7 +159,7 @@ namespace Warlock_The_Soulbinder
                 enemy.Update(gameTime);
             }
 
-            camera.Position = Player.Instance.Position;
+            camera.Position = Player.Instance.Position; // Makes the camera follow the player
             base.Update(gameTime);
         }
 
@@ -159,7 +170,7 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, null, null, null, null, camera.viewMatrix);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
             mapRenderer.Draw(map, camera.viewMatrix); //temporary
 
@@ -171,13 +182,13 @@ namespace Warlock_The_Soulbinder
             Player.Instance.Draw(spriteBatch);
 
             //collisionboxes
-#if DEBUG
+            #if DEBUG
             DrawCollisionBox(Player.Instance);
             foreach (var item in collisionTest)
             {
                 DrawRectangle(item);
             }
-#endif
+            #endif
             spriteBatch.End();
             base.Draw(gameTime);
         }

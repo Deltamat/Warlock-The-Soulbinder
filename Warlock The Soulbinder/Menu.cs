@@ -10,10 +10,12 @@ namespace Warlock_The_Soulbinder
 {
     class Menu
     {
-        private int selectedInt;
+        protected int selectedInt;
         protected Rectangle selectionRectangle;
 
-        protected int SelectedInt { get => selectedInt; set => selectedInt = value; }
+        public int SelectedInt { get => selectedInt; set => selectedInt = value; }
+        public Rectangle SelectionRectangle { get => selectionRectangle; set => selectionRectangle = value; }
+
 
         public virtual void Update(GameTime gameTime)
         {

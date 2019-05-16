@@ -26,7 +26,7 @@ namespace Warlock_The_Soulbinder
         public Player()
         {
             sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
-            movementSpeed = 250;
+            movementSpeed = 1000;
             damage = 1;
             attackSpeed = 1f;
             health = 100;
@@ -59,7 +59,8 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
                 Position += direction; //moves the player based on direction
 
-                foreach (var item in GameWorld.collisionTest)
+
+                foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction
                 {
                     if (CollisionBox.Intersects(item))
                     {
@@ -67,7 +68,7 @@ namespace Warlock_The_Soulbinder
                     }
                 }
                 direction = Vector2.Zero; //resets direction
-            }            
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
