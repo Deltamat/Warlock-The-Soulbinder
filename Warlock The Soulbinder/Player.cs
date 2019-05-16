@@ -43,6 +43,15 @@ namespace Warlock_The_Soulbinder
             direction *= movementSpeed;
 
             Position += direction;
+
+            foreach (var item in GameWorld.collisionTest)
+            {
+                if (CollisionBox.Intersects(item))
+                {
+                    Position -= direction;
+
+                }
+            }
         }
 
         public override void Update(GameTime gameTime)
