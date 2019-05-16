@@ -10,6 +10,10 @@ namespace Warlock_The_Soulbinder
     public class CharacterCombat : Character
     {
         protected Vector2 direction;
+        protected bool isInCombat;
+        protected float attackSpeed;
+        protected int health;
+        protected int damage;
 
         public CharacterCombat()
         {
@@ -17,6 +21,11 @@ namespace Warlock_The_Soulbinder
 
         public CharacterCombat(int index) : base(index)
         {
+        }
+
+        public virtual void Combat()
+        {
+
         }
 
         public virtual void Combat() { }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +15,9 @@ namespace Warlock_The_Soulbinder
     {
         private string monster;
         private int level;
+        private float moveCDTimer;
+        private float movingTimer;
+
         public bool alive;
         Thread thread;
         enum EMonster
@@ -29,32 +34,50 @@ namespace Warlock_The_Soulbinder
         public Enemy(int index) : base(index)
         {
             monster = Enum.GetName(typeof(EMonster), index);
-            alive = true;
-            movementSpeed = 0.001f;
-            direction = new Vector2(1, 0);
+            sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
+            movementSpeed = 150;
+            Position = new Vector2(500);
             thread = new Thread(() => Update());
             thread.IsBackground = true;
             thread.Start();
-            sprite = GameWorld.ContentManager.Load<Texture2D>("monster0");
-            Position = Vector2.Zero;
         }
 
         public void Update()
         {
-            while (alive)
+            if (!isInCombat)
             {
-                Position += direction * movementSpeed * GameWorld.deltaTime;
+                moveCDTimer += (float)GameWorld.deltaTime;
+                if (moveCDTimer > 1)
+                {
+                    Move();
+                    movingTimer += (float)GameWorld.deltaTime;
+                    if (movingTimer > 1)
+                    {
+                        moveCDTimer = 0;
+                        movingTimer = 0;
+                    }
+                }
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, Position, Color.White);
+            base.Draw(spriteBatch);
         }
 
-        public override void Combat()
+        private void Move()
         {
-
+            if (movingTimer == 0)
+            {
+                direction.X = GameWorld.Instance.RandomInt(-1, 2); //adds a random direction vector to X
+                direction.Y = GameWorld.Instance.RandomInt(-1, 2); //adds a random direction vector to Y
+                if (direction != Vector2.Zero)
+                {
+                    direction.Normalize();
+                }
+                direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
+            }
+            Position += direction; //moves the enemy based on direction
         }
     }
 }

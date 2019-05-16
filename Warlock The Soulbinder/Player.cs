@@ -26,32 +26,49 @@ namespace Warlock_The_Soulbinder
         public Player()
         {
             sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
-            movementSpeed = 5;
+            movementSpeed = 250;
+            damage = 1;
+            attackSpeed = 1f;
+            health = 100;
         }
 
         public Player(int index) : base(index)
         {
         }
 
-        public void Move(Vector2 direction)
+        public void Move(Vector2 directionInput)
         {
+            direction += directionInput; //adds direction vector input to local direction input. This allows direction to take in multiple direction vectors
+
             if (direction != Vector2.Zero)
             {
                 direction.Normalize();
             }
+        }
 
-            direction *= movementSpeed;
+        public override void Combat()
+        {
+        
+        }
 
-            Position += direction;
-
-
-            foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction
+        public override void Update(GameTime gameTime)
+        {
+            if (!isInCombat)
             {
-                if (CollisionBox.Intersects(item))
+                InputHandler.Instance.Execute(this); //gets keys pressed
+                direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
+                Position += direction; //moves the player based on direction
+
+
+                foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction
                 {
-                    Position -= direction;
-                    return;
+                    if (CollisionBox.Intersects(item))
+                    {
+                        Position -= direction;
+                        return;
+                    }
                 }
+                direction = Vector2.Zero; //resets direction
             }
         }
 
@@ -62,7 +79,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, Position, Color.White);
+            base.Draw(spriteBatch);
         }
     }
 }
