@@ -48,7 +48,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Combat()
         {
-
+        
         }
 
         public override void Update(GameTime gameTime)
@@ -59,6 +59,15 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
                 Position += direction; //moves the player based on direction
                 direction = Vector2.Zero; //resets direction
+
+                foreach (var item in GameWorld.collisionTest)
+                {
+                    if (CollisionBox.Intersects(item))
+                    {
+                        Position -= direction;
+
+                    }
+                }
             }            
         }
 

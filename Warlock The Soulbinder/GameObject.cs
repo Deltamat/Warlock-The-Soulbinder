@@ -22,7 +22,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        protected Vector2 Position { get => position; set => position = value; }
+        public Vector2 Position { get => position; set => position = value; }
 
         public GameObject()
         {
