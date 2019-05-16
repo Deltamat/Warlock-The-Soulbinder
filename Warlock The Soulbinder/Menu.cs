@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
         protected Rectangle selectionRectangle;
 
         public int SelectedInt { get => selectedInt; set => selectedInt = value; }
-        public Rectangle SelectionRectangle { get => selectedRectangle; set => selectedRectangle = value; }
+        public Rectangle SelectionRectangle { get => selectionRectangle; set => selectionRectangle = value; }
 
 
         public virtual void Update(GameTime gameTime)
