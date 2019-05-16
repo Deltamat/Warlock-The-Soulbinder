@@ -25,6 +25,8 @@ namespace Warlock_The_Soulbinder
         TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionTest = new List<Rectangle>();
 
+        Enemy en; // temp
+
         static GameWorld instance;
         static public GameWorld Instance
         {
@@ -97,7 +99,7 @@ namespace Warlock_The_Soulbinder
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera();
 
-            map = map = Content.Load<TiledMap>("test3"); //Temporary test
+            map = Content.Load<TiledMap>("test3"); //Temporary test with collision
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
             foreach (var item in map.ObjectLayers)
             {
@@ -105,11 +107,13 @@ namespace Warlock_The_Soulbinder
                 {
                     if (go.Type == "Chest")
                     {
-
+                        
                     }
                     collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
                 }
             }
+
+            en = new Enemy(0);
         }
 
         /// <summary>
@@ -130,12 +134,13 @@ namespace Warlock_The_Soulbinder
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            mapRenderer.Update(map, gameTime); // temporary
+            //mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
 
-            camera.Position = Player.Instance.Position;
+            camera.Position = Player.Instance.Position; // Makes the camera follow the player
             base.Update(gameTime);
         }
 
@@ -156,6 +161,8 @@ namespace Warlock_The_Soulbinder
             }
             Player.Instance.Draw(spriteBatch);
             DrawCollisionBox(Player.Instance);
+
+            en.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

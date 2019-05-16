@@ -44,12 +44,13 @@ namespace Warlock_The_Soulbinder
 
             Position += direction;
 
-            foreach (var item in GameWorld.collisionTest)
+
+            foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction
             {
                 if (CollisionBox.Intersects(item))
                 {
                     Position -= direction;
-
+                    return;
                 }
             }
         }

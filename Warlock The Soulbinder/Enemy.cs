@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock_The_Soulbinder
 {
-    public class Enemy : Character
+    public class Enemy : CharacterCombat
     {
         private string monster;
         private int level;
+        public bool alive;
+        Thread thread;
         enum EMonster
         {
             bear, sheep, wolf, //neutral (0,1,2)
@@ -24,6 +29,32 @@ namespace Warlock_The_Soulbinder
         public Enemy(int index) : base(index)
         {
             monster = Enum.GetName(typeof(EMonster), index);
+            alive = true;
+            movementSpeed = 0.001f;
+            direction = new Vector2(1, 0);
+            thread = new Thread(() => Update());
+            thread.IsBackground = true;
+            thread.Start();
+            sprite = GameWorld.ContentManager.Load<Texture2D>("monster0");
+            Position = Vector2.Zero;
+        }
+
+        public void Update()
+        {
+            while (alive)
+            {
+                Position += direction * movementSpeed * GameWorld.deltaTime;
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, Position, Color.White);
+        }
+
+        public override void Combat()
+        {
+
         }
     }
 }

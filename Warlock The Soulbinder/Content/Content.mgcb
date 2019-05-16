@@ -38,6 +38,18 @@
 /processorParam:TextureFormat=Color
 /build:keylimepie.png
 
+#begin Mobs_bear_01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Mobs_bear_01.png;monster0
+
 #begin test3.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor

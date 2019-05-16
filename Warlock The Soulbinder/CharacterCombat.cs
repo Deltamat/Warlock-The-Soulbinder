@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace Warlock_The_Soulbinder
 {
     public class CharacterCombat : Character
     {
+        protected Vector2 direction;
+
         public CharacterCombat()
         {
         }
@@ -15,5 +18,7 @@ namespace Warlock_The_Soulbinder
         public CharacterCombat(int index) : base(index)
         {
         }
+
+        public virtual void Combat() { }
     }
 }
