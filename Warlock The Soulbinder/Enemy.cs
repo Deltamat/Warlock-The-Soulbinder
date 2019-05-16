@@ -18,7 +18,7 @@ namespace Warlock_The_Soulbinder
         private float moveCDTimer;
         private float movingTimer;
 
-        public bool alive;
+        public bool alive = true;
         Thread thread;
         enum EMonster
         {
@@ -35,7 +35,7 @@ namespace Warlock_The_Soulbinder
         {
             monster = Enum.GetName(typeof(EMonster), index);
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
-            movementSpeed = 150;
+            movementSpeed = 10;
             Position = new Vector2(500);
             thread = new Thread(() => Update());
             thread.IsBackground = true;
@@ -44,20 +44,26 @@ namespace Warlock_The_Soulbinder
 
         public void Update()
         {
-            if (!isInCombat)
+            
+            while (alive)
             {
-                moveCDTimer += (float)GameWorld.deltaTime;
-                if (moveCDTimer > 1)
+                if (!isInCombat)
                 {
-                    Move();
-                    movingTimer += (float)GameWorld.deltaTime;
-                    if (movingTimer > 1)
+                    moveCDTimer += (float)GameWorld.deltaTime;
+                    if (moveCDTimer > 10)
                     {
-                        moveCDTimer = 0;
-                        movingTimer = 0;
+                        Move();
+                        movingTimer += (float)GameWorld.deltaTime;
+                        if (movingTimer > 10)
+                        {
+                            moveCDTimer = 0;
+                            movingTimer = 0;
+                        }
                     }
                 }
+                Thread.Sleep(1);
             }
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)

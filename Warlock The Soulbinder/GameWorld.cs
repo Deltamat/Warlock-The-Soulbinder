@@ -29,7 +29,6 @@ namespace Warlock_The_Soulbinder
         TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionTest = new List<Rectangle>();
 
-        Enemy en; // temp
 
         static GameWorld instance;
         static public GameWorld Instance
@@ -118,7 +117,6 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            en = new Enemy(0);
         }
 
         /// <summary>
@@ -175,8 +173,6 @@ namespace Warlock_The_Soulbinder
             }
             Player.Instance.Draw(spriteBatch);
             DrawCollisionBox(Player.Instance);
-
-            en.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
