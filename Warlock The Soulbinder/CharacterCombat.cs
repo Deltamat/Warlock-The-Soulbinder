@@ -14,6 +14,13 @@ namespace Warlock_The_Soulbinder
         protected float attackSpeed;
         protected int health;
         protected int damage;
+        protected int defense;
+        protected float waterResistance;
+        protected float darkResistance;
+        protected float fireResistance;
+        protected float airResistance;
+        protected float earthResistance;
+        protected float metalResistance;
 
         public CharacterCombat()
         {

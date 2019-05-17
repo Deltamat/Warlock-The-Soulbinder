@@ -18,7 +18,7 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return new Rectangle((int)(Position.X - sprite.Width * 0.25), (int)(Position.Y - sprite.Height * 0.25), (int)(sprite.Width * 0.5), (int)(sprite.Height * 0.5));
+                return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width), (int)(sprite.Height));
             }
         }
 

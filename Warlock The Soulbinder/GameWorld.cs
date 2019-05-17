@@ -81,7 +81,7 @@ namespace Warlock_The_Soulbinder
             content = Content;
             //Sets the window size
             graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferHeight = 1020;
             #if !DEBUG
             graphics.IsFullScreen = true;
             #endif
@@ -98,7 +98,12 @@ namespace Warlock_The_Soulbinder
         {
 
             IsMouseVisible = true;
-            enemies.Add(new Enemy(1));
+            enemies.Add(new Enemy(0));
+            enemies.Add(new Enemy(4));
+            enemies.Add(new Enemy(7));
+            enemies.Add(new Enemy(12));
+            enemies.Add(new Enemy(16));
+            enemies.Add(new Enemy(20));
             base.Initialize();
         }
 
