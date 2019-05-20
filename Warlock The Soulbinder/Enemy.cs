@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock_The_Soulbinder
 {
@@ -22,13 +20,13 @@ namespace Warlock_The_Soulbinder
         Thread thread;
         enum EMonster
         {
-            bear, sheep, wolf, //neutral (0,1,2)
-            bucketMan, defender, sentry, //metal (3,4,5)
-            plantEater, insectSoldier, slimeEater, //earth (6,7,8)
-            falcon, bat, raven, //air (9,10,11)
-            fireGolem, infernalGolem, ashZombie, //fire (12,13,14)
-            mummy, vampire, banshee, //dark (15,16,17)
-            tentacle, frog, fish //water (18,19,20)
+            sheep, wolf, bear, //neutral (0,1,2)
+            plantEater, insectSoldier, slimeEater, //earth (3,4,5)
+            tentacle, frog, fish, //water (6,7,8)
+            mummy, vampire, banshee, //dark (9,10,11)
+            bucketMan, defender, sentry, //metal (12,13,14)
+            fireGolem, infernalDemon, ashZombie, //fire (15,16,17)
+            falcon, bat, raven //air (18,19,20)
         };
 
         public Enemy(int index) : base(index)
@@ -37,6 +35,70 @@ namespace Warlock_The_Soulbinder
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
             movementSpeed = 10;
             Position = new Vector2(500);
+            level = index + GameWorld.Instance.RandomInt(-1, 2);
+            if (level <= 0)
+            {
+                level = 1;
+            }
+
+            //base stats
+            defense = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
+            damage = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
+            health = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
+            attackSpeed = 5 * (level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
+            metalResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            earthResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            airResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            fireResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            darkResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            waterResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+
+            //switch case to determine special resistances based on the monster's element (logistic function)
+            switch (monster)
+            {
+                case "bear":
+                case "sheep":
+                case "wolf":
+                    defense *= (int)(level * 0.5f);
+                    break;
+                case "plantEater":
+                case "insectSoldier":
+                case "slimeEater":
+                    earthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(level * 0.5f))));
+                    darkResistance = (float)(darkResistance * (-20 / (1 + Math.Pow(Math.E, -(level * 0.5f)))) + level * 0.5f);
+                    break;
+                case "tentacle":
+                case "frog":
+                case "fish":
+                    waterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(level * 0.5f))));
+                    airResistance = (float)(airResistance * (-20 / (1 + Math.Pow(Math.E, -(level * 0.5f)))) + level * 0.5f);
+                    break;
+                case "mummy":
+                case "vampire":
+                case "banshee":
+                    darkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(level * 0.5f))));
+                    metalResistance = (float)(metalResistance * (-20 / (1 + Math.Pow(Math.E, -(level * 0.5f)))) + level * 0.5f);
+                    break;
+                case "bucketMan":
+                case "defender":
+                case "sentry":
+                    metalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(level * 0.5f))));
+                    fireResistance = (float)(fireResistance * (-20 / (1 + Math.Pow(Math.E, -(level * 0.5f)))) + level * 0.5f);
+                    break;
+                case "fireGolem":
+                case "infernalDemon":
+                case "ashZombie":
+                    fireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(level * 0.5f))));
+                    waterResistance = (float)(waterResistance * (-20 / (1 + Math.Pow(Math.E, -(level * 0.5f)))) + level * 0.5f);
+                    break;
+                case "falcon":
+                case "bat":
+                case "raven":
+                    airResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(level * 0.5f))));
+                    earthResistance = (float)(earthResistance * (-20 / (1 + Math.Pow(Math.E, -(level * 0.5f)))) + level * 0.5f);
+                    break;
+            }
+
             thread = new Thread(() => Update());
             thread.IsBackground = true;
             thread.Start();
@@ -47,14 +109,14 @@ namespace Warlock_The_Soulbinder
             
             while (alive)
             {
-                if (!isInCombat)
+                if (!IsInCombat)
                 {
                     moveCDTimer += (float)GameWorld.deltaTime;
-                    if (moveCDTimer > 10)
+                    if (moveCDTimer > 10) //time between moving
                     {
                         Move();
                         movingTimer += (float)GameWorld.deltaTime;
-                        if (movingTimer > 10)
+                        if (movingTimer > 10) //for how long the enemy moves
                         {
                             moveCDTimer = 0;
                             movingTimer = 0;
@@ -62,8 +124,7 @@ namespace Warlock_The_Soulbinder
                     }
                 }
                 Thread.Sleep(1);
-            }
-            
+            }            
         }
 
         public override void Draw(SpriteBatch spriteBatch)

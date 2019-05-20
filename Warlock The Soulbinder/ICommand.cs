@@ -10,4 +10,5 @@ namespace Warlock_The_Soulbinder
     {
         void Execute(Player p);
     }
+
 }

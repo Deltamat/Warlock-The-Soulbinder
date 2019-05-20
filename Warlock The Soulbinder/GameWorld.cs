@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Threading;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
-using System.Collections.Generic;
 
 namespace Warlock_The_Soulbinder
 {
@@ -23,10 +22,12 @@ namespace Warlock_The_Soulbinder
         private Texture2D collisionTexture;
         private List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
+        private float delay;
+        private string gameState = "Combat";
 
         //Tiled
-        TiledMap map;
-        TiledMapRenderer mapRenderer;
+        //TiledMap map;
+        //TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionTest = new List<Rectangle>();
 
 
@@ -75,6 +76,8 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public string GameState { get => gameState; set => gameState = value; }
+
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -82,7 +85,10 @@ namespace Warlock_The_Soulbinder
             content = Content;
             //Sets the window size
             graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferHeight = 1020;
+            #if !DEBUG
+            graphics.IsFullScreen = true;
+            #endif
             graphics.ApplyChanges();
         }
 
@@ -96,7 +102,12 @@ namespace Warlock_The_Soulbinder
         {
 
             IsMouseVisible = true;
-            enemies.Add(new Enemy(1));
+            enemies.Add(new Enemy(0));
+            enemies.Add(new Enemy(4));
+            enemies.Add(new Enemy(7));
+            enemies.Add(new Enemy(12));
+            enemies.Add(new Enemy(16));
+            enemies.Add(new Enemy(20));
             base.Initialize();
         }
 
@@ -110,20 +121,22 @@ namespace Warlock_The_Soulbinder
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
+            camera = new Camera();
+            Combat.Instance.LoadContent(content);
 
-            map = Content.Load<TiledMap>("test3"); //Temporary test with collision
-            mapRenderer = new TiledMapRenderer(GraphicsDevice);
-            foreach (var item in map.ObjectLayers)
-            {
-                foreach (var go in item.Objects)
-                {
-                    if (go.Type == "Chest")
-                    {
+            //map = Content.Load<TiledMap>("test3"); //Temporary test with collision
+            //mapRenderer = new TiledMapRenderer(GraphicsDevice);
+            //foreach (var item in map.ObjectLayers)
+            //{
+            //    foreach (var go in item.Objects)
+            //    {
+            //        if (go.Type == "Chest")
+            //        {
                         
-                    }
-                    collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
-                }
-            }
+            //        }
+            //        collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
+            //    }
+            //}
 
             camera = new Camera();
         }
@@ -148,13 +161,20 @@ namespace Warlock_The_Soulbinder
                 Exit();
 
             deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
-
-            mapRenderer.Update(map, gameTime); // temporary
+            delay += gameTime.ElapsedGameTime.Milliseconds;
+            //mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
+            Combat.Instance.Update(gameTime);
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
+            {
+                Player.Instance.CurrentHealth -= 7;
+                delay = 0;
             }
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
@@ -170,23 +190,47 @@ namespace Warlock_The_Soulbinder
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
-            mapRenderer.Draw(map, camera.viewMatrix); //temporary
+            //Overworld draw
 
-            foreach (var item in collisionTest)
+            if (GameState == "Overworld")
             {
-                DrawRectangle(item);
-            }
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, null, null, null, null, camera.viewMatrix);
+
+            //mapRenderer.Draw(map, camera.viewMatrix); //temporary
+
+            
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
             }
             Player.Instance.Draw(spriteBatch);
+
+            //collisionboxes
+            #if DEBUG
             DrawCollisionBox(Player.Instance);
-
-            spriteBatch.DrawString(font, $"X:{camera.viewMatrix.Translation.X} Y:{camera.viewMatrix.Translation.Y} ", Player.Instance.Position + new Vector2(100), Color.Red);
-
+            foreach (var item in collisionTest)
+            {
+                DrawRectangle(item);
+            }
+            #endif
             spriteBatch.End();
             base.Draw(gameTime);
+
+            }
+
+            //Combat Draw
+
+            if ( GameState == "Combat")
+              {
+            spriteBatch.Begin();
+
+            Combat.Instance.Draw(spriteBatch);
+
+            spriteBatch.End();
+              }
+
+            
+
         }
 
         /// <summary>
@@ -209,7 +253,6 @@ namespace Warlock_The_Soulbinder
 
         private void DrawRectangle(Rectangle collisionBox)
         {
-
             Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
             Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
             Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);

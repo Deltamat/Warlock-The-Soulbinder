@@ -26,14 +26,11 @@ namespace Warlock_The_Soulbinder
         public Player()
         {
             sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
-            movementSpeed = 1000;
-            damage = 1;
-            attackSpeed = 1f;
-            health = 100;
-        }
-
-        public Player(int index) : base(index)
-        {
+            movementSpeed = 250;
+            Damage = 1;
+            AttackSpeed = 1f;
+            MaxHealth = 100;
+            CurrentHealth = 100;
         }
 
         public void Move(Vector2 directionInput)
@@ -53,7 +50,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Update(GameTime gameTime)
         {
-            if (!isInCombat)
+            if (!IsInCombat)
             {
                 InputHandler.Instance.Execute(this); //gets keys pressed
                 direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
