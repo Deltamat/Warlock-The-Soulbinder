@@ -33,10 +33,6 @@ namespace Warlock_The_Soulbinder
             CurrentHealth = 100;
         }
 
-        public Player(int index) : base(index)
-        {
-        }
-
         public void Move(Vector2 directionInput)
         {
             direction += directionInput; //adds direction vector input to local direction input. This allows direction to take in multiple direction vectors
@@ -60,8 +56,7 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
                 Position += direction; //moves the player based on direction
 
-
-                foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction
+                foreach (var item in GameWorld.collisionTest) // After the player has moved check if collision has happen. if true move backwards the same direction
                 {
                     if (CollisionBox.Intersects(item))
                     {

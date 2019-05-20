@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Threading;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
-using System.Collections.Generic;
 
 namespace Warlock_The_Soulbinder
 {
@@ -69,6 +68,14 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public Rectangle TileMapBounds
+        {
+            get
+            {
+                return new Rectangle(0, 0, map.WidthInPixels, map.HeightInPixels);
+            }
+        }
+
         public string GameState { get => gameState; set => gameState = value; }
 
         public GameWorld()
@@ -78,7 +85,10 @@ namespace Warlock_The_Soulbinder
             content = Content;
             //Sets the window size
             graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferHeight = 1020;
+            #if !DEBUG
+            graphics.IsFullScreen = true;
+            #endif
             graphics.ApplyChanges();
         }
 
@@ -92,7 +102,12 @@ namespace Warlock_The_Soulbinder
         {
 
             IsMouseVisible = true;
-            enemies.Add(new Enemy(1));
+            enemies.Add(new Enemy(0));
+            enemies.Add(new Enemy(4));
+            enemies.Add(new Enemy(7));
+            enemies.Add(new Enemy(12));
+            enemies.Add(new Enemy(16));
+            enemies.Add(new Enemy(20));
             base.Initialize();
         }
 
@@ -105,6 +120,7 @@ namespace Warlock_The_Soulbinder
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("font");
             camera = new Camera();
             Combat.Instance.LoadContent(content);
 
@@ -122,6 +138,7 @@ namespace Warlock_The_Soulbinder
             //    }
             //}
 
+            camera = new Camera();
         }
 
         /// <summary>
@@ -171,6 +188,7 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
             //Overworld draw
 
@@ -180,17 +198,21 @@ namespace Warlock_The_Soulbinder
 
             //mapRenderer.Draw(map, camera.viewMatrix); //temporary
 
-            foreach (var item in collisionTest)
-            {
-                DrawRectangle(item);
-            }
+            
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
             }
             Player.Instance.Draw(spriteBatch);
-            DrawCollisionBox(Player.Instance);
 
+            //collisionboxes
+            #if DEBUG
+            DrawCollisionBox(Player.Instance);
+            foreach (var item in collisionTest)
+            {
+                DrawRectangle(item);
+            }
+            #endif
             spriteBatch.End();
             base.Draw(gameTime);
 
@@ -231,7 +253,6 @@ namespace Warlock_The_Soulbinder
 
         private void DrawRectangle(Rectangle collisionBox)
         {
-
             Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
             Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
             Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);

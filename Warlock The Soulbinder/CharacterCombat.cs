@@ -15,6 +15,13 @@ namespace Warlock_The_Soulbinder
         protected int currentHealth = 10;
         protected int maxHealth = 10;
         protected int damage;
+        protected int defense;
+        protected float waterResistance;
+        protected float darkResistance;
+        protected float fireResistance;
+        protected float airResistance;
+        protected float earthResistance;
+        protected float metalResistance;
 
         public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
         public int Damage { get => damage; set => damage = value; }

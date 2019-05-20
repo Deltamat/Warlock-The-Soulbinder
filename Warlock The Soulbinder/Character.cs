@@ -10,7 +10,7 @@ namespace Warlock_The_Soulbinder
     public class Character : GameObject
     {
         protected float movementSpeed;
-        private string name;
+        private string name = "Jones";
 
         public Character()
         {
