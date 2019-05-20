@@ -12,8 +12,8 @@ namespace Warlock_The_Soulbinder
         protected Vector2 direction;
         protected bool isInCombat;
         protected float attackSpeed;
-        protected int currentHealth = 10;
-        protected int maxHealth = 10;
+        protected int currentHealth;
+        protected int maxHealth;
         protected int damage;
         protected int defense;
         protected float waterResistance;

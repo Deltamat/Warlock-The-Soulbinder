@@ -11,6 +11,7 @@ namespace Warlock_The_Soulbinder
     {
         protected float movementSpeed;
         private string name = "Jones";
+        protected float scale;
 
         public Character()
         {

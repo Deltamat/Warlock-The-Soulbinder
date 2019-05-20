@@ -100,6 +100,13 @@
 /processorParam:TextureFormat=Color
 /build:keylimepie.png
 
+#begin font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:font.spritefont
+
 #begin monsters/airDragon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3644,4 +3651,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tileset3.png
+
+#begin test3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:test3.tmx
 

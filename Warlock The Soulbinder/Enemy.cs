@@ -33,6 +33,7 @@ namespace Warlock_The_Soulbinder
         {
             monster = Enum.GetName(typeof(EMonster), index);
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
+            scale = 0.5f;
             movementSpeed = 10;
             Position = new Vector2(500);
             level = index + GameWorld.Instance.RandomInt(-1, 2);
@@ -45,7 +46,7 @@ namespace Warlock_The_Soulbinder
             defense = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             damage = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
             maxHealth = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
-            currentHealth = maxHealth;
+            currentHealth = 0 + maxHealth;
             attackSpeed = 5 * (level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
             metalResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             earthResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
@@ -106,8 +107,7 @@ namespace Warlock_The_Soulbinder
         }
 
         public void Update()
-        {
-            
+        {            
             while (alive)
             {
                 if (!IsInCombat)
@@ -130,7 +130,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
         }
 
         private void Move()
