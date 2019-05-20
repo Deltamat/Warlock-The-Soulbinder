@@ -23,7 +23,7 @@ namespace Warlock_The_Soulbinder
         private List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
-        private string gameState = "Combat";
+        private string gameState = "Overworld";
 
         //Tiled
         TiledMap map;
@@ -166,10 +166,7 @@ namespace Warlock_The_Soulbinder
 
             Player.Instance.Update(gameTime);
             Combat.Instance.Update(gameTime);
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Update(gameTime);
-            }
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
