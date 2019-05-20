@@ -181,6 +181,9 @@ namespace Warlock_The_Soulbinder
             Player.Instance.Draw(spriteBatch);
             DrawCollisionBox(Player.Instance);
 
+            en.Draw(spriteBatch);
+     
+
             spriteBatch.End();
             base.Draw(gameTime);
 
