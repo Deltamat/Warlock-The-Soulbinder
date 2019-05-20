@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -51,7 +52,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="texture">loads the image as texture for the Button</param>
         /// <param name="font">loads the font</param>
-        public Button(Texture2D texture, SpriteFont font, Vector2 position, string spriteName) : base(position, spriteName)
+        public Button(Texture2D texture, SpriteFont font, Vector2 position, string spriteName, ContentManager content) : base(position, spriteName, content)
         {
             this.texture = texture;
             this.font = font;

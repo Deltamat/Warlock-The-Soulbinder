@@ -27,9 +27,10 @@ namespace Warlock_The_Soulbinder
         {
             sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
             movementSpeed = 250;
-            damage = 1;
-            attackSpeed = 1f;
-            health = 100;
+            Damage = 1;
+            AttackSpeed = 1f;
+            MaxHealth = 100;
+            CurrentHealth = 100;
         }
 
         public void Move(Vector2 directionInput)
@@ -44,25 +45,29 @@ namespace Warlock_The_Soulbinder
 
         public override void Combat()
         {
-        
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!isInCombat)
+            if (!IsInCombat)
             {
                 InputHandler.Instance.Execute(this); //gets keys pressed
                 direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
                 Position += direction; //moves the player based on direction
 
-                foreach (var item in GameWorld.collisionTest) // After the player has moved check if collision has happen. if true move backwards the same direction
+                if (direction != Vector2.Zero) // So it does not check for collision if not moving
                 {
-                    if (CollisionBox.Intersects(item))
+                    foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction
                     {
-                        Position -= direction;
+                        if (CollisionBox.Intersects(item))
+                        {
+                            Position -= direction;
+                        }
                     }
+                    direction = Vector2.Zero; //resets direction
                 }
-                direction = Vector2.Zero; //resets direction
+
             }
         }
 

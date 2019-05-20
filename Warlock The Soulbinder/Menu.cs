@@ -10,7 +10,7 @@ namespace Warlock_The_Soulbinder
 {
     class Menu
     {
-        protected int selectedInt;
+        protected int selectedInt = 0;
         protected Rectangle selectionRectangle;
 
         public int SelectedInt { get => selectedInt; set => selectedInt = value; }
