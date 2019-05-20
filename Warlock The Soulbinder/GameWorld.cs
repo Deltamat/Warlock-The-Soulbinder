@@ -23,7 +23,7 @@ namespace Warlock_The_Soulbinder
         public List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
-        private string gameState = "Overworld";
+        private string gameState = "GeneralMenu";
 
         //Tiled
         TiledMap map;
@@ -128,6 +128,7 @@ namespace Warlock_The_Soulbinder
             font = Content.Load<SpriteFont>("font");
             
             Combat.Instance.LoadContent(content);
+            GeneralMenu.Instance.LoadContent(content);
 
             map = Content.Load<TiledMap>("test3"); //Temporary test with collision
 
@@ -184,6 +185,18 @@ namespace Warlock_The_Soulbinder
                 delay = 0;
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
+            {
+                gameState = "Overworld";
+                delay = 0;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
+            {
+                gameState = "Combat";
+                delay = 0;
+            }
+
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
             base.Update(gameTime);
         }
@@ -234,6 +247,15 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Begin();
 
                 Combat.Instance.Draw(spriteBatch);
+
+                spriteBatch.End();
+            }
+
+            if (GameState == "GeneralMenu")
+            {
+                spriteBatch.Begin();
+
+                GeneralMenu.Instance.Draw(spriteBatch);
 
                 spriteBatch.End();
             }

@@ -22,6 +22,7 @@ namespace Warlock_The_Soulbinder
         private SpriteFont CombatFont;
         private Texture2D playerSprite;
         private float combatDelay = 0;
+        private bool enemyTurn = false;
 
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
@@ -66,8 +67,16 @@ namespace Warlock_The_Soulbinder
             if (Keyboard.GetState().IsKeyDown(Keys.Enter) && combatDelay > 200)
             {
                 CombatEvent();
+                enemyTurn = true;
                 combatDelay = 0;
             }
+
+            if (enemyTurn == true)
+            {
+                Player.Instance.CurrentHealth -= target.Damage;
+                enemyTurn = false;
+            }
+        }
 
             if (target != null)
             {
