@@ -20,7 +20,7 @@ namespace Warlock_The_Soulbinder
         public static double deltaTime;
         public SpriteFont font;
         private Texture2D collisionTexture;
-        private List<Enemy> enemies = new List<Enemy>();
+        public List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
         private string gameState = "Overworld";
@@ -121,7 +121,6 @@ namespace Warlock_The_Soulbinder
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
-            
             Combat.Instance.LoadContent(content);
 
             map = Content.Load<TiledMap>("test3"); //Temporary test with collision
@@ -162,13 +161,13 @@ namespace Warlock_The_Soulbinder
 
             deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
-            //mapRenderer.Update(map, gameTime); // temporary
+            mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
             Combat.Instance.Update(gameTime);
             foreach (Enemy enemy in enemies)
             {
-                enemy.Update(gameTime);
+                //enemy.Update(gameTime);  // unødvendigt
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
@@ -188,7 +187,7 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
 
             //Overworld draw
 
@@ -206,31 +205,31 @@ namespace Warlock_The_Soulbinder
                 }
                 Player.Instance.Draw(spriteBatch);
 
-            //collisionboxes
-            #if DEBUG
-            DrawCollisionBox(Player.Instance);
-            foreach (var item in collisionTest)
-            {
-                DrawRectangle(item);
-            }
-            #endif
-            spriteBatch.End();
-            base.Draw(gameTime);
+                //collisionboxes
+#if DEBUG
+                DrawCollisionBox(Player.Instance);
+                foreach (var item in collisionTest)
+                {
+                    DrawRectangle(item);
+                }
+#endif
+                spriteBatch.End();
+                base.Draw(gameTime);
 
             }
 
             //Combat Draw
 
-            if ( GameState == "Combat")
-              {
-            spriteBatch.Begin();
+            if (GameState == "Combat")
+            {
+                spriteBatch.Begin();
 
-            Combat.Instance.Draw(spriteBatch);
+                Combat.Instance.Draw(spriteBatch);
 
-            spriteBatch.End();
-              }
+                spriteBatch.End();
+            }
 
-            
+
 
         }
 

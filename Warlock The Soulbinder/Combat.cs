@@ -55,7 +55,7 @@ namespace Warlock_The_Soulbinder
             CombatFont = content.Load<SpriteFont>("combatFont");
             healthEmpty = content.Load<Texture2D>("HealthEmpty");
             healthFull = content.Load<Texture2D>("HealthFull");
-            target = new Enemy(1);
+            //target = new Enemy(1);
         }
 
 
