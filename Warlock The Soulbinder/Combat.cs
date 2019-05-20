@@ -169,6 +169,7 @@ namespace Warlock_The_Soulbinder
 
                     case 3:
                         //Escape
+                        GameWorld.Instance.GameState = "Overworld";
                         break;
                 }
             }
