@@ -33,6 +33,7 @@ namespace Warlock_The_Soulbinder
         {
             monster = Enum.GetName(typeof(EMonster), index);
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
+            scale = 0.5f;
             movementSpeed = 10;
             Position = new Vector2(500);
             level = index + GameWorld.Instance.RandomInt(-1, 2);
@@ -105,8 +106,7 @@ namespace Warlock_The_Soulbinder
         }
 
         public void Update()
-        {
-            
+        {            
             while (alive)
             {
                 if (!isInCombat)
@@ -129,7 +129,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
         }
 
         private void Move()
