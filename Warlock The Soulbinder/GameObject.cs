@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Warlock_The_Soulbinder
     {
         protected Random rng = new Random();
         protected Texture2D sprite;
+        protected string spriteName;
         private Vector2 position;
 
         public virtual Rectangle CollisionBox
@@ -29,9 +31,12 @@ namespace Warlock_The_Soulbinder
 
         }
 
-        public GameObject(Vector2 position, string spriteName)
+        public GameObject(Vector2 position, string SpriteName, ContentManager content)
         {
 
+            Position = position;
+            spriteName = SpriteName;
+            sprite = content.Load<Texture2D>(SpriteName);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -42,6 +47,11 @@ namespace Warlock_The_Soulbinder
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, Position, Color.White);
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            spriteBatch.Draw(sprite, Position, color);
         }
     }
 }

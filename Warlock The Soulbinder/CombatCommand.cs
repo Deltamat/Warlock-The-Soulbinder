@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,11 @@ namespace Warlock_The_Soulbinder
             select = i;
         }
 
+
         public void Execute(Player p)
         {
-            throw new NotImplementedException();
+            Combat.Instance.ChangeSelected(select);
         }
+
     }
 }

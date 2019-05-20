@@ -23,11 +23,12 @@ namespace Warlock_The_Soulbinder
         private Texture2D collisionTexture;
         private List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
+        private float delay;
         private string gameState = "Combat";
 
         //Tiled
-        TiledMap map;
-        TiledMapRenderer mapRenderer;
+        //TiledMap map;
+        //TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionTest = new List<Rectangle>();
 
 
@@ -68,6 +69,8 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public string GameState { get => gameState; set => gameState = value; }
+
         public GameWorld()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -105,19 +108,19 @@ namespace Warlock_The_Soulbinder
             camera = new Camera();
             Combat.Instance.LoadContent(content);
 
-            map = Content.Load<TiledMap>("test3"); //Temporary test with collision
-            mapRenderer = new TiledMapRenderer(GraphicsDevice);
-            foreach (var item in map.ObjectLayers)
-            {
-                foreach (var go in item.Objects)
-                {
-                    if (go.Type == "Chest")
-                    {
+            //map = Content.Load<TiledMap>("test3"); //Temporary test with collision
+            //mapRenderer = new TiledMapRenderer(GraphicsDevice);
+            //foreach (var item in map.ObjectLayers)
+            //{
+            //    foreach (var go in item.Objects)
+            //    {
+            //        if (go.Type == "Chest")
+            //        {
                         
-                    }
-                    collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
-                }
-            }
+            //        }
+            //        collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
+            //    }
+            //}
 
         }
 
@@ -141,13 +144,20 @@ namespace Warlock_The_Soulbinder
                 Exit();
 
             deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
-
-            mapRenderer.Update(map, gameTime); // temporary
+            delay += gameTime.ElapsedGameTime.Milliseconds;
+            //mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
+            Combat.Instance.Update(gameTime);
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
+            {
+                Player.Instance.CurrentHealth -= 7;
+                delay = 0;
             }
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
@@ -164,11 +174,11 @@ namespace Warlock_The_Soulbinder
 
             //Overworld draw
 
-            if (gameState == "Overworld")
+            if (GameState == "Overworld")
             {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null, null, null, null, null, camera.viewMatrix);
 
-            mapRenderer.Draw(map, camera.viewMatrix); //temporary
+            //mapRenderer.Draw(map, camera.viewMatrix); //temporary
 
             foreach (var item in collisionTest)
             {
@@ -181,9 +191,6 @@ namespace Warlock_The_Soulbinder
             Player.Instance.Draw(spriteBatch);
             DrawCollisionBox(Player.Instance);
 
-            en.Draw(spriteBatch);
-     
-
             spriteBatch.End();
             base.Draw(gameTime);
 
@@ -191,7 +198,7 @@ namespace Warlock_The_Soulbinder
 
             //Combat Draw
 
-            if ( gameState == "Combat")
+            if ( GameState == "Combat")
               {
             spriteBatch.Begin();
 

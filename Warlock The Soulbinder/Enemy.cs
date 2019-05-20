@@ -47,7 +47,7 @@ namespace Warlock_The_Soulbinder
             
             while (alive)
             {
-                if (!isInCombat)
+                if (!IsInCombat)
                 {
                     moveCDTimer += (float)GameWorld.deltaTime;
                     if (moveCDTimer > 10)
