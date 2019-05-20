@@ -20,6 +20,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D healthEmpty;
         private Texture2D healthFull;
         private SpriteFont CombatFont;
+        private Texture2D playerSprite;
         private float combatDelay = 0;
 
         //For use when you have to change forexample in skills or items
@@ -55,7 +56,8 @@ namespace Warlock_The_Soulbinder
             CombatFont = content.Load<SpriteFont>("combatFont");
             healthEmpty = content.Load<Texture2D>("HealthEmpty");
             healthFull = content.Load<Texture2D>("HealthFull");
-            //target = new Enemy(1);
+            playerSprite = content.Load<Texture2D>("Player/Right - Idle/Right - Idle_000");
+            target = new Enemy(1);
         }
 
 
@@ -112,11 +114,14 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Draw(healthEmpty, new Vector2(1200, 800), Color.White);
                 spriteBatch.Draw(healthFull, new Vector2(1204, 803), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
                 spriteBatch.DrawString(CombatFont, $"{target.CurrentHealth} / {target.MaxHealth}", new Vector2(1260, 880), Color.White);
+                spriteBatch.Draw(target.Sprite, new Vector2(1250, 300), null, Color.White, 0f, Vector2.Zero, 1.5f, SpriteEffects.FlipHorizontally, 1);
 
             }
 
             spriteBatch.Draw(healthEmpty, new Vector2(100, 800), Color.White);
             spriteBatch.Draw(healthFull, new Vector2(104, 803), new Rectangle(0, 0,Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) *5.9), 70), Color.White);
+            spriteBatch.Draw(playerSprite, new Vector2(150, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);
+            
 
             spriteBatch.DrawString(CombatFont, $"{Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth}", new Vector2(160, 880), Color.White);
         }

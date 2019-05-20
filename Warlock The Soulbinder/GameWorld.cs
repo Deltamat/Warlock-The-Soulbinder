@@ -121,6 +121,7 @@ namespace Warlock_The_Soulbinder
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
+            
             Combat.Instance.LoadContent(content);
 
             map = Content.Load<TiledMap>("test3"); //Temporary test with collision
@@ -194,6 +195,7 @@ namespace Warlock_The_Soulbinder
             if (GameState == "Overworld")
             {
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+              
 
                 mapRenderer.Draw(map, camera.viewMatrix); //temporary
 
