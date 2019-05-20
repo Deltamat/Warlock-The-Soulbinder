@@ -44,7 +44,7 @@ namespace Warlock_The_Soulbinder
             //base stats
             defense = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             damage = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
-            health = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
+            maxHealth = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
             attackSpeed = 5 * (level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
             metalResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             earthResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));

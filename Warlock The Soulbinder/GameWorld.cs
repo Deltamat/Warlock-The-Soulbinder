@@ -26,8 +26,8 @@ namespace Warlock_The_Soulbinder
         private string gameState = "Combat";
 
         //Tiled
-        //TiledMap map;
-        //TiledMapRenderer mapRenderer;
+        TiledMap map;
+        TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionTest = new List<Rectangle>();
 
 
