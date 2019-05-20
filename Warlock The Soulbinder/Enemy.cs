@@ -135,7 +135,21 @@ namespace Warlock_The_Soulbinder
                             movingTimer = 0;
                         }
                     }
-                //}
+                    foreach (var item in GameWorld.collisionTest)
+                    {
+                        if (CollisionBox.Intersects(item))
+                        {
+                            Position -= direction;
+                        }
+                    }
+                    foreach (var item in GameWorld.Instance.enemies)
+                    {
+                        if (CollisionBox.Intersects(item.CollisionBox) && item != this)
+                        {
+                            Position -= direction;
+                        }
+                    }
+                }
                 Thread.Sleep(1);
                 }
 

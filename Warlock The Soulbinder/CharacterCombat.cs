@@ -23,7 +23,17 @@ namespace Warlock_The_Soulbinder
         protected float earthResistance;
         protected float metalResistance;
 
-        public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
+        public int CurrentHealth
+        {
+            get
+            {
+                return currentHealth;
+            }
+            set
+            {
+                currentHealth = value;
+            }
+        }
         public int Damage { get => damage; set => damage = value; }
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
