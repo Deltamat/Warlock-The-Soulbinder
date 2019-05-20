@@ -15,6 +15,7 @@ namespace Warlock_The_Soulbinder
         private int level;
         private float moveCDTimer;
         private float movingTimer;
+        
 
         public bool alive = true;
         Thread thread;
@@ -116,11 +117,12 @@ namespace Warlock_The_Soulbinder
 
         public void Update()
         {
-            if (GameWorld.Instance.GameState == "Overworld")
-            { 
+            
             while (alive)
             {
-                if (!IsInCombat)
+                //if (GameWorld.Instance.GameState == "Overworld")
+                //{
+                    if (!IsInCombat)
                 {
                     moveCDTimer += (float)GameWorld.deltaTime;
                     if (moveCDTimer > 10) //time between moving
@@ -133,9 +135,10 @@ namespace Warlock_The_Soulbinder
                             movingTimer = 0;
                         }
                     }
-                }
+                //}
                 Thread.Sleep(1);
-            }
+                }
+
             }
         }
 
