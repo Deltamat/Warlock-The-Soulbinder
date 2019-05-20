@@ -16,15 +16,17 @@ namespace Warlock_The_Soulbinder
         protected string spriteName;
         private Vector2 position;
 
+
         public virtual Rectangle CollisionBox
         {
             get
             {
-                return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width), (int)(sprite.Height));
+                return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(Sprite.Width), (int)(Sprite.Height));
             }
         }
 
         public Vector2 Position { get => position; set => position = value; }
+        public Texture2D Sprite { get => sprite; set => sprite = value; }
 
         public GameObject()
         {
@@ -36,7 +38,7 @@ namespace Warlock_The_Soulbinder
 
             Position = position;
             spriteName = SpriteName;
-            sprite = content.Load<Texture2D>(SpriteName);
+            Sprite = content.Load<Texture2D>(SpriteName);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -46,12 +48,12 @@ namespace Warlock_The_Soulbinder
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, Position, Color.White);
+            spriteBatch.Draw(Sprite, Position, Color.White);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
-            spriteBatch.Draw(sprite, Position, color);
+            spriteBatch.Draw(Sprite, Position, color);
         }
     }
 }

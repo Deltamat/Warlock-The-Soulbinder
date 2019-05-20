@@ -26,8 +26,8 @@ namespace Warlock_The_Soulbinder
         private string gameState = "Combat";
 
         //Tiled
-        //TiledMap map;
-        //TiledMapRenderer mapRenderer;
+        TiledMap map;
+        TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionTest = new List<Rectangle>();
 
 
@@ -121,22 +121,22 @@ namespace Warlock_The_Soulbinder
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("font");
-            camera = new Camera();
+            
             Combat.Instance.LoadContent(content);
 
-            //map = Content.Load<TiledMap>("test3"); //Temporary test with collision
-            //mapRenderer = new TiledMapRenderer(GraphicsDevice);
-            //foreach (var item in map.ObjectLayers)
-            //{
-            //    foreach (var go in item.Objects)
-            //    {
-            //        if (go.Type == "Chest")
-            //        {
-                        
-            //        }
-            //        collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
-            //    }
-            //}
+            map = Content.Load<TiledMap>("test3"); //Temporary test with collision
+            mapRenderer = new TiledMapRenderer(GraphicsDevice);
+            foreach (var item in map.ObjectLayers)
+            {
+                foreach (var go in item.Objects)
+                {
+                    if (go.Type == "Chest")
+                    {
+
+                    }
+                    collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
+                }
+            }
 
             camera = new Camera();
         }
@@ -162,7 +162,7 @@ namespace Warlock_The_Soulbinder
 
             deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
-            //mapRenderer.Update(map, gameTime); // temporary
+            mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
             Combat.Instance.Update(gameTime);
@@ -188,18 +188,19 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+            
 
             //Overworld draw
 
             if (GameState == "Overworld")
             {
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, null, null, null, null, camera.viewMatrix);
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+              
 
-            //mapRenderer.Draw(map, camera.viewMatrix); //temporary
+                mapRenderer.Draw(map, camera.viewMatrix); //temporary
 
-            
-            foreach (Enemy enemy in enemies)
+
+                foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
             }
