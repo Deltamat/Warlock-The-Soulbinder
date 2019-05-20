@@ -43,10 +43,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public override void Combat()
-        {
+        //public override void Combat()
+        //{
 
-        }
+        //}
 
         public override void Update(GameTime gameTime)
         {
@@ -66,6 +66,14 @@ namespace Warlock_The_Soulbinder
                         }
                     }
                     direction = Vector2.Zero; //resets direction
+                    foreach (var enemy in GameWorld.Instance.enemies)
+                    {
+                        if (enemy.CollisionBox.Intersects(CollisionBox))
+                        {
+                            GameWorld.Instance.GameState = "Combat";
+                            Combat.Instance.SelectEnemy(enemy);
+                        }
+                    }
                 }
 
             }

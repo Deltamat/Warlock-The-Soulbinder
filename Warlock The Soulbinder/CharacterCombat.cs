@@ -37,9 +37,9 @@ namespace Warlock_The_Soulbinder
         {
         }
 
-        public virtual void Combat()
-        {
+        //public virtual void Combat()
+        //{
 
-        }
+        //}
     }
 }
