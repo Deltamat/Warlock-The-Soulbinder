@@ -29,10 +29,19 @@ namespace Warlock_The_Soulbinder
             falcon, bat, raven //air (18,19,20)
         };
 
+        public override Rectangle CollisionBox
+        {
+            get
+            {
+                return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
+            }
+        }
+
         public Enemy(int index) : base(index)
         {
             monster = Enum.GetName(typeof(EMonster), index);
-            Sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
+            sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
+            scale = 0.5f;
             movementSpeed = 10;
             Position = new Vector2(500);
             level = index + GameWorld.Instance.RandomInt(-1, 2);
@@ -45,7 +54,7 @@ namespace Warlock_The_Soulbinder
             defense = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             damage = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
             maxHealth = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
-            currentHealth = maxHealth;
+            currentHealth = 0 + maxHealth;
             attackSpeed = 5 * (level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
             metalResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             earthResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
@@ -132,7 +141,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
         }
 
 

@@ -20,10 +20,10 @@ namespace Warlock_The_Soulbinder
         public static double deltaTime;
         public SpriteFont font;
         private Texture2D collisionTexture;
-        private List<Enemy> enemies = new List<Enemy>();
+        public List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
-        private string gameState = "Combat";
+        private string gameState = "Overworld";
 
         //Tiled
         TiledMap map;
@@ -168,7 +168,7 @@ namespace Warlock_The_Soulbinder
             Combat.Instance.Update(gameTime);
             foreach (Enemy enemy in enemies)
             {
-                enemy.Update(gameTime);
+                //enemy.Update(gameTime);  // unødvendigt
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
@@ -201,36 +201,37 @@ namespace Warlock_The_Soulbinder
 
 
                 foreach (Enemy enemy in enemies)
-            {
-                enemy.Draw(spriteBatch);
-            }
-            Player.Instance.Draw(spriteBatch);
+                {
+                    enemy.Draw(spriteBatch);
+                    DrawCollisionBox(enemy);
+                }
+                Player.Instance.Draw(spriteBatch);
 
-            //collisionboxes
-            #if DEBUG
-            DrawCollisionBox(Player.Instance);
-            foreach (var item in collisionTest)
-            {
-                DrawRectangle(item);
-            }
-            #endif
-            spriteBatch.End();
-            base.Draw(gameTime);
+                //collisionboxes
+#if DEBUG
+                DrawCollisionBox(Player.Instance);
+                foreach (var item in collisionTest)
+                {
+                    DrawRectangle(item);
+                }
+#endif
+                spriteBatch.End();
+                base.Draw(gameTime);
 
             }
 
             //Combat Draw
 
-            if ( GameState == "Combat")
-              {
-            spriteBatch.Begin();
+            if (GameState == "Combat")
+            {
+                spriteBatch.Begin();
 
-            Combat.Instance.Draw(spriteBatch);
+                Combat.Instance.Draw(spriteBatch);
 
-            spriteBatch.End();
-              }
+                spriteBatch.End();
+            }
 
-            
+
 
         }
 
