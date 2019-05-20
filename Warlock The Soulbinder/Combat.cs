@@ -163,7 +163,15 @@ namespace Warlock_The_Soulbinder
                         break;
 
                     case 3:
-                        //Escape
+                        GameWorld.Instance.GameState = "Overworld";
+                        foreach (Enemy enemy in GameWorld.Instance.enemies)
+                        {
+                            if (enemy == target)
+                            {
+                                enemy.CurrentHealth = 0;
+                            }
+                        }                        
+                        GameWorld.Instance.enemies.Remove(target);
                         break;
                 }
             }
