@@ -19,8 +19,10 @@ namespace Warlock_The_Soulbinder
 
         public void Execute(Player p)
         {
-            Combat.Instance.ChangeSelected(select);
+            if (GameWorld.Instance.GameState == "Combat")
+            {
+                Combat.Instance.ChangeSelected(select);
+            }            
         }
-
     }
 }

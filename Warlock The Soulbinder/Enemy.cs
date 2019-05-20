@@ -15,9 +15,9 @@ namespace Warlock_The_Soulbinder
         private int level;
         private float moveCDTimer;
         private float movingTimer;
-
-        public bool alive = true;
+        
         Thread thread;
+
         enum EMonster
         {
             sheep, wolf, bear, //neutral (0,1,2)
@@ -29,6 +29,9 @@ namespace Warlock_The_Soulbinder
             falcon, bat, raven //air (18,19,20)
         };
 
+        /// <summary>
+        /// Returns the collisionbox for the object
+        /// </summary>
         public override Rectangle CollisionBox
         {
             get
@@ -37,13 +40,13 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public Enemy(int index) : base(index)
+        public Enemy(int index, Vector2 startPos) : base(index)
         {
             monster = Enum.GetName(typeof(EMonster), index);
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
             scale = 0.5f;
             movementSpeed = 10;
-            Position = new Vector2(500);
+            Position = startPos;
             level = index + GameWorld.Instance.RandomInt(-1, 2);
             if (level <= 0)
             {
@@ -51,6 +54,7 @@ namespace Warlock_The_Soulbinder
             }
 
             //base stats
+            #region
             defense = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             damage = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
             maxHealth = (int)(10 * ((level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
@@ -62,6 +66,7 @@ namespace Warlock_The_Soulbinder
             fireResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             darkResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             waterResistance = (float)Math.Log(10 * (level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            #endregion
 
             //switch case to determine special resistances based on the monster's element (logistic function)
             switch (monster)
@@ -116,12 +121,10 @@ namespace Warlock_The_Soulbinder
 
         public void Update()
         {
-            if (GameWorld.Instance.GameState == "Overworld")
-            { 
-            while (alive)
+            while (Alive)
             {
-                if (!IsInCombat)
-                {
+                if (GameWorld.Instance.GameState == "Overworld")
+                {    
                     moveCDTimer += (float)GameWorld.deltaTime;
                     if (moveCDTimer > 10) //time between moving
                     {
@@ -133,23 +136,26 @@ namespace Warlock_The_Soulbinder
                             movingTimer = 0;
                         }
                     }
-                    foreach (var item in GameWorld.collisionTest)
+
+                    //enemy collision with gameworld
+                    foreach (Rectangle rectangle in GameWorld.collisionMap)
                     {
-                        if (CollisionBox.Intersects(item))
+                        if (CollisionBox.Intersects(rectangle))
                         {
                             Position -= direction;
                         }
                     }
-                    foreach (var item in GameWorld.Instance.enemies)
+
+                    //enemy collision with enemies
+                    foreach (Enemy enemy in GameWorld.Instance.enemies)
                     {
-                        if (CollisionBox.Intersects(item.CollisionBox) && item != this)
+                        if (CollisionBox.Intersects(enemy.CollisionBox) && enemy != this)
                         {
                             Position -= direction;
                         }
-                    }
+                    }                                        
                 }
                 Thread.Sleep(1);
-            }
             }
         }
 
@@ -158,7 +164,9 @@ namespace Warlock_The_Soulbinder
             spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
         }
 
-
+        /// <summary>
+        /// Moves the enemy in a random octagonal direction
+        /// </summary>
         private void Move()
         {
             if (movingTimer == 0)
