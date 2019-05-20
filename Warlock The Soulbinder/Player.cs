@@ -55,7 +55,6 @@ namespace Warlock_The_Soulbinder
                 InputHandler.Instance.Execute(this); //gets keys pressed
                 direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
                 Position += direction; //moves the player based on direction
-
                 if (direction != Vector2.Zero) // So it does not check for collision if not moving
                 {
                     foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction

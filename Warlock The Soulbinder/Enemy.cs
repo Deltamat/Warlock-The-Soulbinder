@@ -29,6 +29,14 @@ namespace Warlock_The_Soulbinder
             falcon, bat, raven //air (18,19,20)
         };
 
+        public override Rectangle CollisionBox
+        {
+            get
+            {
+                return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
+            }
+        }
+
         public Enemy(int index) : base(index)
         {
             monster = Enum.GetName(typeof(EMonster), index);

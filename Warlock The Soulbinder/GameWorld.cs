@@ -23,7 +23,7 @@ namespace Warlock_The_Soulbinder
         private List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
-        private string gameState = "Combat";
+        private string gameState = "Overworld";
 
         //Tiled
         TiledMap map;
@@ -202,6 +202,7 @@ namespace Warlock_The_Soulbinder
                 foreach (Enemy enemy in enemies)
                 {
                     enemy.Draw(spriteBatch);
+                    DrawCollisionBox(enemy);
                 }
                 Player.Instance.Draw(spriteBatch);
 
