@@ -197,6 +197,17 @@ namespace Warlock_The_Soulbinder
             }
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
+
+            if (gameState == "Combat")
+            {
+                Combat.Instance.Update(gameTime);
+            }
+
+            if (gameState == "GeneralMenu")
+            {
+                GeneralMenu.Instance.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -305,6 +316,22 @@ namespace Warlock_The_Soulbinder
             Random rng = new Random();
             Thread.Sleep(10);
             return rng.Next(x, y);
+        }
+
+        /// <summary>
+        /// Loads all the variables from the database
+        /// </summary>
+        private void LoadDB()
+        {
+
+        }
+
+        /// <summary>
+        /// Saves all the variables to the database
+        /// </summary>
+        private void SaveToDB()
+        {
+
         }
     }
 }

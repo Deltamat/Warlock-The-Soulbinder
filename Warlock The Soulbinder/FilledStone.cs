@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +16,16 @@ namespace Warlock_The_Soulbinder
         private int experience;
         private bool equipped;
         private string equipmentSlot;
+        private int id;
 
-        public FilledStone(string name, string monster, int level)
+        public int Id { get => id; private set => id = value; }
+
+        public FilledStone(int id, string spriteName, Vector2 position, string name, string monster, int goldCost, string type, int level, ContentManager content):base (spriteName, position, name, goldCost, type, content)
         {
             this.name = name;
             this.monster = monster;
             this.level = level;
+            
             switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
