@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Warlock_The_Soulbinder
 {
-    class Combat : Menu
+    public class Combat : Menu
     {
         private Enemy target;
 
@@ -26,7 +26,9 @@ namespace Warlock_The_Soulbinder
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
-        
+
+        public SpriteFont CombatFont { get => combatFont; private set => combatFont = value; }
+
         public static Combat Instance
         {
             get
@@ -38,6 +40,8 @@ namespace Warlock_The_Soulbinder
                 return instance;
             }
         }
+
+        
 
         private Combat()
         {

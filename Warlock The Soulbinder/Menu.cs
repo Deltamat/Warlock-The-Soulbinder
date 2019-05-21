@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Menu
+    public class Menu
     {
         protected int selectedInt = 0;
         protected Rectangle selectionRectangle;

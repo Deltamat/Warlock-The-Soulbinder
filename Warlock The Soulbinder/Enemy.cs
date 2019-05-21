@@ -186,6 +186,7 @@ namespace Warlock_The_Soulbinder
                 Thread.Sleep(1);
             }
         }
+        
 
         public override void Draw(SpriteBatch spriteBatch)
         {
