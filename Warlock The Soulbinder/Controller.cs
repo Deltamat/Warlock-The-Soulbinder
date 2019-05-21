@@ -46,7 +46,11 @@ namespace Warlock_The_Soulbinder
 
 
         #region FilledStone
-
+        public Dictionary<int, ModelSoulStone> LoadFilledStone()
+        {
+            //return filledStone.LoadSoulStone();
+            return null;
+        }
 
 
         #endregion
