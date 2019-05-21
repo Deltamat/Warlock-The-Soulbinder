@@ -57,7 +57,7 @@ namespace Warlock_The_Soulbinder
             healthEmpty = content.Load<Texture2D>("HealthEmpty");
             healthFull = content.Load<Texture2D>("HealthFull");
             playerSprite = content.Load<Texture2D>("Player/Right - Idle/Right - Idle_000");
-            target = new Enemy(1);
+            //target = new Enemy(1);
         }
 
 

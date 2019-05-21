@@ -25,8 +25,8 @@ namespace Warlock_The_Soulbinder
 
         public Player()
         {
-            Sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
-            movementSpeed = 250;
+            Sprite = GameWorld.ContentManager.Load<Texture2D>("tempPlayer");
+            movementSpeed = 1000;
             Damage = 1;
             AttackSpeed = 1f;
             MaxHealth = 100;
@@ -57,7 +57,7 @@ namespace Warlock_The_Soulbinder
                 Position += direction; //moves the player based on direction
                 if (direction != Vector2.Zero) // So it does not check for collision if not moving
                 {
-                    foreach (var item in GameWorld.collisionTest) // After the player have moved check if collision has happen. if true move backwards the same direction
+                    foreach (var item in GameWorld.Instance.CurrentZone().CollisionRects) // After the player have moved check if collision has happen. if true move backwards the same direction
                     {
                         if (CollisionBox.Intersects(item))
                         {
@@ -65,12 +65,14 @@ namespace Warlock_The_Soulbinder
                         }
                     }
                     direction = Vector2.Zero; //resets direction
-                    foreach (var enemy in GameWorld.Instance.enemies)
+
+                    foreach (var enemy in GameWorld.Instance.enemies) // if collide with enemy, go to combat
                     {
                         if (enemy.CollisionBox.Intersects(CollisionBox))
                         {
                             GameWorld.Instance.GameState = "Combat";
                             Combat.Instance.SelectEnemy(enemy);
+                            break;
                         }
                     }
                 }

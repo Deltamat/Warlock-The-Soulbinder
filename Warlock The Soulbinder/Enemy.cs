@@ -158,6 +158,12 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
             }
             Position += direction; //moves the enemy based on direction
+
+            if (CollisionBox.Intersects(Player.Instance.CollisionBox)) // after the enemy has moved, check if collide with player
+            {
+                GameWorld.Instance.GameState = "Combat";
+                Combat.Instance.SelectEnemy(this);
+            }
         }
     }
 }
