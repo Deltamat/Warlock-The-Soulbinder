@@ -13,7 +13,7 @@ namespace Warlock_The_Soulbinder
         private double gracePeriod = 5;
         private bool graceStart = true;
         private int graceSwitch = 0;
-        private Vector2 lastDirection;
+        private Vector2 lastDirection = new Vector2(0, 1);
         private double aniIndex;
         private double elapsedTime;
         private const int animationFPS = 30;
@@ -42,9 +42,20 @@ namespace Warlock_The_Soulbinder
         public bool AttackStart { get => attackStart; set => attackStart = value; }
         public bool HurtStart { get => hurtStart; set => hurtStart = value; }
 
+        /// <summary>
+        /// Returns the player's collision box. Modified to better suit this game's player sprite
+        /// </summary>
+        public override Rectangle CollisionBox
+        {
+            get
+            {
+                return new Rectangle((int)(Position.X + Sprite.Width * 0.2), (int)(Position.Y + Sprite.Height * 0.075), (int)(Sprite.Width * 0.6), (int)(Sprite.Height * 0.8));
+            }
+        }
+
         public Player()
         {
-            Sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
+            Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             movementSpeed = 250;
             Damage = 5;
             AttackSpeed = 1f;

@@ -19,7 +19,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D emptyButton;
         private Texture2D healthEmpty;
         private Texture2D healthFull;
-        private SpriteFont CombatFont;
+        public SpriteFont CombatFont;
         private float combatDelay = 0;
         private bool enemyTurn = false;
 
@@ -237,14 +237,17 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void PlayerAttack()
         {
-            Player.Instance.AttackStart = true;
-            target.CurrentHealth -= Player.Instance.Damage - target.Defense;
-            for (int i = 0; i < target.ResistanceTypes.Count; i++)
+            if (target != null)
             {
-                target.CurrentHealth -= (int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]);
+                Player.Instance.AttackStart = true;
+                target.CurrentHealth -= Player.Instance.Damage - target.Defense;
+                for (int i = 0; i < target.ResistanceTypes.Count; i++)
+                {
+                    target.CurrentHealth -= (int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]);
+                }
+                enemyTurn = true;
+                combatDelay = 0;
             }
-            enemyTurn = true;
-            combatDelay = 0;
         }
 
         /// <summary>

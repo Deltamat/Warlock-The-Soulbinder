@@ -105,12 +105,12 @@ namespace Warlock_The_Soulbinder
         {
             IsMouseVisible = true;
 
-            enemies.Add(new Enemy(0, new Vector2(100)));
-            enemies.Add(new Enemy(4, new Vector2(250)));
-            enemies.Add(new Enemy(7, new Vector2(400)));
-            enemies.Add(new Enemy(12, new Vector2(550)));
-            enemies.Add(new Enemy(16, new Vector2(700)));
-            enemies.Add(new Enemy(20, new Vector2(850, 700)));
+            enemies.Add(new Enemy(0, new Vector2(1100, 100)));
+            enemies.Add(new Enemy(4, new Vector2(1100, 250)));
+            enemies.Add(new Enemy(7, new Vector2(1100, 400)));
+            enemies.Add(new Enemy(12, new Vector2(1100, 550)));
+            enemies.Add(new Enemy(16, new Vector2(1100, 700)));
+            enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
             base.Initialize();
         }
@@ -177,7 +177,7 @@ namespace Warlock_The_Soulbinder
             mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
-            Combat.Instance.Update(gameTime);
+            Combat.Instance.Update(gameTime);            
 
             //TEMPORARY
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
