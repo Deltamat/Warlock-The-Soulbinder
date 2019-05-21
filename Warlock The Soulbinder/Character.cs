@@ -13,6 +13,8 @@ namespace Warlock_The_Soulbinder
         private string name = "Jones";
         protected float scale;
 
+        protected string Name { get => name; }
+
         public Character()
         {
         }
@@ -22,6 +24,6 @@ namespace Warlock_The_Soulbinder
 
         }
 
-        protected string Name { get => name; }        
+              
     }
 }

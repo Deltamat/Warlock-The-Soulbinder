@@ -17,19 +17,19 @@ namespace Warlock_The_Soulbinder
     {
         private GraphicsDeviceManager graphics; 
         private SpriteBatch spriteBatch;
-        public static double deltaTime;
+        public static double deltaTimeSecond;
+        public static double deltaTimeMilli;
         public SpriteFont font;
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
-        private string gameState = "GeneralMenu";
+        private string gameState = "Overworld";
 
         //Tiled
         TiledMap map;
         TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionMap = new List<Rectangle>();
-
 
         static GameWorld instance;
         static public GameWorld Instance
@@ -58,7 +58,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Creates a rectangle whithin the bounds of the window
+        /// Returns a rectangle whithin the bounds of the window
         /// </summary>
         public Rectangle ScreenSize
         {
@@ -68,6 +68,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Returns a rectangle whitin the bounds of the map
+        /// </summary>
         public Rectangle TileMapBounds
         {
             get
@@ -102,12 +105,12 @@ namespace Warlock_The_Soulbinder
         {
             IsMouseVisible = true;
 
-            enemies.Add(new Enemy(0, new Vector2(100)));
-            enemies.Add(new Enemy(4, new Vector2(250)));
-            enemies.Add(new Enemy(7, new Vector2(400)));
-            enemies.Add(new Enemy(12, new Vector2(550)));
-            enemies.Add(new Enemy(16, new Vector2(700)));
-            enemies.Add(new Enemy(20, new Vector2(850, 700)));
+            enemies.Add(new Enemy(0, new Vector2(1100, 100)));
+            enemies.Add(new Enemy(4, new Vector2(1100, 250)));
+            enemies.Add(new Enemy(7, new Vector2(1100, 400)));
+            enemies.Add(new Enemy(12, new Vector2(1100, 550)));
+            enemies.Add(new Enemy(16, new Vector2(1100, 700)));
+            enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
             base.Initialize();
         }
@@ -167,18 +170,16 @@ namespace Warlock_The_Soulbinder
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
+            deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
+            deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
 
             mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
-           
-            foreach (Enemy enemy in enemies)
-            {
-                //enemy.Update(gameTime);  // unødvendigt
-            }
+            Combat.Instance.Update(gameTime);            
 
+            //TEMPORARY
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
                 FilledStone.StoneList.Add(new FilledStone("wolf", "wolf", RandomInt(1,10)));
@@ -195,13 +196,11 @@ namespace Warlock_The_Soulbinder
                     }
                 }
             }
-
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
                 gameState = "Overworld";
                 delay = 0;
             }
-
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
             {
                 gameState = "Combat";
@@ -328,6 +327,22 @@ namespace Warlock_The_Soulbinder
             Random rng = new Random();
             Thread.Sleep(10);
             return rng.Next(x, y);
+        }
+
+        /// <summary>
+        /// Loads all the variables from the database
+        /// </summary>
+        private void LoadDB()
+        {
+
+        }
+
+        /// <summary>
+        /// Saves all the variables to the database
+        /// </summary>
+        private void SaveToDB()
+        {
+
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,9 @@ namespace Warlock_The_Soulbinder
         public bool Equipped { get => equipped; set => equipped = value; }
         public string EquipmentSlot { get => equipmentSlot; set => equipmentSlot = value; }
         public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
+        private int id;
+
+        public int Id { get => id; private set => id = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 

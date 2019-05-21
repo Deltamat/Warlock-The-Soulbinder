@@ -15,6 +15,12 @@ namespace Warlock_The_Soulbinder
         protected int currentHealth;
         protected int maxHealth;
         protected int damage;
+        protected int waterDamage;
+        protected int darkDamage;
+        protected int fireDamage;
+        protected int airDamage;
+        protected int earthDamage;
+        protected int metalDamage;
         protected int defense;
         protected float waterResistance;
         protected float darkResistance;
@@ -23,6 +29,8 @@ namespace Warlock_The_Soulbinder
         protected float earthResistance;
         protected float metalResistance;
         protected bool alive = true;
+        protected List<int> damageTypes = new List<int>();
+        protected List<float> resistanceTypes = new List<float>();
 
         public int CurrentHealth
         {
@@ -45,10 +53,13 @@ namespace Warlock_The_Soulbinder
         }
 
         public int Damage { get => damage; set => damage = value; }
+        public int Defense { get => defense; set => defense = value; }
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
         public bool Alive { get => alive; set => alive = value; }
+        public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
+        public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
 
         public CharacterCombat()
         {
