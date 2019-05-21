@@ -242,6 +242,7 @@ namespace Warlock_The_Soulbinder
         public void PlayerAttack()
         {
             Player.Instance.AttackStart = true;
+            //OBS target kan være null
             target.CurrentHealth -= Player.Instance.Damage - target.Defense;
             for (int i = 0; i < target.ResistanceTypes.Count; i++)
             {
