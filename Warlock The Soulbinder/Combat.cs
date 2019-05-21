@@ -33,9 +33,9 @@ namespace Warlock_The_Soulbinder
             get
             {
                 if (instance == null)
-                    {
+                {
                     instance = new Combat();
-                    }
+                }
                 return instance;
             }
         }
@@ -216,8 +216,5 @@ namespace Warlock_The_Soulbinder
             }
             return Value;
         }
-
-
-
     }
 }

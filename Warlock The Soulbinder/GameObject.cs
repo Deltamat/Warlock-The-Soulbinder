@@ -28,11 +28,20 @@ namespace Warlock_The_Soulbinder
         public Vector2 Position { get => position; set => position = value; }
         public Texture2D Sprite { get => sprite; set => sprite = value; }
 
+        /// <summary>
+        /// For the database
+        /// </summary>
         public GameObject()
         {
 
         }
 
+        /// <summary>
+        /// For the game
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="SpriteName"></param>
+        /// <param name="content"></param>
         public GameObject(Vector2 position, string SpriteName, ContentManager content)
         {
 

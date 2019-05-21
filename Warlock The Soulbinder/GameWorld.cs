@@ -278,5 +278,21 @@ namespace Warlock_The_Soulbinder
             Thread.Sleep(10);
             return rng.Next(x, y);
         }
+
+        /// <summary>
+        /// Loads all the variables from the database
+        /// </summary>
+        private void LoadDB()
+        {
+
+        }
+
+        /// <summary>
+        /// Saves all the variables to the database
+        /// </summary>
+        private void SaveToDB()
+        {
+
+        }
     }
 }
