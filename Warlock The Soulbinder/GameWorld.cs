@@ -22,14 +22,15 @@ namespace Warlock_The_Soulbinder
         public SpriteFont font;
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
-        private Camera camera;
+        public Camera camera;
         private float delay;
         private string gameState = "Overworld";
 
-        //Tiled
-        TiledMap map;
-        TiledMapRenderer mapRenderer;
-        static public List<Rectangle> collisionMap = new List<Rectangle>();
+        //Tiled fields
+        Zone t;
+        Zone t2;
+        public string currentZone = "t";
+        public List<Zone> zones = new List<Zone>();
 
         static GameWorld instance;
         static public GameWorld Instance
@@ -75,10 +76,9 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return new Rectangle(0, 0, map.WidthInPixels, map.HeightInPixels);
+                return new Rectangle(0, 0, CurrentZone().Map.WidthInPixels, CurrentZone().Map.HeightInPixels);
             }
         }
-
         public string GameState { get => gameState; set => gameState = value; }
 
         public GameWorld()
@@ -105,12 +105,12 @@ namespace Warlock_The_Soulbinder
         {
             IsMouseVisible = true;
 
-            enemies.Add(new Enemy(0, new Vector2(100)));
-            enemies.Add(new Enemy(4, new Vector2(250)));
-            enemies.Add(new Enemy(7, new Vector2(400)));
-            enemies.Add(new Enemy(12, new Vector2(550)));
-            enemies.Add(new Enemy(16, new Vector2(700)));
-            enemies.Add(new Enemy(20, new Vector2(850, 700)));
+            enemies.Add(new Enemy(0, new Vector2(1100, 100)));
+            enemies.Add(new Enemy(4, new Vector2(1100, 250)));
+            enemies.Add(new Enemy(7, new Vector2(1100, 400)));
+            enemies.Add(new Enemy(12, new Vector2(1100, 550)));
+            enemies.Add(new Enemy(16, new Vector2(1100, 700)));
+            enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
             base.Initialize();
         }
@@ -133,22 +133,21 @@ namespace Warlock_The_Soulbinder
             Combat.Instance.LoadContent(content);
             GeneralMenu.Instance.LoadContent(content);
 
-            map = Content.Load<TiledMap>("test3"); //Temporary test with collision
+            
 
-            mapRenderer = new TiledMapRenderer(GraphicsDevice);
-            foreach (var item in map.ObjectLayers)
+            t = new Zone("t");
+            t2 = new Zone("t2");
+            
+            zones.Add(t);
+            zones.Add(t2);
+
+            foreach (var zone in zones)
             {
-                foreach (var go in item.Objects)
-                {
-                    if (go.Type == "Chest")
-                    {
-
-                    }
-                    collisionMap.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
-                }
+                zone.Setup();
             }
 
             camera = new Camera();
+
         }
 
         /// <summary>
@@ -173,17 +172,27 @@ namespace Warlock_The_Soulbinder
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
-
-            mapRenderer.Update(map, gameTime); // temporary
+            
 
             Player.Instance.Update(gameTime);
-            Combat.Instance.Update(gameTime);
+            Combat.Instance.Update(gameTime);            
 
             //TEMPORARY
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
-                Player.Instance.CurrentHealth -= 7;
-                delay = 0;
+                FilledStone.StoneList.Add(new FilledStone("wolf", "wolf", RandomInt(1,10)));
+
+                //Code to make pages for the filled stones
+                FilledStone.StoneListPages = 0;
+                int tempStoneList = FilledStone.StoneList.Count;
+                for (int i = 0; i < 99; i++)
+                {
+                    if (tempStoneList - 9 > 0)
+                    {
+                        FilledStone.StoneListPages++;
+                        tempStoneList -= 9;
+                    }
+                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
@@ -195,6 +204,9 @@ namespace Warlock_The_Soulbinder
                 gameState = "Combat";
                 delay = 0;
             }
+
+
+            CurrentZone().Update(gameTime);
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
 
@@ -225,9 +237,8 @@ namespace Warlock_The_Soulbinder
             if (GameState == "Overworld")
             {
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
-              
 
-                mapRenderer.Draw(map, camera.viewMatrix); //temporary
+                CurrentZone().Draw(spriteBatch);
 
 
                 foreach (Enemy enemy in enemies)
@@ -240,10 +251,6 @@ namespace Warlock_The_Soulbinder
                 //collisionboxes
 #if DEBUG
                 DrawCollisionBox(Player.Instance);
-                foreach (var item in collisionMap)
-                {
-                    DrawRectangle(item);
-                }
 #endif
                 spriteBatch.End();
                 base.Draw(gameTime);
@@ -292,7 +299,7 @@ namespace Warlock_The_Soulbinder
             spriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
-        private void DrawRectangle(Rectangle collisionBox)
+        public void DrawRectangle(Rectangle collisionBox)
         {
             Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
             Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
@@ -316,6 +323,31 @@ namespace Warlock_The_Soulbinder
             Random rng = new Random();
             Thread.Sleep(10);
             return rng.Next(x, y);
+        }
+
+        /// <summary>
+        /// Method that returns the currently loaded Zone
+        /// </summary>
+        /// <returns>The current Zone</returns>
+        public Zone CurrentZone()
+        {
+            foreach (var zone in zones)
+            {
+                if (zone.Name == currentZone)
+                {
+                    return zone;
+                }
+            }
+            //switch (currentZone)
+            //{
+            //    case "t":
+            //        return t;
+            //    case "t2":
+            //        return t2;
+            //    default:
+            //        break;
+            //}
+            return null;
         }
 
         /// <summary>

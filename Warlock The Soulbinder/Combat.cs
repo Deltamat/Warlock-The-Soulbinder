@@ -88,6 +88,7 @@ namespace Warlock_The_Soulbinder
                     target = null;
                 }
             }
+        
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -241,15 +242,17 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void PlayerAttack()
         {
-            Player.Instance.AttackStart = true;
-            //OBS target kan være null
-            target.CurrentHealth -= Player.Instance.Damage - target.Defense;
-            for (int i = 0; i < target.ResistanceTypes.Count; i++)
+            if (target != null)
             {
-                target.CurrentHealth -= (int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]);
+                Player.Instance.AttackStart = true;
+                target.CurrentHealth -= Player.Instance.Damage - target.Defense;
+                for (int i = 0; i < target.ResistanceTypes.Count; i++)
+                {
+                    target.CurrentHealth -= (int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]);
+                }
+                enemyTurn = true;
+                combatDelay = 0;
             }
-            enemyTurn = true;
-            combatDelay = 0;
         }
 
         /// <summary>

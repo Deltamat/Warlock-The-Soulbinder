@@ -13,7 +13,7 @@ namespace Warlock_The_Soulbinder
         private double gracePeriod = 5;
         private bool graceStart = true;
         private int graceSwitch = 0;
-        private Vector2 lastDirection;
+        private Vector2 lastDirection = new Vector2(0, 1);
         private double aniIndex;
         private double elapsedTime;
         private const int animationFPS = 30;
@@ -42,9 +42,20 @@ namespace Warlock_The_Soulbinder
         public bool AttackStart { get => attackStart; set => attackStart = value; }
         public bool HurtStart { get => hurtStart; set => hurtStart = value; }
 
+        /// <summary>
+        /// Returns the player's collision box. Modified to better suit this game's player sprite
+        /// </summary>
+        public override Rectangle CollisionBox
+        {
+            get
+            {
+                return new Rectangle((int)(Position.X + Sprite.Width * 0.2), (int)(Position.Y + Sprite.Height * 0.075), (int)(Sprite.Width * 0.6), (int)(Sprite.Height * 0.8));
+            }
+        }
+
         public Player()
         {
-            Sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
+            Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             movementSpeed = 250;
             Damage = 5;
             AttackSpeed = 1f;
@@ -104,21 +115,40 @@ namespace Warlock_The_Soulbinder
             }
 
             direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTime
-            Position += direction; //moves the player based on direction
 
-            if (direction != Vector2.Zero) // So it does not check for collision if not moving
+            //movement region
+            #region
+            //handles X direction
+            position.X += direction.X; //moves the player based on direction
+            if (direction.X != 0) // So it does not check for collision if not moving
             {
                 foreach (Rectangle rectangle in GameWorld.collisionMap) // After the player have moved check if collision has happen. if true move backwards the same direction
                 {
                     if (CollisionBox.Intersects(rectangle))
                     {
-                        Position -= direction;
+                        position.X -= direction.X;
                     }
                 }
-                direction = Vector2.Zero; //resets direction   
+                direction.X = 0; //resets direction   
             }
 
-            if (gracePeriod > 5)
+            //handles Y direction
+            position.Y += direction.Y; //moves the player based on direction
+            if (direction.Y != 0) // So it does not check for collision if not moving
+            {
+                foreach (Rectangle rectangle in GameWorld.collisionMap) // After the player have moved check if collision has happen. if true move backwards the same direction
+                {
+                    if (CollisionBox.Intersects(rectangle))
+                    {
+                        position.Y -= direction.Y;
+                    }
+                }
+                direction.Y = 0; //resets direction   
+            }
+            #endregion
+
+            //if the player's 5 second grace period is over and the player collides with an enemy, start combat
+            if (gracePeriod > 5) 
             {
                 foreach (Enemy enemy in GameWorld.Instance.enemies)
                 {

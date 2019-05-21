@@ -16,7 +16,7 @@ namespace Warlock_The_Soulbinder
         private float moveCDTimer;
         private float movingTimer;
         
-        Thread thread;
+        private Thread thread;
 
         enum EMonster
         {
@@ -38,7 +38,7 @@ namespace Warlock_The_Soulbinder
             {
                 return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
             }
-        }
+        }        
 
         public Enemy(int index, Vector2 startPos) : base(index)
         {
@@ -149,10 +149,11 @@ namespace Warlock_The_Soulbinder
 
         public void Update()
         {
+            Thread.Sleep(GameWorld.Instance.RandomInt(1, 1000));
             while (Alive)
             {
                 if (GameWorld.Instance.GameState == "Overworld")
-                {    
+                {
                     moveCDTimer += (float)GameWorld.deltaTimeSecond;
                     if (moveCDTimer > 10) //time between moving
                     {
@@ -186,7 +187,6 @@ namespace Warlock_The_Soulbinder
                 Thread.Sleep(1);
             }
         }
-        
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -209,6 +209,12 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTime
             }
             Position += direction; //moves the enemy based on direction
+
+            if (CollisionBox.Intersects(Player.Instance.CollisionBox)) // after the enemy has moved, check if collide with player
+            {
+                GameWorld.Instance.GameState = "Combat";
+                Combat.Instance.SelectEnemy(this);
+            }
         }
     }
 }
