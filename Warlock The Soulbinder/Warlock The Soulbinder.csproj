@@ -57,6 +57,7 @@
     <Compile Include="FilledStone.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameWorld.cs" />
+    <Compile Include="GeneralMenu.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ImpassableTerrain.cs" />

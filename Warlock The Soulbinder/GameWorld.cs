@@ -23,12 +23,12 @@ namespace Warlock_The_Soulbinder
         public List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
-        private string gameState = "Overworld";
+        private string gameState = "GeneralMenu";
 
         //Tiled
         TiledMap map;
         TiledMapRenderer mapRenderer;
-        static public List<Rectangle> collisionTest = new List<Rectangle>();
+        static public List<Rectangle> collisionMap = new List<Rectangle>();
 
 
         static GameWorld instance;
@@ -100,14 +100,15 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
-
             IsMouseVisible = true;
-            enemies.Add(new Enemy(0));
-            enemies.Add(new Enemy(4));
-            enemies.Add(new Enemy(7));
-            enemies.Add(new Enemy(12));
-            enemies.Add(new Enemy(16));
-            enemies.Add(new Enemy(20));
+
+            enemies.Add(new Enemy(0, new Vector2(100)));
+            enemies.Add(new Enemy(4, new Vector2(250)));
+            enemies.Add(new Enemy(7, new Vector2(400)));
+            enemies.Add(new Enemy(12, new Vector2(550)));
+            enemies.Add(new Enemy(16, new Vector2(700)));
+            enemies.Add(new Enemy(20, new Vector2(850, 700)));
+
             base.Initialize();
         }
 
@@ -117,14 +118,20 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
+#if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
+#endif
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             font = Content.Load<SpriteFont>("font");
             
             Combat.Instance.LoadContent(content);
+            GeneralMenu.Instance.LoadContent(content);
 
             map = Content.Load<TiledMap>("test3"); //Temporary test with collision
+
             mapRenderer = new TiledMapRenderer(GraphicsDevice);
             foreach (var item in map.ObjectLayers)
             {
@@ -134,7 +141,7 @@ namespace Warlock_The_Soulbinder
                     {
 
                     }
-                    collisionTest.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
+                    collisionMap.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
                 }
             }
 
@@ -162,10 +169,11 @@ namespace Warlock_The_Soulbinder
 
             deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
+
             mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
-            Combat.Instance.Update(gameTime);
+           
             foreach (Enemy enemy in enemies)
             {
                 //enemy.Update(gameTime);  // unødvendigt
@@ -177,7 +185,30 @@ namespace Warlock_The_Soulbinder
                 delay = 0;
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
+            {
+                gameState = "Overworld";
+                delay = 0;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
+            {
+                gameState = "Combat";
+                delay = 0;
+            }
+
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
+
+            if (gameState == "Combat")
+            {
+                Combat.Instance.Update(gameTime);
+            }
+
+            if (gameState == "GeneralMenu")
+            {
+                GeneralMenu.Instance.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -210,7 +241,7 @@ namespace Warlock_The_Soulbinder
                 //collisionboxes
 #if DEBUG
                 DrawCollisionBox(Player.Instance);
-                foreach (var item in collisionTest)
+                foreach (var item in collisionMap)
                 {
                     DrawRectangle(item);
                 }
@@ -227,6 +258,15 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Begin();
 
                 Combat.Instance.Draw(spriteBatch);
+
+                spriteBatch.End();
+            }
+
+            if (GameState == "GeneralMenu")
+            {
+                spriteBatch.Begin();
+
+                GeneralMenu.Instance.Draw(spriteBatch);
 
                 spriteBatch.End();
             }

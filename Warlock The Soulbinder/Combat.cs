@@ -19,15 +19,15 @@ namespace Warlock_The_Soulbinder
         private Texture2D emptyButton;
         private Texture2D healthEmpty;
         private Texture2D healthFull;
-        private SpriteFont CombatFont;
+        public SpriteFont CombatFont;
         private Texture2D playerSprite;
         private float combatDelay = 0;
+        private bool enemyTurn = false;
 
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
-
-
+        
         public static Combat Instance
         {
             get
@@ -39,6 +39,7 @@ namespace Warlock_The_Soulbinder
                 return instance;
             }
         }
+
         private Combat()
         {
             
@@ -57,9 +58,7 @@ namespace Warlock_The_Soulbinder
             healthEmpty = content.Load<Texture2D>("HealthEmpty");
             healthFull = content.Load<Texture2D>("HealthFull");
             playerSprite = content.Load<Texture2D>("Player/Right - Idle/Right - Idle_000");
-            target = new Enemy(1);
         }
-
 
         public override void Update(GameTime gameTime)
         {
@@ -68,13 +67,32 @@ namespace Warlock_The_Soulbinder
             if (Keyboard.GetState().IsKeyDown(Keys.Enter) && combatDelay > 200)
             {
                 CombatEvent();
+                enemyTurn = true;
                 combatDelay = 0;
+            }
+
+            if (enemyTurn == true)
+            {
+                Player.Instance.CurrentHealth -= target.Damage;
+                enemyTurn = false;
+            }
+        }
+
+            if (target != null)
+            {
+                if (target.CurrentHealth <= 0)
+                {
+                    target.Alive = false;
+                    GameWorld.Instance.GameState = "Overworld";
+                    GameWorld.Instance.enemies.Remove(target);
+                    target = null;
+                }
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sheet,new Vector2(800,300),Color.White);
+            spriteBatch.Draw(sheet, new Vector2(800, 300), Color.White);
 
             for (int i = 0; i < emptyButtonList.Count; i++)
             {
@@ -87,8 +105,6 @@ namespace Warlock_The_Soulbinder
                 {
                     emptyButtonList[i].Draw(spriteBatch);
                 }
-               
-                
             }
 
             //Draws the button text
@@ -115,13 +131,11 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Draw(healthFull, new Vector2(1204, 803), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
                 spriteBatch.DrawString(CombatFont, $"{target.CurrentHealth} / {target.MaxHealth}", new Vector2(1260, 880), Color.White);
                 spriteBatch.Draw(target.Sprite, new Vector2(1250, 300), null, Color.White, 0f, Vector2.Zero, 1.5f, SpriteEffects.FlipHorizontally, 1);
-
             }
 
             spriteBatch.Draw(healthEmpty, new Vector2(100, 800), Color.White);
             spriteBatch.Draw(healthFull, new Vector2(104, 803), new Rectangle(0, 0,Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) *5.9), 70), Color.White);
-            spriteBatch.Draw(playerSprite, new Vector2(150, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);
-            
+            spriteBatch.Draw(playerSprite, new Vector2(150, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);            
 
             spriteBatch.DrawString(CombatFont, $"{Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth}", new Vector2(160, 880), Color.White);
         }
@@ -144,11 +158,11 @@ namespace Warlock_The_Soulbinder
             {
                 Combat.Instance.SelectedInt = 0;
             }
-
-            
         }
-
-        //Determines what happens when a button is clicked
+        
+        /// <summary>
+        /// Determines what happens when a button is clicked
+        /// </summary>
         public void CombatEvent()
         {
             if (buttonType == "Normal")
@@ -168,8 +182,10 @@ namespace Warlock_The_Soulbinder
                         break;
 
                     case 3:
-                        //Escape
                         GameWorld.Instance.GameState = "Overworld";
+                        selectedInt = 0;
+                        Player.Instance.GracePeriod = 0;
+                        Player.Instance.GraceStart = false;
                         break;
                 }
             }
@@ -196,14 +212,22 @@ namespace Warlock_The_Soulbinder
                 }
             }
         }
-
-        //used to set a target on the enemey for effects
+        
+        /// <summary>
+        /// Used to set a target on the enemey for effects
+        /// </summary>
+        /// <param name="combatEnemy"></param>
         public void SelectEnemy(Enemy combatEnemy)
         {
             target = combatEnemy;
         }
-
-        //General code to give the percentage value of two numbers, going from 1 to 100
+        
+        /// <summary>
+        /// General code to give the percentage value of two numbers, going from 1 to 100
+        /// </summary>
+        /// <param name="currentValue"></param>
+        /// <param name="maxValue"></param>
+        /// <returns></returns>
         public int PercentStat(int currentValue, int maxValue)
         {
             float floatCurrentValue = currentValue;
