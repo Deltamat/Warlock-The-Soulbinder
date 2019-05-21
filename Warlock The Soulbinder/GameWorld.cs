@@ -17,19 +17,19 @@ namespace Warlock_The_Soulbinder
     {
         private GraphicsDeviceManager graphics; 
         private SpriteBatch spriteBatch;
-        public static double deltaTime;
+        public static double deltaTimeSecond;
+        public static double deltaTimeMilli;
         public SpriteFont font;
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
         private Camera camera;
         private float delay;
-        private string gameState = "GeneralMenu";
+        private string gameState = "Overworld";
 
         //Tiled
         TiledMap map;
         TiledMapRenderer mapRenderer;
         static public List<Rectangle> collisionMap = new List<Rectangle>();
-
 
         static GameWorld instance;
         static public GameWorld Instance
@@ -58,7 +58,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Creates a rectangle whithin the bounds of the window
+        /// Returns a rectangle whithin the bounds of the window
         /// </summary>
         public Rectangle ScreenSize
         {
@@ -68,6 +68,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Returns a rectangle whitin the bounds of the map
+        /// </summary>
         public Rectangle TileMapBounds
         {
             get
@@ -167,30 +170,26 @@ namespace Warlock_The_Soulbinder
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
+            deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
+            deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
 
             mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
-           
-            foreach (Enemy enemy in enemies)
-            {
-                //enemy.Update(gameTime);  // unødvendigt
-            }
+            Combat.Instance.Update(gameTime);
 
+            //TEMPORARY
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
                 Player.Instance.CurrentHealth -= 7;
                 delay = 0;
             }
-
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
                 gameState = "Overworld";
                 delay = 0;
             }
-
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
             {
                 gameState = "Combat";
