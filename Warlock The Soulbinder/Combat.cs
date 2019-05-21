@@ -76,7 +76,7 @@ namespace Warlock_The_Soulbinder
                 Player.Instance.CurrentHealth -= target.Damage;
                 enemyTurn = false;
             }
-        }
+        
 
             if (target != null)
             {

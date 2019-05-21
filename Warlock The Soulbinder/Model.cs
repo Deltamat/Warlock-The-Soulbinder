@@ -21,31 +21,6 @@ namespace Warlock_The_Soulbinder
             
         }
 
-        public void DeleteAll()
-        {
-            connection.Open();
-
-            
-
-            connection.Close();
-        }
-
-        public void SaveAll()
-        {
-            connection.Open();
-            
-            //alle models
-
-            connection.Close();
-        }
-        
-        public void LoadAll()
-        {
-            connection.Open();
-            
-            //alle models
-
-            connection.Close();
-        }
+      
     }
 }
