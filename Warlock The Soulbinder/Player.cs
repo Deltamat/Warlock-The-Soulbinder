@@ -115,21 +115,40 @@ namespace Warlock_The_Soulbinder
             }
 
             direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTime
-            Position += direction; //moves the player based on direction
 
-            if (direction != Vector2.Zero) // So it does not check for collision if not moving
+            //movement region
+            #region
+            //handles X direction
+            position.X += direction.X; //moves the player based on direction
+            if (direction.X != 0) // So it does not check for collision if not moving
             {
                 foreach (Rectangle rectangle in GameWorld.collisionMap) // After the player have moved check if collision has happen. if true move backwards the same direction
                 {
                     if (CollisionBox.Intersects(rectangle))
                     {
-                        Position -= direction;
+                        position.X -= direction.X;
                     }
                 }
-                direction = Vector2.Zero; //resets direction   
+                direction.X = 0; //resets direction   
             }
 
-            if (gracePeriod > 5)
+            //handles Y direction
+            position.Y += direction.Y; //moves the player based on direction
+            if (direction.Y != 0) // So it does not check for collision if not moving
+            {
+                foreach (Rectangle rectangle in GameWorld.collisionMap) // After the player have moved check if collision has happen. if true move backwards the same direction
+                {
+                    if (CollisionBox.Intersects(rectangle))
+                    {
+                        position.Y -= direction.Y;
+                    }
+                }
+                direction.Y = 0; //resets direction   
+            }
+            #endregion
+
+            //if the player's 5 second grace period is over and the player collides with an enemy, start combat
+            if (gracePeriod > 5) 
             {
                 foreach (Enemy enemy in GameWorld.Instance.enemies)
                 {

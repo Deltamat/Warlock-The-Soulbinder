@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
         protected Random rng = new Random();
         protected Texture2D sprite;
         protected string spriteName;
-        private Vector2 position;
+        protected Vector2 position;
 
 
         public virtual Rectangle CollisionBox

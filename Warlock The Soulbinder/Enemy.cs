@@ -149,6 +149,7 @@ namespace Warlock_The_Soulbinder
 
         public void Update()
         {
+            Thread.Sleep(GameWorld.Instance.RandomInt(1, 1000));
             while (Alive)
             {
                 if (GameWorld.Instance.GameState == "Overworld")
