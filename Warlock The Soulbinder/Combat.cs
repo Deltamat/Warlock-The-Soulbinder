@@ -19,7 +19,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D emptyButton;
         private Texture2D healthEmpty;
         private Texture2D healthFull;
-        private SpriteFont CombatFont;
+        public SpriteFont CombatFont;
         private Texture2D playerSprite;
         private float combatDelay = 0;
         private bool enemyTurn = false;

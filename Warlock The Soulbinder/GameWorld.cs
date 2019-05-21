@@ -166,7 +166,7 @@ namespace Warlock_The_Soulbinder
             mapRenderer.Update(map, gameTime); // temporary
 
             Player.Instance.Update(gameTime);
-            Combat.Instance.Update(gameTime);
+           
             foreach (Enemy enemy in enemies)
             {
                 //enemy.Update(gameTime);  // unødvendigt
@@ -191,6 +191,17 @@ namespace Warlock_The_Soulbinder
             }
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
+
+            if (gameState == "Combat")
+            {
+                Combat.Instance.Update(gameTime);
+            }
+
+            if (gameState == "GeneralMenu")
+            {
+                GeneralMenu.Instance.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 

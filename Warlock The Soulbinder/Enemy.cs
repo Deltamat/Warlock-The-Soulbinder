@@ -154,7 +154,7 @@ namespace Warlock_The_Soulbinder
                 }
 
             }
-        }
+        
 
         public override void Draw(SpriteBatch spriteBatch)
         {

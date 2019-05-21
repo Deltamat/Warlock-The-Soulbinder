@@ -39,8 +39,8 @@ namespace Warlock_The_Soulbinder
 
             
 
-                keybinds.Add(Keys.Up, new CombatCommand(-1));
-                keybinds.Add(Keys.Down, new CombatCommand(1));
+                //keybinds.Add(Keys.Up, new CombatCommand(-1));
+                //keybinds.Add(Keys.Down, new CombatCommand(1));
 
             //keybinds.Add(Keys.Up, new CombatCommand(-1));
             //keybinds.Add(Keys.Down, new CombatCommand(1));
