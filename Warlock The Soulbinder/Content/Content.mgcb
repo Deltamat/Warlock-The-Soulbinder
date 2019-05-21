@@ -50,6 +50,18 @@
 /processorParam:TextureFormat=Color
 /build:buttons/emptyButton.png
 
+#begin buttons/skillPlank.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:buttons/skillPlank.png
+
 #begin CollisionTexture.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -352,7 +364,7 @@
 /processorParam:TextureFormat=Color
 /build:monsters/neutralDragon.png
 
-#begin monsters/Orbs/AshZombie.png
+#begin monsters/Orbs/ashZombie.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -362,9 +374,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/AshZombie.png
+/build:monsters/Orbs/ashZombie.png
 
-#begin monsters/Orbs/Banshee.png
+#begin monsters/Orbs/banshee.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -374,9 +386,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Banshee.png
+/build:monsters/Orbs/banshee.png
 
-#begin monsters/Orbs/Bat.png
+#begin monsters/Orbs/bat.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -386,9 +398,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Bat.png
+/build:monsters/Orbs/bat.png
 
-#begin monsters/Orbs/Bear.png
+#begin monsters/Orbs/bear.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -398,9 +410,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Bear.png
+/build:monsters/Orbs/bear.png
 
-#begin monsters/Orbs/BucketMan.png
+#begin monsters/Orbs/bucketMan.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -410,9 +422,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/BucketMan.png
+/build:monsters/Orbs/bucketMan.png
 
-#begin monsters/Orbs/Defender.png
+#begin monsters/Orbs/defender.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -422,9 +434,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Defender.png
+/build:monsters/Orbs/defender.png
 
-#begin monsters/Orbs/Falcon.png
+#begin monsters/Orbs/falcon.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -434,9 +446,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Falcon.png
+/build:monsters/Orbs/falcon.png
 
-#begin monsters/Orbs/FireGolem.png
+#begin monsters/Orbs/fireGolem.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -446,9 +458,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/FireGolem.png
+/build:monsters/Orbs/fireGolem.png
 
-#begin monsters/Orbs/Fish.png
+#begin monsters/Orbs/fish.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -458,9 +470,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Fish.png
+/build:monsters/Orbs/fish.png
 
-#begin monsters/Orbs/Frog.png
+#begin monsters/Orbs/frog.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -470,9 +482,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Frog.png
+/build:monsters/Orbs/frog.png
 
-#begin monsters/Orbs/InfernalDemon.png
+#begin monsters/Orbs/infernalDemon.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -482,9 +494,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/InfernalDemon.png
+/build:monsters/Orbs/infernalDemon.png
 
-#begin monsters/Orbs/InsectSoldier.png
+#begin monsters/Orbs/insectSoldier.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -494,9 +506,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/InsectSoldier.png
+/build:monsters/Orbs/insectSoldier.png
 
-#begin monsters/Orbs/Mummy.png
+#begin monsters/Orbs/mummy.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -506,9 +518,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Mummy.png
+/build:monsters/Orbs/mummy.png
 
-#begin monsters/Orbs/PlantEater.png
+#begin monsters/Orbs/plantEater.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -518,9 +530,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/PlantEater.png
+/build:monsters/Orbs/plantEater.png
 
-#begin monsters/Orbs/Raven.png
+#begin monsters/Orbs/raven.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -530,9 +542,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Raven.png
+/build:monsters/Orbs/raven.png
 
-#begin monsters/Orbs/Sentry.png
+#begin monsters/Orbs/sentry.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -542,9 +554,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Sentry.png
+/build:monsters/Orbs/sentry.png
 
-#begin monsters/Orbs/Sheep.png
+#begin monsters/Orbs/sheep.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -554,9 +566,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Sheep.png
+/build:monsters/Orbs/sheep.png
 
-#begin monsters/Orbs/SlimeSnake.png
+#begin monsters/Orbs/slimeSnake.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -566,9 +578,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/SlimeSnake.png
+/build:monsters/Orbs/slimeSnake.png
 
-#begin monsters/Orbs/Tentacle.png
+#begin monsters/Orbs/tentacle.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -578,9 +590,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Tentacle.png
+/build:monsters/Orbs/tentacle.png
 
-#begin monsters/Orbs/Vampire.png
+#begin monsters/Orbs/vampire.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -590,9 +602,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Vampire.png
+/build:monsters/Orbs/vampire.png
 
-#begin monsters/Orbs/Wolf.png
+#begin monsters/Orbs/wolf.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -602,7 +614,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:monsters/Orbs/Wolf.png
+/build:monsters/Orbs/wolf.png
 
 #begin monsters/plantEater.png
 /importer:TextureImporter

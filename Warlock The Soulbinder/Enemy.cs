@@ -124,7 +124,7 @@ namespace Warlock_The_Soulbinder
             while (Alive)
             {
                 if (GameWorld.Instance.GameState == "Overworld")
-                {    
+                {
                     moveCDTimer += (float)GameWorld.deltaTime;
                     if (moveCDTimer > 10) //time between moving
                     {
@@ -153,11 +153,11 @@ namespace Warlock_The_Soulbinder
                         {
                             Position -= direction;
                         }
-                    }                                        
+                    }
                 }
                 Thread.Sleep(1);
             }
-        
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

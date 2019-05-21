@@ -181,8 +181,19 @@ namespace Warlock_The_Soulbinder
 
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
-                Player.Instance.CurrentHealth -= 7;
-                delay = 0;
+                FilledStone.StoneList.Add(new FilledStone("wolf", "wolf", RandomInt(1,10)));
+
+                //Code to make pages for the filled stones
+                FilledStone.StoneListPages = 0;
+                int tempStoneList = FilledStone.StoneList.Count;
+                for (int i = 0; i < 99; i++)
+                {
+                    if (tempStoneList - 9 > 0)
+                    {
+                        FilledStone.StoneListPages++;
+                        tempStoneList -= 9;
+                    }
+                }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
