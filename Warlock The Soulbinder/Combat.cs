@@ -20,7 +20,6 @@ namespace Warlock_The_Soulbinder
         private Texture2D healthEmpty;
         private Texture2D healthFull;
         private SpriteFont CombatFont;
-        private Texture2D playerSprite;
         private float combatDelay = 0;
         private bool enemyTurn = false;
 
@@ -33,9 +32,9 @@ namespace Warlock_The_Soulbinder
             get
             {
                 if (instance == null)
-                    {
+                {
                     instance = new Combat();
-                    }
+                }
                 return instance;
             }
         }
@@ -57,31 +56,28 @@ namespace Warlock_The_Soulbinder
             CombatFont = content.Load<SpriteFont>("combatFont");
             healthEmpty = content.Load<Texture2D>("HealthEmpty");
             healthFull = content.Load<Texture2D>("HealthFull");
-            playerSprite = content.Load<Texture2D>("Player/Right - Idle/Right - Idle_000");
         }
 
         public override void Update(GameTime gameTime)
         {
             combatDelay += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && combatDelay > 200)
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && combatDelay > 200 && enemyTurn == false)
             {
                 CombatEvent();
-                enemyTurn = true;
                 combatDelay = 0;
             }
 
             if (enemyTurn == true)
             {
-                Player.Instance.CurrentHealth -= target.Damage;
-                enemyTurn = false;
+                EnemyTurn();
             }
-        }
 
             if (target != null)
             {
-                if (target.CurrentHealth <= 0)
+                if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
+                    buttonType = "Normal";
                     target.Alive = false;
                     GameWorld.Instance.GameState = "Overworld";
                     GameWorld.Instance.enemies.Remove(target);
@@ -133,9 +129,10 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Draw(target.Sprite, new Vector2(1250, 300), null, Color.White, 0f, Vector2.Zero, 1.5f, SpriteEffects.FlipHorizontally, 1);
             }
 
+            Player.Instance.ChooseAnimationFrame();
             spriteBatch.Draw(healthEmpty, new Vector2(100, 800), Color.White);
-            spriteBatch.Draw(healthFull, new Vector2(104, 803), new Rectangle(0, 0,Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) *5.9), 70), Color.White);
-            spriteBatch.Draw(playerSprite, new Vector2(150, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);            
+            spriteBatch.Draw(healthFull, new Vector2(104, 803), new Rectangle(0, 0, Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) * 5.9), 70), Color.White);
+            spriteBatch.Draw(Player.Instance.Sprite, new Vector2(150, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);            
 
             spriteBatch.DrawString(CombatFont, $"{Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth}", new Vector2(160, 880), Color.White);
         }
@@ -143,20 +140,20 @@ namespace Warlock_The_Soulbinder
         //Goes up and down on the button list
         public void ChangeSelected(int i)
         {
-            if (Combat.Instance.SelectedInt >= 0 && Combat.Instance.SelectedInt <= 3 && combatDelay > 200)
+            if (SelectedInt >= 0 && SelectedInt <= 3 && combatDelay > 200)
             {
-                Combat.Instance.SelectedInt += i;
+                SelectedInt += i;
                 combatDelay = 0;
             }
 
-            if (Combat.Instance.SelectedInt > 3)
+            if (SelectedInt > 3)
             {
-                Combat.Instance.SelectedInt = 3;
+                SelectedInt = 3;
             }
 
-            if (Combat.Instance.SelectedInt < 0)
+            if (SelectedInt < 0)
             {
-                Combat.Instance.SelectedInt = 0;
+                SelectedInt = 0;
             }
         }
         
@@ -170,26 +167,23 @@ namespace Warlock_The_Soulbinder
                 switch (selectedInt)
                 {
                     case 0:
-                        target.CurrentHealth -= Player.Instance.Damage;
+                        PlayerAttack();
                         break;
-
                     case 1:
                         buttonType = "Skills";
                         break;
-
                     case 2:
                         //buttonType = "Items";
                         break;
-
                     case 3:
                         GameWorld.Instance.GameState = "Overworld";
                         selectedInt = 0;
+                        buttonType = "Normal";
                         Player.Instance.GracePeriod = 0;
                         Player.Instance.GraceStart = false;
                         break;
                 }
             }
-
             else if (buttonType == "Skills")
             {
                 switch (selectedInt)
@@ -197,15 +191,12 @@ namespace Warlock_The_Soulbinder
                     case 0:
                         target.CurrentHealth -= 3;
                         break;
-
                     case 1:
                         target.CurrentHealth += 3;
                         break;
-
                     case 2:
                         Player.Instance.CurrentHealth += 2;
                         break;
-
                     case 3:
                         buttonType = "Normal";
                         break;
@@ -239,6 +230,38 @@ namespace Warlock_The_Soulbinder
                 Value = 100;
             }
             return Value;
+        }
+
+        /// <summary>
+        /// Controls player's attack
+        /// </summary>
+        public void PlayerAttack()
+        {
+            Player.Instance.AttackStart = true;
+            target.CurrentHealth -= Player.Instance.Damage - target.Defense;
+            for (int i = 0; i < target.ResistanceTypes.Count; i++)
+            {
+                target.CurrentHealth -= (int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]);
+            }
+            enemyTurn = true;
+            combatDelay = 0;
+        }
+
+        /// <summary>
+        /// Controls enemy's turn logic
+        /// </summary>
+        public void EnemyTurn()
+        {
+            if (combatDelay > 1000)
+            {
+                Player.Instance.HurtStart = true;
+                Player.Instance.CurrentHealth -= target.Damage - Player.Instance.Defense;
+                for (int i = 0; i < Player.Instance.ResistanceTypes.Count; i++)
+                {
+                    Player.Instance.CurrentHealth -= (int)(target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]);
+                }
+                enemyTurn = false;
+            }
         }
     }
 }

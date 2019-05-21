@@ -16,7 +16,6 @@ namespace Warlock_The_Soulbinder
             select = i;
         }
 
-
         public void Execute(Player p)
         {
             if (GameWorld.Instance.GameState == "Combat")

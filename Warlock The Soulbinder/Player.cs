@@ -12,7 +12,18 @@ namespace Warlock_The_Soulbinder
     {
         private double gracePeriod = 5;
         private bool graceStart = true;
-        int graceSwitch = 0;
+        private int graceSwitch = 0;
+        private Vector2 lastDirection;
+        private double aniIndex;
+        private double elapsedTime;
+        private const int animationFPS = 30;
+        private bool walking;
+        private bool attacking;
+        private bool attackStart;
+        private bool hurt;
+        private bool hurtStart;
+        private bool blinking;
+
         static Player instance;
         public static Player Instance
         {
@@ -28,17 +39,39 @@ namespace Warlock_The_Soulbinder
 
         public double GracePeriod { get => gracePeriod; set => gracePeriod = value; }
         public bool GraceStart { get => graceStart; set => graceStart = value; }
+        public bool AttackStart { get => attackStart; set => attackStart = value; }
+        public bool HurtStart { get => hurtStart; set => hurtStart = value; }
 
         public Player()
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("keylimepie");
             movementSpeed = 250;
-            Damage = 1;
+            Damage = 5;
             AttackSpeed = 1f;
             MaxHealth = 100;
             CurrentHealth = 100;
+
+            //adds damage and resistances to lists for ease of use
+            #region
+            ResistanceTypes.Add(earthResistance);
+            ResistanceTypes.Add(waterResistance);
+            ResistanceTypes.Add(darkResistance);
+            ResistanceTypes.Add(metalResistance);
+            ResistanceTypes.Add(fireResistance);
+            ResistanceTypes.Add(airResistance);
+            DamageTypes.Add(earthDamage);
+            DamageTypes.Add(waterDamage);
+            DamageTypes.Add(darkDamage);
+            DamageTypes.Add(metalDamage);
+            DamageTypes.Add(fireDamage);
+            DamageTypes.Add(airDamage);
+            #endregion
         }
 
+        /// <summary>
+        /// Moves the player for its movementSpeed in the direction of directionInput
+        /// </summary>
+        /// <param name="directionInput">The direction the player moves</param>
         public void Move(Vector2 directionInput)
         {
             GraceStart = true;
@@ -55,11 +88,22 @@ namespace Warlock_The_Soulbinder
         {
             if (graceStart)
             {
-                gracePeriod += GameWorld.deltaTime;
+                gracePeriod += GameWorld.deltaTimeSecond;
             }
 
             InputHandler.Instance.Execute(this); //gets keys pressed
-            direction *= movementSpeed * (float)GameWorld.deltaTime; //adds movement speed to direction keeping in time with deltaTime
+
+            if (direction != Vector2.Zero)
+            {
+                lastDirection = direction;
+                walking = true;
+            }
+            else
+            {
+                walking = false;
+            }
+
+            direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTime
             Position += direction; //moves the player based on direction
 
             if (direction != Vector2.Zero) // So it does not check for collision if not moving
@@ -89,6 +133,8 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            ChooseAnimationFrame();
+
             if (gracePeriod < 5 && graceSwitch < 15)
             {                
                 spriteBatch.Draw(Sprite, Position, Color.LightGray);                
@@ -103,6 +149,126 @@ namespace Warlock_The_Soulbinder
             {
                 graceSwitch = 0;
             }
+        }
+
+        /// <summary>
+        /// Changes sprite based on current animation needed
+        /// </summary>
+        public void ChooseAnimationFrame()
+        {
+            if (GameWorld.Instance.GameState == "Overworld")
+            {
+                if (walking == true && aniIndex > 17)
+                {
+                    aniIndex = 0;
+                    elapsedTime = 0;
+                }
+                else if (walking == false && aniIndex > 11)
+                {
+                    aniIndex = 0;
+                    elapsedTime = 0;
+                }
+
+                if (lastDirection.X < 0) //walks left
+                {
+                    if (walking == true)
+                    {
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Left - Walking/Left - Walking_{aniIndex}");
+                    }
+                    else
+                    {
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Left - Idle/Left - Idle_{aniIndex}");
+                    }
+                }
+                else if (lastDirection.X > 0) //walks right
+                {
+                    if (walking == true)
+                    {
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Walking/Right - Walking_{aniIndex}");
+                    }
+                    else
+                    {
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Idle/Right - Idle_{aniIndex}");
+                    }
+                }
+                else if (lastDirection.Y < 0) //walks up
+                {
+                    if (walking == true)
+                    { 
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Back - Walking/Back - Walking_{aniIndex}");
+                    }
+                    else
+                    {
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Back - Idle/Back - Idle_{aniIndex}");
+                    }
+                }
+                else if (lastDirection.Y > 0) //walks down
+                {
+                    if (walking == true)
+                    {
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Front - Walking/Front - Walking_{aniIndex}");
+                    }
+                    else
+                    {
+                        sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Front - Idle/Front - Idle_{aniIndex}");
+                    }
+                }
+            }
+            else if (GameWorld.Instance.GameState == "Combat")
+            {
+                if (aniIndex > 11)
+                {
+                    aniIndex = 0;
+                    elapsedTime = 0;
+                }
+
+                if (AttackStart == true && aniIndex == 0) //once aniIndex is 0 and the player is attacking, starts the attack animation
+                {
+                    attacking = true;
+                    attackStart = false;
+                }
+                else if (HurtStart == true && aniIndex == 0) //once aniIndex is 0 and the player is hurt, starts the hurt animation
+                {
+                    hurt = true;
+                    hurtStart = false;
+                }
+                else if (GameWorld.Instance.RandomInt(0, 10) == 0 && aniIndex == 0) //once aniIndex is 0, gives the player a 10% chace to start the blinking animation
+                {
+                    blinking = true;
+                }
+
+                if (attacking) //player attacks
+                {
+                    sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Slashing/Right - Slashing_{aniIndex}");
+                    if (aniIndex == 11)
+                    {
+                        attacking = false;
+                    }
+                }
+                else if (hurt) //player takes damage
+                {
+                    sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Hurt/Right - Hurt_{aniIndex}");
+                    if (aniIndex == 11)
+                    {
+                        hurt = false;
+                    }
+                }
+                else if (blinking) //player blinks
+                {
+                    sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Idle Blinking/Right - Idle Blinking_{aniIndex}");
+                    if (aniIndex == 11)
+                    {
+                        blinking = false;
+                    }
+                }
+                else //player is idle
+                {
+                    sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Idle/Right - Idle_{aniIndex}");
+                }
+            }
+
+            aniIndex = (int)(elapsedTime * animationFPS);
+            elapsedTime += GameWorld.deltaTimeSecond;
         }
     }
 }
