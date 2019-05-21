@@ -22,6 +22,7 @@ namespace Warlock_The_Soulbinder
         protected float airResistance;
         protected float earthResistance;
         protected float metalResistance;
+        protected bool alive = true;
 
         public int CurrentHealth
         {
@@ -32,12 +33,22 @@ namespace Warlock_The_Soulbinder
             set
             {
                 currentHealth = value;
+                if (currentHealth <= 0)
+                {
+                    Alive = false;
+                }
+                if (currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
             }
         }
+
         public int Damage { get => damage; set => damage = value; }
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+        public bool Alive { get => alive; set => alive = value; }
 
         public CharacterCombat()
         {
@@ -46,10 +57,5 @@ namespace Warlock_The_Soulbinder
         public CharacterCombat(int index) : base(index)
         {
         }
-
-        //public virtual void Combat()
-        //{
-
-        //}
     }
 }
