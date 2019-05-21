@@ -17,7 +17,8 @@ namespace Warlock_The_Soulbinder
     {
         private GraphicsDeviceManager graphics; 
         private SpriteBatch spriteBatch;
-        public static double deltaTime;
+        public static double deltaTimeSecond;
+        public static double deltaTimeMilli;
         public SpriteFont font;
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
@@ -30,7 +31,6 @@ namespace Warlock_The_Soulbinder
         Zone t2;
         public string currentZone = "t";
         public List<Zone> zones = new List<Zone>();
-
 
         static GameWorld instance;
         static public GameWorld Instance
@@ -59,7 +59,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Creates a rectangle whithin the bounds of the window
+        /// Returns a rectangle whithin the bounds of the window
         /// </summary>
         public Rectangle ScreenSize
         {
@@ -69,6 +69,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Returns a rectangle whitin the bounds of the map
+        /// </summary>
         public Rectangle TileMapBounds
         {
             get
@@ -100,14 +103,15 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
-
             IsMouseVisible = true;
-            //enemies.Add(new Enemy(0));
-            //enemies.Add(new Enemy(4));
-            //enemies.Add(new Enemy(7));
-            //enemies.Add(new Enemy(12));
-            //enemies.Add(new Enemy(16));
-            //enemies.Add(new Enemy(20));
+
+            enemies.Add(new Enemy(0, new Vector2(1100, 100)));
+            enemies.Add(new Enemy(4, new Vector2(1100, 250)));
+            enemies.Add(new Enemy(7, new Vector2(1100, 400)));
+            enemies.Add(new Enemy(12, new Vector2(1100, 550)));
+            enemies.Add(new Enemy(16, new Vector2(1100, 700)));
+            enemies.Add(new Enemy(20, new Vector2(1100, 850)));
+
             base.Initialize();
         }
 
@@ -117,12 +121,17 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
+#if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
+#endif
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             font = Content.Load<SpriteFont>("font");
             
             Combat.Instance.LoadContent(content);
+            GeneralMenu.Instance.LoadContent(content);
 
             
 
@@ -160,20 +169,39 @@ namespace Warlock_The_Soulbinder
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
+            deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
+            deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
             
 
             Player.Instance.Update(gameTime);
-            Combat.Instance.Update(gameTime);
-            foreach (Enemy enemy in enemies)
-            {
-                //enemy.Update(gameTime);  // unødvendigt
-            }
+            Combat.Instance.Update(gameTime);            
 
+            //TEMPORARY
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
-                Player.Instance.CurrentHealth -= 7;
+                FilledStone.StoneList.Add(new FilledStone("wolf", "wolf", RandomInt(1,10)));
+
+                //Code to make pages for the filled stones
+                FilledStone.StoneListPages = 0;
+                int tempStoneList = FilledStone.StoneList.Count;
+                for (int i = 0; i < 99; i++)
+                {
+                    if (tempStoneList - 9 > 0)
+                    {
+                        FilledStone.StoneListPages++;
+                        tempStoneList -= 9;
+                    }
+                }
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
+            {
+                gameState = "Overworld";
+                delay = 0;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
+            {
+                gameState = "Combat";
                 delay = 0;
             }
 
@@ -181,6 +209,17 @@ namespace Warlock_The_Soulbinder
             CurrentZone().Update(gameTime);
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
+
+            if (gameState == "Combat")
+            {
+                Combat.Instance.Update(gameTime);
+            }
+
+            if (gameState == "GeneralMenu")
+            {
+                GeneralMenu.Instance.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
@@ -225,6 +264,15 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Begin();
 
                 Combat.Instance.Draw(spriteBatch);
+
+                spriteBatch.End();
+            }
+
+            if (GameState == "GeneralMenu")
+            {
+                spriteBatch.Begin();
+
+                GeneralMenu.Instance.Draw(spriteBatch);
 
                 spriteBatch.End();
             }
@@ -300,6 +348,22 @@ namespace Warlock_The_Soulbinder
             //        break;
             //}
             return null;
+        }
+
+        /// <summary>
+        /// Loads all the variables from the database
+        /// </summary>
+        private void LoadDB()
+        {
+
+        }
+
+        /// <summary>
+        /// Saves all the variables to the database
+        /// </summary>
+        private void SaveToDB()
+        {
+
         }
     }
 }
