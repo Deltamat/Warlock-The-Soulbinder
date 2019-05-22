@@ -96,15 +96,9 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
-                    buttonType = "Normal";
                     target.Alive = false;
-                    GameWorld.Instance.GameState = "Overworld";
                     GameWorld.Instance.enemies.Remove(target);
-                    target = null;
-                    Player.Instance.Attacking = false;
-                    Player.Instance.AttackStart = false;
-                    Player.Instance.Hurt = false;
-                    Player.Instance.HurtStart = false;
+                    ExitCombat();
                 }
             }
         }
@@ -203,11 +197,7 @@ namespace Warlock_The_Soulbinder
                         //buttonType = "Items";
                         break;
                     case 3: //flee
-                        GameWorld.Instance.GameState = "Overworld";
-                        selectedInt = 0;
-                        buttonType = "Normal";
-                        Player.Instance.GracePeriod = 0;
-                        Player.Instance.GraceStart = false;
+                        ExitCombat();
                         break;
                 }
             }
@@ -292,6 +282,22 @@ namespace Warlock_The_Soulbinder
                 Player.Instance.CurrentHealth -= (int)(target.DamageTypes[i] - (target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]));
             }
             enemyTurn = false;
+        }
+
+        public void ExitCombat()
+        {
+            GameWorld.Instance.GameState = "Overworld";
+            selectedInt = 0;
+            playerAttackTimer = 0;
+            enemyAttackTimer = 0;
+            buttonType = "Normal";
+            Player.Instance.GracePeriod = 0;
+            Player.Instance.GraceStart = false;
+            target = null;
+            Player.Instance.Attacking = false;
+            Player.Instance.AttackStart = false;
+            Player.Instance.Hurt = false;
+            Player.Instance.HurtStart = false;
         }
     }
 }
