@@ -167,7 +167,7 @@ namespace Warlock_The_Soulbinder
                     }
 
                     //enemy collision with gameworld
-                    foreach (Rectangle rectangle in GameWorld.collisionMap)
+                    foreach (Rectangle rectangle in GameWorld.Instance.CurrentZone().CollisionRects)
                     {
                         if (CollisionBox.Intersects(rectangle))
                         {
