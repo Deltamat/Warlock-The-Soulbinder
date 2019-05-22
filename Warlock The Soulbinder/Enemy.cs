@@ -15,6 +15,7 @@ namespace Warlock_The_Soulbinder
         private int level;
         private float moveCDTimer;
         private float movingTimer;
+
         
         private Thread thread;
 

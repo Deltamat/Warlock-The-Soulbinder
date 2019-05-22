@@ -14,9 +14,15 @@ namespace Warlock_The_Soulbinder
     {
         static GeneralMenu instance;
         private Texture2D book;
+        private Texture2D weaponRing;
+        private Texture2D skillRing;
+        private Texture2D armorRing;
+        private Texture2D emptyRing;
         private List<String> menuList = new List<string>();
         private Texture2D arrow;
         private string inventoryState = "GeneralMenu";
+        private bool equipping = false;
+        private int equippingTo;
         private float delay = 0;
         private int filledStoneInt = 0;
 
@@ -33,6 +39,8 @@ namespace Warlock_The_Soulbinder
         }
 
         public int FilledStoneInt { get => filledStoneInt; set => filledStoneInt = value; }
+        public int EquippingTo { get => equippingTo; set => equippingTo = value; }
+        public bool Equipping { get => equipping; set => equipping = value; }
 
         private GeneralMenu()
         {
@@ -44,6 +52,10 @@ namespace Warlock_The_Soulbinder
         {
             book = content.Load<Texture2D>("Book");
             arrow = content.Load<Texture2D>("Arrow");
+            weaponRing = content.Load<Texture2D>("buttons/weaponRing");
+            armorRing = content.Load<Texture2D>("buttons/armorRing");
+            skillRing = content.Load<Texture2D>("buttons/skillRing");
+            emptyRing = content.Load<Texture2D>("buttons/emptyRing");
 
         }
 
@@ -58,6 +70,10 @@ namespace Warlock_The_Soulbinder
                     break;
                 case "Inventory":
                     ChangeSelected(1);
+                    break;
+
+                case "Equipment":
+                    ChangeSelected(4);
                     break;
                 case "FilledStones":
 
@@ -89,8 +105,8 @@ namespace Warlock_The_Soulbinder
                     break;
             }   
             
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && delay > 100)
+            //Key to execute code dependent on the inventory state
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && delay > 200)
             {
                 ChangeState();
                 delay = 0;
@@ -102,9 +118,11 @@ namespace Warlock_The_Soulbinder
                 inventoryState = "GeneralMenu";
                 selectedInt = 0;
             }
+
+
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(book, new Vector2(50,20), Color.White);
 
@@ -120,7 +138,15 @@ namespace Warlock_The_Soulbinder
 
 
                 switch (selectedInt)
-                { 
+                {
+
+                    case 1:
+                        spriteBatch.Draw(weaponRing, new Vector2(1000, 120), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                        spriteBatch.Draw(armorRing, new Vector2(1000, 280), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                        spriteBatch.Draw(skillRing, new Vector2(1000, 440), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                        spriteBatch.Draw(skillRing, new Vector2(1000, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                        spriteBatch.Draw(skillRing, new Vector2(1000, 760), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                        break;
 
                     case 2:
                     spriteBatch.DrawString(Combat.Instance.CombatFont, "Consumables", new Vector2(1100, 120), Color.White);
@@ -129,6 +155,87 @@ namespace Warlock_The_Soulbinder
                 }
                 
             
+            }
+
+            if (inventoryState == "Equipment")
+            {
+
+                if (Equipment.Instance.Weapon != null)
+                {
+                    spriteBatch.Draw(Equipment.Instance.Weapon.Sprite, new Vector2(135, 120), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Armor != null)
+                {
+                    spriteBatch.Draw(Equipment.Instance.Armor.Sprite, new Vector2(135, 280), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Skill1 != null)
+                {
+                    spriteBatch.Draw(Equipment.Instance.Skill1.Sprite, new Vector2(135, 440), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Skill2 != null)
+                {
+                    spriteBatch.Draw(Equipment.Instance.Skill2.Sprite, new Vector2(135, 600), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Skill3 != null)
+                {
+                    spriteBatch.Draw(Equipment.Instance.Skill3.Sprite, new Vector2(135, 760), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Weapon != null)
+                {
+                    spriteBatch.Draw(emptyRing, new Vector2(150, 120), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+                
+                else
+                {
+                    spriteBatch.Draw(weaponRing, new Vector2(150, 120), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Armor != null)
+                {
+                    spriteBatch.Draw(emptyRing, new Vector2(150, 280), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                else
+                {
+                    spriteBatch.Draw(armorRing, new Vector2(150, 280), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Skill1 != null)
+                {
+                    spriteBatch.Draw(emptyRing, new Vector2(150, 440), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                else
+                {
+                    spriteBatch.Draw(skillRing, new Vector2(150, 440), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Skill2 != null)
+                {
+                    spriteBatch.Draw(emptyRing, new Vector2(150, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                else
+                {
+                    spriteBatch.Draw(skillRing, new Vector2(150, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                if (Equipment.Instance.Skill3 != null)
+                {
+                    spriteBatch.Draw(emptyRing, new Vector2(150, 760), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                else
+                {
+                    spriteBatch.Draw(skillRing, new Vector2(150, 760), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                }
+
+                spriteBatch.Draw(emptyRing, new Vector2(150, 120 + selectedInt * 160), null, Color.Gold, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
             }
 
             if (inventoryState == "Inventory")
@@ -169,6 +276,11 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Monster, new Vector2(200, 120 + i * 80), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Element, new Vector2(400, 120 + i * 80), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(700, 120 + i * 80), Color.White);
+
+                        if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
+                        }
                     }
                 }
 
@@ -179,6 +291,11 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Monster, new Vector2(200, 120 + i * 80), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Element, new Vector2(400, 120 + i * 80), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(700, 120 + i * 80), Color.White);
+
+                        if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
+                        }
                     }
                     
                 }
@@ -186,20 +303,24 @@ namespace Warlock_The_Soulbinder
                 if (FilledStone.StoneList.Count != 0)
                 {
                     spriteBatch.Draw(FilledStone.StoneList[selectedInt + FilledStoneInt * 9].Sprite, new Vector2(1250, 100), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[selectedInt + FilledStoneInt * 9].Monster, new Vector2(1300, 350), Color.White);
+                    
                 }
 
                 spriteBatch.DrawString(Combat.Instance.CombatFont, (filledStoneInt + 1 ) + " / " + (FilledStone.StoneListPages + 1), new Vector2(400, 900), Color.White);
 
             }
 
-            spriteBatch.Draw(arrow, new Vector2(155, 120 + 80 * selectedInt), Color.White);
+            if (inventoryState != "Equipment")
+            {
+                spriteBatch.Draw(arrow, new Vector2(155, 120 + 80 * selectedInt), Color.White);
+            }
+            
 
         }
 
         public void ChangeState()
         {
-            if (inventoryState == "GeneralMenu")
+           if (inventoryState == "GeneralMenu")
             {
                 switch (selectedInt)
                 {
@@ -228,7 +349,7 @@ namespace Warlock_The_Soulbinder
 
                 }
             }
-                if (inventoryState == "Inventory")
+            else if (inventoryState == "Inventory")
                 {
                     switch (selectedInt)
                     {
@@ -243,6 +364,111 @@ namespace Warlock_The_Soulbinder
                     }
 
                 }
+
+            else if(inventoryState == "FilledStones")
+            {
+                if (equipping == true)
+                {
+                    if (FilledStone.StoneList.Count != 0)
+                    {
+                        //Unequips the current weapon from the slot that is picked
+                         switch (equippingTo)
+                        {
+                            case 0:
+                                if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.Equipped == true)
+                                {
+                                    Equipment.Instance.Weapon.Equipped = false;
+                                }
+                                break;
+
+                            case 1:
+                                if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.Equipped == true)
+                                {
+                                    Equipment.Instance.Armor.Equipped = false;
+                                }
+                                break;
+
+                            case 2:
+                                if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.Equipped == true)
+                                {
+                                    Equipment.Instance.Skill1.Equipped = false;
+                                }
+                                break;
+
+                            case 3:
+                                if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.Equipped == true)
+                                {
+                                    Equipment.Instance.Skill2.Equipped = false;
+                                }
+                                break;
+
+                            case 4:
+                                if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.Equipped == true)
+                                {
+                                    Equipment.Instance.Skill3.Equipped = false;
+                                }
+                                break;
+                        }
+
+                        //Unequips the stone you are trying to equip, if it is equipped in another equipment slot
+                        if (FilledStone.StoneList[selectedInt].Equipped == true)
+                        {
+                            FilledStone.StoneList[selectedInt].Equipped = false;
+                        }
+
+                        //Checks all of the equipment slots and makes them null if the item is no longer equipped to them
+                                if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.Equipped == false)
+                                {
+                                    Equipment.Instance.Weapon = null ;
+                                }
+
+
+
+                                if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.Equipped == false)
+                                {
+                                    Equipment.Instance.Armor = null;
+                                }
+
+
+                                if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.Equipped == false)
+                                {
+                                    Equipment.Instance.Skill1 = null;
+                                }
+
+
+
+                                if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.Equipped == false)
+                                {
+                                    Equipment.Instance.Skill2 = null ;
+                                }
+
+
+
+                                if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.Equipped == false)
+                                {
+                                    Equipment.Instance.Skill3 = null;
+                                }
+
+                        
+
+
+                        Equipment.Instance.EquipStone(EquippingTo, FilledStone.StoneList[selectedInt]);
+                        FilledStone.StoneList[selectedInt].Equipped = true;
+                        EquippingTo = 0;
+                        inventoryState = "Equipment";
+                    }
+                    
+                }
+            }
+
+            else if(inventoryState == "Equipment")
+            {
+                Equipping = true;
+                EquippingTo = selectedInt;
+                inventoryState = "FilledStones";
+            }
+
+           
 
         }
 

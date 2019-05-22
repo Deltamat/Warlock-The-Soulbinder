@@ -82,6 +82,20 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        
+        public void WeaponSkill()
+        {
+
+        }
+
+        public void ArmorSkill()
+        {
+
+        }
+
+        public void Skill()
+        {
+
+        }
+
     }
 }

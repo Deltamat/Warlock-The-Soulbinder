@@ -206,6 +206,12 @@ namespace Warlock_The_Soulbinder
                 gameState = "Combat";
                 delay = 0;
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.D3) && delay > 100)
+            {
+                gameState = "GeneralMenu";
+                delay = 0;
+            }
+
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
 
