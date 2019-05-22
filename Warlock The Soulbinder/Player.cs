@@ -166,8 +166,8 @@ namespace Warlock_The_Soulbinder
             ChooseAnimationFrame();
 
             if (gracePeriod < 5 && graceSwitch < 15)
-            {                
-                spriteBatch.Draw(Sprite, Position, Color.LightGray);                
+            {
+                spriteBatch.Draw(Sprite, Position, Color.FromNonPremultiplied(255, 255, 255, 175));
             }
             else
             {
