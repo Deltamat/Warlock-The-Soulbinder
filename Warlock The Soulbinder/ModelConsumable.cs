@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public ModelConsumable()
         {
-            string sqlexp = "CREATE TABLE IF NOT EXISTS Consumable (id integer primary key, " +
+            string sqlexp = $"CREATE TABLE IF NOT EXISTS Consumable{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
                 "spriteName string, " +
                 "name string, " +
                 "goldCost integer, " +
@@ -30,7 +30,6 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB(string selectedSaveFile)
         {
-            
             cmd.CommandText = $"DELETE FROM Consumable{selectedSaveFile}";
             cmd.ExecuteNonQuery();
         }
@@ -55,7 +54,6 @@ namespace Warlock_The_Soulbinder
         /// <returns>a dictionary of all the consumables saved in the database</returns>
         public Dictionary<int, Consumable> LoadConsumable(string selectedSaveFile)
         {
-            connection.Open();
             Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
             cmd.CommandText = $"SELECT FROM * Consumable{selectedSaveFile}";
             SQLiteDataReader reader = cmd.ExecuteReader();
@@ -64,9 +62,7 @@ namespace Warlock_The_Soulbinder
                 consumableDic.Add(reader.GetInt32(0), new Consumable(reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5)));
             }
             reader.Close();
-            connection.Close();
             return consumableDic;
-            
         }
     }
 }

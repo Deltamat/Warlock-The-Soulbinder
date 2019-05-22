@@ -10,8 +10,15 @@ namespace Warlock_The_Soulbinder
     {
         ModelConsumable consumable;
         ModelSoulStone filledStone;
+        ModelEnemy enemy;
+        ModelNPC npc;
+        ModelQuest quest;
+        ModelPlayer player;
+        ModelStatistic statistic;
+        Model model;
 
-        string currentSaveFile;
+        
+        public string CurrentSaveFile { get ; set ; }
 
         static Controller instance;
         static public Controller Instance
@@ -29,38 +36,73 @@ namespace Warlock_The_Soulbinder
                 instance = value;
             }
         }
-        
+                
+
         public Controller()
         {
             consumable = new ModelConsumable();
             filledStone = new ModelSoulStone();
+            enemy = new ModelEnemy();
+            model = new Model();
         }
 
-
-        #region Consumable
-        public Dictionary<int, Consumable> LoadConsumable()
+        #region Model
+        public void OpenTheGates()
         {
-            return consumable.LoadConsumable(currentSaveFile);
+            model.OpenConnection();
         }
 
-        public void DeleteConsumableDB()
+        public void CloseTheGates()
         {
-            consumable.ClearDB(currentSaveFile);
+            model.CloseConnection();
+        }
+
+        #endregion
+
+        #region FilledStone
+        public void DeleteSoulStoneDB()
+        {
+            filledStone.ClearDB(CurrentSaveFile);
+        }
+
+        public void SaveSoulStoneDB(string spriteName, string name, string monster, int goldCost, string type, int level)
+        {
+            filledStone.SaveSoulStone(CurrentSaveFile, spriteName, name, monster, goldCost, type, level);
+        }
+
+        public Dictionary<int, FilledStone> LoadFilledStoneDB()
+        {
+            return filledStone.LoadSoulStone(CurrentSaveFile);
         }
         #endregion
 
 
-        #region FilledStone
-        public Dictionary<int, FilledStone> LoadFilledStone()
+        #region Consumable
+        public void DeleteConsumableDB()
         {
-            return filledStone.LoadSoulStone(currentSaveFile);
-            
+            consumable.ClearDB(CurrentSaveFile);
         }
 
-        public void DeleteSoulStoneDB()
+        public void SaveConsumableDB(string spriteName, string name, int goldCost, string type, int amount)
         {
-            filledStone.ClearDB(currentSaveFile);
+            consumable.SaveConsumable(CurrentSaveFile, spriteName, name, goldCost, type, amount);
         }
+
+        public Dictionary<int, Consumable> LoadConsumableDB()
+        {
+            return consumable.LoadConsumable(CurrentSaveFile);
+        }
+        #endregion
+
+
+        #region Statistic
+
+
+        #endregion
+
+
+        #region Quest
+
 
         #endregion
 
@@ -76,22 +118,10 @@ namespace Warlock_The_Soulbinder
 
         #endregion
 
-
-        #region Quest
-
-
-        #endregion
-
-
+        
         #region NPC
 
 
-        #endregion
-
-
-        #region Statistic
-
-
-        #endregion
+        #endregion        
     }
 }

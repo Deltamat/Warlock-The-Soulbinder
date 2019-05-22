@@ -21,6 +21,15 @@ namespace Warlock_The_Soulbinder
             
         }
 
+        public void OpenConnection()
+        {
+            connection.Open();
+        }
+
+        public void CloseConnection()
+        {
+            connection.Close();
+        }
       
     }
 }

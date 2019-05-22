@@ -44,7 +44,7 @@ namespace Warlock_The_Soulbinder
             {
                 case "bear":
                 case "sheep":
-                case "wolf":                
+                case "wolf":
                     Element = "neutral";
                     break;
                 case "bucketMan":
@@ -80,7 +80,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public FilledStone(int id, string spriteName, string name, string monster, int goldCost, string type, int level, ContentManager content) :base(spriteName, name, goldCost, type)
+        public FilledStone(int id, string spriteName, string name, string monster, int goldCost, string type, int level)
         {
             this.name = name;
             this.Monster = monster;
