@@ -27,16 +27,19 @@ namespace Warlock_The_Soulbinder
 
         private InputHandler()
         {
-            keybinds.Add(Keys.W, new MoveCommand(new Vector2(0, -1)));
             keybinds.Add(Keys.A, new MoveCommand(new Vector2(-1, 0)));
-            keybinds.Add(Keys.S, new MoveCommand(new Vector2(0, 1)));
             keybinds.Add(Keys.D, new MoveCommand(new Vector2(1, 0)));
+            keybinds.Add(Keys.Left, new MoveCommand(new Vector2(-1, 0)));
+            keybinds.Add(Keys.Right, new MoveCommand(new Vector2(1, 0)));
 
-            keybinds.Add(Keys.Up, new CombatCommand(-1));
-            keybinds.Add(Keys.Down, new CombatCommand(1));
+            keybinds.Add(Keys.W, new MultiCommand(new Vector2(0, -1), -1));
+            keybinds.Add(Keys.S, new MultiCommand(new Vector2(0, 1), 1));
+
+            keybinds.Add(Keys.Up, new MultiCommand(new Vector2(0, -1), -1));
+            keybinds.Add(Keys.Down, new MultiCommand(new Vector2(0, 1), 1));
         }
 
-        public void Execute(Player p)
+        public void Execute()
         {
             KeyboardState keystate = Keyboard.GetState();
 
@@ -44,7 +47,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (keystate.IsKeyDown(key))
                 {
-                    keybinds[key].Execute(p);
+                    keybinds[key].Execute();
                 }
             }
         }

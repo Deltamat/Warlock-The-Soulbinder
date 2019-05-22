@@ -65,8 +65,6 @@ namespace Warlock_The_Soulbinder
         {
         }
 
-        public CharacterCombat(int index) : base(index)
-        {
-        }
+     
     }
 }

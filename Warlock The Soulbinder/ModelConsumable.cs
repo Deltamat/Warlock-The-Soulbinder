@@ -9,12 +9,12 @@ namespace Warlock_The_Soulbinder
 {
     class ModelConsumable : Model
     {
+        /// <summary>
+        /// Creates the columns for the table, unless the table with the specified name "Consumable" already exists.
+        /// </summary>
         public ModelConsumable()
         {
-            /// <summary>
-            /// Creates the columns for the table, unless the table with the specified name "Consumable" already exists.
-            /// </summary>
-            string sqlexp = "CREATE TABLE IF NOT EXISTS Consumable (id integer primary key, " +
+            string sqlexp = $"CREATE TABLE IF NOT EXISTS Consumable{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
                 "spriteName string, " +
                 "name string, " +
                 "goldCost integer, " +
@@ -30,8 +30,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB(string selectedSaveFile)
         {
-            string whichSaveFile = $"{selectedSaveFile}";
-            cmd.CommandText = $"DELETE FROM Consumable{whichSaveFile}";
+            cmd.CommandText = $"DELETE FROM Consumable{selectedSaveFile}";
             cmd.ExecuteNonQuery();
         }
 
@@ -43,9 +42,9 @@ namespace Warlock_The_Soulbinder
         /// <param name="goldCost"></param>
         /// <param name="type"></param>
         /// <param name="amount"></param>
-        public void SaveConsumable(string spriteName, string name, int goldCost, string type, int amount)
+        public void SaveConsumable(string selectedSaveFile, string spriteName, string name, int goldCost, string type, int amount)
         {
-            cmd.CommandText = $"INSERT INTO Consumable (id, spriteName, name, goldCost, type, amount) VALUES (null, {spriteName}, {name}, {goldCost}, {type}, {amount})";
+            cmd.CommandText = $"INSERT INTO Consumable{selectedSaveFile} (id, spriteName, name, goldCost, type, amount) VALUES (null, {spriteName}, {name}, {goldCost}, {type}, {amount})";
             cmd.ExecuteNonQuery();
         }
 
@@ -53,20 +52,17 @@ namespace Warlock_The_Soulbinder
         /// Loads into a dictionary all the consumables, which then all need to be given their individual position
         /// </summary>
         /// <returns>a dictionary of all the consumables saved in the database</returns>
-        public Dictionary<int, Consumable> LoadConsumable()
+        public Dictionary<int, Consumable> LoadConsumable(string selectedSaveFile)
         {
-            connection.Open();
             Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
-            cmd.CommandText = "SELECT * FROM Consumable";
+            cmd.CommandText = $"SELECT FROM * Consumable{selectedSaveFile}";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 consumableDic.Add(reader.GetInt32(0), new Consumable(reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5)));
             }
             reader.Close();
-            connection.Close();
             return consumableDic;
-            
         }
     }
 }

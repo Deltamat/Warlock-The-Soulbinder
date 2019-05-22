@@ -50,6 +50,7 @@
     <Compile Include="Combat.cs" />
     <Compile Include="CombatCommand.cs" />
     <Compile Include="Consumable.cs" />
+    <Compile Include="Trigger.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="Dialogue.cs" />
     <Compile Include="Enemy.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="ModelSoulStone.cs" />
     <Compile Include="ModelStatistic.cs" />
     <Compile Include="MoveCommand.cs" />
+    <Compile Include="MultiCommand.cs" />
     <Compile Include="NPC.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="Player.cs" />

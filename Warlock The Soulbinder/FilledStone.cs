@@ -43,10 +43,55 @@ namespace Warlock_The_Soulbinder
             switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
-                    break;
-                       
                 case "sheep":
-                case "wolf":                
+                case "wolf":
+                    Element = "neutral";
+                    break;
+                case "bucketMan":
+                case "defender":
+                case "sentry":
+                    Element = "metal";
+                    break;
+                case "plantEater":
+                case "insectSoldier":
+                case "slimeSnake":
+                    Element = "earth";
+                    break;
+                case "falcon":
+                case "bat":
+                case "raven":
+                    Element = "air";
+                    break;
+                case "fireGolem":
+                case "infernalGolem":
+                case "ashZombie":
+                    Element = "fire";
+                    break;
+                case "mummy":
+                case "vampire":
+                case "banshee":
+                    Element = "dark";
+                    break;
+                case "tentacle":
+                case "frog":
+                case "fish":
+                    Element = "water";
+                    break;
+            }
+        }
+
+        public FilledStone(int id, string spriteName, string name, string monster, int goldCost, string type, int level)
+        {
+            this.name = name;
+            this.Monster = monster;
+            this.Level = level;
+            spriteName = $"monsters/Orbs/{monster}";
+            sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
+            switch (monster) //switch case to determine the element based on the monster type
+            {
+                case "bear":
+                case "sheep":
+                case "wolf":
                     Element = "neutral";
                     break;
                 case "bucketMan":

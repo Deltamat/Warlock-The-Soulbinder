@@ -2800,6 +2800,33 @@
 /processorParam:TextureFormat=Color
 /build:Sheet.png
 
+#begin t.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:t.tmx
+
+#begin t2.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:t2.tmx
+
+#begin tempPlayer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tempPlayer.png
+
+#begin test3.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:test3.tmx
+
 #begin tileset3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2811,4 +2838,40 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tileset3.png
+
+#begin tilesetGrassland.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tilesetGrassland.png
+
+#begin tilesetTown.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:tilesetTown.png
+
+#begin TurnFull.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TurnFull.png
 

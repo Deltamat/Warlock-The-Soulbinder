@@ -17,29 +17,14 @@ namespace Warlock_The_Soulbinder
         internal static List<Consumable> ConsumableList { get => consumableList; set => consumableList = value; }
 
         /// <summary>
-        /// For the game
+        /// 
         /// </summary>
         /// <param name="spriteName"></param>
         /// <param name="name"></param>
         /// <param name="goldCost"></param>
         /// <param name="type"></param>
         /// <param name="amount"></param>
-        /// <param name="position"></param>
-        /// <param name="content"></param>
-        public Consumable(string spriteName, string name, int goldCost, string type, int amount, Vector2 position, ContentManager content):base (spriteName, position, name, goldCost, type, content)
-        {
-            this.amount = amount;
-        }
-
-        /// <summary>
-        /// For the database
-        /// </summary>
-        /// <param name="spriteName"></param>
-        /// <param name="name"></param>
-        /// <param name="goldCost"></param>
-        /// <param name="type"></param>
-        /// <param name="amount"></param>
-        public Consumable(string spriteName, string name, int goldCost, string type, int amount) : base(spriteName, name, goldCost, type)
+        public Consumable(string spriteName, string name, int goldCost, string type, int amount) 
         {
             this.amount = amount;
         }

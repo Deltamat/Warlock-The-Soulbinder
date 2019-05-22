@@ -22,17 +22,18 @@ namespace Warlock_The_Soulbinder
         public SpriteFont font;
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
-        private Camera camera;
+        public Camera camera;
         private float delay;
         private string gameState = "Overworld";
 
-        //Tiled
-        TiledMap map;
-        TiledMapRenderer mapRenderer;
-        static public List<Rectangle> collisionMap = new List<Rectangle>();
+        //Tiled fields
+        private Zone t;
+        private Zone t2;
+        public string currentZone = "t";
+        public List<Zone> zones = new List<Zone>();
 
-        static GameWorld instance;
-        static public GameWorld Instance
+        private static GameWorld instance;
+        public static GameWorld Instance
         {
             get
             {
@@ -75,7 +76,7 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return new Rectangle(0, 0, map.WidthInPixels, map.HeightInPixels);
+                return new Rectangle(0, 0, CurrentZone().Map.WidthInPixels, CurrentZone().Map.HeightInPixels);
             }
         }
 
@@ -103,8 +104,21 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
-            IsMouseVisible = true;
+            t = new Zone("t");
+            t2 = new Zone("t2");
 
+            zones.Add(t);
+            zones.Add(t2);
+
+            foreach (var zone in zones)
+            {
+                zone.Setup();
+            }
+
+            camera = new Camera();
+
+            IsMouseVisible = true;
+            
             enemies.Add(new Enemy(0, new Vector2(1100, 100)));
             enemies.Add(new Enemy(4, new Vector2(1100, 250)));
             enemies.Add(new Enemy(7, new Vector2(1100, 400)));
@@ -121,9 +135,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
-#if DEBUG
+            #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-#endif
+            #endif
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -132,23 +146,6 @@ namespace Warlock_The_Soulbinder
             
             Combat.Instance.LoadContent(content);
             GeneralMenu.Instance.LoadContent(content);
-
-            map = Content.Load<TiledMap>("test3"); //Temporary test with collision
-
-            mapRenderer = new TiledMapRenderer(GraphicsDevice);
-            foreach (var item in map.ObjectLayers)
-            {
-                foreach (var go in item.Objects)
-                {
-                    if (go.Type == "Chest")
-                    {
-
-                    }
-                    collisionMap.Add(new Rectangle((int)go.Position.X, (int)go.Position.Y, (int)go.Size.Width, (int)go.Size.Height));
-                }
-            }
-
-            camera = new Camera();
         }
 
         /// <summary>
@@ -174,12 +171,13 @@ namespace Warlock_The_Soulbinder
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
 
-            mapRenderer.Update(map, gameTime); // temporary
+            InputHandler.Instance.Execute(); //gets keys pressed
 
             Player.Instance.Update(gameTime);
-            Combat.Instance.Update(gameTime);            
+            Combat.Instance.Update(gameTime);
 
             //TEMPORARY
+            #region
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
                 FilledStone.StoneList.Add(new FilledStone("wolf", "wolf", RandomInt(1,10)));
@@ -212,15 +210,17 @@ namespace Warlock_The_Soulbinder
                 delay = 0;
             }
 
+            #endregion
 
-            camera.Position = Player.Instance.Position; // Makes the camera follow the player
+            CurrentZone().Update(gameTime);
+
+            camera.Position = Player.Instance.Position; //Makes the camera follow the player
 
             if (gameState == "Combat")
             {
                 Combat.Instance.Update(gameTime);
             }
-
-            if (gameState == "GeneralMenu")
+            else if (gameState == "GeneralMenu")
             {
                 GeneralMenu.Instance.Update(gameTime);
             }
@@ -235,18 +235,13 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-
-            //Overworld draw
-
-            if (GameState == "Overworld")
+                        
+            if (GameState == "Overworld") //Overworld draw
             {
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
-              
 
-                mapRenderer.Draw(map, camera.viewMatrix); //temporary
-
-
+                CurrentZone().Draw(spriteBatch);
+                
                 foreach (Enemy enemy in enemies)
                 {
                     enemy.Draw(spriteBatch);
@@ -255,21 +250,13 @@ namespace Warlock_The_Soulbinder
                 Player.Instance.Draw(spriteBatch);
 
                 //collisionboxes
-#if DEBUG
+                #if DEBUG
                 DrawCollisionBox(Player.Instance);
-                foreach (var item in collisionMap)
-                {
-                    DrawRectangle(item);
-                }
-#endif
+                #endif
                 spriteBatch.End();
                 base.Draw(gameTime);
-
             }
-
-            //Combat Draw
-
-            if (GameState == "Combat")
+            else if (GameState == "Combat") //Combat draw
             {
                 spriteBatch.Begin();
 
@@ -277,8 +264,7 @@ namespace Warlock_The_Soulbinder
 
                 spriteBatch.End();
             }
-
-            if (GameState == "GeneralMenu")
+            else if (GameState == "GeneralMenu") //Menu draw
             {
                 spriteBatch.Begin();
 
@@ -286,9 +272,6 @@ namespace Warlock_The_Soulbinder
 
                 spriteBatch.End();
             }
-
-
-
         }
 
         /// <summary>
@@ -309,7 +292,11 @@ namespace Warlock_The_Soulbinder
             spriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
-        private void DrawRectangle(Rectangle collisionBox)
+        /// <summary>
+        /// Draw collision boxes for the Rectangle 'collisionBox'
+        /// </summary>
+        /// <param name="collisionBox">A rectangle</param>
+        public void DrawRectangle(Rectangle collisionBox)
         {
             Rectangle topLine = new Rectangle(collisionBox.X, collisionBox.Y, collisionBox.Width, 1);
             Rectangle bottomLine = new Rectangle(collisionBox.X, collisionBox.Y + collisionBox.Height, collisionBox.Width, 1);
@@ -333,6 +320,22 @@ namespace Warlock_The_Soulbinder
             Random rng = new Random();
             Thread.Sleep(10);
             return rng.Next(x, y);
+        }
+
+        /// <summary>
+        /// Method that returns the currently loaded Zone
+        /// </summary>
+        /// <returns>The current Zone</returns>
+        public Zone CurrentZone()
+        {
+            foreach (var zone in zones)
+            {
+                if (zone.Name == currentZone)
+                {
+                    return zone;
+                }
+            }
+            return null;
         }
 
         /// <summary>
