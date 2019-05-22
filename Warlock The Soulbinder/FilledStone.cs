@@ -82,7 +82,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public FilledStone(int id, string spriteName, Vector2 position, string name, string monster, int goldCost, string type, int level)
+        public FilledStone(int id, string spriteName, string name, string monster, int goldCost, string type, int level)
         {
             this.name = name;
             this.Monster = monster;
@@ -92,7 +92,7 @@ namespace Warlock_The_Soulbinder
             switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
-                    break;
+                   
 
                 case "sheep":
                 case "wolf":
