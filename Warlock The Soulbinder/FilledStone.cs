@@ -43,10 +43,8 @@ namespace Warlock_The_Soulbinder
             switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
-                    break;
-                       
                 case "sheep":
-                case "wolf":                
+                case "wolf":
                     Element = "neutral";
                     break;
                 case "bucketMan":
@@ -92,8 +90,6 @@ namespace Warlock_The_Soulbinder
             switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
-                   
-
                 case "sheep":
                 case "wolf":
                     Element = "neutral";
