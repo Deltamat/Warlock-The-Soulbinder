@@ -103,6 +103,18 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
+            t = new Zone("t");
+            t2 = new Zone("t2");
+
+            zones.Add(t);
+            zones.Add(t2);
+
+            foreach (var zone in zones)
+            {
+                zone.Setup();
+            }
+
+            camera = new Camera();
             IsMouseVisible = true;
 
             t = new Zone("t");
@@ -145,8 +157,6 @@ namespace Warlock_The_Soulbinder
             
             Combat.Instance.LoadContent(content);
             GeneralMenu.Instance.LoadContent(content);
-
-            
 
             
 

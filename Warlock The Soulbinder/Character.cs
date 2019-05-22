@@ -11,7 +11,7 @@ namespace Warlock_The_Soulbinder
     {
         protected float movementSpeed;
         private string name = "Jones";
-        protected float scale;
+        protected float scale = 1;
 
         protected string Name { get => name; }
 
@@ -23,7 +23,5 @@ namespace Warlock_The_Soulbinder
         {
 
         }
-
-              
     }
 }

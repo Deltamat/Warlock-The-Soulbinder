@@ -187,7 +187,7 @@ namespace Warlock_The_Soulbinder
                 Thread.Sleep(1);
             }
         }
-
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);

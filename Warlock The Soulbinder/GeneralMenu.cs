@@ -104,7 +104,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(book, new Vector2(50,20), Color.White);
 

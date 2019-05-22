@@ -40,9 +40,7 @@ namespace Warlock_The_Soulbinder
                 return instance;
             }
         }
-
         
-
         private Combat()
         {
             

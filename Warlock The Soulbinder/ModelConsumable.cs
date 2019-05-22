@@ -9,11 +9,11 @@ namespace Warlock_The_Soulbinder
 {
     class ModelConsumable : Model
     {
+        /// <summary>
+        /// Creates the columns for the table, unless the table with the specified name "Consumable" already exists.
+        /// </summary>
         public ModelConsumable()
         {
-            /// <summary>
-            /// Creates the columns for the table, unless the table with the specified name "Consumable" already exists.
-            /// </summary>
             string sqlexp = "CREATE TABLE IF NOT EXISTS Consumable (id integer primary key, " +
                 "spriteName string, " +
                 "name string, " +
