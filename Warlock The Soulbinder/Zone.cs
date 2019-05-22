@@ -15,7 +15,7 @@ namespace Warlock_The_Soulbinder
         public TiledMap Map { get; private set; }
         public List<Rectangle> CollisionRects { get; private set; } = new List<Rectangle>();
         public List<Trigger> Triggers { get; private set; } = new List<Trigger>();
-        public Dictionary<int, NPC> NPCs { get; set; } = new Dictionary<int, NPC>();
+        public Dictionary<int, NPC> NPCs { get; private set; } = new Dictionary<int, NPC>();
 
         /// <summary>
         /// Creates a Zone with a name that contains the Tiled map and Tiled objects
@@ -55,14 +55,14 @@ namespace Warlock_The_Soulbinder
 
             if (zoneName == "t")
             {
-                NPCs.Add(1, new NPC(1));
+                NPCs.Add(1, new NPC(1, true, true));
             }
         }
 
         public void GenerateZone()
         {
             // kaldes når man går ind i en zone, 
-            // skal laves når enemies er færdigt
+            // skal laves når enemies/npc er færdigt
         }
 
         public void Update(GameTime gameTime)
@@ -71,12 +71,16 @@ namespace Warlock_The_Soulbinder
 
             foreach (var trigger in Triggers) // checks if the player entered a trigger
             {
+                // What happpens when player enters a zone trigger
                 if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox))
                 {
                     GameWorld.Instance.currentZone = trigger.TargetZone;
+                    GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies/npcs
                     Player.Instance.Position = trigger.TargetPos;
+                    
                 }
             }
+
             foreach (var item in NPCs)
             {
                 item.Value.Update(gameTime);

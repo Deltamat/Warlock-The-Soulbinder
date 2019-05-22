@@ -15,15 +15,17 @@ namespace Warlock_The_Soulbinder
         bool hasShop;
         int index;
 
-        public NPC(int index) : base(index)
+        public NPC(int index, bool hasQuest, bool hasShop) : base(index)
         {
             this.index = index;
+            this.hasQuest = hasQuest;
+            this.hasShop = hasShop;
             Sprite = GameWorld.ContentManager.Load<Texture2D>("tempPlayer");
         }
 
         public override void Update(GameTime gameTime)
         {
-
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)

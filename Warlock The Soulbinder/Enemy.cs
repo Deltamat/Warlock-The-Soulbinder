@@ -187,7 +187,7 @@ namespace Warlock_The_Soulbinder
                 Thread.Sleep(1);
             }
         }
-
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
@@ -210,7 +210,7 @@ namespace Warlock_The_Soulbinder
             }
             Position += direction; //moves the enemy based on direction
 
-            if (CollisionBox.Intersects(Player.Instance.CollisionBox)) // after the enemy has moved, check if collide with player
+            if (CollisionBox.Intersects(Player.Instance.CollisionBox) && Player.Instance.GracePeriod > 5) // after the enemy has moved, check if collide with player
             {
                 GameWorld.Instance.GameState = "Combat";
                 Combat.Instance.SelectEnemy(this);

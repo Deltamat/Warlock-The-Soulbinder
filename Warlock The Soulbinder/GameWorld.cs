@@ -117,6 +117,19 @@ namespace Warlock_The_Soulbinder
             camera = new Camera();
             IsMouseVisible = true;
 
+            t = new Zone("t");
+            t2 = new Zone("t2");
+
+            zones.Add(t);
+            zones.Add(t2);
+
+            foreach (var zone in zones)
+            {
+                zone.Setup();
+            }
+
+            camera = new Camera();
+
             enemies.Add(new Enemy(0, new Vector2(1100, 100)));
             enemies.Add(new Enemy(4, new Vector2(1100, 250)));
             enemies.Add(new Enemy(7, new Vector2(1100, 400)));
@@ -146,8 +159,6 @@ namespace Warlock_The_Soulbinder
             GeneralMenu.Instance.LoadContent(content);
 
             
-
-           
 
         }
 
@@ -255,7 +266,6 @@ namespace Warlock_The_Soulbinder
 #endif
                 spriteBatch.End();
                 base.Draw(gameTime);
-
             }
 
             //Combat Draw
@@ -277,9 +287,6 @@ namespace Warlock_The_Soulbinder
 
                 spriteBatch.End();
             }
-
-
-
         }
 
         /// <summary>
@@ -339,15 +346,6 @@ namespace Warlock_The_Soulbinder
                     return zone;
                 }
             }
-            //switch (currentZone)
-            //{
-            //    case "t":
-            //        return t;
-            //    case "t2":
-            //        return t2;
-            //    default:
-            //        break;
-            //}
             return null;
         }
 
