@@ -86,7 +86,6 @@ namespace Warlock_The_Soulbinder
                     target = null;
                 }
             }
-        
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -169,16 +168,16 @@ namespace Warlock_The_Soulbinder
             {
                 switch (selectedInt)
                 {
-                    case 0:
+                    case 0: //attack
                         PlayerAttack();
                         break;
-                    case 1:
+                    case 1: //skill
                         buttonType = "Skills";
                         break;
-                    case 2:
+                    case 2: //item
                         //buttonType = "Items";
                         break;
-                    case 3:
+                    case 3: //flee
                         GameWorld.Instance.GameState = "Overworld";
                         selectedInt = 0;
                         buttonType = "Normal";

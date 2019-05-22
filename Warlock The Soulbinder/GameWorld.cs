@@ -255,7 +255,6 @@ namespace Warlock_The_Soulbinder
 #endif
                 spriteBatch.End();
                 base.Draw(gameTime);
-
             }
 
             //Combat Draw
@@ -277,9 +276,6 @@ namespace Warlock_The_Soulbinder
 
                 spriteBatch.End();
             }
-
-
-
         }
 
         /// <summary>
