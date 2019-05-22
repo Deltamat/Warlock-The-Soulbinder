@@ -167,7 +167,7 @@ namespace Warlock_The_Soulbinder
                     }
 
                     //enemy collision with gameworld
-                    foreach (Rectangle rectangle in GameWorld.collisionMap)
+                    foreach (Rectangle rectangle in GameWorld.Instance.CurrentZone().CollisionRects)
                     {
                         if (CollisionBox.Intersects(rectangle))
                         {
@@ -209,6 +209,12 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTime
             }
             Position += direction; //moves the enemy based on direction
+
+            if (CollisionBox.Intersects(Player.Instance.CollisionBox)) // after the enemy has moved, check if collide with player
+            {
+                GameWorld.Instance.GameState = "Combat";
+                Combat.Instance.SelectEnemy(this);
+            }
         }
     }
 }
