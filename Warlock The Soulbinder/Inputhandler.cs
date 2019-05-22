@@ -39,7 +39,7 @@ namespace Warlock_The_Soulbinder
             keybinds.Add(Keys.Down, new MultiCommand(new Vector2(0, 1), 1));
         }
 
-        public void Execute(Player p)
+        public void Execute()
         {
             KeyboardState keystate = Keyboard.GetState();
 
@@ -47,7 +47,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (keystate.IsKeyDown(key))
                 {
-                    keybinds[key].Execute(p);
+                    keybinds[key].Execute();
                 }
             }
         }

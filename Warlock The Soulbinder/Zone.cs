@@ -30,9 +30,9 @@ namespace Warlock_The_Soulbinder
             mapRenderer = new TiledMapRenderer(GameWorld.Instance.GraphicsDevice);
 
             // The following extracts the objects from the Tiled TileMap
-            foreach (var layer in Map.ObjectLayers) // go through all object layers
+            foreach (TiledMapObjectLayer layer in Map.ObjectLayers) // go through all object layers
             {
-                foreach (var tileObject in layer.Objects) //  go through all objects added in Tiled
+                foreach (TiledMapObject tileObject in layer.Objects) //  go through all objects added in Tiled
                 {
                     if (tileObject.Type == "") // if the object has not been given a type in Tiled
                     {
@@ -69,7 +69,7 @@ namespace Warlock_The_Soulbinder
         {
             mapRenderer.Update(Map, gameTime);
 
-            foreach (var trigger in Triggers) // checks if the player entered a trigger
+            foreach (Trigger trigger in Triggers) // checks if the player entered a trigger
             {
                 // What happpens when player enters a zone trigger
                 if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox))
@@ -89,18 +89,18 @@ namespace Warlock_The_Soulbinder
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var enemy in enemies)
+            foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
                 GameWorld.Instance.DrawRectangle(enemy.CollisionBox);
             }
 
-            foreach (var item in CollisionRects)
+            foreach (Rectangle item in CollisionRects)
             {
                 GameWorld.Instance.DrawRectangle(item);
             }
 
-            foreach (var item in Triggers)
+            foreach (Trigger item in Triggers)
             {
                 GameWorld.Instance.DrawRectangle(item.CollisionBox);
             }
@@ -120,11 +120,11 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void Setup()
         {
-            foreach (var trigger in Triggers)
+            foreach (Trigger trigger in Triggers)
             {
-                foreach (var zone in GameWorld.Instance.zones)
+                foreach (Zone zone in GameWorld.Instance.zones)
                 {
-                    foreach (var otherTrigger in zone.Triggers)
+                    foreach (Trigger otherTrigger in zone.Triggers)
                     {
                         if (trigger.IsEntryTrigger == true && otherTrigger.IsEntryTrigger == false && trigger.TargetName == otherTrigger.Name)
                         {

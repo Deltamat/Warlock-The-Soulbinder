@@ -100,9 +100,7 @@ namespace Warlock_The_Soulbinder
             if (graceStart)
             {
                 gracePeriod += GameWorld.deltaTimeSecond;
-            }
-
-            InputHandler.Instance.Execute(this); //gets keys pressed
+            }            
 
             if (direction != Vector2.Zero)
             {
