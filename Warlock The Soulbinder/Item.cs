@@ -44,5 +44,10 @@ namespace Warlock_The_Soulbinder
             this.goldCost = goldCost;
             this.type = type;
         }
+
+        public Item()
+        {
+
+        }
     }
 }

@@ -103,6 +103,18 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
+            t = new Zone("t");
+            t2 = new Zone("t2");
+
+            zones.Add(t);
+            zones.Add(t2);
+
+            foreach (var zone in zones)
+            {
+                zone.Setup();
+            }
+
+            camera = new Camera();
             IsMouseVisible = true;
 
             enemies.Add(new Enemy(0, new Vector2(1100, 100)));
@@ -135,18 +147,7 @@ namespace Warlock_The_Soulbinder
 
             
 
-            t = new Zone("t");
-            t2 = new Zone("t2");
-            
-            zones.Add(t);
-            zones.Add(t2);
-
-            foreach (var zone in zones)
-            {
-                zone.Setup();
-            }
-
-            camera = new Camera();
+           
 
         }
 

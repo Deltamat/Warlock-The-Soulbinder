@@ -122,7 +122,7 @@ namespace Warlock_The_Soulbinder
             position.X += direction.X; //moves the player based on direction
             if (direction.X != 0) // So it does not check for collision if not moving
             {
-                foreach (Rectangle rectangle in GameWorld.collisionMap) // After the player have moved check if collision has happen. if true move backwards the same direction
+                foreach (Rectangle rectangle in GameWorld.Instance.CurrentZone().CollisionRects) // After the player have moved check if collision has happen. if true move backwards the same direction
                 {
                     if (CollisionBox.Intersects(rectangle))
                     {
@@ -136,7 +136,7 @@ namespace Warlock_The_Soulbinder
             position.Y += direction.Y; //moves the player based on direction
             if (direction.Y != 0) // So it does not check for collision if not moving
             {
-                foreach (Rectangle rectangle in GameWorld.collisionMap) // After the player have moved check if collision has happen. if true move backwards the same direction
+                foreach (Rectangle rectangle in GameWorld.Instance.CurrentZone().CollisionRects) // After the player have moved check if collision has happen. if true move backwards the same direction
                 {
                     if (CollisionBox.Intersects(rectangle))
                     {
