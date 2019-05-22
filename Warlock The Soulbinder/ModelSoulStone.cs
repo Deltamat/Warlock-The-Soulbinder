@@ -29,8 +29,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB(string selectedSaveFile)
         {
-            string whichSaveFile = $"{selectedSaveFile}";
-            cmd.CommandText = $"DELETE FROM SoulStone{whichSaveFile}";
+            cmd.CommandText = $"DELETE FROM SoulStone{selectedSaveFile}";
             cmd.ExecuteNonQuery();
         }
 
@@ -42,10 +41,11 @@ namespace Warlock_The_Soulbinder
 
         public Dictionary<int, FilledStone> LoadSoulStone(string selectedSaveFile)
         {
-            string whichSaveFile = $"{selectedSaveFile}";
             Dictionary<int, FilledStone> soulStoneDic = new Dictionary<int, FilledStone>();
+
             connection.Open();
-            cmd.CommandText = $"SELECT FROM * SoulStone{whichSaveFile}";
+            cmd.CommandText = $"SELECT FROM * SoulStone{selectedSaveFile}";
+            
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
