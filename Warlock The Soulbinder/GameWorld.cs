@@ -184,7 +184,8 @@ namespace Warlock_The_Soulbinder
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
-            
+
+            InputHandler.Instance.Execute(); //gets keys pressed
 
             Player.Instance.Update(gameTime);
             Combat.Instance.Update(gameTime);            

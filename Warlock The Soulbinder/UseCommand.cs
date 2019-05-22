@@ -8,7 +8,7 @@ namespace Warlock_The_Soulbinder
 {
     class UseCommand : ICommand
     {
-        public void Execute(Player p)
+        public void Execute()
         {
             throw new NotImplementedException();
         }
