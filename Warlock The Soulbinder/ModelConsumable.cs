@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public ModelConsumable()
         {
-            string sqlexp = "CREATE TABLE IF NOT EXISTS Consumable (id integer primary key, " +
+            string sqlexp = $"CREATE TABLE IF NOT EXISTS Consumable{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
                 "spriteName string, " +
                 "name string, " +
                 "goldCost integer, " +

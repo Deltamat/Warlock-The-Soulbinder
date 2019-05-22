@@ -10,8 +10,14 @@ namespace Warlock_The_Soulbinder
     {
         ModelConsumable consumable;
         ModelSoulStone filledStone;
+        ModelEnemy enemy;
+        ModelNPC npc;
+        ModelQuest quest;
+        ModelPlayer player;
+        ModelStatistic statistic;
 
-        string currentSaveFile;
+        
+        public string CurrentSaveFile { get ; set ; }
 
         static Controller instance;
         static public Controller Instance
@@ -29,39 +35,51 @@ namespace Warlock_The_Soulbinder
                 instance = value;
             }
         }
+
         
+
         public Controller()
         {
             consumable = new ModelConsumable();
             filledStone = new ModelSoulStone();
+            enemy = new ModelEnemy();
+
         }
 
 
         #region Consumable
-        public Dictionary<int, Consumable> LoadConsumable()
-        {
-            return consumable.LoadConsumable(currentSaveFile);
-        }
-
         public void DeleteConsumableDB()
         {
-            consumable.ClearDB(currentSaveFile);
+            consumable.ClearDB(CurrentSaveFile);
+        }
+
+        public void SaveConsumableDB(string spriteName, string name, int goldCost, string type, int amount)
+        {
+            consumable.SaveConsumable(CurrentSaveFile, spriteName, name, goldCost, type, amount);
+        }
+
+        public Dictionary<int, Consumable> LoadConsumableDB()
+        {
+            return consumable.LoadConsumable(CurrentSaveFile);
         }
         #endregion
 
 
         #region FilledStone
-        public Dictionary<int, FilledStone> LoadFilledStone()
-        {
-            return filledStone.LoadSoulStone(currentSaveFile);
-            
-        }
-
         public void DeleteSoulStoneDB()
         {
-            filledStone.ClearDB(currentSaveFile);
+            filledStone.ClearDB(CurrentSaveFile);
         }
 
+        public void SaveSoulStoneDB(string spriteName, string name, string monster, int goldCost, string type, int level)
+        {
+            filledStone.SaveSoulStone(CurrentSaveFile, spriteName, name, monster, goldCost, type, level);
+        }
+
+        public Dictionary<int, FilledStone> LoadFilledStoneDB()
+        {
+            return filledStone.LoadSoulStone(CurrentSaveFile);
+        }
         #endregion
 
 

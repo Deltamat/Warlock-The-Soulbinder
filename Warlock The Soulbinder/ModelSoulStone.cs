@@ -12,7 +12,7 @@ namespace Warlock_The_Soulbinder
     {
         public ModelSoulStone()
         {
-            string sqlexp = "CREATE TABLE IF NOT EXISTS SoulStone (id integer primary key, " +
+            string sqlexp = $"CREATE TABLE IF NOT EXISTS SoulStone{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
                 "spriteName string, " +                
                 "name string, " +
                 "monster string, " +
