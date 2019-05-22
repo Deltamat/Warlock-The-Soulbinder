@@ -35,8 +35,7 @@ namespace Warlock_The_Soulbinder
                 instance = value;
             }
         }
-
-        
+                
 
         public Controller()
         {
@@ -45,6 +44,23 @@ namespace Warlock_The_Soulbinder
             enemy = new ModelEnemy();
 
         }
+
+        #region FilledStone
+        public void DeleteSoulStoneDB()
+        {
+            filledStone.ClearDB(CurrentSaveFile);
+        }
+
+        public void SaveSoulStoneDB(string spriteName, string name, string monster, int goldCost, string type, int level)
+        {
+            filledStone.SaveSoulStone(CurrentSaveFile, spriteName, name, monster, goldCost, type, level);
+        }
+
+        public Dictionary<int, FilledStone> LoadFilledStoneDB()
+        {
+            return filledStone.LoadSoulStone(CurrentSaveFile);
+        }
+        #endregion
 
 
         #region Consumable
@@ -65,21 +81,15 @@ namespace Warlock_The_Soulbinder
         #endregion
 
 
-        #region FilledStone
-        public void DeleteSoulStoneDB()
-        {
-            filledStone.ClearDB(CurrentSaveFile);
-        }
+        #region Statistic
 
-        public void SaveSoulStoneDB(string spriteName, string name, string monster, int goldCost, string type, int level)
-        {
-            filledStone.SaveSoulStone(CurrentSaveFile, spriteName, name, monster, goldCost, type, level);
-        }
 
-        public Dictionary<int, FilledStone> LoadFilledStoneDB()
-        {
-            return filledStone.LoadSoulStone(CurrentSaveFile);
-        }
+        #endregion
+
+
+        #region Quest
+
+
         #endregion
 
 
@@ -94,22 +104,10 @@ namespace Warlock_The_Soulbinder
 
         #endregion
 
-
-        #region Quest
-
-
-        #endregion
-
-
+        
         #region NPC
 
 
-        #endregion
-
-
-        #region Statistic
-
-
-        #endregion
+        #endregion        
     }
 }
