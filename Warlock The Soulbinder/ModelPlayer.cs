@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using Microsoft.Xna.Framework;
 
 namespace Warlock_The_Soulbinder
 {
@@ -35,10 +36,23 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
-        public void SavePlayer(string selectedSaveFile, string spriteName, int X, int Y, string zone)
+        public void SavePlayer(string selectedSaveFile, int X, int Y, string zone)
         {
-            cmd.CommandText = $"INSERT INTO Player{selectedSaveFile} (id, spriteName, X, Y, zone) VALUES (null, {spriteName}, {X}, {Y}, {zone})";
+            cmd.CommandText = $"INSERT INTO Player{selectedSaveFile} (id, X, Y, zone) VALUES (null, {X}, {Y}, {zone})";
             cmd.ExecuteNonQuery();
+        }
+
+        public void LoadPlayer(string selectedSaveFile)
+        {
+            cmd.CommandText = $"SELECT FROM * Player{selectedSaveFile}";
+
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Player.Instance.Position = new Vector2(reader.GetInt32(1), reader.GetInt32(2));
+                GameWorld.Instance.currentZone = $"{reader.GetString(3)}";
+            }
+            reader.Close();
         }
     }
 }

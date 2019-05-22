@@ -15,6 +15,7 @@ namespace Warlock_The_Soulbinder
         ModelQuest quest;
         ModelPlayer player;
         ModelStatistic statistic;
+        Model model;
 
         
         public string CurrentSaveFile { get ; set ; }
@@ -42,8 +43,21 @@ namespace Warlock_The_Soulbinder
             consumable = new ModelConsumable();
             filledStone = new ModelSoulStone();
             enemy = new ModelEnemy();
-
+            model = new Model();
         }
+
+        #region Model
+        public void OpenTheGates()
+        {
+            model.OpenConnection();
+        }
+
+        public void CloseTheGates()
+        {
+            model.CloseConnection();
+        }
+
+        #endregion
 
         #region FilledStone
         public void DeleteSoulStoneDB()
