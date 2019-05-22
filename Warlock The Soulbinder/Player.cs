@@ -49,16 +49,21 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return new Rectangle((int)(Position.X + Sprite.Width * 0.2), (int)(Position.Y + Sprite.Height * 0.075), (int)(Sprite.Width * 0.6), (int)(Sprite.Height * 0.8));
+                return new Rectangle((int)(Position.X + Sprite.Width * 0.2 * scale), (int)(Position.Y + Sprite.Height * 0.075 * scale), (int)(Sprite.Width * 0.6 * scale), (int)(Sprite.Height * 0.8 * scale));
             }
         }
+
+        public bool Attacking { get => attacking; set => attacking = value; }
+        public bool Hurt { get => hurt; set => hurt = value; }
 
         public Player()
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
+            scale = 0.25f;
+
             movementSpeed = 250;
             Damage = 5;
-            AttackSpeed = 1f;
+            AttackSpeed = 5f;
             MaxHealth = 100;
             CurrentHealth = 100;
 
@@ -162,14 +167,14 @@ namespace Warlock_The_Soulbinder
         public override void Draw(SpriteBatch spriteBatch)
         {
             ChooseAnimationFrame();
-
+            
             if (gracePeriod < 5 && graceSwitch < 15)
             {
-                spriteBatch.Draw(Sprite, Position, Color.FromNonPremultiplied(255, 255, 255, 175));
+                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
             }
             else
             {
-                base.Draw(spriteBatch);
+                spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
             }
 
             graceSwitch++;
@@ -252,12 +257,12 @@ namespace Warlock_The_Soulbinder
 
                 if (AttackStart == true && aniIndex == 0) //once aniIndex is 0 and the player is attacking, starts the attack animation
                 {
-                    attacking = true;
+                    Attacking = true;
                     attackStart = false;
                 }
                 else if (HurtStart == true && aniIndex == 0) //once aniIndex is 0 and the player is hurt, starts the hurt animation
                 {
-                    hurt = true;
+                    Hurt = true;
                     hurtStart = false;
                 }
                 else if (GameWorld.Instance.RandomInt(0, 10) == 0 && aniIndex == 0) //once aniIndex is 0, gives the player a 10% chace to start the blinking animation
@@ -265,20 +270,20 @@ namespace Warlock_The_Soulbinder
                     blinking = true;
                 }
 
-                if (attacking) //player attacks
+                if (Attacking) //player attacks
                 {
                     sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Slashing/Right - Slashing_{aniIndex}");
                     if (aniIndex == 11)
                     {
-                        attacking = false;
+                        Attacking = false;
                     }
                 }
-                else if (hurt) //player takes damage
+                else if (Hurt) //player takes damage
                 {
                     sprite = GameWorld.ContentManager.Load<Texture2D>($"Player/Right - Hurt/Right - Hurt_{aniIndex}");
                     if (aniIndex == 11)
                     {
-                        hurt = false;
+                        Hurt = false;
                     }
                 }
                 else if (blinking) //player blinks

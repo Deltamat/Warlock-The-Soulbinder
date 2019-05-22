@@ -40,13 +40,15 @@ namespace Warlock_The_Soulbinder
             }
         }        
 
-        public Enemy(int index, Vector2 startPos) : base(index)
+        public Enemy(int index, Vector2 startPos)
         {
             monster = Enum.GetName(typeof(EMonster), index);
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
-            scale = 0.5f;
+            scale = 0.25f;
+
             movementSpeed = 10;
             Position = startPos;
+
             level = index + GameWorld.Instance.RandomInt(-1, 2);
             if (level <= 0)
             {
@@ -206,7 +208,7 @@ namespace Warlock_The_Soulbinder
                 {
                     direction.Normalize();
                 }
-                direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTime
+                direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTimeSecond
             }
             Position += direction; //moves the enemy based on direction
         }

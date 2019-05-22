@@ -15,7 +15,7 @@ namespace Warlock_The_Soulbinder
         bool hasShop;
         int index;
 
-        public NPC(int index, bool hasQuest, bool hasShop) : base(index)
+        public NPC(int index, bool hasQuest, bool hasShop)
         {
             this.index = index;
             this.hasQuest = hasQuest;
@@ -32,6 +32,5 @@ namespace Warlock_The_Soulbinder
         {
             spriteBatch.Draw(Sprite, Position, Color.White);
         }
-
     }
 }

@@ -43,8 +43,6 @@ namespace Warlock_The_Soulbinder
             switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
-                    break;
-                       
                 case "sheep":
                 case "wolf":                
                     Element = "neutral";
@@ -82,7 +80,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public FilledStone(int id, string spriteName, Vector2 position, string name, string monster, int goldCost, string type, int level, ContentManager content) :base(spriteName, name, goldCost, type)
+        public FilledStone(int id, string spriteName, string name, string monster, int goldCost, string type, int level, ContentManager content) :base(spriteName, name, goldCost, type)
         {
             this.name = name;
             this.Monster = monster;
@@ -92,8 +90,6 @@ namespace Warlock_The_Soulbinder
             switch (monster) //switch case to determine the element based on the monster type
             {
                 case "bear":
-                    break;
-
                 case "sheep":
                 case "wolf":
                     Element = "neutral";
