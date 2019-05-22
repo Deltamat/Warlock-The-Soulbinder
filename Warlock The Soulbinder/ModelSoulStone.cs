@@ -49,7 +49,7 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                soulStoneDic.Add(reader.GetInt32(0), new FilledStone(reader.GetInt32(0), reader.GetString(1), Vector2.Zero, reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetInt32(6), GameWorld.ContentManager));
+                soulStoneDic.Add(reader.GetInt32(0), new FilledStone(reader.GetInt32(0), reader.GetString(1), Vector2.Zero, reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetInt32(6)));
             }
             reader.Close();
             connection.Close();

@@ -82,7 +82,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public FilledStone(int id, string spriteName, Vector2 position, string name, string monster, int goldCost, string type, int level, ContentManager content) :base(spriteName, name, goldCost, type)
+        public FilledStone(int id, string spriteName, Vector2 position, string name, string monster, int goldCost, string type, int level)
         {
             this.name = name;
             this.Monster = monster;

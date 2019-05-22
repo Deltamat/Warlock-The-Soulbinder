@@ -40,7 +40,7 @@ namespace Warlock_The_Soulbinder
             }
         }        
 
-        public Enemy(int index, Vector2 startPos) : base(index)
+        public Enemy(int index, Vector2 startPos)
         {
             monster = Enum.GetName(typeof(EMonster), index);
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
