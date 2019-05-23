@@ -53,10 +53,16 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (zoneName == "t") // test
+            if (true) // test
             {
-                NPCs.Add(1, new NPC(1, new Vector2(100), true, false, 1, "normies get out reeeee"));
-                
+                NPCs.Add(1, new NPC(1, "npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
+                NPCs.Add(2, new NPC(2, "npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
+
+                foreach (var npc in NPCs)
+                {
+                    CollisionRects.Add(npc.Value.CollisionBox);
+                }
+
             }
         }
 
@@ -64,6 +70,9 @@ namespace Warlock_The_Soulbinder
         {
             // kaldes når man går ind i en zone, 
             // skal laves når enemies/npc er færdigt
+
+            
+
         }
 
         public void Update(GameTime gameTime)
@@ -77,7 +86,7 @@ namespace Warlock_The_Soulbinder
                 {
                     GameWorld.Instance.currentZone = trigger.TargetZone;
                     GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies/npcs
-                    Player.Instance.Position = trigger.TargetPos;
+                    Player.Instance.Position = new Vector2(trigger.TargetPos.X - 19, trigger.TargetPos.Y - 6);
                     
                 }
             }
@@ -109,6 +118,7 @@ namespace Warlock_The_Soulbinder
             foreach (var item in NPCs)
             {
                 item.Value.Draw(spriteBatch);
+                GameWorld.Instance.DrawRectangle(item.Value.CollisionBox);
             }
 
             mapRenderer.Draw(Map, GameWorld.Instance.camera.viewMatrix);

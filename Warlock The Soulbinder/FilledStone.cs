@@ -91,9 +91,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public FilledStone(int id, string spriteName, string name, string monster, int goldCost, string type, int level)
+        public FilledStone(string monster, int level)
         {
-            this.name = name;
+            
             this.Monster = monster;
             this.Level = level;
             spriteName = $"monsters/Orbs/{monster}";
