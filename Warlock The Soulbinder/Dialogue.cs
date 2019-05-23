@@ -12,6 +12,7 @@ namespace Warlock_The_Soulbinder
     public class Dialogue : Menu
     {
         int currentDialogue = 1;
+        private Texture2D dialogueBar;
 
         public Dictionary<int, string> dialogueLines { get; set; } = new Dictionary<int, string>();
         public double dialogueTimer { get; set; }
@@ -33,7 +34,7 @@ namespace Warlock_The_Soulbinder
 
         private Dialogue()
         {
-            
+            dialogueBar = GameWorld.ContentManager.Load<Texture2D>("dialogueBar");
         }
 
         public override void Update(GameTime gameTime)
@@ -63,7 +64,9 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(GameWorld.Instance.font, dialogueLines[currentDialogue], GameWorld.Instance.camera.Position, Color.White);
+            Vector2 dialogueBarPos = new Vector2(GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.viewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
+            spriteBatch.Draw(dialogueBar, dialogueBarPos, Color.White);
+            spriteBatch.DrawString(GameWorld.Instance.copperFont, dialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 10, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 10), Color.Black);
         }
 
         /// <summary>

@@ -9,7 +9,7 @@ namespace Warlock_The_Soulbinder
 {
     class UseCommand : ICommand
     {
-        float useDistance = 60;
+        float useDistance = 100;
 
         public UseCommand()
         {

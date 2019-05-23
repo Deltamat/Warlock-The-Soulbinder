@@ -55,7 +55,7 @@ namespace Warlock_The_Soulbinder
 
             if (zoneName == "t") // test
             {
-                NPCs.Add(1, new NPC(1, new Vector2(100), true, false, 1, "normies get out reeeee"));
+                NPCs.Add(1, new NPC(1, new Vector2(200), true, false, 1, "normies get out reeeee"));
                 
             }
         }

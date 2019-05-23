@@ -20,6 +20,7 @@ namespace Warlock_The_Soulbinder
         public static double deltaTimeSecond;
         public static double deltaTimeMilli;
         public SpriteFont font;
+        public SpriteFont copperFont;
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
         public Camera camera;
@@ -90,9 +91,9 @@ namespace Warlock_The_Soulbinder
             //Sets the window size
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1020;
-            #if !DEBUG
+#if !DEBUG
             graphics.IsFullScreen = true;
-            #endif
+#endif
             graphics.ApplyChanges();
         }
 
@@ -148,6 +149,7 @@ namespace Warlock_The_Soulbinder
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("font");
+            copperFont = Content.Load<SpriteFont>("fontCopperplate");
             
             Combat.Instance.LoadContent(content);
             GeneralMenu.Instance.LoadContent(content);
@@ -248,7 +250,7 @@ namespace Warlock_The_Soulbinder
 
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
                 CurrentZone().Draw(spriteBatch);
                 
