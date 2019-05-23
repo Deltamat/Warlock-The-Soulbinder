@@ -12,6 +12,7 @@ namespace Warlock_The_Soulbinder
         protected Vector2 direction;
         protected bool isInCombat;
         protected float attackSpeed;
+        protected bool alive = true;
         protected int currentHealth;
         protected int maxHealth;
         protected int damage;
@@ -28,7 +29,6 @@ namespace Warlock_The_Soulbinder
         protected float airResistance;
         protected float earthResistance;
         protected float metalResistance;
-        protected bool alive = true;
         protected List<int> damageTypes = new List<int>();
         protected List<float> resistanceTypes = new List<float>();
 
@@ -45,7 +45,7 @@ namespace Warlock_The_Soulbinder
                 {
                     Alive = false;
                 }
-                if (currentHealth > maxHealth)
+                else if (currentHealth > maxHealth)
                 {
                     currentHealth = maxHealth;
                 }
@@ -64,7 +64,5 @@ namespace Warlock_The_Soulbinder
         public CharacterCombat()
         {
         }
-
-     
     }
 }
