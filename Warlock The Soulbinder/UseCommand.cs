@@ -16,7 +16,7 @@ namespace Warlock_The_Soulbinder
 
         }
 
-        public void Execute(Player p)
+        public void Execute()
         {
             if (!Dialogue.Instance.InDialogue && Dialogue.Instance.exitDialogueTimer > 1)
             {
