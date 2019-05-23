@@ -104,9 +104,13 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
+            IsMouseVisible = true;
+
+            Quest.Instance.Quests.Add(1, "Kill");
+            Quest.Instance.QuestDescription.Add(1, "yippi kai yay");
+
             t = new Zone("t");
             t2 = new Zone("t2");
-
             zones.Add(t);
             zones.Add(t2);
 
@@ -125,6 +129,7 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(12, new Vector2(1100, 550)));
             enemies.Add(new Enemy(16, new Vector2(1100, 700)));
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
+
 
             base.Initialize();
         }
@@ -204,7 +209,14 @@ namespace Warlock_The_Soulbinder
                 gameState = "Combat";
                 delay = 0;
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.D3) && delay > 100)
+            {
+                gameState = "GeneralMenu";
+                delay = 0;
+            }
+
             #endregion
+
 
             CurrentZone().Update(gameTime);
 
@@ -219,6 +231,8 @@ namespace Warlock_The_Soulbinder
                 GeneralMenu.Instance.Update(gameTime);
             }
 
+            Dialogue.Instance.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -229,8 +243,10 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-                        
-            if (GameState == "Overworld") //Overworld draw
+            
+
+
+            if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
@@ -246,7 +262,12 @@ namespace Warlock_The_Soulbinder
                 //collisionboxes
                 #if DEBUG
                 DrawCollisionBox(Player.Instance);
-                #endif
+#endif
+                if (GameState == "Dialogue")
+                {
+                    Dialogue.Instance.Draw(spriteBatch);
+                }
+
                 spriteBatch.End();
                 base.Draw(gameTime);
             }

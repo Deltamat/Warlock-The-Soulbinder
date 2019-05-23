@@ -66,6 +66,7 @@ namespace Warlock_The_Soulbinder
             AttackSpeed = 5f;
             MaxHealth = 100;
             CurrentHealth = 100;
+            Position = new Vector2(300);
 
             //adds damage and resistances to lists for ease of use
             #region
@@ -189,7 +190,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ChooseAnimationFrame()
         {
-            if (GameWorld.Instance.GameState == "Overworld")
+            if (GameWorld.Instance.GameState == "Overworld" || GameWorld.Instance.GameState == "Dialogue")
             {
                 if (walking == true && aniIndex > 17)
                 {
