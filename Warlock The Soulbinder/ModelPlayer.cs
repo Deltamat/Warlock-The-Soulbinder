@@ -13,7 +13,6 @@ namespace Warlock_The_Soulbinder
         public ModelPlayer()
         {
             string sqlexp = $"CREATE TABLE IF NOT EXISTS Player{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
-                "spriteName string, " +
                 "X integer, " +
                 "Y integer, " +
                 "zone string, " +
