@@ -19,9 +19,14 @@ namespace Warlock_The_Soulbinder
         private Texture2D emptyButton;
         private Texture2D healthEmpty;
         private Texture2D healthFull;
+        private Texture2D turnFull;
         private SpriteFont combatFont;
         private float combatDelay = 0;
         private bool enemyTurn = false;
+        private float playerAttackTimer;
+        private float enemyAttackTimer;
+        private float turnTimer = 1;
+        private Color buttonColor = Color.White;
 
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
@@ -58,19 +63,31 @@ namespace Warlock_The_Soulbinder
             CombatFont = content.Load<SpriteFont>("combatFont");
             healthEmpty = content.Load<Texture2D>("HealthEmpty");
             healthFull = content.Load<Texture2D>("HealthFull");
+            turnFull = content.Load<Texture2D>("TurnFull");
         }
 
         public override void Update(GameTime gameTime)
         {
             combatDelay += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && combatDelay > 200 && enemyTurn == false)
+            if (target != null && playerAttackTimer < turnTimer && enemyAttackTimer < turnTimer && !Player.Instance.Attacking && !Player.Instance.Hurt && !Player.Instance.AttackStart && !Player.Instance.HurtStart)
+            {
+                buttonColor = Color.Gray;
+                playerAttackTimer += Player.Instance.AttackSpeed;
+                enemyAttackTimer += target.AttackSpeed;
+            }
+            else if (playerAttackTimer >= turnTimer)
+            {
+                buttonColor = Color.White;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && combatDelay > 200 && playerAttackTimer >= turnTimer)
             {
                 CombatEvent();
                 combatDelay = 0;
             }
 
-            if (enemyTurn == true)
+            if (enemyAttackTimer >= turnTimer)
             {
                 EnemyTurn();
             }
@@ -79,14 +96,11 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
-                    buttonType = "Normal";
                     target.Alive = false;
-                    GameWorld.Instance.GameState = "Overworld";
                     GameWorld.Instance.enemies.Remove(target);
-                    target = null;
+                    ExitCombat();
                 }
             }
-        
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -97,7 +111,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (i == SelectedInt)
                 {
-                    emptyButtonList[i].Draw(spriteBatch,Color.Gray);
+                    emptyButtonList[i].Draw(spriteBatch, Color.Gray);
                 }
 
                 else
@@ -109,13 +123,12 @@ namespace Warlock_The_Soulbinder
             //Draws the button text
             if (buttonType == "Normal")
             {
-                spriteBatch.DrawString(CombatFont, "Attack", emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
-                spriteBatch.DrawString(CombatFont, "Skills", emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
-                spriteBatch.DrawString(CombatFont, "Items", emptyButtonList[2].Position + new Vector2(50, 7), Color.White);
-                spriteBatch.DrawString(CombatFont, "Flee", emptyButtonList[3].Position + new Vector2(50, 7), Color.White);
+                spriteBatch.DrawString(CombatFont, "Attack", emptyButtonList[0].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, "Skills", emptyButtonList[1].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, "Items", emptyButtonList[2].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, "Flee", emptyButtonList[3].Position + new Vector2(50, 7), buttonColor);
             }
-          
-            if (buttonType == "Skills")
+            else if (buttonType == "Skills")
             {
                 spriteBatch.DrawString(CombatFont, "Dam.E", emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
                 spriteBatch.DrawString(CombatFont, "Heal.E", emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
@@ -123,20 +136,25 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(CombatFont, "Back", emptyButtonList[3].Position + new Vector2(50, 7), Color.White);
             }
 
-            //Draws health and healthbars for both player and enemy
+            //Draws health, healthbars and turn bar for enemy
             if (target != null)
             {
                 spriteBatch.Draw(healthEmpty, new Vector2(1200, 800), Color.White);
-                spriteBatch.Draw(healthFull, new Vector2(1204, 803), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
+                spriteBatch.Draw(healthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
                 spriteBatch.DrawString(CombatFont, $"{target.CurrentHealth} / {target.MaxHealth}", new Vector2(1260, 880), Color.White);
-                spriteBatch.Draw(target.Sprite, new Vector2(1250, 300), null, Color.White, 0f, Vector2.Zero, 1.5f, SpriteEffects.FlipHorizontally, 1);
+                spriteBatch.Draw(target.Sprite, new Vector2(1250, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, SpriteEffects.FlipHorizontally, 1);
+                spriteBatch.Draw(healthEmpty, new Vector2(1200, 700), Color.White);
+                spriteBatch.Draw(turnFull, new Vector2(1202, 702), new Rectangle(0, 0, Convert.ToInt32(PercentStat((int)enemyAttackTimer, (int)turnTimer) * 5.9), 70), Color.White);
             }
 
+            //Draws health, healthbars and turn bar for player
             Player.Instance.ChooseAnimationFrame();
             spriteBatch.Draw(healthEmpty, new Vector2(100, 800), Color.White);
-            spriteBatch.Draw(healthFull, new Vector2(104, 803), new Rectangle(0, 0, Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) * 5.9), 70), Color.White);
-            spriteBatch.Draw(Player.Instance.Sprite, new Vector2(150, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);            
-
+            spriteBatch.Draw(healthFull, new Vector2(102, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) * 5.9), 70), Color.White);
+            spriteBatch.Draw(Player.Instance.Sprite, new Vector2(150, 200), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);
+            spriteBatch.Draw(healthEmpty, new Vector2(100, 700), Color.White);
+            spriteBatch.Draw(turnFull, new Vector2(102, 702), new Rectangle(0, 0, Convert.ToInt32(PercentStat((int)playerAttackTimer, (int)turnTimer) * 5.9), 70), Color.White);
+            
             spriteBatch.DrawString(CombatFont, $"{Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth}", new Vector2(160, 880), Color.White);
         }
 
@@ -169,21 +187,17 @@ namespace Warlock_The_Soulbinder
             {
                 switch (selectedInt)
                 {
-                    case 0:
+                    case 0: //attack
                         PlayerAttack();
                         break;
-                    case 1:
+                    case 1: //skill
                         buttonType = "Skills";
                         break;
-                    case 2:
+                    case 2: //item
                         //buttonType = "Items";
                         break;
-                    case 3:
-                        GameWorld.Instance.GameState = "Overworld";
-                        selectedInt = 0;
-                        buttonType = "Normal";
-                        Player.Instance.GracePeriod = 0;
-                        Player.Instance.GraceStart = false;
+                    case 3: //flee
+                        ExitCombat();
                         break;
                 }
             }
@@ -214,6 +228,7 @@ namespace Warlock_The_Soulbinder
         public void SelectEnemy(Enemy combatEnemy)
         {
             target = combatEnemy;
+            turnTimer = (target.AttackSpeed + Player.Instance.AttackSpeed) * 200.5f;
         }
         
         /// <summary>
@@ -240,15 +255,16 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void PlayerAttack()
         {
+            buttonColor = Color.Gray;
             if (target != null)
             {
+                playerAttackTimer = 0;
                 Player.Instance.AttackStart = true;
                 target.CurrentHealth -= Player.Instance.Damage - target.Defense;
                 for (int i = 0; i < target.ResistanceTypes.Count; i++)
                 {
                     target.CurrentHealth -= (int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]);
                 }
-                enemyTurn = true;
                 combatDelay = 0;
             }
         }
@@ -258,16 +274,30 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnemyTurn()
         {
-            if (combatDelay > 1000)
+            enemyAttackTimer = 0;
+            Player.Instance.HurtStart = true;
+            Player.Instance.CurrentHealth -= target.Damage - Player.Instance.Defense;
+            for (int i = 0; i < Player.Instance.ResistanceTypes.Count; i++)
             {
-                Player.Instance.HurtStart = true;
-                Player.Instance.CurrentHealth -= target.Damage - Player.Instance.Defense;
-                for (int i = 0; i < Player.Instance.ResistanceTypes.Count; i++)
-                {
-                    Player.Instance.CurrentHealth -= (int)(target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]);
-                }
-                enemyTurn = false;
+                Player.Instance.CurrentHealth -= (int)(target.DamageTypes[i] - (target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]));
             }
+            enemyTurn = false;
+        }
+
+        public void ExitCombat()
+        {
+            GameWorld.Instance.GameState = "Overworld";
+            selectedInt = 0;
+            playerAttackTimer = 0;
+            enemyAttackTimer = 0;
+            buttonType = "Normal";
+            Player.Instance.GracePeriod = 0;
+            Player.Instance.GraceStart = false;
+            target = null;
+            Player.Instance.Attacking = false;
+            Player.Instance.AttackStart = false;
+            Player.Instance.Hurt = false;
+            Player.Instance.HurtStart = false;
         }
     }
 }

@@ -18,10 +18,10 @@ namespace Warlock_The_Soulbinder
             combatCommand = new CombatCommand(i);
         }
 
-        public void Execute(Player p)
+        public void Execute()
         {
-            moveCommand.Execute(p);
-            combatCommand.Execute(p);
+            moveCommand.Execute();
+            combatCommand.Execute();
         }
     }
 }

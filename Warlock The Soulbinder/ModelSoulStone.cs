@@ -12,7 +12,7 @@ namespace Warlock_The_Soulbinder
     {
         public ModelSoulStone()
         {
-            string sqlexp = "CREATE TABLE IF NOT EXISTS SoulStone (id integer primary key, " +
+            string sqlexp = $"CREATE TABLE IF NOT EXISTS SoulStone{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
                 "spriteName string, " +                
                 "name string, " +
                 "monster string, " +
@@ -29,8 +29,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB(string selectedSaveFile)
         {
-            string whichSaveFile = $"{selectedSaveFile}";
-            cmd.CommandText = $"DELETE FROM SoulStone{whichSaveFile}";
+            cmd.CommandText = $"DELETE FROM SoulStone{selectedSaveFile}";
             cmd.ExecuteNonQuery();
         }
 
@@ -42,17 +41,18 @@ namespace Warlock_The_Soulbinder
 
         public Dictionary<int, FilledStone> LoadSoulStone(string selectedSaveFile)
         {
-            string whichSaveFile = $"{selectedSaveFile}";
             Dictionary<int, FilledStone> soulStoneDic = new Dictionary<int, FilledStone>();
-            connection.Open();
-            cmd.CommandText = $"SELECT FROM * SoulStone{whichSaveFile}";
+
+          
+            cmd.CommandText = $"SELECT FROM * SoulStone{selectedSaveFile}";
+            
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                soulStoneDic.Add(reader.GetInt32(0), new FilledStone(reader.GetInt32(0), reader.GetString(1), Vector2.Zero, reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetInt32(6), GameWorld.ContentManager));
+                soulStoneDic.Add(reader.GetInt32(0), new FilledStone(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetString(5), reader.GetInt32(6)));
             }
             reader.Close();
-            connection.Close();
+           
             return soulStoneDic;
         }
 

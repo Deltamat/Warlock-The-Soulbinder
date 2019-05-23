@@ -77,6 +77,5 @@ namespace Warlock_The_Soulbinder
 
             spriteBatch.Draw(Sprite, Position, Color.White);
         }
-
     }
 }
