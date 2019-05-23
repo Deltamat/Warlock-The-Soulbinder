@@ -48,7 +48,7 @@ namespace Warlock_The_Soulbinder
                 exitDialogueTimer += GameWorld.deltaTimeSecond;
             }
 
-            // if the dialogue cycle through all lines exit dialogue and reset
+            // if the dialogue cycles through all lines exit dialogue and reset
             if (currentDialogue > dialogueLines.Count && dialogueLines.Count > 0)
             {
                 currentDialogue = 1;
@@ -66,7 +66,7 @@ namespace Warlock_The_Soulbinder
         {
             Vector2 dialogueBarPos = new Vector2(GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.viewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
             spriteBatch.Draw(dialogueBar, dialogueBarPos, Color.White);
-            spriteBatch.DrawString(GameWorld.Instance.copperFont, dialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 10, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 10), Color.Black);
+            spriteBatch.DrawString(GameWorld.Instance.copperFont, dialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 20, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 15), Color.Black);
         }
 
         /// <summary>
