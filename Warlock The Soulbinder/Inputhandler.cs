@@ -37,6 +37,8 @@ namespace Warlock_The_Soulbinder
 
             keybinds.Add(Keys.Up, new MultiCommand(new Vector2(0, -1), -1));
             keybinds.Add(Keys.Down, new MultiCommand(new Vector2(0, 1), 1));
+
+            keybinds.Add(Keys.E, new UseCommand());
         }
 
         public void Execute(Player p)

@@ -103,19 +103,10 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
-            t = new Zone("t");
-            t2 = new Zone("t2");
-
-            zones.Add(t);
-            zones.Add(t2);
-
-            foreach (var zone in zones)
-            {
-                zone.Setup();
-            }
-
-            camera = new Camera();
             IsMouseVisible = true;
+
+            Quest.Instance.Quests.Add(1, "Kill");
+            Quest.Instance.QuestDescription.Add(1, "yippi kai yay");
 
             t = new Zone("t");
             t2 = new Zone("t2");
@@ -136,6 +127,7 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(12, new Vector2(1100, 550)));
             enemies.Add(new Enemy(16, new Vector2(1100, 700)));
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
+
 
             base.Initialize();
         }
@@ -218,6 +210,7 @@ namespace Warlock_The_Soulbinder
             }
 
 
+
             CurrentZone().Update(gameTime);
 
             camera.Position = Player.Instance.Position; // Makes the camera follow the player
@@ -231,6 +224,8 @@ namespace Warlock_The_Soulbinder
             {
                 GeneralMenu.Instance.Update(gameTime);
             }
+
+            Dialogue.Instance.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -246,7 +241,7 @@ namespace Warlock_The_Soulbinder
 
             //Overworld draw
 
-            if (GameState == "Overworld")
+            if (GameState == "Overworld" || GameState == "Dialogue")
             {
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
@@ -264,6 +259,11 @@ namespace Warlock_The_Soulbinder
 #if DEBUG
                 DrawCollisionBox(Player.Instance);
 #endif
+                if (GameState == "Dialogue")
+                {
+                    Dialogue.Instance.Draw(spriteBatch);
+                }
+
                 spriteBatch.End();
                 base.Draw(gameTime);
 
