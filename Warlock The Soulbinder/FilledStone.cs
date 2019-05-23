@@ -14,10 +14,14 @@ namespace Warlock_The_Soulbinder
         private string monster;
         private string element;
         private int level;
-        private int experience;
+        private int experience = 10;
+        private int experienceRequired = 23;
         private bool equipped;
         private string equipmentSlot;
         private static int stoneListPages = 0;
+        private string weaponName;
+        private string armorName;
+        private string skillName;
         public string SpriteName { get => spriteName; set => spriteName = value; }
         public static List<FilledStone> StoneList { get => stoneList; set => stoneList = value; }
         public string Monster { get => monster; set => monster = value; }
@@ -30,6 +34,10 @@ namespace Warlock_The_Soulbinder
         private int id;
 
         public int Id { get => id; private set => id = value; }
+        public string WeaponName { get => weaponName; set => weaponName = value; }
+        public string ArmorName { get => armorName; set => armorName = value; }
+        public string SkillName { get => skillName; set => skillName = value; }
+        public int Experiencerequired { get => experienceRequired; set => experienceRequired = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
@@ -46,6 +54,9 @@ namespace Warlock_The_Soulbinder
                 case "sheep":
                 case "wolf":
                     Element = "neutral";
+                    weaponName = "Wolf Bite";
+                    armorName = "Wolf Revenge";
+                    SkillName = "Wolf Frenzy";
                     break;
                 case "bucketMan":
                 case "defender":
