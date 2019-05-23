@@ -43,7 +43,7 @@ namespace Warlock_The_Soulbinder
 
         public void LoadPlayer(string selectedSaveFile)
         {
-            cmd.CommandText = $"SELECT FROM * Player{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM Player{selectedSaveFile}";
 
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())

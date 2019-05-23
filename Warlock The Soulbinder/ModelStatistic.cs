@@ -32,7 +32,7 @@ namespace Warlock_The_Soulbinder
 
         public void LoadStatistic(string selectedSaveFile)
         {
-            cmd.CommandText = $"SELECT FROM * Statistic{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM Statistic{selectedSaveFile}";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {

@@ -40,7 +40,7 @@ namespace Warlock_The_Soulbinder
             Dictionary<int, FilledStone> soulStoneDic = new Dictionary<int, FilledStone>();
 
           
-            cmd.CommandText = $"SELECT FROM * SoulStone{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM SoulStone{selectedSaveFile}";
             
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())

@@ -49,7 +49,7 @@ namespace Warlock_The_Soulbinder
         public Dictionary<int, Consumable> LoadConsumable(string selectedSaveFile)
         {
             Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
-            cmd.CommandText = $"SELECT FROM * Consumable{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM Consumable{selectedSaveFile}";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {

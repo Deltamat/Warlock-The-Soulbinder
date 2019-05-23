@@ -45,6 +45,7 @@ namespace Warlock_The_Soulbinder
             enemy = new ModelEnemy();
             model = new Model();
             player = new ModelPlayer();
+            statistic = new ModelStatistic();
         }
 
         #region Model
@@ -97,7 +98,20 @@ namespace Warlock_The_Soulbinder
 
 
         #region Statistic
+        public void DeleteStatisticDB()
+        {
+            statistic.ClearDB(CurrentSaveFile);
+        }
 
+        public void SaveToStatisticDB(int gold, int soulCount)
+        {
+            statistic.SaveStatistic(CurrentSaveFile, gold, soulCount);
+        }
+
+        public void LoadFromStatisticDB()
+        {
+            statistic.LoadStatistic(CurrentSaveFile);
+        }
 
         #endregion
 
@@ -125,17 +139,17 @@ namespace Warlock_The_Soulbinder
         }
 
         #endregion
+        
+
+        #region NPC
+
+
+        #endregion
 
 
         #region Enemy
 
 
         #endregion
-
-        
-        #region NPC
-
-
-        #endregion        
     }
 }
