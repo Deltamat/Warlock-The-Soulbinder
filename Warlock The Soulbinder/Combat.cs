@@ -284,6 +284,9 @@ namespace Warlock_The_Soulbinder
             enemyTurn = false;
         }
 
+        /// <summary>
+        /// Resets relevant variables when leaving combat
+        /// </summary>
         public void ExitCombat()
         {
             GameWorld.Instance.GameState = "Overworld";
