@@ -20,6 +20,7 @@ namespace Warlock_The_Soulbinder
         public static double deltaTimeSecond;
         public static double deltaTimeMilli;
         public SpriteFont font;
+        public SpriteFont copperFont;
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
         public Camera camera;
@@ -92,9 +93,9 @@ namespace Warlock_The_Soulbinder
             //Sets the window size
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1020;
-            #if !DEBUG
+#if !DEBUG
             graphics.IsFullScreen = true;
-            #endif
+#endif
             graphics.ApplyChanges();
         }
 
@@ -106,9 +107,13 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void Initialize()
         {
+            IsMouseVisible = true;
+
+            Quest.Instance.Quests.Add(1, "Kill");
+            Quest.Instance.QuestDescription.Add(1, "yippi kai yay");
+
             t = new Zone("t");
             t2 = new Zone("t2");
-
             zones.Add(t);
             zones.Add(t2);
 
@@ -128,6 +133,7 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(16, new Vector2(1100, 700)));
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
+
             base.Initialize();
         }
 
@@ -145,6 +151,7 @@ namespace Warlock_The_Soulbinder
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("font");
+            copperFont = Content.Load<SpriteFont>("fontCopperplate");
             
             Combat.Instance.LoadContent(content);
             GeneralMenu.Instance.LoadContent(content);
@@ -206,7 +213,14 @@ namespace Warlock_The_Soulbinder
                 gameState = "Combat";
                 delay = 0;
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.D3) && delay > 100)
+            {
+                gameState = "GeneralMenu";
+                delay = 0;
+            }
+
             #endregion
+
 
             CurrentZone().Update(gameTime);
 
@@ -221,6 +235,8 @@ namespace Warlock_The_Soulbinder
                 GeneralMenu.Instance.Update(gameTime);
             }
 
+            Dialogue.Instance.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -231,10 +247,12 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-                        
-            if (GameState == "Overworld") //Overworld draw
+            
+
+
+            if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
-                spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
                 CurrentZone().Draw(spriteBatch);
                 
@@ -248,7 +266,12 @@ namespace Warlock_The_Soulbinder
                 //collisionboxes
                 #if DEBUG
                 DrawCollisionBox(Player.Instance);
-                #endif
+#endif
+                if (GameState == "Dialogue")
+                {
+                    Dialogue.Instance.Draw(spriteBatch);
+                }
+
                 spriteBatch.End();
                 base.Draw(gameTime);
             }

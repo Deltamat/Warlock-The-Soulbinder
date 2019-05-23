@@ -38,6 +38,18 @@
 /processorParam:TextureFormat=Color
 /build:Book.png
 
+#begin buttons/armorRing.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:buttons/armorRing.png
+
 #begin buttons/emptyButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -50,6 +62,18 @@
 /processorParam:TextureFormat=Color
 /build:buttons/emptyButton.png
 
+#begin buttons/emptyRing.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:buttons/emptyRing.png
+
 #begin buttons/skillPlank.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -61,6 +85,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:buttons/skillPlank.png
+
+#begin buttons/skillRing.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:buttons/skillRing.png
+
+#begin buttons/weaponRing.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:buttons/weaponRing.png
 
 #begin CollisionTexture.png
 /importer:TextureImporter
@@ -81,12 +129,31 @@
 /processorParam:TextureFormat=Compressed
 /build:combatFont.spritefont
 
+#begin dialogueBar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:dialogueBar.png
+
 #begin font.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
+
+#begin fontCopperplate.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:fontCopperplate.spritefont
 
 #begin Frame.png
 /importer:TextureImporter

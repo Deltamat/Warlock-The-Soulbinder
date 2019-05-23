@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="6" nextobjectid="14">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="23">
  <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="tilesetGrassland.png" width="1024" height="1024"/>
  </tileset>
- <tileset firstgid="257" name="tilesetTown" tilewidth="64" tileheight="64" tilecount="256" columns="16">
-  <image source="tilesetTown.png" width="1024" height="1024"/>
- </tileset>
  <layer id="5" name="Ground" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt2EsOgzAMBNCcIT5KuWbvXHVnoZQ49gxMEYuIDZDHOJhPb6110fE+eT4T9zHyi1zzai5q+WX9d6jv4/u9Br6+F3isGmb5baLZed/MyOofEV8XyXDFh8qreh7vU8zQ9xdF477/MX3RWvv9Rr6o0YJzRveL5LeSoe221dwqPoQhk2P1+ZvNJmpF+JjPFsT7y5EP1Z+ZRrQvUzNLHrfqm83B7nes+h5dSyVb9vu9DcaVvtH83oXwVdcO8h5h1Pcf7g+UUen7d7Q21Hzo/NjfndH/a2yHmi96vruvv8d3vWHm+wAwtYht
+   eJzt0kkKgDAMQNGgomsLHsThBOr9z6SFLIq0LhxIC3/xSQ1W3kInIo6Iiqw6a3SG1ZGdRbO2BGffdHlO7ayzNu2R1sTet+ns9H578+4XPf1ve/UNL77xZyM+fPjw4TO34MOXW/jw4cOHz96CD19u4SvDdwDw1YdN
+  </data>
+ </layer>
+ <layer id="6" name="Top" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0zsKACAMBNEcOvfH3k7HTwLzYFuZImZEpMOrxj6mS5/0U9U77PJ/7dtjH2MfYx9jH2MfYx9jH2MfYx9jH2MfYx8z963u5Fs39qpvAHD4f8k=
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1" opacity="0.9">
-  <object id="2" type="EntryTrigger" x="2496" y="512" width="64" height="64">
+  <object id="2" type="EntryTrigger" x="2496" y="384" width="64" height="256">
    <properties>
     <property name="name" value="t1e"/>
     <property name="targetName" value="t2WestExit"/>
    </properties>
   </object>
-  <object id="4" type="ExitTrigger" x="2432" y="512" width="64" height="64">
+  <object id="4" type="ExitTrigger" x="2432" y="384" width="64" height="256">
    <properties>
     <property name="name" value="t1EastExit"/>
     <property name="zone" value="t1"/>
    </properties>
   </object>
-  <object id="6" x="-64" y="704"/>
+  <object id="14" x="2432" y="640" width="128" height="1920"/>
+  <object id="15" x="2432" y="0" width="128" height="384"/>
+  <object id="16" x="0" y="0" width="2432" height="128"/>
+  <object id="17" x="0" y="128" width="128" height="256"/>
+  <object id="20" x="0" y="640" width="128" height="1920"/>
+  <object id="21" x="128" y="2432" width="768" height="128"/>
+  <object id="22" x="1088" y="2432" width="1344" height="128"/>
  </objectgroup>
 </map>

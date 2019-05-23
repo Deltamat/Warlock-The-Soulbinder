@@ -43,19 +43,20 @@ namespace Warlock_The_Soulbinder
                     else if (tileObject.Type == "EntryTrigger") // if an entryTrigger use the entryTrigger constructor
                     {
                         Rectangle triggerRect = new Rectangle((int)tileObject.Position.X, (int)tileObject.Position.Y, (int)tileObject.Size.Width, (int)tileObject.Size.Height);
-                        Triggers.Add(new Trigger(tileObject.Position, triggerRect, null, tileObject.Properties["targetName"]));
+                        Triggers.Add(new Trigger(tileObject.Position, triggerRect, tileObject.Properties["targetName"]));
                     }
                     else if (tileObject.Type == "ExitTrigger") // if an exitTrigger use the exitTrigger constructor
                     {
                         Rectangle triggerRect = new Rectangle((int)tileObject.Position.X, (int)tileObject.Position.Y, (int)tileObject.Size.Width, (int)tileObject.Size.Height);
-                        Triggers.Add(new Trigger(tileObject.Properties["name"], tileObject.Position, triggerRect, this.Name, true));
+                        Triggers.Add(new Trigger(tileObject.Properties["name"], tileObject.Position, triggerRect, this.Name));
                     }
                 }
             }
 
-            if (zoneName == "t")
+            if (zoneName == "t") // test
             {
-                NPCs.Add(1, new NPC(1, true, true));
+                NPCs.Add(1, new NPC(1, new Vector2(200), true, false, 1, "normies get out reeeee"));
+                
             }
         }
 
