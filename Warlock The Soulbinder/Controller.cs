@@ -44,6 +44,8 @@ namespace Warlock_The_Soulbinder
             filledStone = new ModelSoulStone();
             enemy = new ModelEnemy();
             model = new Model();
+            player = new ModelPlayer();
+            statistic = new ModelStatistic();
         }
 
         #region Model
@@ -65,12 +67,12 @@ namespace Warlock_The_Soulbinder
             filledStone.ClearDB(CurrentSaveFile);
         }
 
-        public void SaveSoulStoneDB(string spriteName, string name, string monster, int goldCost, string type, int level)
+        public void SaveToSoulStoneDB(string monster, int level)
         {
-            filledStone.SaveSoulStone(CurrentSaveFile, spriteName, name, monster, goldCost, type, level);
+            filledStone.SaveSoulStone(CurrentSaveFile, monster, level);
         }
 
-        public Dictionary<int, FilledStone> LoadFilledStoneDB()
+        public Dictionary<int, FilledStone> LoadFromFilledStoneDB()
         {
             return filledStone.LoadSoulStone(CurrentSaveFile);
         }
@@ -83,12 +85,12 @@ namespace Warlock_The_Soulbinder
             consumable.ClearDB(CurrentSaveFile);
         }
 
-        public void SaveConsumableDB(string spriteName, string name, int goldCost, string type, int amount)
+        public void SaveToConsumableDB(string name, int amount)
         {
-            consumable.SaveConsumable(CurrentSaveFile, spriteName, name, goldCost, type, amount);
+            consumable.SaveConsumable(CurrentSaveFile, name, amount);
         }
 
-        public Dictionary<int, Consumable> LoadConsumableDB()
+        public Dictionary<int, Consumable> LoadFromConsumableDB()
         {
             return consumable.LoadConsumable(CurrentSaveFile);
         }
@@ -96,7 +98,20 @@ namespace Warlock_The_Soulbinder
 
 
         #region Statistic
+        public void DeleteStatisticDB()
+        {
+            statistic.ClearDB(CurrentSaveFile);
+        }
 
+        public void SaveToStatisticDB(int gold, int soulCount)
+        {
+            statistic.SaveStatistic(CurrentSaveFile, gold, soulCount);
+        }
+
+        public void LoadFromStatisticDB()
+        {
+            statistic.LoadStatistic(CurrentSaveFile);
+        }
 
         #endregion
 
@@ -108,6 +123,25 @@ namespace Warlock_The_Soulbinder
 
 
         #region Player
+        public void DeletePlayerDB()
+        {
+            player.ClearDB(CurrentSaveFile);
+        }
+
+        public void SaveToPlayerDB(int X, int Y, string zone)
+        {
+            player.SavePlayer(CurrentSaveFile, X, Y, zone);
+        }
+
+        public void LoadFromPlayerDB()
+        {
+            player.LoadPlayer(CurrentSaveFile);
+        }
+
+        #endregion
+        
+
+        #region NPC
 
 
         #endregion
@@ -117,11 +151,5 @@ namespace Warlock_The_Soulbinder
 
 
         #endregion
-
-        
-        #region NPC
-
-
-        #endregion        
     }
 }

@@ -19,12 +19,9 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="spriteName"></param>
         /// <param name="name"></param>
-        /// <param name="goldCost"></param>
-        /// <param name="type"></param>
         /// <param name="amount"></param>
-        public Consumable(string spriteName, string name, int goldCost, string type, int amount) 
+        public Consumable(string name, int amount) 
         {
             this.amount = amount;
         }

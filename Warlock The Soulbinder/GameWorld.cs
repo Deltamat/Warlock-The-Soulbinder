@@ -32,6 +32,8 @@ namespace Warlock_The_Soulbinder
         private Zone t2;
         public string currentZone = "t";
         public List<Zone> zones = new List<Zone>();
+        public int Gold { get; set; }
+        public int SoulCount { get; set; }
 
         private static GameWorld instance;
         public static GameWorld Instance
