@@ -14,7 +14,11 @@ namespace Warlock_The_Soulbinder
         bool hasShop;
         int index;       
         int questID;
+        Texture2D interact;
+        float interactScale;
+        float interactDistance = 80;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
+        public bool DrawInteract { get; set; }
 
         public bool Talking { get; set; } = false;
         public override Rectangle CollisionBox
@@ -43,6 +47,8 @@ namespace Warlock_The_Soulbinder
             Position = position;
             Sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             scale = 0.135f;
+            interact = GameWorld.ContentManager.Load<Texture2D>("interact");
+            interactScale = 0.3f;
 
             dialogueLines.Add(1, dialogue);
             UpdateDialogue();
@@ -54,11 +60,26 @@ namespace Warlock_The_Soulbinder
             {
                 Dialogue.Instance.dialogueLines = dialogueLines;
             }
+            if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2()) < interactDistance)
+            {
+                DrawInteract = true;
+            }
+            else
+            {
+                DrawInteract = false;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+
+            if (DrawInteract == true && Talking == false)
+            {
+                spriteBatch.Draw(interact, new Vector2(Player.Instance.Position.X + 20, Player.Instance.Position.Y - 50), null, Color.White, 0f, Vector2.Zero, interactScale, new SpriteEffects(), 1f);
+                spriteBatch.DrawString(GameWorld.Instance.copperFont, "E", new Vector2(Player.Instance.Position.X + 32, Player.Instance.Position.Y - 47), Color.Black);
+            }
+
         }
 
         public void UpdateDialogue()
@@ -76,7 +97,7 @@ namespace Warlock_The_Soulbinder
             }
             else if (hasQuest && Quest.Instance.OngoingQuests.ContainsKey(questID)) // if the quest is ongoing
             {
-                dialogueLines.Add(1, "How is it coming with that quest Warlock?");
+                dialogueLines.Add(1, "How is it going with that quest Warlock?");
                 dialogueLines.Add(2, "Let me refresh your memory.");
                 dialogueLines.Add(3, Quest.Instance.QuestDescription[questID]);
             }

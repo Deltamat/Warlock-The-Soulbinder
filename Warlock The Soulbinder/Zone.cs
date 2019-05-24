@@ -53,16 +53,14 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (true) // test
+            if (Name == "t") // giv navnet på zonen og opret de rigtige npc'er
             {
                 NPCs.Add(1, new NPC(1, "npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
                 NPCs.Add(2, new NPC(2, "npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
-
-                foreach (var npc in NPCs)
-                {
-                    CollisionRects.Add(npc.Value.CollisionBox);
-                }
-
+            }
+            foreach (var npc in NPCs)
+            {
+                CollisionRects.Add(npc.Value.CollisionBox);
             }
         }
 
