@@ -2,11 +2,10 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using MonoGame.Extended.Tiled;
-using MonoGame.Extended.Tiled.Graphics;
 
 namespace Warlock_The_Soulbinder
 {
@@ -26,6 +25,10 @@ namespace Warlock_The_Soulbinder
         public Camera camera;
         private float delay;
         private string gameState = "Overworld";
+
+        Song overworldMusic;
+        Song combatMusic;
+
 
         //Tiled fields
         private Zone t;
@@ -83,7 +86,29 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public string GameState { get => gameState; set => gameState = value; }
+        public string GameState
+        {
+            get
+            {
+                return gameState;
+            }
+            set
+            {
+                if (value == "Overworld" && gameState != "Dialogue")
+                {
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(overworldMusic);
+                }
+                else if (value == "Combat")
+                {
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(combatMusic);
+                }
+
+                gameState = value;
+            }
+        }
+        public float SoundVolume { get; set; }
 
         public GameWorld()
         {
@@ -126,13 +151,22 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
             
-            enemies.Add(new Enemy(0, new Vector2(1100, 150)));
-            enemies.Add(new Enemy(4, new Vector2(1100, 300)));
-            enemies.Add(new Enemy(7, new Vector2(1100, 450)));
-            enemies.Add(new Enemy(12, new Vector2(1100, 600)));
-            enemies.Add(new Enemy(16, new Vector2(1100, 750)));
-            enemies.Add(new Enemy(20, new Vector2(1100, 900)));
-            
+            enemies.Add(new Enemy(0, new Vector2(1100, 100)));
+            enemies.Add(new Enemy(4, new Vector2(1100, 250)));
+            enemies.Add(new Enemy(7, new Vector2(1100, 400)));
+            enemies.Add(new Enemy(12, new Vector2(1100, 550)));
+            enemies.Add(new Enemy(16, new Vector2(1100, 700)));
+            enemies.Add(new Enemy(20, new Vector2(1100, 850)));
+
+            // Music
+            SoundVolume = 1f;
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = SoundVolume;
+            overworldMusic = Content.Load<Song>("sound/overworldMusic");
+            combatMusic = Content.Load<Song>("sound/combatMusic");
+
+            MediaPlayer.Play(overworldMusic);
+
             base.Initialize();
         }
 
@@ -204,17 +238,17 @@ namespace Warlock_The_Soulbinder
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
-                gameState = "Overworld";
+                GameState = "Overworld";
                 delay = 0;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
             {
-                gameState = "Combat";
+                GameState = "Combat";
                 delay = 0;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D3) && delay > 100)
             {
-                gameState = "GeneralMenu";
+                GameState = "GeneralMenu";
                 delay = 0;
             }
 
