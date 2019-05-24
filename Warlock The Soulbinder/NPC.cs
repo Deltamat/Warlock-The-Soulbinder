@@ -38,7 +38,7 @@ namespace Warlock_The_Soulbinder
 
             if (hasQuest && Quest.Instance.Quests.ContainsKey(questID)) // if the quest has not been completed
             {
-                dialogueLines.Add(1, "Warlock! I have dire need of your assistance. The future of the world is at stake.");
+                dialogueLines.Add(1, "Warlock! I have dire need of your assistance. \nThe future of the world is at stake.");
                 dialogueLines.Add(2, Quest.Instance.QuestDescription[questID]);
             }
             else if (hasQuest && Quest.Instance.OngoingQuests.ContainsKey(questID)) // if the quest is ongoing

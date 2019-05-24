@@ -107,7 +107,7 @@ namespace Warlock_The_Soulbinder
             IsMouseVisible = true;
 
             Quest.Instance.Quests.Add(1, "Kill");
-            Quest.Instance.QuestDescription.Add(1, "yippi kai yay");
+            Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
             t = new Zone("t");
             t2 = new Zone("t2");
@@ -262,7 +262,7 @@ namespace Warlock_The_Soulbinder
                 //collisionboxes
                 #if DEBUG
                 DrawCollisionBox(Player.Instance);
-#endif
+                #endif
                 if (GameState == "Dialogue")
                 {
                     Dialogue.Instance.Draw(spriteBatch);

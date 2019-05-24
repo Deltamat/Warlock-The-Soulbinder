@@ -22,7 +22,6 @@ namespace Warlock_The_Soulbinder
         private Texture2D turnFull;
         private SpriteFont combatFont;
         private float combatDelay = 0;
-        private bool enemyTurn = false;
         private float playerAttackTimer;
         private float enemyAttackTimer;
         private float turnTimer = 1;
@@ -281,7 +280,6 @@ namespace Warlock_The_Soulbinder
             {
                 Player.Instance.CurrentHealth -= (int)(target.DamageTypes[i] - (target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]));
             }
-            enemyTurn = false;
         }
 
         /// <summary>
