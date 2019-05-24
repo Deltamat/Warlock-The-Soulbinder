@@ -18,6 +18,9 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Deletes the database to make it ready for a new save
+        /// </summary>
         public void ClearDB(string selectedSaveFile)
         {
             cmd.CommandText = $"DELETE FROM Statistic{selectedSaveFile}";

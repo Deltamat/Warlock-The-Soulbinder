@@ -128,9 +128,9 @@ namespace Warlock_The_Soulbinder
             player.ClearDB(CurrentSaveFile);
         }
 
-        public void SaveToPlayerDB(int X, int Y, string zone)
+        public void SaveToPlayerDB(int X, int Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
         {
-            player.SavePlayer(CurrentSaveFile, X, Y, zone);
+            player.SavePlayer(CurrentSaveFile, X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3);
         }
 
         public void LoadFromPlayerDB()
