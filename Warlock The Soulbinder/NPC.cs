@@ -32,15 +32,14 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Creates a NPC
         /// </summary>
-        /// <param name="index">NPC id</param>
+        /// <param name="spriteName">The name of the sprite</param>
         /// <param name="position">The position of the NPC</param>
         /// <param name="hasQuest">Does the NPC have a quest</param>
         /// <param name="hasShop">Does the NPC have a shop</param>
         /// <param name="questID">The id of the quest this NPC has</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
-        public NPC(int index, string spriteName, Vector2 position, bool hasQuest, bool hasShop, int questID, string dialogue)
+        public NPC(string spriteName, Vector2 position, bool hasQuest, bool hasShop, int questID, string dialogue)
         {
-            this.index = index;
             this.hasQuest = hasQuest;
             this.hasShop = hasShop;
             this.questID = questID;
@@ -82,6 +81,9 @@ namespace Warlock_The_Soulbinder
 
         }
 
+        /// <summary>
+        /// Method that assigns the corrrect dialogue to the npc based on if he it has a quest/shop
+        /// </summary>
         public void UpdateDialogue()
         {
             if (hasQuest || hasShop) // remove the default dialogue if NPC has quest or shop
@@ -111,6 +113,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Method that makes the npc enter dialogue and sets the gameState to Dialogue
+        /// </summary>
         public void EnterDialogue()
         {
             Dialogue.Instance.InDialogue = true;

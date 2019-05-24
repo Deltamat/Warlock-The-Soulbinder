@@ -55,8 +55,8 @@ namespace Warlock_The_Soulbinder
 
             if (Name == "t") // giv navnet på zonen og opret de rigtige npc'er
             {
-                NPCs.Add(1, new NPC(1, "npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
-                NPCs.Add(2, new NPC(2, "npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
+                NPCs.Add(1, new NPC("npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
+                NPCs.Add(2, new NPC("npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
             }
             foreach (var npc in NPCs)
             {
@@ -66,8 +66,8 @@ namespace Warlock_The_Soulbinder
 
         public void GenerateZone()
         {
-            // kaldes når man går ind i en zone, 
-            // skal laves når enemies/npc er færdigt
+            // bliver kaldt når man går ind i en zone, 
+            // skal laves når enemies er færdigt
 
             
 
