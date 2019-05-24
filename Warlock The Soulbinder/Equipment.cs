@@ -67,7 +67,6 @@ namespace Warlock_The_Soulbinder
                     Equipment.instance.Skill3 = selectedStone;
                     break;
             }
-            
         }
     }
 }
