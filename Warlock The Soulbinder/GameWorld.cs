@@ -159,7 +159,7 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
             // Music
-            SoundVolume = 1f;
+            SoundVolume = 0f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = SoundVolume;
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
@@ -246,7 +246,7 @@ namespace Warlock_The_Soulbinder
                 GameState = "Combat";
                 delay = 0;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D3) && delay > 100)
+            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonMenu)) && delay > 100)
             {
                 GameState = "GeneralMenu";
                 delay = 0;
