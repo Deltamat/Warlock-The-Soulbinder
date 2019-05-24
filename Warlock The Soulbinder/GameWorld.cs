@@ -158,7 +158,7 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(16, new Vector2(1100, 700)));
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
-            // Musik midlertidig
+            // Music
             SoundVolume = 1f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = SoundVolume;
