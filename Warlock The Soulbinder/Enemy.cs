@@ -38,7 +38,7 @@ namespace Warlock_The_Soulbinder
             {
                 return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
             }
-        }        
+        }
 
         public Enemy(int index, Vector2 startPos)
         {
@@ -211,6 +211,11 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTimeSecond
             }
             Position += direction; //moves the enemy based on direction
+        }
+
+        public static int ReturnMonsterIndex(string monster)
+        {
+            return System.Convert.ToInt32(Enum.Parse(typeof(EMonster), monster));
         }
     }
 }

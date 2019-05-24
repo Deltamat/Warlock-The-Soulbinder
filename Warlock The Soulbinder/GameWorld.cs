@@ -126,14 +126,13 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
             
-            enemies.Add(new Enemy(0, new Vector2(1100, 100)));
-            enemies.Add(new Enemy(4, new Vector2(1100, 250)));
-            enemies.Add(new Enemy(7, new Vector2(1100, 400)));
-            enemies.Add(new Enemy(12, new Vector2(1100, 550)));
-            enemies.Add(new Enemy(16, new Vector2(1100, 700)));
-            enemies.Add(new Enemy(20, new Vector2(1100, 850)));
-
-
+            enemies.Add(new Enemy(0, new Vector2(1100, 150)));
+            enemies.Add(new Enemy(4, new Vector2(1100, 300)));
+            enemies.Add(new Enemy(7, new Vector2(1100, 450)));
+            enemies.Add(new Enemy(12, new Vector2(1100, 600)));
+            enemies.Add(new Enemy(16, new Vector2(1100, 750)));
+            enemies.Add(new Enemy(20, new Vector2(1100, 900)));
+            
             base.Initialize();
         }
 
@@ -219,8 +218,7 @@ namespace Warlock_The_Soulbinder
                 delay = 0;
             }
 
-            #endregion
-
+            #endregion            
 
             CurrentZone().Update(gameTime);
 
