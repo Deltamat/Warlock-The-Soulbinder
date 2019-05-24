@@ -27,12 +27,10 @@ namespace Warlock_The_Soulbinder
                 Dialogue.Instance.exitDialogueTimer = 0;
                 foreach (var npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
-                    // check 
+                    // check distance between the center of the player and the center of the npc
                     if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), npc.Value.CollisionBox.Center.ToVector2()) < useDistance)
                     {
-                        Dialogue.Instance.InDialogue = true;
-                        npc.Value.Talking = true;
-                        GameWorld.Instance.GameState = "Dialogue";
+                        npc.Value.EnterDialogue();
                         break;
                     }
                 }

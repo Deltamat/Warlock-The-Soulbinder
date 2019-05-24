@@ -58,12 +58,6 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (Talking)
-            {
-                Dialogue.Instance.Draw(spriteBatch);
-            }
-
-            //spriteBatch.Draw(Sprite, Position, Color.White);
             spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
         }
 
@@ -94,6 +88,13 @@ namespace Warlock_The_Soulbinder
             {
                 dialogueLines.Add(1, "Khajit has wares, if you have coins.");
             }
+        }
+
+        public void EnterDialogue()
+        {
+            Dialogue.Instance.InDialogue = true;
+            Talking = true;
+            GameWorld.Instance.GameState = "Dialogue";
         }
     }
 }
