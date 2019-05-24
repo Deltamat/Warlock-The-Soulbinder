@@ -15,10 +15,7 @@ namespace Warlock_The_Soulbinder
         public ModelConsumable()
         {
             string sqlexp = $"CREATE TABLE IF NOT EXISTS Consumable{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
-                "spriteName string, " +
                 "name string, " +
-                "goldCost integer, " +
-                "type string, " +
                 "amount integer )";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
@@ -37,14 +34,11 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Saves all consumables to the selected save file
         /// </summary>
-        /// <param name="spriteName"></param>
         /// <param name="name"></param>
-        /// <param name="goldCost"></param>
-        /// <param name="type"></param>
         /// <param name="amount"></param>
-        public void SaveConsumable(string selectedSaveFile, string spriteName, string name, int goldCost, string type, int amount)
+        public void SaveConsumable(string selectedSaveFile, string name, int amount)
         {
-            cmd.CommandText = $"INSERT INTO Consumable{selectedSaveFile} (id, spriteName, name, goldCost, type, amount) VALUES (null, {spriteName}, {name}, {goldCost}, {type}, {amount})";
+            cmd.CommandText = $"INSERT INTO Consumable{selectedSaveFile} (id, name, amount) VALUES (null, {name}, {amount})";
             cmd.ExecuteNonQuery();
         }
 
@@ -55,11 +49,11 @@ namespace Warlock_The_Soulbinder
         public Dictionary<int, Consumable> LoadConsumable(string selectedSaveFile)
         {
             Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
-            cmd.CommandText = $"SELECT FROM * Consumable{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM Consumable{selectedSaveFile}";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                consumableDic.Add(reader.GetInt32(0), new Consumable(reader.GetString(1), reader.GetString(2), reader.GetInt32(3), reader.GetString(4), reader.GetInt32(5)));
+                consumableDic.Add(reader.GetInt32(0), new Consumable(reader.GetString(1), reader.GetInt32(2)));
             }
             reader.Close();
             return consumableDic;

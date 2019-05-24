@@ -44,7 +44,10 @@ namespace Warlock_The_Soulbinder
                 return instance;
             }
         }
-        
+
+        public Texture2D HealthEmpty { get => healthEmpty; set => healthEmpty = value; }
+        public Texture2D HealthFull { get => healthFull; set => healthFull = value; }
+
         private Combat()
         {
             
@@ -60,8 +63,8 @@ namespace Warlock_The_Soulbinder
             emptyButtonList.Add(new GameObject(new Vector2(812, 520), "buttons/emptyButton", content));
             emptyButtonList.Add(new GameObject(new Vector2(812, 625), "buttons/emptyButton", content));
             CombatFont = content.Load<SpriteFont>("combatFont");
-            healthEmpty = content.Load<Texture2D>("HealthEmpty");
-            healthFull = content.Load<Texture2D>("HealthFull");
+            HealthEmpty = content.Load<Texture2D>("HealthEmpty");
+            HealthFull = content.Load<Texture2D>("HealthFull");
             turnFull = content.Load<Texture2D>("TurnFull");
         }
 
@@ -138,20 +141,20 @@ namespace Warlock_The_Soulbinder
             //Draws health, healthbars and turn bar for enemy
             if (target != null)
             {
-                spriteBatch.Draw(healthEmpty, new Vector2(1200, 800), Color.White);
-                spriteBatch.Draw(healthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
+                spriteBatch.Draw(HealthEmpty, new Vector2(1200, 800), Color.White);
+                spriteBatch.Draw(HealthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
                 spriteBatch.DrawString(CombatFont, $"{target.CurrentHealth} / {target.MaxHealth}", new Vector2(1260, 880), Color.White);
                 spriteBatch.Draw(target.Sprite, new Vector2(1250, 250), null, Color.White, 0f, Vector2.Zero, 1.5f, SpriteEffects.FlipHorizontally, 1);
-                spriteBatch.Draw(healthEmpty, new Vector2(1200, 700), Color.White);
+                spriteBatch.Draw(HealthEmpty, new Vector2(1200, 700), Color.White);
                 spriteBatch.Draw(turnFull, new Vector2(1202, 702), new Rectangle(0, 0, Convert.ToInt32(PercentStat((int)enemyAttackTimer, (int)turnTimer) * 5.9), 70), Color.White);
             }
 
             //Draws health, healthbars and turn bar for player
             Player.Instance.ChooseAnimationFrame();
-            spriteBatch.Draw(healthEmpty, new Vector2(100, 800), Color.White);
-            spriteBatch.Draw(healthFull, new Vector2(102, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) * 5.9), 70), Color.White);
+            spriteBatch.Draw(HealthEmpty, new Vector2(100, 800), Color.White);
+            spriteBatch.Draw(HealthFull, new Vector2(102, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) * 5.9), 70), Color.White);
             spriteBatch.Draw(Player.Instance.Sprite, new Vector2(150, 200), null, Color.White, 0f, Vector2.Zero, 1.5f, new SpriteEffects(), 1);
-            spriteBatch.Draw(healthEmpty, new Vector2(100, 700), Color.White);
+            spriteBatch.Draw(HealthEmpty, new Vector2(100, 700), Color.White);
             spriteBatch.Draw(turnFull, new Vector2(102, 702), new Rectangle(0, 0, Convert.ToInt32(PercentStat((int)playerAttackTimer, (int)turnTimer) * 5.9), 70), Color.White);
             
             spriteBatch.DrawString(CombatFont, $"{Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth}", new Vector2(160, 880), Color.White);

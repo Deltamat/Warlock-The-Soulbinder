@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="23">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="7" nextobjectid="24">
  <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="tilesetGrassland.png" width="1024" height="1024"/>
  </tileset>
  <layer id="5" name="Ground" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt0kkKgDAMQNGgomsLHsThBOr9z6SFLIq0LhxIC3/xSQ1W3kInIo6Iiqw6a3SG1ZGdRbO2BGffdHlO7ayzNu2R1sTet+ns9H578+4XPf1ve/UNL77xZyM+fPjw4TO34MOXW/jw4cOHz96CD19u4SvDdwDw1YdN
+   eJzt1F0KglAQhuFDSV4nWOvoZwXVrrLyXipX0Aay1tgXjDjEEaLSM8F38TBwFH0ZxMQ5lxDRXxpAJFMbes5CWIilzBHEMFfXar6zvk1gaqhp47FqOX9ay4zVvtvu/YVPv9ux9KVfPKNLM/axj33sY1/wFvb123d8Q+i+A9w8ciN9J9hCBjuZeygM9RVqj7k6s9R3lt2VcDHWd4XKNd/e3VBfvbdXpZE+y/8XC9jHPvaxj33dvucBRY+p1g==
   </data>
  </layer>
  <layer id="6" name="Top" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJzt0zsKACAMBNEcOvfH3k7HTwLzYFuZImZEpMOrxj6mS5/0U9U77PJ/7dtjH2MfYx9jH2MfYx9jH2MfYx9jH2MfYx8z963u5Fs39qpvAHD4f8k=
+   eJztk9kJhEAUBCfoScwrAK8AvBJQI3A3gO3vQQTt1TdCF9RXgxQ8xzvnvKSNDfVxvKVPCEti/Q/f8n7Vdw31caiPQ30c6uOw7ktgCjOYwyLYrftKWMEaNrANduu+DvZwgCOcgt26T/fl0H05dF+eGS5w3dli6NvgB353thj6jlAfh/o4wr6z/vNbd/hU3w+R7KeS
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1" opacity="0.9">
