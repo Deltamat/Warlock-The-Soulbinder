@@ -2879,17 +2879,41 @@
 /processorParam:TextureFormat=Color
 /build:Sheet.png
 
+#begin sound/battleVictory.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/battleVictory.wav
+
 #begin sound/combatMusic.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:sound/combatMusic.mp3
 
+#begin sound/combatMusicV2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sound/combatMusicV2.mp3
+
+#begin sound/npcTalk.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/npcTalk.wav
+
 #begin sound/overworldMusic.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:sound/overworldMusic.mp3
+
+#begin sound/playerStep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sound/playerStep.wav
 
 #begin sound/testSound.wav
 /importer:WavImporter

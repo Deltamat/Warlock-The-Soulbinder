@@ -9,6 +9,8 @@ namespace Warlock_The_Soulbinder
 {
     class UseCommand : ICommand
     {
+        Sound npcTalk = new Sound("npcTalk");
+
         public UseCommand()
         {
 
@@ -28,6 +30,7 @@ namespace Warlock_The_Soulbinder
                     // if close to an npc enter dialogue
                     if (npc.Value.DrawInteract == true)
                     {
+                        npcTalk.Play();
                         npc.Value.EnterDialogue();
                         break;
                     }

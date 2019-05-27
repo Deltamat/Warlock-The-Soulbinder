@@ -26,6 +26,7 @@ namespace Warlock_The_Soulbinder
         private float enemyAttackTimer;
         private float turnTimer = 1;
         private Color buttonColor = Color.White;
+        Sound victorySound = new Sound("battleVictory");
 
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
@@ -98,6 +99,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
+                    victorySound.Play();
                     target.Alive = false;
                     GameWorld.Instance.enemies.Remove(target);
                     ExitCombat();

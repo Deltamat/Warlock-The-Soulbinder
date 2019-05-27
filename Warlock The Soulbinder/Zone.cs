@@ -26,7 +26,6 @@ namespace Warlock_The_Soulbinder
             Name = zoneName;
 
             Map = GameWorld.ContentManager.Load<TiledMap>($"{Name}"); 
-            //map = GameWorld.ContentManager.Load<TiledMap>("test3");
             mapRenderer = new TiledMapRenderer(GameWorld.Instance.GraphicsDevice);
 
             // The following extracts the objects from the Tiled TileMap
@@ -120,6 +119,18 @@ namespace Warlock_The_Soulbinder
             }
 
             mapRenderer.Draw(Map, GameWorld.Instance.camera.viewMatrix);
+            //foreach (var layer in Map.TileLayers)
+            //{
+            //    if (layer.Name == "Top")
+            //    {
+            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
+            //    }
+            //    else
+            //    {
+            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.1f);
+            //    }
+                
+            //}
 
         }
 
