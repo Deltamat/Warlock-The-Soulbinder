@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace Warlock_The_Soulbinder
         private bool hurt;
         private bool hurtStart;
         private bool blinking;
+
+        private Sound step = new Sound("playerStep");
+        private double stepTimer;
 
         static Player instance;
         public static Player Instance
@@ -101,6 +105,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Update(GameTime gameTime)
         {
+            stepTimer += GameWorld.deltaTimeSecond;
             if (graceStart)
             {
                 gracePeriod += GameWorld.deltaTimeSecond;
@@ -110,6 +115,11 @@ namespace Warlock_The_Soulbinder
             {
                 lastDirection = direction;
                 walking = true;
+                if (stepTimer > 0.35f)
+                {
+                    step.Play();
+                    stepTimer = 0;
+                }
             }
             else
             {
@@ -169,11 +179,11 @@ namespace Warlock_The_Soulbinder
             
             if (gracePeriod < 5 && graceSwitch < 15)
             {
-                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
             }
             else
             {
-                spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+                spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
             }
 
             graceSwitch++;

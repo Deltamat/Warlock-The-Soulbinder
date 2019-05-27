@@ -25,9 +25,9 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Deletes the database to make it ready for a new save
         /// </summary>
-        public void ClearDB(string selectedSaveFile)
+        public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM Consumable{selectedSaveFile}";
+            cmd.CommandText = $"DELETE FROM Consumable{Controller.Instance.CurrentSaveFile}";
             cmd.ExecuteNonQuery();
         }
 
@@ -36,9 +36,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="name"></param>
         /// <param name="amount"></param>
-        public void SaveConsumable(string selectedSaveFile, string name, int amount)
+        public void SaveConsumable(string name, int amount)
         {
-            cmd.CommandText = $"INSERT INTO Consumable{selectedSaveFile} (id, name, amount) VALUES (null, {name}, {amount})";
+            cmd.CommandText = $"INSERT INTO Consumable{Controller.Instance.CurrentSaveFile} (id, name, amount) VALUES (null, {name}, {amount})";
             cmd.ExecuteNonQuery();
         }
 
@@ -46,10 +46,10 @@ namespace Warlock_The_Soulbinder
         /// Loads into a dictionary all the consumables, which then all need to be given their individual position
         /// </summary>
         /// <returns>a dictionary of all the consumables saved in the database</returns>
-        public Dictionary<int, Consumable> LoadConsumable(string selectedSaveFile)
+        public Dictionary<int, Consumable> LoadConsumable()
         {
             Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
-            cmd.CommandText = $"SELECT * FROM Consumable{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM Consumable{Controller.Instance.CurrentSaveFile}";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {

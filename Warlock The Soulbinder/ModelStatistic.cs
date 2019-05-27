@@ -21,21 +21,21 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Deletes the database to make it ready for a new save
         /// </summary>
-        public void ClearDB(string selectedSaveFile)
+        public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM Statistic{selectedSaveFile}";
+            cmd.CommandText = $"DELETE FROM Statistic{Controller.Instance.CurrentSaveFile}";
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveStatistic(string selectedSaveFile, int gold, int soulCount)
+        public void SaveStatistic(int gold, int soulCount)
         {
-            cmd.CommandText = $"INSERT INTO Statistic{selectedSaveFile} (gold, soulCount) VALUES ({gold}, {soulCount})";
+            cmd.CommandText = $"INSERT INTO Statistic{Controller.Instance.CurrentSaveFile} (gold, soulCount) VALUES ({gold}, {soulCount})";
             cmd.ExecuteNonQuery();
         }
 
-        public void LoadStatistic(string selectedSaveFile)
+        public void LoadStatistic()
         {
-            cmd.CommandText = $"SELECT * FROM Statistic{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM Statistic{Controller.Instance.CurrentSaveFile}";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
