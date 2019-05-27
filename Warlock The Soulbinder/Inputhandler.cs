@@ -26,7 +26,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-
+        KeyboardState state = Keyboard.GetState();
         //Saved Keys and Buttons
 
         private  Keys keyDown = Keys.Down;
@@ -131,11 +131,23 @@ namespace Warlock_The_Soulbinder
             return pressed;
         }
 
-        /// <summary>
-        /// Returns a keytype: 0 = Keybinds, 1 = Controller
-        /// </summary>
-        /// <param name="keyOption"></param>
-        /// <returns></returns>
+        //Code for changing keys
+        public Keys ChangeKey(Keys oldKey)
+        { 
+            foreach (Keys key in Keyboard.GetState().GetPressedKeys())
+            {
+
+                if (oldKey != key)
+                {
+                    oldKey = key;
+    
+                }
+                
+                break;
+            }
+
+            return oldKey;
+        }
 
     }
 }

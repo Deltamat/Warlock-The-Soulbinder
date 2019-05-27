@@ -134,9 +134,22 @@ namespace Warlock_The_Soulbinder
             }
             else if (buttonType == "Skills")
             {
-                spriteBatch.DrawString(CombatFont, "Dam.E", emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
-                spriteBatch.DrawString(CombatFont, "Heal.E", emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
-                spriteBatch.DrawString(CombatFont, "Heal.P", emptyButtonList[2].Position + new Vector2(50, 7), Color.White);
+                if (Equipment.Instance.Skill1 != null)
+                {
+                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill1.SkillName, emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
+                }
+
+                if (Equipment.Instance.Skill2 != null)
+                {
+                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill2.SkillName, emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
+                }
+
+                if (Equipment.Instance.Skill3 != null)
+                {
+                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill3.SkillName, emptyButtonList[2].Position + new Vector2(50, 7), Color.White);
+                }
+
+
                 spriteBatch.DrawString(CombatFont, "Back", emptyButtonList[3].Position + new Vector2(50, 7), Color.White);
             }
 
@@ -210,13 +223,25 @@ namespace Warlock_The_Soulbinder
                 switch (selectedInt)
                 {
                     case 0:
-                        target.CurrentHealth -= 3;
+                        if (Equipment.Instance.Skill1 != null)
+                        {
+                            Equipment.Instance.Skill1.Skill();
+                        }
+                        
                         break;
                     case 1:
-                        target.CurrentHealth += 3;
+                        if (Equipment.Instance.Skill2 != null)
+                        {
+                            Equipment.Instance.Skill2.Skill();
+
+                        }
                         break;
                     case 2:
-                        Player.Instance.CurrentHealth += 2;
+                        if (Equipment.Instance.Skill3 != null)
+                        {
+                            Equipment.Instance.Skill3.Skill();
+
+                        }
                         break;
                     case 3:
                         buttonType = "Normal";

@@ -59,6 +59,8 @@ namespace Warlock_The_Soulbinder
         }
 
         private static ContentManager content;
+        private float musicVolume;
+
         public static ContentManager ContentManager
         {
             get
@@ -115,12 +117,12 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return MusicVolume;
+                return musicVolume;
             }
             set
             {
-                MusicVolume = value;
-                MediaPlayer.Volume = MusicVolume;
+                musicVolume = value;
+                MediaPlayer.Volume = musicVolume;
             }
         }
         public float SoundEffectVolume { get; set; } = 0.3f;
@@ -237,7 +239,10 @@ namespace Warlock_The_Soulbinder
             #region
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone("wolf", "wolf", RandomInt(1,10)));
+                FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1,10)));
+                FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
 
                 //Code to make pages for the filled stones
                 FilledStone.StoneListPages = 0;
