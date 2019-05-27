@@ -149,6 +149,22 @@ namespace Warlock_The_Soulbinder
             thread.Start();
         }
 
+        /// <summary>
+        /// contructor used to load the database
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="startPos"></param>
+        /// <param name="defense"></param>
+        /// <param name="damage"></param>
+        /// <param name="maxHealth"></param>
+        /// <param name="attackSpeed"></param>
+        /// <param name="metalResistance"></param>
+        /// <param name="earthResistance"></param>
+        /// <param name="airResistance"></param>
+        /// <param name="fireResistance"></param>
+        /// <param name="darkResistance"></param>
+        /// <param name="waterResistance"></param>
+        /// <param name="monster"></param>
         public Enemy(int level, Vector2 startPos, int defense, int damage, int maxHealth, 
             float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, 
             float waterResistance, string monster)
@@ -165,7 +181,7 @@ namespace Warlock_The_Soulbinder
 
             //base stats
             #region
-            this.Defense = defense;
+            Defense = defense;
             Damage = damage;
             this.maxHealth = maxHealth;
             currentHealth = 0 + maxHealth;

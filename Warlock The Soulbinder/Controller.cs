@@ -47,6 +47,8 @@ namespace Warlock_The_Soulbinder
             statistic = new ModelStatistic();
         }
 
+
+
         #region Model
         public void OpenTheGates()
         {
