@@ -16,9 +16,9 @@ namespace Warlock_The_Soulbinder
         private int effectlength = 1;
         private float damageReduction;
         private int damageAbs;
-        private float speedMod;
-        private float accuracyMod;
-        private float damageMod;
+        private float speedMod = 1;
+        private float accuracyMod = 1;
+        private float damageMod = 1;
         private int shield;
         private bool stun = false;
         private bool confuse = false;
@@ -58,7 +58,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 2: //bear
                             EffectString = "Has a chance to maul the enemy, causing them to bleed";
-                            UpperChanceBounds = 0;
+                            UpperChanceBounds = 8;
                             Damage = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.2f));
                             Effectlength = 3;
                             break;

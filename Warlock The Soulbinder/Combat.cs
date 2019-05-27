@@ -314,36 +314,73 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnemyTurn()
         {
+            bool stunned = new bool();
+            bool confused = new bool();
+            int accuracyModCount = 1;
+            float accuracyMod = 1f;
+            float finalAccuracyMod = new float();
+            int damageModCount = 1;
+            float damageMod = 1f;
+            float finalDamageMod = new float();
             foreach (Effect effect in enemyEffects)
             {
                 if (effect.Effectlength > 0)
                 {
                     target.CurrentHealth -= effect.Damage;
+                    confused = effect.Confuse;
+                    stunned = effect.Stun;
+                    if (effect.AccuracyMod != 1f)
+                    {
+                        accuracyMod += effect.AccuracyMod;
+                        accuracyModCount++;
+                    }
+                    if (effect.DamageMod != 1f)
+                    {
+                        damageMod += effect.DamageMod;
+                        damageModCount++;
+                    }
                 }
                 effect.Effectlength--;
             }
 
+            finalAccuracyMod = accuracyMod / accuracyModCount;
+            finalDamageMod = damageMod / damageModCount;
+
             enemyAttackTimer = 0;
-            Player.Instance.HurtStart = true;
-
-            List<int> damageToDeal = new List<int>();
-            int totalDamageToDeal = 0;
-
-            if (target.Damage - Player.Instance.Defense > 0)
+            if (!stunned)
             {
-                damageToDeal.Add(target.Damage - Player.Instance.Defense);
-            }
-            
-            for (int i = 0; i < target.ResistanceTypes.Count; i++)
-            {
-                damageToDeal.Add((int)(target.DamageTypes[i] - (target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i])));
-            }
-            for (int i = 0; i < damageToDeal.Count; i++)
-            {
-                totalDamageToDeal += damageToDeal[i];
-            }
+                Player.Instance.HurtStart = true;
 
-            Player.Instance.CurrentHealth -= totalDamageToDeal;
+                List<int> damageToDeal = new List<int>();
+                int totalDamageToDeal = 0;
+
+                if (target.Damage - Player.Instance.Defense > 0)
+                {
+                    damageToDeal.Add(target.Damage - Player.Instance.Defense);
+                }
+
+                for (int i = 0; i < target.ResistanceTypes.Count; i++)
+                {
+                    damageToDeal.Add((int)((target.DamageTypes[i] * finalDamageMod) - ((target.DamageTypes[i] * finalDamageMod) * 0.01 * Player.Instance.ResistanceTypes[i])));
+                }
+                for (int i = 0; i < damageToDeal.Count; i++)
+                {
+                    totalDamageToDeal += damageToDeal[i];
+                }
+
+                if (confused && GameWorld.Instance.RandomInt(0, 100) < 50)
+                {
+                    target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
+                }
+                else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25)
+                {
+
+                }
+                else if (GameWorld.Instance.RandomInt((int)(100 * finalAccuracyMod), (int)(200 - (100 - (100 * finalAccuracyMod)))) >= 100)
+                {
+                    Player.Instance.CurrentHealth -= totalDamageToDeal;
+                }
+            }
         }
 
         /// <summary>

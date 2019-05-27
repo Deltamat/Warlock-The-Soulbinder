@@ -106,7 +106,7 @@ namespace Warlock_The_Soulbinder
         public override void Update(GameTime gameTime)
         {
             stepTimer += GameWorld.deltaTimeSecond;
-            if (graceStart)
+            if (graceStart && GameWorld.Instance.GameState == "Overworld")
             {
                 gracePeriod += GameWorld.deltaTimeSecond;
             }            
@@ -160,7 +160,7 @@ namespace Warlock_The_Soulbinder
             #endregion
 
             //if the player's 5 second grace period is over and the player collides with an enemy, start combat
-            if (gracePeriod > 5) 
+            if (gracePeriod > 3) 
             {
                 foreach (Enemy enemy in GameWorld.Instance.enemies)
                 {
@@ -177,7 +177,7 @@ namespace Warlock_The_Soulbinder
         {
             ChooseAnimationFrame();
             
-            if (gracePeriod < 5 && graceSwitch < 15)
+            if (gracePeriod < 3 && graceSwitch < 15)
             {
                 spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
             }
