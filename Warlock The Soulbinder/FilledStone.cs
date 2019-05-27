@@ -74,147 +74,147 @@ namespace Warlock_The_Soulbinder
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
-        public FilledStone(string name, string monster, int level)
-        {
-            this.Name = name;
-            this.Monster = monster;
-            this.Level = level;
-            spriteName = $"monsters/Orbs/{monster}";
-            sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-            //switch case to determine the element, and name of abilities, based on the monster type
-            switch (monster) 
-            {
-                case "sheep":
-                    Element = "neutral";
-                    weaponName = "Headbutt";
-                    armorName = "Woolen Armor";
-                    skillName = "Headbutt";
-                    break;
-                case "bear":
-                    Element = "neutral";
-                    weaponName = "Maul";
-                    armorName = "Ursadaen Fortitude";
-                    skillName = "Maul";
-                    break;
-                case "wolf":
-                    Element = "neutral";
-                    weaponName = "Wolf Bite";
-                    armorName = "Wolf Revenge";
-                    skillName = "Wolf Frenzy";
-                    break;
-                case "plantEater":
-                    Element = "earth";
-                    weaponName = "Symplastic Strike";
-                    armorName = "Apoplastic Defence";
-                    skillName = "Drain Life";
-                    break;
-                case "insectSoldier":
-                    Element = "earth";
-                    weaponName = "Toxic Barbs";
-                    armorName = "Poisonous Skin";
-                    skillName = "Venomous Strike";
-                    break;
-                case "slimeSnake":
-                    Element = "earth";
-                    weaponName = "Corrosive Slime";
-                    armorName = "Hardened Gel";
-                    skillName = "Protective Goop";
-                    break;
-                case "tentacle":
-                    Element = "water";
-                    weaponName = "Constraining Grapple";
-                    armorName = "Retaliating Slap";
-                    skillName = "Tentacle Grap";
-                    break;
-                case "frog":
-                    Element = "water";
-                    weaponName = "Slipping Splash";
-                    armorName = "Slimy Skin";
-                    skillName = "Mucus Shot";
-                    break;
-                case "fish":
-                    Element = "water";
-                    weaponName = "Regenerative Strike";
-                    armorName = "Sudden Mending";
-                    skillName = "Healing Rain";
-                    break;
-                case "mummy":
-                    Element = "dark";
-                    weaponName = "Cursing Strike";
-                    armorName = "Curse Immunity";
-                    skillName = "Curse of the Mummy";
-                    break;
-                case "vampire":
-                    Element = "dark";
-                    weaponName = "Vampiric Touch";
-                    armorName = "Bloodied Shield";
-                    skillName = "Blood Shield";
-                    break;
-                case "banshee":
-                    Element = "dark";
-                    weaponName = "Paralyzing Touch";
-                    armorName = "Paralyze Immunity";
-                    skillName = "Banshee's Song";
-                    break;
-                case "bucketMan":
-                    Element = "metal";
-                    weaponName = "Critical Bucket";
-                    armorName = "Bucket Shield";
-                    skillName = "ULTIMATE BUCKET DESTRUCTION!";
-                    break;
-                case "defender":
-                    Element = "metal";
-                    weaponName = "Sunder Armor";
-                    armorName = "Thick Plates";
-                    skillName = "Defensive Stance";
-                    break;
-                case "sentry":
-                    Element = "metal";
-                    weaponName = "Accurate Strikes";
-                    armorName = "Predicting Algorithm";
-                    skillName = "Scan";
-                    break;
-                case "fireGolem":
-                    Element = "fire";
-                    weaponName = "Heavy Strikes";
-                    armorName = "Obsidian Skin";
-                    skillName = "Momentous Slam";
-                    break;
-                case "infernalGolem":
-                    Element = "fire";
-                    weaponName = "Red-hot Smite";
-                    armorName = "Immolating Presence";
-                    skillName = "Incenerate";
-                    break;
-                case "ashZombie":
-                    Element = "fire";
-                    weaponName = "Fiery Double-tap";
-                    armorName = "Blazing Assault";
-                    skillName = "Flaring Assailment";
-                    break;
-                case "falcon":
-                    Element = "air";
-                    weaponName = "Speedy Swoop";
-                    armorName = "Evasive Wing-work";
-                    skillName = "Quickened Agility";
-                    break;
-                case "bat":
-                    Element = "air";
-                    weaponName = "Confusing Menoeuvre";
-                    armorName = "Perplexing Retaliation";
-                    skillName = "Sonic Scream";
-                    break;
-                case "raven":
-                    Element = "air";
-                    weaponName = "Blinding Assault";
-                    armorName = "Retaliative Amaurotic";
-                    skillName = "Bilnd";
-                    break;
-            }
-            WeaponSkill();
-            ArmorSkill();
-            Skill();
-        }
+        //public FilledStone(string name, string monster, int level)
+        //{
+        //    this.Name = name;
+        //    this.Monster = monster;
+        //    this.Level = level;
+        //    spriteName = $"monsters/Orbs/{monster}";
+        //    sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
+        //    //switch case to determine the element, and name of abilities, based on the monster type
+        //    switch (monster)
+        //    {
+        //        case "sheep":
+        //            Element = "neutral";
+        //            weaponName = "Headbutt";
+        //            armorName = "Woolen Armor";
+        //            skillName = "Headbutt";
+        //            break;
+        //        case "bear":
+        //            Element = "neutral";
+        //            weaponName = "Maul";
+        //            armorName = "Ursadaen Fortitude";
+        //            skillName = "Maul";
+        //            break;
+        //        case "wolf":
+        //            Element = "neutral";
+        //            weaponName = "Wolf Bite";
+        //            armorName = "Wolf Revenge";
+        //            skillName = "Wolf Frenzy";
+        //            break;
+        //        case "plantEater":
+        //            Element = "earth";
+        //            weaponName = "Symplastic Strike";
+        //            armorName = "Apoplastic Defence";
+        //            skillName = "Drain Life";
+        //            break;
+        //        case "insectSoldier":
+        //            Element = "earth";
+        //            weaponName = "Toxic Barbs";
+        //            armorName = "Poisonous Skin";
+        //            skillName = "Venomous Strike";
+        //            break;
+        //        case "slimeSnake":
+        //            Element = "earth";
+        //            weaponName = "Corrosive Slime";
+        //            armorName = "Hardened Gel";
+        //            skillName = "Protective Goop";
+        //            break;
+        //        case "tentacle":
+        //            Element = "water";
+        //            weaponName = "Constraining Grapple";
+        //            armorName = "Retaliating Slap";
+        //            skillName = "Tentacle Grap";
+        //            break;
+        //        case "frog":
+        //            Element = "water";
+        //            weaponName = "Slipping Splash";
+        //            armorName = "Slimy Skin";
+        //            skillName = "Mucus Shot";
+        //            break;
+        //        case "fish":
+        //            Element = "water";
+        //            weaponName = "Regenerative Strike";
+        //            armorName = "Sudden Mending";
+        //            skillName = "Healing Rain";
+        //            break;
+        //        case "mummy":
+        //            Element = "dark";
+        //            weaponName = "Cursing Strike";
+        //            armorName = "Curse Immunity";
+        //            skillName = "Curse of the Mummy";
+        //            break;
+        //        case "vampire":
+        //            Element = "dark";
+        //            weaponName = "Vampiric Touch";
+        //            armorName = "Bloodied Shield";
+        //            skillName = "Blood Shield";
+        //            break;
+        //        case "banshee":
+        //            Element = "dark";
+        //            weaponName = "Paralyzing Touch";
+        //            armorName = "Paralyze Immunity";
+        //            skillName = "Banshee's Song";
+        //            break;
+        //        case "bucketMan":
+        //            Element = "metal";
+        //            weaponName = "Critical Bucket";
+        //            armorName = "Bucket Shield";
+        //            skillName = "ULTIMATE BUCKET DESTRUCTION!";
+        //            break;
+        //        case "defender":
+        //            Element = "metal";
+        //            weaponName = "Sunder Armor";
+        //            armorName = "Thick Plates";
+        //            skillName = "Defensive Stance";
+        //            break;
+        //        case "sentry":
+        //            Element = "metal";
+        //            weaponName = "Accurate Strikes";
+        //            armorName = "Predicting Algorithm";
+        //            skillName = "Scan";
+        //            break;
+        //        case "fireGolem":
+        //            Element = "fire";
+        //            weaponName = "Heavy Strikes";
+        //            armorName = "Obsidian Skin";
+        //            skillName = "Momentous Slam";
+        //            break;
+        //        case "infernalGolem":
+        //            Element = "fire";
+        //            weaponName = "Red-hot Smite";
+        //            armorName = "Immolating Presence";
+        //            skillName = "Incenerate";
+        //            break;
+        //        case "ashZombie":
+        //            Element = "fire";
+        //            weaponName = "Fiery Double-tap";
+        //            armorName = "Blazing Assault";
+        //            skillName = "Flaring Assailment";
+        //            break;
+        //        case "falcon":
+        //            Element = "air";
+        //            weaponName = "Speedy Swoop";
+        //            armorName = "Evasive Wing-work";
+        //            skillName = "Quickened Agility";
+        //            break;
+        //        case "bat":
+        //            Element = "air";
+        //            weaponName = "Confusing Menoeuvre";
+        //            armorName = "Perplexing Retaliation";
+        //            skillName = "Sonic Scream";
+        //            break;
+        //        case "raven":
+        //            Element = "air";
+        //            weaponName = "Blinding Assault";
+        //            armorName = "Retaliative Amaurotic";
+        //            skillName = "Bilnd";
+        //            break;
+        //    }
+        //    WeaponSkill();
+        //    ArmorSkill();
+        //    Skill();
+        //}
 
         public FilledStone(string monster, int level)
         {
@@ -457,6 +457,16 @@ namespace Warlock_The_Soulbinder
         public void Skill()
         {
             SkillEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Skill", this);
+        }
+
+        public static void CatchMonster(Enemy target)
+        {
+            int tempLevel = target.Level / 2;
+                if (tempLevel == 0)
+            {
+                tempLevel = 1;
+            }
+            stoneList.Add(new FilledStone(target.Monster, tempLevel));
         }
     }
 }

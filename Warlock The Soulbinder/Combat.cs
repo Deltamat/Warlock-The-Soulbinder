@@ -25,6 +25,7 @@ namespace Warlock_The_Soulbinder
         private float playerAttackTimer;
         private float enemyAttackTimer;
         private float turnTimer = 1;
+       
         private Color buttonColor = Color.White;
         Sound victorySound = new Sound("battleVictory");
 
@@ -106,6 +107,8 @@ namespace Warlock_The_Soulbinder
                     enemyEffects.Clear();
                     victorySound.Play();
                     target.Alive = false;
+                    Equipment.Instance.ExperienceEquipment(target.Level * 20);
+
                     GameWorld.Instance.enemies.Remove(target);
                     ExitCombat();
                 }
@@ -156,6 +159,15 @@ namespace Warlock_The_Soulbinder
 
 
                 spriteBatch.DrawString(CombatFont, "Back", emptyButtonList[3].Position + new Vector2(50, 7), Color.White);
+            }
+
+
+            else if (buttonType == "Items")
+            {
+                spriteBatch.DrawString(CombatFont, $"Pot x{Consumable.Potion}", emptyButtonList[0].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, $"SoSt x{Consumable.SoulStone} ", emptyButtonList[1].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, $"Bomb x{Consumable.Bomb}", emptyButtonList[2].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, "Flee", emptyButtonList[3].Position + new Vector2(50, 7), buttonColor);
             }
 
             //Draws health, healthbars and turn bar for enemy
@@ -216,7 +228,7 @@ namespace Warlock_The_Soulbinder
                         buttonType = "Skills";
                         break;
                     case 2: //item
-                        //buttonType = "Items";
+                        buttonType = "Items";
                         break;
                     case 3: //flee
                         ExitCombat();
@@ -249,6 +261,48 @@ namespace Warlock_The_Soulbinder
                         }
                         break;
                     case 3:
+                        buttonType = "Normal";
+                        break;
+                }
+
+             }
+
+            else if (buttonType == "Items")
+            {
+                switch (selectedInt)
+                {
+                    case 0: //Potion
+                        if (Consumable.Potion > 0)
+                        {
+                            Player.Instance.CurrentHealth += 20;
+                            Consumable.Potion--;
+                        }
+                        break;
+                    case 1: //Soul Capture
+
+                        if (Consumable.SoulStone > 0)
+                        {
+                            int tempChance = PercentStat(target.CurrentHealth, target.MaxHealth);
+                            int tempInt = GameWorld.Instance.RandomInt(0, 100);
+
+                            if ((tempChance) < tempInt)
+                            {
+                                FilledStone.CatchMonster(target);
+                                target.CurrentHealth = 0;
+                            }
+
+                            Consumable.SoulStone--;
+                        }
+                        break;
+                    case 2: //Bomb
+                        if (Consumable.Bomb > 0)
+                        {
+                            target.CurrentHealth -= 20;
+                            Consumable.Bomb--;
+                        }
+                        
+                        break;
+                    case 3: //Back
                         buttonType = "Normal";
                         break;
                 }

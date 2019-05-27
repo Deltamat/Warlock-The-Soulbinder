@@ -82,6 +82,7 @@ namespace Warlock_The_Soulbinder
                 case "Equipment":
                     ChangeSelected(4);
 
+                    //Code for unequipping stones
                     if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 200)
                     {
                         switch (selectedInt)
@@ -177,11 +178,21 @@ namespace Warlock_The_Soulbinder
                         if (GameWorld.Instance.SoundEffectVolume > 0 && selectedInt == 0)
                         {
                             GameWorld.Instance.SoundEffectVolume -= 0.01f;
+
+                            if (GameWorld.Instance.SoundEffectVolume < 0)
+                            {
+                                GameWorld.Instance.SoundEffectVolume = 0;
+                            }
                         }
 
                         if (GameWorld.Instance.MusicVolume > 0 && selectedInt == 1)
                         {
                             GameWorld.Instance.MusicVolume -= 0.01f;
+
+                            if (GameWorld.Instance.MusicVolume < 0)
+                            {
+                                GameWorld.Instance.MusicVolume = 0;
+                            }
                         }
                     }
 
@@ -201,6 +212,7 @@ namespace Warlock_The_Soulbinder
                 selectedInt = 0;
             }
 
+            //Key for going back in menus
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyCancel) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonCancel)) && delay > 150)
             {
                 switch (inventoryState)
@@ -236,6 +248,16 @@ namespace Warlock_The_Soulbinder
 
                     case "Consumables":
                         inventoryState = "Inventory";
+                        selectedInt = 0;
+                        break;
+
+                    case "Options":
+                        inventoryState = "GeneralMenu";
+                        selectedInt = 0;
+                        break;
+
+                    case "Keybinds":
+                        inventoryState = "Options";
                         selectedInt = 0;
                         break;
 
