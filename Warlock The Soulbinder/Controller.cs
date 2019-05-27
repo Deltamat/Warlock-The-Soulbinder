@@ -11,7 +11,6 @@ namespace Warlock_The_Soulbinder
         ModelConsumable consumable;
         ModelSoulStone filledStone;
         ModelEnemy enemy;
-        ModelNPC npc;
         ModelQuest quest;
         ModelPlayer player;
         ModelStatistic statistic;
@@ -117,7 +116,20 @@ namespace Warlock_The_Soulbinder
 
 
         #region Quest
+        public void DeleteQuestDB()
+        {
+            quest.ClearDB();
+        }
 
+        public void SaveToQuestDB(string questName, string questStatus)
+        {
+            quest.SaveQuest(questName, questStatus);
+        }
+
+        public Dictionary<int, string> LoadFromQuestDB()
+        {
+            return quest.LoadQuest();
+        }
 
         #endregion
 
