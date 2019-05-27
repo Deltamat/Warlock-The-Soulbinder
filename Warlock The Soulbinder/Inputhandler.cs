@@ -114,7 +114,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool keyPressed(Keys key)
+        public bool KeyPressed(Keys key)
         {
             bool pressed = Keyboard.GetState().IsKeyDown(key);
             return pressed;
@@ -125,7 +125,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="button"></param>
         /// <returns></returns>
-        public bool buttonPressed(Buttons button)
+        public bool ButtonPressed(Buttons button)
         {
             bool pressed = GamePad.GetState(PlayerIndex.One).IsButtonDown(button);
             return pressed;

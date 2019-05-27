@@ -9,11 +9,12 @@ namespace Warlock_The_Soulbinder
     class Equipment : Menu
     {
         private static Equipment instance;
-        private  FilledStone weapon;
-        private  FilledStone armor;
-        private  FilledStone skill1;
-        private  FilledStone skill2;
-        private  FilledStone skill3;
+        private FilledStone weapon;
+        private FilledStone armor;
+        private FilledStone skill1;
+        private FilledStone skill2;
+        private FilledStone skill3;
+        private List<FilledStone> equippedEquipment = new List<FilledStone>();
 
         public static Equipment Instance
         {
@@ -27,15 +28,27 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public  FilledStone Weapon { get => weapon; set => weapon = value; }
-        public  FilledStone Armor { get => armor; set => armor = value; }
-        public  FilledStone Skill1 { get => skill1; set => skill1 = value; }
-        public  FilledStone Skill2 { get => skill2; set => skill2 = value; }
-        public  FilledStone Skill3 { get => skill3; set => skill3 = value; }
+        public FilledStone Weapon { get => weapon; set => weapon = value; }
+        public FilledStone Armor { get => armor; set => armor = value; }
+        public FilledStone Skill1 { get => skill1; set => skill1 = value; }
+        public FilledStone Skill2 { get => skill2; set => skill2 = value; }
+        public FilledStone Skill3 { get => skill3; set => skill3 = value; }
+        public List<FilledStone> EquippedEquipment
+        {
+            get => equippedEquipment;
+            set
+            {
+                equippedEquipment = value;
+            }
+        }
 
         private Equipment()
         {
-
+            EquippedEquipment.Add(Weapon);
+            EquippedEquipment.Add(Armor);
+            EquippedEquipment.Add(Skill1);
+            EquippedEquipment.Add(Skill2);
+            EquippedEquipment.Add(Skill3);
         }
 
         /// <summary>
@@ -45,28 +58,30 @@ namespace Warlock_The_Soulbinder
         /// <param name="selectedStone"></param>
         public void EquipStone(int slot, FilledStone selectedStone)
         {
-            
             switch (slot)
             {
                 case 0:
-                    Equipment.instance.Weapon = selectedStone;
+                    Weapon = selectedStone;
+                    EquippedEquipment[0] = Weapon;
                     break;
                 case 1:
-                    Equipment.instance.Armor = selectedStone;
+                    Armor = selectedStone;
+                    EquippedEquipment[1] = Armor;
                     break;
-
                 case 2:
-                    Equipment.instance.Skill1 = selectedStone;
+                    Skill1 = selectedStone;
+                    EquippedEquipment[2] = Skill1;
                     break;
-
                 case 3:
-                    Equipment.instance.Skill2 = selectedStone;
+                    Skill2 = selectedStone;
+                    EquippedEquipment[3] = Skill2;
                     break;
-
                 case 4:
-                    Equipment.instance.Skill3 = selectedStone;
+                    Skill3 = selectedStone;
+                    EquippedEquipment[4] = Skill3;
                     break;
             }
+            Player.Instance.UpdateStats();
         }
     }
 }

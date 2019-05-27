@@ -82,7 +82,7 @@ namespace Warlock_The_Soulbinder
                 case "Equipment":
                     ChangeSelected(4);
 
-                    if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonReturn)) && delay > 200)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 200)
                     {
                         switch (selectedInt)
                         {
@@ -139,14 +139,14 @@ namespace Warlock_The_Soulbinder
                         ChangeSelected(FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9) - 1);
                     }
 
-                    if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && filledStoneInt < FilledStone.StoneListPages)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && filledStoneInt < FilledStone.StoneListPages)
                     {
                         filledStoneInt++;
                         delay = 0;
                         selectedInt = 0;
                     }
 
-                    if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && filledStoneInt > 0)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && filledStoneInt > 0)
                     {
                         filledStoneInt--;
                         delay = 0;
@@ -194,14 +194,14 @@ namespace Warlock_The_Soulbinder
             }   
             
             //Key to execute code dependent on the inventory state
-            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonSelect)) && delay > 200)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && delay > 200)
             {
                 ChangeState();
                 delay = 0;
                 selectedInt = 0;
             }
 
-            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyCancel) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonCancel)) && delay > 150)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyCancel) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonCancel)) && delay > 150)
             {
                 switch (inventoryState)
                 {
@@ -942,13 +942,13 @@ namespace Warlock_The_Soulbinder
         //Changes selectedInt which determines what item you are going to press
         public void ChangeSelected(int max)
         {
-            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonUp)) && delay > 150 && SelectedInt > 0)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && delay > 150 && SelectedInt > 0)
             {
                 SelectedInt--;
                 delay = 0;
             }
 
-            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonDown)) && delay > 150 && SelectedInt < max)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonDown)) && delay > 150 && SelectedInt < max)
             {
                 SelectedInt++;
                 delay = 0;
