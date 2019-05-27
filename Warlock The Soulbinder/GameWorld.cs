@@ -60,7 +60,7 @@ namespace Warlock_The_Soulbinder
         }
 
         private static ContentManager content;
-        private float musicVolume;
+
 
         public static ContentManager ContentManager
         {
@@ -267,7 +267,7 @@ namespace Warlock_The_Soulbinder
                 GameState = "Combat";
                 delay = 0;
             }
-            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
             {
                 if (GameState == "Overworld")
                 {

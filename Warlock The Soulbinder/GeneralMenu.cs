@@ -157,7 +157,7 @@ namespace Warlock_The_Soulbinder
                 case "Options":
                     ChangeSelected(2);
 
-                    if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonRight)) && delay > 30)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 30)
                     {
                         if (GameWorld.Instance.SoundEffectVolume < 1 && selectedInt == 0)
                         {
@@ -172,7 +172,7 @@ namespace Warlock_The_Soulbinder
                         }
                     }
 
-                    if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonLeft)) && delay > 30)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 30)
                     {
                         if (GameWorld.Instance.SoundEffectVolume > 0 && selectedInt == 0)
                         {

@@ -70,12 +70,13 @@ namespace Warlock_The_Soulbinder
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+        public string Name { get => name; set => name = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
         public FilledStone(string name, string monster, int level)
         {
-            this.name = name;
+            this.Name = name;
             this.Monster = monster;
             this.Level = level;
             spriteName = $"monsters/Orbs/{monster}";
@@ -217,7 +218,7 @@ namespace Warlock_The_Soulbinder
 
         public FilledStone(string monster, int level)
         {
-            Monster = monster.Monster;
+            Monster = monster;
             Level = level;
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
@@ -230,147 +231,147 @@ namespace Warlock_The_Soulbinder
             switch (Monster) 
             {
                 case "sheep":
-                    name = "Sheep";
+                    Name = "Sheep";
                     Element = "neutral";
                     weaponName = "Headbutt";
                     armorName = "Woolen Armor";
                     skillName = "Headbutt";
                     break;
                 case "bear":
-                    name = "Bear";
+                    Name = "Bear";
                     Element = "neutral";
                     weaponName = "Maul";
                     armorName = "Ursadaen Fortitude";
                     skillName = "Maul";
                     break;
                 case "wolf":
-                    name = "Wolf";
+                    Name = "Wolf";
                     Element = "neutral";
                     weaponName = "Wolf Bite";
                     armorName = "Wolf Revenge";
                     skillName = "Wolf Frenzy";
                     break;
                 case "plantEater":
-                    name = "Plant Eater";
+                    Name = "Plant Eater";
                     Element = "earth";
                     weaponName = "Symplastic Strike";
                     armorName = "Apoplastic Defence";
                     skillName = "Drain Life";
                     break;
                 case "insectSoldier":
-                    name = "Insect Soldier";
+                    Name = "Insect Soldier";
                     Element = "earth";
                     weaponName = "Toxic Barbs";
                     armorName = "Poisonous Skin";
                     skillName = "Venomous Strike";
                     break;
                 case "slimeSnake":
-                    name = "Slime Snake";
+                    Name = "Slime Snake";
                     Element = "earth";
                     weaponName = "Corrosive Slime";
                     armorName = "Hardened Gel";
                     skillName = "Protective Goop";
                     break;
                 case "tentacle":
-                    name = "Tentacle";
+                    Name = "Tentacle";
                     Element = "water";
                     weaponName = "Constraining Grapple";
                     armorName = "Retaliating Slap";
                     skillName = "Tentacle Grap";
                     break;
                 case "frog":
-                    name = "Frog";
+                    Name = "Frog";
                     Element = "water";
                     weaponName = "Slipping Splash";
                     armorName = "Slimy Skin";
                     skillName = "Mucus Shot";
                     break;
                 case "fish":
-                    name = "Fish";
+                    Name = "Fish";
                     Element = "water";
                     weaponName = "Regenerative Strike";
                     armorName = "Sudden Mending";
                     skillName = "Healing Rain";
                     break;
                 case "mummy":
-                    name = "Mummy";
+                    Name = "Mummy";
                     Element = "dark";
                     weaponName = "Cursing Strike";
                     armorName = "Curse Immunity";
                     skillName = "Curse of the Mummy";
                     break;
                 case "vampire":
-                    name = "Vampire";
+                    Name = "Vampire";
                     Element = "dark";
                     weaponName = "Vampiric Touch";
                     armorName = "Bloodied Shield";
                     skillName = "Blood Shield";
                     break;
                 case "banshee":
-                    name = "Banshee";
+                    Name = "Banshee";
                     Element = "dark";
                     weaponName = "Paralyzing Touch";
                     armorName = "Paralyze Immunity";
                     skillName = "Banshee's Song";
                     break;
                 case "bucketMan":
-                    name = "Bucket Man";
+                    Name = "Bucket Man";
                     Element = "metal";
                     weaponName = "Critical Bucket";
                     armorName = "Bucket Shield";
                     skillName = "ULTIMATE BUCKET DESTRUCTION!";
                     break;
                 case "defender":
-                    name = "Defender";
+                    Name = "Defender";
                     Element = "metal";
                     weaponName = "Sunder Armor";
                     armorName = "Thick Plates";
                     skillName = "Defensive Stance";
                     break;
                 case "sentry":
-                    name = "Sentry";
+                    Name = "Sentry";
                     Element = "metal";
                     weaponName = "Accurate Strikes";
                     armorName = "Predicting Algorithm";
                     skillName = "Scan";
                     break;
                 case "fireGolem":
-                    name = "Fire Golem";
+                    Name = "Fire Golem";
                     Element = "fire";
                     weaponName = "Heavy Strikes";
                     armorName = "Obsidian Skin";
                     skillName = "Momentous Slam";
                     break;
                 case "infernalDemon":
-                    name = "Infernal Demon";
+                    Name = "Infernal Demon";
                     Element = "fire";
                     weaponName = "Red-hot Smite";
                     armorName = "Immolating Presence";
                     skillName = "Incenerate";
                     break;
                 case "ashZombie":
-                    name = "Ash Zombie";
+                    Name = "Ash Zombie";
                     Element = "fire";
                     weaponName = "Fiery Double-tap";
                     armorName = "Blazing Assault";
                     skillName = "Flaring Assailment";
                     break;
                 case "falcon":
-                    name = "Falcon";
+                    Name = "Falcon";
                     Element = "air";
                     weaponName = "Speedy Swoop";
                     armorName = "Evasive Wing-work";
                     skillName = "Quickened Agility";
                     break;
                 case "bat":
-                    name = "Bat";
+                    Name = "Bat";
                     Element = "air";
                     weaponName = "Confusing Menoeuvre";
                     armorName = "Perplexing Retaliation";
                     skillName = "Sonic Scream";
                     break;
                 case "raven":
-                    name = "Raven";
+                    Name = "Raven";
                     Element = "air";
                     weaponName = "Blinding Assault";
                     armorName = "Retaliative Amaurotic";
