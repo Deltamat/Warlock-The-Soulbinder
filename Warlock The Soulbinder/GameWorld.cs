@@ -60,6 +60,8 @@ namespace Warlock_The_Soulbinder
         }
 
         private static ContentManager content;
+
+
         public static ContentManager ContentManager
         {
             get
@@ -225,7 +227,6 @@ namespace Warlock_The_Soulbinder
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -239,7 +240,10 @@ namespace Warlock_The_Soulbinder
             #region
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero), RandomInt(1,10)));
+                FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1,10)));
+                FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
 
                 //Code to make pages for the filled stones
                 FilledStone.StoneListPages = 0;
@@ -263,9 +267,18 @@ namespace Warlock_The_Soulbinder
                 GameState = "Combat";
                 delay = 0;
             }
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 100)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
             {
-                GameState = "GeneralMenu";
+                if (GameState == "Overworld")
+                {
+                    GameState = "GeneralMenu";
+                }
+                
+                else if (GameState == "GeneralMenu")
+                {
+                    GameState = "Overworld";
+                }
+
                 delay = 0;
             }
 
