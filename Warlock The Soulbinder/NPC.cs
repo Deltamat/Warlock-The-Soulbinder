@@ -30,7 +30,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Creates a NPC
+        /// Creates an NPC
         /// </summary>
         /// <param name="spriteName">The name of the sprite</param>
         /// <param name="position">The position of the NPC</param>
@@ -55,10 +55,6 @@ namespace Warlock_The_Soulbinder
 
         public override void Update(GameTime gameTime)
         {
-            if (Talking)
-            {
-                Dialogue.Instance.dialogueLines = dialogueLines;
-            }
             if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2()) < interactDistance)
             {
                 DrawInteract = true;
@@ -118,6 +114,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnterDialogue()
         {
+            Dialogue.Instance.dialogueLines = dialogueLines;
             Dialogue.Instance.InDialogue = true;
             Talking = true;
             GameWorld.Instance.GameState = "Dialogue";

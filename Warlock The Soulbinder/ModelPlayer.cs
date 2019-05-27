@@ -28,21 +28,21 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Deletes the database to make it ready for a new save
         /// </summary>
-        public void ClearDB(string selectedSaveFile)
+        public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM Player{selectedSaveFile}";
+            cmd.CommandText = $"DELETE FROM Player{Controller.Instance.CurrentSaveFile}";
             cmd.ExecuteNonQuery();
         }
 
-        public void SavePlayer(string selectedSaveFile, int X, int Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
+        public void SavePlayer(int X, int Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
         {
-            cmd.CommandText = $"INSERT INTO Player{selectedSaveFile} (X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ({X}, {Y}, {zone}, {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
+            cmd.CommandText = $"INSERT INTO Player{Controller.Instance.CurrentSaveFile} (X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ({X}, {Y}, {zone}, {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
             cmd.ExecuteNonQuery();
         }
 
-        public void LoadPlayer(string selectedSaveFile)
+        public void LoadPlayer()
         {
-            cmd.CommandText = $"SELECT * FROM Player{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM Player{Controller.Instance.CurrentSaveFile}";
 
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())

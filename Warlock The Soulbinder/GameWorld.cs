@@ -28,6 +28,7 @@ namespace Warlock_The_Soulbinder
 
         Song overworldMusic;
         Song combatMusic;
+        TimeSpan songPosition;
 
 
         //Tiled fields
@@ -35,6 +36,8 @@ namespace Warlock_The_Soulbinder
         private Zone t2;
         public string currentZone = "t";
         public List<Zone> zones = new List<Zone>();
+
+
         public int Gold { get; set; }
         public int SoulCount { get; set; }
 
@@ -76,7 +79,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Returns a rectangle whitin the bounds of the map
+        /// Returns a rectangle with the bounds of the current map
         /// </summary>
         public Rectangle TileMapBounds
         {
@@ -96,21 +99,31 @@ namespace Warlock_The_Soulbinder
             {
                 if (value == "Overworld" && gameState != "Dialogue")
                 {
-                    MediaPlayer.Stop();
-                    MediaPlayer.Play(overworldMusic);
+                    //MediaPlayer.Play(overworldMusic, songPosition);
                 }
                 else if (value == "Combat")
                 {
-                    MediaPlayer.Stop();
-                    MediaPlayer.Play(combatMusic);
+                    //songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                    //MediaPlayer.Play(combatMusic, TimeSpan.Zero);
                 }
 
                 gameState = value;
             }
         }
-        public float SoundVolume { get;
+
+        public float MusicVolume
+        {
+            get
+            {
+                return MusicVolume;
+            }
             set
-               ; }
+            {
+                MusicVolume = value;
+                MediaPlayer.Volume = MusicVolume;
+            }
+        }
+        public float SoundEffectVolume { get; set; } = 0.3f;
 
         public GameWorld()
         {
@@ -161,9 +174,10 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
             // Music
-            SoundVolume = 1f;
+            MusicVolume = 0.5f;
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = SoundVolume;
+            MediaPlayer.Volume = MusicVolume;
+            combatMusic = Content.Load<Song>("sound/combatMusicV2");
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
             combatMusic = Content.Load<Song>("sound/combatMusic");
 

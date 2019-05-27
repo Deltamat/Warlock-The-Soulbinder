@@ -23,24 +23,24 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Deletes the database to make it ready for a new save
         /// </summary>
-        public void ClearDB(string selectedSaveFile)
+        public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM SoulStone{selectedSaveFile}";
+            cmd.CommandText = $"DELETE FROM SoulStone{Controller.Instance.CurrentSaveFile}";
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveSoulStone(string selectedSaveFile, string monster, int level)
+        public void SaveSoulStone(string monster, int level)
         {
-            string whichSaveFile = $"{selectedSaveFile}";
-            cmd.CommandText = $"INSERT INTO SoulStone{whichSaveFile} (id, monster, level) VALUES (null, {monster}, {level})";
+            cmd.CommandText = $"INSERT INTO SoulStone{Controller.Instance.CurrentSaveFile} (id, monster, level) VALUES (null, {monster}, {level})";
+            cmd.ExecuteNonQuery();
         }
 
-        public Dictionary<int, FilledStone> LoadSoulStone(string selectedSaveFile)
+        public Dictionary<int, FilledStone> LoadSoulStone()
         {
             Dictionary<int, FilledStone> soulStoneDic = new Dictionary<int, FilledStone>();
 
           
-            cmd.CommandText = $"SELECT * FROM SoulStone{selectedSaveFile}";
+            cmd.CommandText = $"SELECT * FROM SoulStone{Controller.Instance.CurrentSaveFile}";
             
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
