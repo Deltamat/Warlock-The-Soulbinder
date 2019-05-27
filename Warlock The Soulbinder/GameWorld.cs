@@ -108,7 +108,9 @@ namespace Warlock_The_Soulbinder
                 gameState = value;
             }
         }
-        public float SoundVolume { get; set; }
+        public float SoundVolume { get;
+            set
+               ; }
 
         public GameWorld()
         {
@@ -159,7 +161,7 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
             // Music
-            SoundVolume = 0f;
+            SoundVolume = 1f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = SoundVolume;
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
@@ -208,7 +210,6 @@ namespace Warlock_The_Soulbinder
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -246,9 +247,18 @@ namespace Warlock_The_Soulbinder
                 GameState = "Combat";
                 delay = 0;
             }
-            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonMenu)) && delay > 100)
+            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
             {
-                GameState = "GeneralMenu";
+                if (GameState == "Overworld")
+                {
+                    GameState = "GeneralMenu";
+                }
+                
+                else if (GameState == "GeneralMenu")
+                {
+                    GameState = "Overworld";
+                }
+
                 delay = 0;
             }
 

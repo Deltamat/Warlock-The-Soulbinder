@@ -152,6 +152,28 @@ namespace Warlock_The_Soulbinder
                         selectedInt = 0;
                     }
                     break;
+
+                case "Options":
+                    ChangeSelected(2);
+
+                    if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonRight)) && delay > 30)
+                    {
+                        if (GameWorld.Instance.SoundVolume < 1 && selectedInt == 0)
+                        {
+                            GameWorld.Instance.SoundVolume += 0.01f;
+
+                        }
+                    }
+
+                    if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonLeft)) && delay > 30)
+                    {
+                        if (GameWorld.Instance.SoundVolume > 0 && selectedInt == 0)
+                        {
+                            GameWorld.Instance.SoundVolume -= 0.01f;
+                        }
+                    }
+
+                    break;
             }   
             
             //Key to execute code dependent on the inventory state
@@ -458,7 +480,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill2.Experiencerequired - Equipment.Instance.Skill2.Experience}", new Vector2(1200, 425), Color.White);
                     }
 
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Weapon.SkillName, new Vector2(350, 640), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill2.SkillName, new Vector2(350, 640), Color.White);
                 }
 
                 if (Equipment.Instance.Skill3 != null)
@@ -484,7 +506,7 @@ namespace Warlock_The_Soulbinder
                     }
                    
 
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Weapon.SkillName, new Vector2(350, 800), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(350, 800), Color.White);
                 }
 
                 #region Rings
@@ -556,13 +578,33 @@ namespace Warlock_The_Soulbinder
                     
                     //Filled Stones
                     case 1:
-                        for (int i = 0 + FilledStoneInt * 9; i < FilledStone.StoneList.Count; i++)
+                        if (FilledStoneInt < FilledStone.StoneListPages)
                         {
-                            if ((i + FilledStoneInt * 9 < FilledStoneInt * 9 + 9))
+                            for (int i = 0; i < 9; i++)
                             {
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i].Monster, new Vector2(1100, 120 + i * 80), Color.White);
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i].Element, new Vector2(1300, 120 + i * 80), Color.White);
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i].Level, new Vector2(1600, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Monster, new Vector2(1100, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Element, new Vector2(1300, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
+
+                                if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                                {
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
+                                }
+                            }
+                        }
+
+                        else
+                        {
+                            for (int i = 0; i < FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9); i++)
+                            {
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Monster, new Vector2(1100, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Element, new Vector2(1300, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
+
+                                if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                                {
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
+                                }
                             }
                         }
 
@@ -612,6 +654,16 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, (filledStoneInt + 1 ) + " / " + (FilledStone.StoneListPages + 1), new Vector2(400, 900), Color.White);
             }
 
+            if (inventoryState == "Options")
+            {
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Sound:", new Vector2(200, 120), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Music:", new Vector2(200, 200), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Keybinds", new Vector2(200, 280), Color.White);
+
+                spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)(GameWorld.Instance.SoundVolume * 100)}%", new Vector2(500, 120), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "100%:", new Vector2(500, 200), Color.White);
+            }
+
             //Draws a selection arrow to see what you are hovering over
             if (inventoryState != "Equipment")
             {
@@ -637,15 +689,18 @@ namespace Warlock_The_Soulbinder
                         inventoryState = "Inventory";
                         break;
                     case 3:
-                        inventoryState = "Log";
-                        break;
-                    case 4:
-                        inventoryState = "Save";
-                        break;
-                    case 5:
                         inventoryState = "Options";
                         break;
+                    case 4:
+                        inventoryState = "Log";
+                        break;
+                    case 5:
+                        inventoryState = "Save";
+                        break;
                     case 6:
+                        inventoryState = "Options";
+                        break;
+                    case 7:
                         inventoryState = "Quit";
                         break;
                 }
@@ -769,7 +824,12 @@ namespace Warlock_The_Soulbinder
                 inventoryState = "FilledStones";
             }
 
-           
+            else if (inventoryState == "Options")
+            {
+                
+            }
+
+
 
         }
 
