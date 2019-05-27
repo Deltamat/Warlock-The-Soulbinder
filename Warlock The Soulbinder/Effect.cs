@@ -25,7 +25,10 @@ namespace Warlock_The_Soulbinder
         private bool doubleAttack = false;
         private string effectString;
 
-        public Effect(int index, string type, int damage, FilledStone stone, CharacterCombat characterCombat)
+        private int damageDealt;
+        private CharacterCombat characterCombat;
+
+        public Effect(int index, string type, FilledStone stone)
         {
             switch (type)
             {
@@ -60,7 +63,7 @@ namespace Warlock_The_Soulbinder
                             if (GameWorld.Instance.RandomInt(0, 5) == 0)
                             {
                                 TargetsSelf = true;
-                                Heal = (int)(damage * 0.2f);
+                                Heal = (int)(damageDealt * 0.2f);
                             }
                             break;
                         case 4: //insect soldier
@@ -114,7 +117,7 @@ namespace Warlock_The_Soulbinder
                             if (GameWorld.Instance.RandomInt(0, 7) == 0)
                             {
                                 TargetsSelf = true;
-                                Heal = (int)(damage * 0.3f);
+                                Heal = (int)(damageDealt * 0.3f);
                             }
                             break;
                         case 11: //banshee
@@ -177,10 +180,11 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 18: //falcon
-                            EffectString = "Has a chance to blind your enemy, reducing their accuracy";
-                            if (GameWorld.Instance.RandomInt(0, 13) == 0)
+                            EffectString = "Has a chance to increase your speed for a little while";
+                            if (GameWorld.Instance.RandomInt(0, 8) == 0)
                             {
-                                AccuracyMod = 0.1f;
+                                TargetsSelf = true;
+                                SpeedMod = 1.5f;
                                 Effectlength = 3;
                             }
                             break;
@@ -193,11 +197,10 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 20: //raven
-                            EffectString = "Has a chance to increase your speed for a little while";
-                            if (GameWorld.Instance.RandomInt(0, 8) == 0)
+                            EffectString = "Has a chance to blind your enemy, reducing their accuracy";
+                            if (GameWorld.Instance.RandomInt(0, 13) == 0)
                             {
-                                TargetsSelf = true;
-                                SpeedMod = 1.5f;
+                                AccuracyMod = 0.1f;
                                 Effectlength = 3;
                             }
                             break;
@@ -293,7 +296,7 @@ namespace Warlock_The_Soulbinder
                             if (GameWorld.Instance.RandomInt(0, 5) == 0)
                             {
                                 TargetsSelf = true;
-                                Shield = damage;
+                                Shield = damageDealt;
                                 Effectlength = 5;
                             }
                             break;
@@ -342,12 +345,9 @@ namespace Warlock_The_Soulbinder
                             characterCombat.AttackSpeed *= 1.25f;
                             break;
                         case 18: //falcon
-                            EffectString = "Has a chance to blind the enemy when hit";
-                            if (GameWorld.Instance.RandomInt(0, 20) == 0)
-                            {
-                                AccuracyMod = 0.1f;
-                                Effectlength = 3;
-                            }
+                            EffectString = "Passively increases your dodge chance";
+                            AccuracyMod = 0.7f;
+                            Effectlength = 999;
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse your enemy when attacked";
@@ -358,9 +358,12 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 20: //raven
-                            EffectString = "Passively increases your dodge chance";
-                            AccuracyMod = 0.7f;
-                            Effectlength = 999;
+                            EffectString = "Has a chance to blind the enemy when hit";
+                            if (GameWorld.Instance.RandomInt(0, 20) == 0)
+                            {
+                                AccuracyMod = 0.1f;
+                                Effectlength = 3;
+                            }
                             break;
                     }
                     break;
@@ -435,7 +438,7 @@ namespace Warlock_The_Soulbinder
                         case 10: //vampire
                             EffectString = "Creates a bloodshield blocking your enemy's next three attacks";
                             TargetsSelf = true;
-                            Shield = damage * 3;
+                            Shield = damageDealt * 3;
                             Effectlength = 5;
                             Cooldown = 10;
                             break;
@@ -466,7 +469,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 15: //fire golem
                             EffectString = "Attacks your enemy with a critical attack";
-                            Damage = damage * 2;
+                            Damage = damageDealt * 2;
                             Cooldown = 4;
                             break;
                         case 16: //infernal golem
@@ -482,10 +485,11 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 7;
                             break;
                         case 18: //falcon
-                            EffectString = "Pecks out your enemy's eyes, lowering their accuracy for a few rounds, \nuntil they magically regenerate their eyes";
-                            AccuracyMod = 0.1f;
+                            EffectString = "Increases your speed for a few rounds";
+                            TargetsSelf = true;
+                            SpeedMod = 1.55f;
                             Effectlength = 3;
-                            Cooldown = 10;
+                            Cooldown = 6;
                             break;
                         case 19: //bat
                             EffectString = "Confuses your enemy with a super sonic screech";
@@ -494,11 +498,10 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 5;
                             break;
                         case 20: //raven
-                            EffectString = "Increases your speed for a few rounds";
-                            TargetsSelf = true;
-                            SpeedMod = 1.55f;
+                            EffectString = "Pecks out your enemy's eyes, lowering their accuracy for a few rounds, \nuntil they magically regenerate their eyes";
+                            AccuracyMod = 0.1f;
                             Effectlength = 3;
-                            Cooldown = 6;
+                            Cooldown = 10;
                             break;
                     }
                     break;

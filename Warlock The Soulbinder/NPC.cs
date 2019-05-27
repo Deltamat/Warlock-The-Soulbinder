@@ -30,7 +30,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Creates a NPC
+        /// Creates an NPC
         /// </summary>
         /// <param name="spriteName">The name of the sprite</param>
         /// <param name="position">The position of the NPC</param>

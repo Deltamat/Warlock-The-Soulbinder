@@ -38,7 +38,7 @@ namespace Warlock_The_Soulbinder
             {
                 return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
             }
-        }        
+        }
 
         public Enemy(int index, Vector2 startPos)
         {
@@ -149,6 +149,111 @@ namespace Warlock_The_Soulbinder
             thread.Start();
         }
 
+        /// <summary>
+        /// contructor used to load the database
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="startPos"></param>
+        /// <param name="defense"></param>
+        /// <param name="damage"></param>
+        /// <param name="maxHealth"></param>
+        /// <param name="attackSpeed"></param>
+        /// <param name="metalResistance"></param>
+        /// <param name="earthResistance"></param>
+        /// <param name="airResistance"></param>
+        /// <param name="fireResistance"></param>
+        /// <param name="darkResistance"></param>
+        /// <param name="waterResistance"></param>
+        /// <param name="monster"></param>
+        public Enemy(int level, Vector2 startPos, int defense, int damage, int maxHealth, 
+            float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, 
+            float waterResistance, string monster)
+        {
+            this.monster = monster;
+            sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
+            scale = 0.25f;
+
+            movementSpeed = 10;
+            Position = startPos;
+
+            this.level = level;
+
+
+            //base stats
+            #region
+            Defense = defense;
+            Damage = damage;
+            this.maxHealth = maxHealth;
+            currentHealth = 0 + maxHealth;
+            this.attackSpeed = attackSpeed;
+            this.metalResistance = metalResistance;
+            this.earthResistance = earthResistance;
+            this.airResistance = airResistance;
+            this.fireResistance = fireResistance;
+            this.darkResistance = darkResistance;
+            this.waterResistance = waterResistance;
+            #endregion
+
+            //switch case to determine special properties based on the monster's element (logistic function)
+            switch (monster)
+            {
+                case "bear":
+                case "sheep":
+                case "wolf":
+                    break;
+                case "plantEater":
+                case "insectSoldier":
+                case "slimeEater":
+                    earthDamage = (int)(Damage * 4f);
+                    break;
+                case "tentacle":
+                case "frog":
+                case "fish":
+                    waterDamage = (int)(Damage * 4f);
+                    break;
+                case "mummy":
+                case "vampire":
+                case "banshee":
+                    darkDamage = (int)(Damage * 4f);
+                    break;
+                case "bucketMan":
+                case "defender":
+                case "sentry":
+                    earthDamage = (int)(Damage * 4f);
+                    break;
+                case "fireGolem":
+                case "infernalDemon":
+                case "ashZombie":
+                    fireDamage = (int)(Damage * 4f);
+                    break;
+                case "falcon":
+                case "bat":
+                case "raven":
+                    airDamage = (int)(Damage * 4f);
+                    break;
+            }
+            
+            //adds damage and resistances to lists for ease of use
+            #region
+            ResistanceTypes.Add(this.earthResistance);
+            ResistanceTypes.Add(this.waterResistance);
+            ResistanceTypes.Add(this.darkResistance);
+            ResistanceTypes.Add(this.metalResistance);
+            ResistanceTypes.Add(this.fireResistance);
+            ResistanceTypes.Add(this.airResistance);
+            DamageTypes.Add(earthDamage);
+            DamageTypes.Add(waterDamage);
+            DamageTypes.Add(darkDamage);
+            DamageTypes.Add(metalDamage);
+            DamageTypes.Add(fireDamage);
+            DamageTypes.Add(airDamage);
+            #endregion
+
+            thread = new Thread(() => Update());
+            thread.IsBackground = true;
+            thread.Start();
+        }
+        
         public void Update()
         {
             Thread.Sleep(GameWorld.Instance.RandomInt(1, 1000));
@@ -211,6 +316,11 @@ namespace Warlock_The_Soulbinder
                 direction *= movementSpeed * (float)GameWorld.deltaTimeSecond; //adds movement speed to direction keeping in time with deltaTimeSecond
             }
             Position += direction; //moves the enemy based on direction
+        }
+
+        public static int ReturnMonsterIndex(string monster)
+        {
+            return System.Convert.ToInt32(Enum.Parse(typeof(EMonster), monster));
         }
     }
 }

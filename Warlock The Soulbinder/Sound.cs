@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Sound
+    class Sound 
+
     {
         SoundEffect sound;
         public SoundEffectInstance instance;

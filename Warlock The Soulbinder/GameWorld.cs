@@ -179,7 +179,9 @@ namespace Warlock_The_Soulbinder
             MediaPlayer.Volume = MusicVolume;
             combatMusic = Content.Load<Song>("sound/combatMusicV2");
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            //MediaPlayer.Play(overworldMusic);
+            combatMusic = Content.Load<Song>("sound/combatMusic");
+
+            MediaPlayer.Play(overworldMusic);
 
             base.Initialize();
         }
@@ -260,14 +262,13 @@ namespace Warlock_The_Soulbinder
                 GameState = "Combat";
                 delay = 0;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D3) && delay > 100)
+            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonMenu)) && delay > 100)
             {
                 GameState = "GeneralMenu";
                 delay = 0;
             }
 
-            #endregion
-
+            #endregion            
 
             CurrentZone().Update(gameTime);
 
