@@ -26,7 +26,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Creates a NPC
+        /// Creates an NPC
         /// </summary>
         /// <param name="index">NPC id</param>
         /// <param name="position">The position of the NPC</param>
@@ -82,7 +82,7 @@ namespace Warlock_The_Soulbinder
             }
             else if (hasQuest && Quest.Instance.OngoingQuests.ContainsKey(questID)) // if the quest is ongoing
             {
-                dialogueLines.Add(1, "How is it coming with that quest Warlock?");
+                dialogueLines.Add(1, "How is it going with that quest Warlock?");
                 dialogueLines.Add(2, "Let me refresh your memory.");
                 dialogueLines.Add(3, Quest.Instance.QuestDescription[questID]);
             }

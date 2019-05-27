@@ -64,17 +64,17 @@ namespace Warlock_The_Soulbinder
         #region FilledStone
         public void DeleteSoulStoneDB()
         {
-            filledStone.ClearDB(CurrentSaveFile);
+            filledStone.ClearDB();
         }
 
         public void SaveToSoulStoneDB(string monster, int level)
         {
-            filledStone.SaveSoulStone(CurrentSaveFile, monster, level);
+            filledStone.SaveSoulStone(monster, level);
         }
 
         public Dictionary<int, FilledStone> LoadFromFilledStoneDB()
         {
-            return filledStone.LoadSoulStone(CurrentSaveFile);
+            return filledStone.LoadSoulStone();
         }
         #endregion
 
@@ -82,17 +82,17 @@ namespace Warlock_The_Soulbinder
         #region Consumable
         public void DeleteConsumableDB()
         {
-            consumable.ClearDB(CurrentSaveFile);
+            consumable.ClearDB();
         }
 
         public void SaveToConsumableDB(string name, int amount)
         {
-            consumable.SaveConsumable(CurrentSaveFile, name, amount);
+            consumable.SaveConsumable(name, amount);
         }
 
         public Dictionary<int, Consumable> LoadFromConsumableDB()
         {
-            return consumable.LoadConsumable(CurrentSaveFile);
+            return consumable.LoadConsumable();
         }
         #endregion
 
@@ -100,17 +100,17 @@ namespace Warlock_The_Soulbinder
         #region Statistic
         public void DeleteStatisticDB()
         {
-            statistic.ClearDB(CurrentSaveFile);
+            statistic.ClearDB();
         }
 
         public void SaveToStatisticDB(int gold, int soulCount)
         {
-            statistic.SaveStatistic(CurrentSaveFile, gold, soulCount);
+            statistic.SaveStatistic(gold, soulCount);
         }
 
         public void LoadFromStatisticDB()
         {
-            statistic.LoadStatistic(CurrentSaveFile);
+            statistic.LoadStatistic();
         }
 
         #endregion
@@ -125,30 +125,36 @@ namespace Warlock_The_Soulbinder
         #region Player
         public void DeletePlayerDB()
         {
-            player.ClearDB(CurrentSaveFile);
+            player.ClearDB();
         }
 
         public void SaveToPlayerDB(int X, int Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
         {
-            player.SavePlayer(CurrentSaveFile, X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3);
+            player.SavePlayer(X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3);
         }
 
         public void LoadFromPlayerDB()
         {
-            player.LoadPlayer(CurrentSaveFile);
+            player.LoadPlayer();
         }
 
         #endregion
-        
-
-        #region NPC
-
-
-        #endregion
-
-
+      
         #region Enemy
+        public void DeleteEnemyDB()
+        {
+            enemy.ClearDB();
+        }
 
+        public void SaveToEnemyDB(int level, int X, int Y, int defense, int damage, int maxHealth, float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
+        {
+            enemy.SaveEnemy(level, X, Y, defense, damage, maxHealth, attackSpeed, metalResistance, earthResistance, airResistance, fireResistance, darkResistance, waterResistance, monster);
+        }
+
+        public List<Enemy> LoadFromEnemyDB()
+        {
+            return enemy.LoadEnemy();
+        }
 
         #endregion
     }
