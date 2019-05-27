@@ -323,6 +323,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (stone != null)
                 {
+                    MaxHealth += stone.MaxHealth;
                     Damage += stone.Damage;
                     Defense += stone.Defense;
                     AttackSpeed += stone.AttackSpeed;

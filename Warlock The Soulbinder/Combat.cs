@@ -28,6 +28,9 @@ namespace Warlock_The_Soulbinder
         private Color buttonColor = Color.White;
         Sound victorySound = new Sound("battleVictory");
 
+        private List<Effect> enemyEffects = new List<Effect>();
+        private List<Effect> playerEffects = new List<Effect>();
+
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
@@ -99,6 +102,8 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
+                    playerEffects.Clear();
+                    enemyEffects.Clear();
                     victorySound.Play();
                     target.Alive = false;
                     GameWorld.Instance.enemies.Remove(target);
@@ -232,7 +237,19 @@ namespace Warlock_The_Soulbinder
         public void SelectEnemy(Enemy combatEnemy)
         {
             target = combatEnemy;
-            turnTimer = (target.AttackSpeed + Player.Instance.AttackSpeed) * 200.5f;
+
+            //First take on turnTimer
+            //turnTimer = (target.AttackSpeed + Player.Instance.AttackSpeed) * 100.5f;
+
+            //Alternate take on turnTimer
+            if (target.AttackSpeed > Player.Instance.AttackSpeed)
+            {
+                turnTimer = target.AttackSpeed * 100.5f;
+            }
+            else
+            {
+                turnTimer = Player.Instance.AttackSpeed * 100.5f;
+            }
         }
         
         /// <summary>
@@ -279,6 +296,15 @@ namespace Warlock_The_Soulbinder
                 }
 
                 target.CurrentHealth -= totalDamageToDeal;
+
+                if (Equipment.Instance.EquippedEquipment[0] != null)
+                {
+                    if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0)
+                    {
+                        enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone));
+                    }
+                }
+
                 combatDelay = 0;
             }
         }
@@ -288,6 +314,15 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnemyTurn()
         {
+            foreach (Effect effect in enemyEffects)
+            {
+                if (effect.Effectlength > 0)
+                {
+                    target.CurrentHealth -= effect.Damage;
+                }
+                effect.Effectlength--;
+            }
+
             enemyAttackTimer = 0;
             Player.Instance.HurtStart = true;
 

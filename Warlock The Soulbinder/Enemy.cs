@@ -62,8 +62,8 @@ namespace Warlock_The_Soulbinder
             #region
             Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
-            maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
-            currentHealth = 0 + maxHealth;
+            maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.5f));
+            currentHealth = maxHealth;
             attackSpeed = 5 * (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
             metalResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             earthResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
@@ -110,7 +110,7 @@ namespace Warlock_The_Soulbinder
                 case "sentry":
                     metalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     fireResistance = (float)(fireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
+                    metalDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "fireGolem":

@@ -36,6 +36,7 @@ namespace Warlock_The_Soulbinder
         public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
         private int id;
 
+        private int maxHealth;
         protected float attackSpeed;
         protected int damage;
         protected int waterDamage;
@@ -59,14 +60,15 @@ namespace Warlock_The_Soulbinder
         public string ArmorName { get => armorName; set => armorName = value; }
         public string SkillName { get => skillName; set => skillName = value; }
         public int Experiencerequired { get => experienceRequired; set => experienceRequired = value; }
-        internal Effect WeaponEffect { get => weaponEffect; set => weaponEffect = value; }
-        internal Effect ArmorEffect { get => armorEffect; set => armorEffect = value; }
-        internal Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
+        public Effect WeaponEffect { get => weaponEffect; set => weaponEffect = value; }
+        public Effect ArmorEffect { get => armorEffect; set => armorEffect = value; }
+        public Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
         public int Damage { get => damage; set => damage = value; }
         public int Defense { get => defense; set => defense = value; }
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
+        public int MaxHealth { get => maxHealth; set => maxHealth = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
@@ -218,9 +220,10 @@ namespace Warlock_The_Soulbinder
             Level = level;
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-
-            Damage = (int)(2 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
-            attackSpeed = (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
+            
+            Damage = (int)(5 * ((Level * 0.2 + GameWorld.Instance.RandomInt(1, 5)) * 0.25f));
+            maxHealth = (int)(5 * ((Level * 0.2 + GameWorld.Instance.RandomInt(1, 6)) * 1.15f));
+            attackSpeed = (Level * 0.2f) + GameWorld.Instance.RandomInt(-1, 3);
 
             //switch case to determine the element, and name of abilities, based on the monster type
             switch (Monster) 
@@ -380,7 +383,7 @@ namespace Warlock_The_Soulbinder
                 case "metal":
                     metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
+                    metalDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "fire":
@@ -432,6 +435,5 @@ namespace Warlock_The_Soulbinder
         {
             SkillEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Skill", this);
         }
-
     }
 }
