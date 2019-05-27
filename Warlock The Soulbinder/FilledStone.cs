@@ -36,6 +36,24 @@ namespace Warlock_The_Soulbinder
         public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
         private int id;
 
+        protected float attackSpeed;
+        protected int damage;
+        protected int waterDamage;
+        protected int darkDamage;
+        protected int fireDamage;
+        protected int airDamage;
+        protected int earthDamage;
+        protected int metalDamage;
+        protected int defense;
+        protected float waterResistance;
+        protected float darkResistance;
+        protected float fireResistance;
+        protected float airResistance;
+        protected float earthResistance;
+        protected float metalResistance;
+        protected List<int> damageTypes = new List<int>();
+        protected List<float> resistanceTypes = new List<float>();
+
         public int Id { get => id; private set => id = value; }
         public string WeaponName { get => weaponName; set => weaponName = value; }
         public string ArmorName { get => armorName; set => armorName = value; }
@@ -44,6 +62,11 @@ namespace Warlock_The_Soulbinder
         internal Effect WeaponEffect { get => weaponEffect; set => weaponEffect = value; }
         internal Effect ArmorEffect { get => armorEffect; set => armorEffect = value; }
         internal Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
+        public int Damage { get => damage; set => damage = value; }
+        public int Defense { get => defense; set => defense = value; }
+        public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+        public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
+        public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
@@ -189,14 +212,18 @@ namespace Warlock_The_Soulbinder
             Skill();
         }
 
-        public FilledStone(string monster, int level)
+        public FilledStone(Enemy monster, int level)
         {
-            this.Monster = monster;
-            this.Level = level;
-            spriteName = $"monsters/Orbs/{monster}";
+            Monster = monster.Monster;
+            Level = level;
+            spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
+
+            Damage = (int)(2 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
+            attackSpeed = (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
+
             //switch case to determine the element, and name of abilities, based on the monster type
-            switch (monster) 
+            switch (Monster) 
             {
                 case "sheep":
                     Element = "neutral";
@@ -325,6 +352,67 @@ namespace Warlock_The_Soulbinder
                     skillName = "Bilnd";
                     break;
             }
+
+            //switch case to determine stats
+            switch (Element)
+            {
+                case "neutral":
+                    Defense = (int)(Level * 0.75f);
+                    break;
+                case "earth":
+                    earthResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    darkResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+                    earthDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "water":
+                    waterResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    airResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+                    waterDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "dark":
+                    darkResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    metalResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+                    darkDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "metal":
+                    metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+                    earthDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "fire":
+                    fireResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    waterResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+                    fireDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "air":
+                    airResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    earthResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+                    airDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+            }
+
+            //adds damage and resistances to lists for ease of use
+            #region
+            ResistanceTypes.Add(earthResistance);
+            ResistanceTypes.Add(waterResistance);
+            ResistanceTypes.Add(darkResistance);
+            ResistanceTypes.Add(metalResistance);
+            ResistanceTypes.Add(fireResistance);
+            ResistanceTypes.Add(airResistance);
+            DamageTypes.Add(earthDamage);
+            DamageTypes.Add(waterDamage);
+            DamageTypes.Add(darkDamage);
+            DamageTypes.Add(metalDamage);
+            DamageTypes.Add(fireDamage);
+            DamageTypes.Add(airDamage);
+            #endregion
+
             WeaponSkill();
             ArmorSkill();
             Skill();

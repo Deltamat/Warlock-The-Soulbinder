@@ -269,7 +269,7 @@ namespace Warlock_The_Soulbinder
                 damageToDeal.Add(Player.Instance.Damage - target.Defense);
                 for (int i = 0; i < target.ResistanceTypes.Count; i++)
                 {
-                    damageToDeal.Add((int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]));
+                    damageToDeal.Add((int)(Player.Instance.DamageTypes[i] - (Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i])));
                 }
                 for (int i = 0; i < damageToDeal.Count; i++)
                 {
@@ -292,17 +292,21 @@ namespace Warlock_The_Soulbinder
             List<int> damageToDeal = new List<int>();
             int totalDamageToDeal = 0;
 
-            damageToDeal.Add(target.Damage - Player.Instance.Defense);
+            if (target.Damage - Player.Instance.Defense > 0)
+            {
+                damageToDeal.Add(target.Damage - Player.Instance.Defense);
+            }
+            
             for (int i = 0; i < target.ResistanceTypes.Count; i++)
             {
-                damageToDeal.Add((int)(target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]));
+                damageToDeal.Add((int)(target.DamageTypes[i] - (target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i])));
             }
             for (int i = 0; i < damageToDeal.Count; i++)
             {
                 totalDamageToDeal += damageToDeal[i];
             }
 
-            target.CurrentHealth -= totalDamageToDeal;
+            Player.Instance.CurrentHealth -= totalDamageToDeal;
         }
 
         /// <summary>
