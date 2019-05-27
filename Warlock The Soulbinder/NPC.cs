@@ -14,7 +14,11 @@ namespace Warlock_The_Soulbinder
         bool hasShop;
         int index;       
         int questID;
+        Texture2D interact;
+        float interactScale;
+        float interactDistance = 80;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
+        public bool DrawInteract { get; set; }
 
         public bool Talking { get; set; } = false;
         public override Rectangle CollisionBox
@@ -28,21 +32,22 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Creates an NPC
         /// </summary>
-        /// <param name="index">NPC id</param>
+        /// <param name="spriteName">The name of the sprite</param>
         /// <param name="position">The position of the NPC</param>
         /// <param name="hasQuest">Does the NPC have a quest</param>
         /// <param name="hasShop">Does the NPC have a shop</param>
         /// <param name="questID">The id of the quest this NPC has</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
-        public NPC(int index, string spriteName, Vector2 position, bool hasQuest, bool hasShop, int questID, string dialogue)
+        public NPC(string spriteName, Vector2 position, bool hasQuest, bool hasShop, int questID, string dialogue)
         {
-            this.index = index;
             this.hasQuest = hasQuest;
             this.hasShop = hasShop;
             this.questID = questID;
             Position = position;
             Sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             scale = 0.135f;
+            interact = GameWorld.ContentManager.Load<Texture2D>("interact");
+            interactScale = 0.3f;
 
             dialogueLines.Add(1, dialogue);
             UpdateDialogue();
@@ -54,19 +59,31 @@ namespace Warlock_The_Soulbinder
             {
                 Dialogue.Instance.dialogueLines = dialogueLines;
             }
+            if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2()) < interactDistance)
+            {
+                DrawInteract = true;
+            }
+            else
+            {
+                DrawInteract = false;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (Talking)
+            spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+
+            if (DrawInteract == true && Talking == false)
             {
-                Dialogue.Instance.Draw(spriteBatch);
+                spriteBatch.Draw(interact, new Vector2(Player.Instance.Position.X + 20, Player.Instance.Position.Y - 50), null, Color.White, 0f, Vector2.Zero, interactScale, new SpriteEffects(), 1f);
+                spriteBatch.DrawString(GameWorld.Instance.copperFont, "E", new Vector2(Player.Instance.Position.X + 32, Player.Instance.Position.Y - 47), Color.Black);
             }
 
-            //spriteBatch.Draw(Sprite, Position, Color.White);
-            spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
         }
 
+        /// <summary>
+        /// Method that assigns the corrrect dialogue to the npc based on if he it has a quest/shop
+        /// </summary>
         public void UpdateDialogue()
         {
             if (hasQuest || hasShop) // remove the default dialogue if NPC has quest or shop
@@ -94,6 +111,16 @@ namespace Warlock_The_Soulbinder
             {
                 dialogueLines.Add(1, "Khajit has wares, if you have coins.");
             }
+        }
+
+        /// <summary>
+        /// Method that makes the npc enter dialogue and sets the gameState to Dialogue
+        /// </summary>
+        public void EnterDialogue()
+        {
+            Dialogue.Instance.InDialogue = true;
+            Talking = true;
+            GameWorld.Instance.GameState = "Dialogue";
         }
     }
 }

@@ -2,11 +2,10 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using MonoGame.Extended.Tiled;
-using MonoGame.Extended.Tiled.Graphics;
 
 namespace Warlock_The_Soulbinder
 {
@@ -26,6 +25,10 @@ namespace Warlock_The_Soulbinder
         public Camera camera;
         private float delay;
         private string gameState = "Overworld";
+
+        Song overworldMusic;
+        Song combatMusic;
+
 
         //Tiled fields
         private Zone t;
@@ -83,7 +86,29 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public string GameState { get => gameState; set => gameState = value; }
+        public string GameState
+        {
+            get
+            {
+                return gameState;
+            }
+            set
+            {
+                if (value == "Overworld" && gameState != "Dialogue")
+                {
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(overworldMusic);
+                }
+                else if (value == "Combat")
+                {
+                    MediaPlayer.Stop();
+                    MediaPlayer.Play(combatMusic);
+                }
+
+                gameState = value;
+            }
+        }
+        public float SoundVolume { get; set; }
 
         public GameWorld()
         {
@@ -110,7 +135,7 @@ namespace Warlock_The_Soulbinder
             IsMouseVisible = true;
 
             Quest.Instance.Quests.Add(1, "Kill");
-            Quest.Instance.QuestDescription.Add(1, "yippi kai yay");
+            Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
             t = new Zone("t");
             t2 = new Zone("t2");
@@ -133,6 +158,14 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(16, new Vector2(1100, 700)));
             enemies.Add(new Enemy(20, new Vector2(1100, 850)));
 
+            // Music
+            SoundVolume = 0f;
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = SoundVolume;
+            overworldMusic = Content.Load<Song>("sound/overworldMusic");
+            combatMusic = Content.Load<Song>("sound/combatMusic");
+
+            MediaPlayer.Play(overworldMusic);
 
             base.Initialize();
         }
@@ -205,22 +238,21 @@ namespace Warlock_The_Soulbinder
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
-                gameState = "Overworld";
+                GameState = "Overworld";
                 delay = 0;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
             {
-                gameState = "Combat";
+                GameState = "Combat";
                 delay = 0;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D3) && delay > 100)
+            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonMenu)) && delay > 100)
             {
-                gameState = "GeneralMenu";
+                GameState = "GeneralMenu";
                 delay = 0;
             }
 
-            #endregion
-
+            #endregion            
 
             CurrentZone().Update(gameTime);
 
@@ -266,7 +298,7 @@ namespace Warlock_The_Soulbinder
                 //collisionboxes
                 #if DEBUG
                 DrawCollisionBox(Player.Instance);
-#endif
+                #endif
                 if (GameState == "Dialogue")
                 {
                     Dialogue.Instance.Draw(spriteBatch);

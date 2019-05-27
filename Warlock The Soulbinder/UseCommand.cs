@@ -9,8 +9,6 @@ namespace Warlock_The_Soulbinder
 {
     class UseCommand : ICommand
     {
-        float useDistance = 80;
-
         public UseCommand()
         {
 
@@ -27,12 +25,10 @@ namespace Warlock_The_Soulbinder
                 Dialogue.Instance.exitDialogueTimer = 0;
                 foreach (var npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
-                    // check 
-                    if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), npc.Value.CollisionBox.Center.ToVector2()) < useDistance)
+                    // if close to an npc enter dialogue
+                    if (npc.Value.DrawInteract == true)
                     {
-                        Dialogue.Instance.InDialogue = true;
-                        npc.Value.Talking = true;
-                        GameWorld.Instance.GameState = "Dialogue";
+                        npc.Value.EnterDialogue();
                         break;
                     }
                 }

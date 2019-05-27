@@ -22,7 +22,6 @@ namespace Warlock_The_Soulbinder
         private Texture2D turnFull;
         private SpriteFont combatFont;
         private float combatDelay = 0;
-        private bool enemyTurn = false;
         private float playerAttackTimer;
         private float enemyAttackTimer;
         private float turnTimer = 1;
@@ -263,11 +262,21 @@ namespace Warlock_The_Soulbinder
             {
                 playerAttackTimer = 0;
                 Player.Instance.AttackStart = true;
-                target.CurrentHealth -= Player.Instance.Damage - target.Defense;
+
+                List<int> damageToDeal = new List<int>();
+                int totalDamageToDeal = 0;
+
+                damageToDeal.Add(Player.Instance.Damage - target.Defense);
                 for (int i = 0; i < target.ResistanceTypes.Count; i++)
                 {
-                    target.CurrentHealth -= (int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]);
+                    damageToDeal.Add((int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]));
                 }
+                for (int i = 0; i < damageToDeal.Count; i++)
+                {
+                    totalDamageToDeal += damageToDeal[i];
+                }
+
+                target.CurrentHealth -= totalDamageToDeal;
                 combatDelay = 0;
             }
         }
@@ -279,12 +288,21 @@ namespace Warlock_The_Soulbinder
         {
             enemyAttackTimer = 0;
             Player.Instance.HurtStart = true;
-            Player.Instance.CurrentHealth -= target.Damage - Player.Instance.Defense;
-            for (int i = 0; i < Player.Instance.ResistanceTypes.Count; i++)
+
+            List<int> damageToDeal = new List<int>();
+            int totalDamageToDeal = 0;
+
+            damageToDeal.Add(target.Damage - Player.Instance.Defense);
+            for (int i = 0; i < target.ResistanceTypes.Count; i++)
             {
-                Player.Instance.CurrentHealth -= (int)(target.DamageTypes[i] - (target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]));
+                damageToDeal.Add((int)(target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]));
             }
-            enemyTurn = false;
+            for (int i = 0; i < damageToDeal.Count; i++)
+            {
+                totalDamageToDeal += damageToDeal[i];
+            }
+
+            target.CurrentHealth -= totalDamageToDeal;
         }
 
         /// <summary>
