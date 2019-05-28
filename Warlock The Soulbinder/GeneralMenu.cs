@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using System.Threading;
 
 namespace Warlock_The_Soulbinder
 {
@@ -21,13 +22,14 @@ namespace Warlock_The_Soulbinder
         private Texture2D skillPlank;
         private Texture2D levelCircle;
         private Texture2D expFull;
+        private GameTime tempTime;
         private List<String> menuList = new List<string>();
         private Texture2D arrow;
         private string inventoryState = "GeneralMenu";
         private bool equipping = false;
         private int equippingTo;
         private float delay = 0;
-        private int filledStoneInt = 0;
+        private int currentPage = 0;
         private bool changingKey = false;
 
         public static GeneralMenu Instance
@@ -42,7 +44,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public int FilledStoneInt { get => filledStoneInt; set => filledStoneInt = value; }
+        public int CurrentPage { get => currentPage; set => currentPage = value; }
         public int EquippingTo { get => equippingTo; set => equippingTo = value; }
         public bool Equipping { get => equipping; set => equipping = value; }
 
@@ -127,7 +129,7 @@ namespace Warlock_The_Soulbinder
                     }
                     break;
                 case "FilledStones":
-                    if (FilledStoneInt < FilledStone.StoneListPages)
+                    if (CurrentPage < FilledStone.StoneListPages)
                     {
                         ChangeSelected(8);
                     }
@@ -136,16 +138,16 @@ namespace Warlock_The_Soulbinder
                         ChangeSelected(FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9) - 1);
                     }
 
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && filledStoneInt < FilledStone.StoneListPages)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && currentPage < FilledStone.StoneListPages)
                     {
-                        filledStoneInt++;
+                        currentPage++;
                         delay = 0;
                         selectedInt = 0;
                     }
 
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && filledStoneInt > 0)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && currentPage > 0)
                     {
-                        filledStoneInt--;
+                        currentPage--;
                         delay = 0;
                         selectedInt = 0;
                     }
@@ -194,6 +196,11 @@ namespace Warlock_The_Soulbinder
                     break;
                 case "Keybinds":
                     ChangeSelected(7);
+
+                    if (InputHandler.Instance.KeyPressed(Keys.R))
+                    {
+                        InputHandler.Instance.ResetKeybinds();
+                    }
                     break;
             }   
             
@@ -357,27 +364,27 @@ namespace Warlock_The_Soulbinder
 
                         if (Equipment.Instance.Weapon != null)
                         {
-                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Weapon.WeaponName, new Vector2(1180, 160), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Weapon.WeaponName, new Vector2(1200, 160), Color.White);
                         }
 
                         if (Equipment.Instance.Armor != null)
                         {
-                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Armor.ArmorName, new Vector2(1180, 320), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Armor.ArmorName, new Vector2(1200, 320), Color.White);
                         }
 
                         if (Equipment.Instance.Skill1 != null)
                         {
-                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill1.SkillName, new Vector2(1180, 480), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill1.SkillName, new Vector2(1200, 480), Color.White);
                         }
 
                         if (Equipment.Instance.Skill2 != null)
                         {
-                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill2.SkillName, new Vector2(1180, 640), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill2.SkillName, new Vector2(1200, 640), Color.White);
                         }
 
                         if (Equipment.Instance.Skill3 != null)
                         {
-                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(1180, 800), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(1200, 800), Color.White);
                         }
                         break;
                     case 2:
@@ -572,17 +579,17 @@ namespace Warlock_The_Soulbinder
                         break;
                     //Filled Stones
                     case 1:
-                        if (FilledStoneInt < FilledStone.StoneListPages)
+                        if (CurrentPage < FilledStone.StoneListPages)
                         {
                             for (int i = 0; i < 9; i++)
                             {
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
                                
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
 
-                                if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                                if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
                                 {
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(1725, 120 + i * 80), Color.Green);
                                 }
                             }
                         }
@@ -590,31 +597,32 @@ namespace Warlock_The_Soulbinder
                         {
                             for (int i = 0; i < FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9); i++)
                             {
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
                                
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
 
-                                if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                                if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
                                 {
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(1725, 120 + i * 80), Color.Green);
                                 }
                             }
                         }
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, (filledStoneInt + 1) + " / " + (FilledStone.StoneListPages + 1), new Vector2(1300, 870), Color.White);
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1) + " / " + (FilledStone.StoneListPages + 1), new Vector2(1300, 870), Color.White);
                         break;
                 }
             }
 
             if (inventoryState == "FilledStones")
             {
-                if (FilledStoneInt < FilledStone.StoneListPages)
+                if (CurrentPage < FilledStone.StoneListPages)
                 {
                     for (int i = 0; i < 9; i++)
                     {
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Name, new Vector2(200, 120 + i * 80), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(700, 120 + i * 80), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(200, 120 + i * 80), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(700, 120 + i * 80), Color.White);
 
-                        if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                        if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
                         }
@@ -625,10 +633,10 @@ namespace Warlock_The_Soulbinder
                 {
                     for (int i = 0; i < FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9); i++)
                     {
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (filledStoneInt * 9)].Name, new Vector2(200, 120 + i * 80), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (filledStoneInt * 9)].Level, new Vector2(700, 120 + i * 80), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(200, 120 + i * 80), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(700, 120 + i * 80), Color.White);
 
-                        if (FilledStone.StoneList[i + (filledStoneInt * 9)].Equipped == true)
+                        if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(850, 120 + i * 80), Color.Green);
                         }
@@ -637,10 +645,18 @@ namespace Warlock_The_Soulbinder
 
                 if (FilledStone.StoneList.Count != 0)
                 {
-                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + FilledStoneInt * 9].Sprite, new Vector2(1250, 100), Color.White);
+                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1250, 100), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].Element}", new Vector2(1375 - (Combat.Instance.CombatFont.MeasureString(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element).X * 0.5f), 310), Color.White);
+                    spriteBatch.Draw(skillPlank, new Vector2(1175, 400), Color.White);
+                    spriteBatch.Draw(skillPlank, new Vector2(1175, 600), Color.White);
+                    spriteBatch.Draw(skillPlank, new Vector2(1175, 800), Color.White);
+                    spriteBatch.Draw(weaponRing, new Vector2(1000, 400), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                    spriteBatch.Draw(armorRing, new Vector2(1000, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                    spriteBatch.Draw(skillRing, new Vector2(1000, 800), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+
                 }
 
-                spriteBatch.DrawString(Combat.Instance.CombatFont, (filledStoneInt + 1 ) + " / " + (FilledStone.StoneListPages + 1), new Vector2(400, 900), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1 ) + " / " + (FilledStone.StoneListPages + 1), new Vector2(400, 900), Color.White);
             }
 
             if (inventoryState == "Options")
@@ -768,9 +784,9 @@ namespace Warlock_The_Soulbinder
                         }
 
                         //Unequips the stone you are trying to equip, if it is equipped in another equipment slot
-                        if (FilledStone.StoneList[selectedInt].Equipped == true)
+                        if (FilledStone.StoneList[selectedInt + currentPage * 9].Equipped == true)
                         {
-                            FilledStone.StoneList[selectedInt].Equipped = false;
+                            FilledStone.StoneList[selectedInt + currentPage * 9].Equipped = false;
                         }
 
                         //Checks all of the equipment slots and makes them null if the item is no longer equipped to them
@@ -799,8 +815,11 @@ namespace Warlock_The_Soulbinder
                             Equipment.Instance.Skill3 = null;
                         }
 
-                        Equipment.Instance.EquipStone(EquippingTo, FilledStone.StoneList[selectedInt]);
-                        FilledStone.StoneList[selectedInt].Equipped = true;
+                        
+
+
+                        Equipment.Instance.EquipStone(EquippingTo, FilledStone.StoneList[selectedInt + currentPage * 9]);
+                        FilledStone.StoneList[selectedInt + currentPage * 9].Equipped = true;
                         EquippingTo = 0;
                         inventoryState = "Equipment";
                     }
@@ -824,59 +843,60 @@ namespace Warlock_The_Soulbinder
 
             else if (inventoryState == "Keybinds")
             {
-                if (delay > 200 && changingKey == false)
+                if (delay > 200)
                 {
+                    
+                    delay = 0;
                     changingKey = true;
-                    delay = 0;
+                    GameTime tempTime = new GameTime();
                 }
-                else if (selectedInt == 0 && delay > 200 && changingKey == true)
+                while (changingKey == true)
                 {
-                    InputHandler.Instance.KeyUp = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyUp);
-                    delay = 0;
-                    changingKey = false;
+                    if (Keyboard.GetState().GetPressedKeys() != null)
+                    {
+                        switch (selectedInt)
+                        {
+                            case 0:
+                                InputHandler.Instance.KeyUp = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyUp);
+                                break;
+
+                            case 1:
+                                InputHandler.Instance.KeyDown = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyDown);
+                                break;
+
+                            case 2:
+                                InputHandler.Instance.KeyLeft = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyLeft);
+                                break;
+
+                            case 3:
+                                InputHandler.Instance.KeyRight = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyRight);
+                                break;
+
+                            case 4:
+                                InputHandler.Instance.KeySelect = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeySelect);
+                                break;
+
+                            case 5:
+                                InputHandler.Instance.KeyCancel = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyCancel);
+                                break;
+
+                            case 6:
+                                InputHandler.Instance.KeyReturn = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyReturn);
+                                break;
+
+                            case 7:
+                                InputHandler.Instance.KeyMenu = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyMenu);
+                                break;
+
+                        }
+
+                        changingKey = false;
+                    }
+                    
+
+                    
                 }
-                else if (selectedInt == 1 && delay > 200 && changingKey == true)
-                {
-                    InputHandler.Instance.KeyDown = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyDown);
-                    delay = 0;
-                    changingKey = false;
-                }
-                else if (selectedInt == 2 && delay > 200 && changingKey == true)
-                {
-                    InputHandler.Instance.KeyLeft = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyLeft);
-                    delay = 0;
-                    changingKey = false;
-                }
-                else if (selectedInt == 3 && delay > 200 && changingKey == true)
-                {
-                    InputHandler.Instance.KeyRight = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyRight);
-                    delay = 0;
-                    changingKey = false;
-                }
-                else if (selectedInt == 4 && delay > 200 && changingKey == true)
-                {
-                    InputHandler.Instance.KeySelect = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeySelect);
-                    delay = 0;
-                    changingKey = false;
-                }
-                else if (selectedInt == 5 && delay > 200 && changingKey == true)
-                {
-                    InputHandler.Instance.KeyCancel = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyCancel);
-                    delay = 0;
-                    changingKey = false;
-                }
-                else if (selectedInt == 6 && delay > 200 && changingKey == true)
-                {
-                    InputHandler.Instance.KeyReturn = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyReturn);
-                    delay = 0;
-                    changingKey = false;
-                }
-                else if (selectedInt == 7 && delay > 200 && changingKey == true)
-                {
-                    InputHandler.Instance.KeyMenu = InputHandler.Instance.ChangeKey(InputHandler.Instance.KeyMenu);
-                    delay = 0;
-                    changingKey = false;
-                }   
+
             }
         }
 
