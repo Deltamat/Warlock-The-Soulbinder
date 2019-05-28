@@ -120,8 +120,7 @@ namespace Warlock_The_Soulbinder
                 gameState = value;
             }
         }
-
-        private float musicVolume;
+        
         public float MusicVolume
         {
             get
