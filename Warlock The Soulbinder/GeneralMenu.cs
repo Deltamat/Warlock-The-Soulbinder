@@ -52,8 +52,7 @@ namespace Warlock_The_Soulbinder
         {
 
         }
-
-    
+        
         public void LoadContent(ContentManager content)
         {
             book = content.Load<Texture2D>("Book");
@@ -65,7 +64,6 @@ namespace Warlock_The_Soulbinder
             skillPlank = content.Load<Texture2D>("buttons/skillPlank");
             levelCircle = content.Load<Texture2D>("buttons/levelCircle");
             expFull = content.Load<Texture2D>("buttons/expFull");
-
         }
 
         public override void Update(GameTime gameTime)
@@ -80,7 +78,6 @@ namespace Warlock_The_Soulbinder
                 case "Inventory":
                     ChangeSelected(1);
                     break;
-
                 case "Equipment":
                     ChangeSelected(4);
 
@@ -130,7 +127,6 @@ namespace Warlock_The_Soulbinder
                                 break;
                         }
                     }
-
                     break;
                 case "FilledStones":
                     if (CurrentPage < FilledStone.StoneListPages)
@@ -156,7 +152,6 @@ namespace Warlock_The_Soulbinder
                         selectedInt = 0;
                     }
                     break;
-
                 case "Options":
                     ChangeSelected(2);
 
@@ -199,7 +194,6 @@ namespace Warlock_The_Soulbinder
                     }
 
                     break;
-
                 case "Keybinds":
                     ChangeSelected(7);
 
@@ -208,7 +202,6 @@ namespace Warlock_The_Soulbinder
                         InputHandler.Instance.ResetKeybinds();
                     }
                     break;
-
             }   
             
             //Key to execute code dependent on the inventory state
@@ -252,17 +245,14 @@ namespace Warlock_The_Soulbinder
                             break;
                         }
                         break;
-
                     case "Consumables":
                         inventoryState = "Inventory";
                         selectedInt = 0;
                         break;
-
                     case "Options":
                         inventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
-
                     case "Keybinds":
                         inventoryState = "Options";
                         selectedInt = 0;
@@ -271,18 +261,10 @@ namespace Warlock_The_Soulbinder
                         inventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
-
                 }
 
                 delay = 0;
-                
-                    
-                
             }
-
-           
-
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -299,7 +281,7 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Save", new Vector2(200, 520), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Options", new Vector2(200, 600), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Quit", new Vector2(200, 680), Color.White);
-
+                
                 switch (selectedInt)
                 {
 
@@ -333,7 +315,6 @@ namespace Warlock_The_Soulbinder
                         {
                             spriteBatch.Draw(emptyRing, new Vector2(1000, 120), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                         }
-
                         else
                         {
                             spriteBatch.Draw(weaponRing, new Vector2(1000, 120), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -343,7 +324,6 @@ namespace Warlock_The_Soulbinder
                         {
                             spriteBatch.Draw(emptyRing, new Vector2(1000, 280), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                         }
-
                         else
                         {
                             spriteBatch.Draw(armorRing, new Vector2(1000, 280), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -353,7 +333,6 @@ namespace Warlock_The_Soulbinder
                         {
                             spriteBatch.Draw(emptyRing, new Vector2(1000, 440), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                         }
-
                         else
                         {
                             spriteBatch.Draw(skillRing, new Vector2(1000, 440), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -363,7 +342,6 @@ namespace Warlock_The_Soulbinder
                         {
                             spriteBatch.Draw(emptyRing, new Vector2(1000, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                         }
-
                         else
                         {
                             spriteBatch.Draw(skillRing, new Vector2(1000, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -373,13 +351,11 @@ namespace Warlock_The_Soulbinder
                         {
                             spriteBatch.Draw(emptyRing, new Vector2(1000, 760), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                         }
-
                         else
                         {
                             spriteBatch.Draw(skillRing, new Vector2(1000, 760), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                         }
-
-                        
+                    
                         //Skillplanks
                         for (int i = 0; i < 5; i++)
                         {
@@ -410,21 +386,16 @@ namespace Warlock_The_Soulbinder
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(1200, 800), Color.White);
                         }
-
-
-
                         break;
-
                     case 2:
                     spriteBatch.DrawString(Combat.Instance.CombatFont, "Consumables", new Vector2(1100, 120), Color.White);
                     spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(1100, 200), Color.White);
-                    break;
+                        break;
                 }
             }
 
             if (inventoryState == "Equipment")
             {
-
                 //SkillPlanks
                 for (int i = 0; i < 5; i++)
                 {
@@ -436,14 +407,12 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.Draw(Equipment.Instance.Weapon.Sprite, new Vector2(135, 120), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
                     if (selectedInt == 0)
                     {
-                        
                         spriteBatch.Draw(levelCircle, new Vector2(1250, 100), Color.White);
 
                         if (Equipment.Instance.Weapon.Level < 10)
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "0" + Equipment.Instance.Weapon.Level, new Vector2(1335, 185), Color.White);
                         }
-
                         else
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Equipment.Instance.Weapon.Level}" , new Vector2(1335, 185), Color.White);
@@ -462,14 +431,12 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.Draw(Equipment.Instance.Armor.Sprite, new Vector2(135, 280), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
                     if (selectedInt == 1)
                     {
-                        
                         spriteBatch.Draw(levelCircle, new Vector2(1250, 100), Color.White);
 
                         if (Equipment.Instance.Armor.Level < 10)
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "0" + Equipment.Instance.Armor.Level, new Vector2(1335, 185), Color.White);
                         }
-
                         else
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Equipment.Instance.Armor.Level}", new Vector2(1335, 185), Color.White);
@@ -487,13 +454,11 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.Draw(Equipment.Instance.Skill1.Sprite, new Vector2(135, 440), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
                     if (selectedInt == 2)
                     {
-                        
                         spriteBatch.Draw(levelCircle, new Vector2(1250, 100), Color.White);
                         if (Equipment.Instance.Skill1.Level < 10)
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "0" + Equipment.Instance.Skill1.Level, new Vector2(1335, 185), Color.White);
                         }
-
                         else
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Equipment.Instance.Skill1.Level}", new Vector2(1335, 185), Color.White);
@@ -512,14 +477,12 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.Draw(Equipment.Instance.Skill2.Sprite, new Vector2(135, 600), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
                     if (selectedInt == 3)
                     {
-                       
                         spriteBatch.Draw(levelCircle, new Vector2(1250, 100), Color.White);
 
                         if (Equipment.Instance.Skill2.Level < 10)
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "0" + Equipment.Instance.Skill2.Level, new Vector2(1335, 185), Color.White);
                         }
-
                         else
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Equipment.Instance.Skill2.Level}", new Vector2(1335, 185), Color.White);
@@ -535,17 +498,14 @@ namespace Warlock_The_Soulbinder
 
                 if (Equipment.Instance.Skill3 != null)
                 {
-
                     spriteBatch.Draw(Equipment.Instance.Skill3.Sprite, new Vector2(135, 760), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
                     if (selectedInt == 4)
                     {
-                        
                         spriteBatch.Draw(levelCircle, new Vector2(1250, 100), Color.White);
                         if (Equipment.Instance.Skill3.Level < 10)
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "0" + Equipment.Instance.Skill3.Level, new Vector2(1335, 185), Color.White);
                         }
-
                         else
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Equipment.Instance.Skill3.Level}", new Vector2(1335, 185), Color.White);
@@ -554,8 +514,6 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Skill3.Experience, Equipment.Instance.Skill3.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill3.ExperienceRequired - Equipment.Instance.Skill3.Experience}", new Vector2(1200, 425), Color.White);
                     }
-                   
-
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(350, 800), Color.White);
                 }
 
@@ -564,7 +522,6 @@ namespace Warlock_The_Soulbinder
                 {
                     spriteBatch.Draw(emptyRing, new Vector2(150, 120), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                 }
-
                 else
                 {
                     spriteBatch.Draw(weaponRing, new Vector2(150, 120), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -574,7 +531,6 @@ namespace Warlock_The_Soulbinder
                 {
                     spriteBatch.Draw(emptyRing, new Vector2(150, 280), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                 }
-
                 else
                 {
                     spriteBatch.Draw(armorRing, new Vector2(150, 280), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -584,7 +540,6 @@ namespace Warlock_The_Soulbinder
                 {
                     spriteBatch.Draw(emptyRing, new Vector2(150, 440), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                 }
-
                 else
                 {
                     spriteBatch.Draw(skillRing, new Vector2(150, 440), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -594,7 +549,6 @@ namespace Warlock_The_Soulbinder
                 {
                     spriteBatch.Draw(emptyRing, new Vector2(150, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                 }
-
                 else
                 {
                     spriteBatch.Draw(skillRing, new Vector2(150, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -604,12 +558,10 @@ namespace Warlock_The_Soulbinder
                 {
                     spriteBatch.Draw(emptyRing, new Vector2(150, 760), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                 }
-
                 else
                 {
                     spriteBatch.Draw(skillRing, new Vector2(150, 760), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                 }
-
                 #endregion
 
                 spriteBatch.Draw(emptyRing, new Vector2(150, 120 + selectedInt * 160), null, Color.Gold, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
@@ -625,7 +577,6 @@ namespace Warlock_The_Soulbinder
                     //Consumables
                     case 0:
                         break;
-                    
                     //Filled Stones
                     case 1:
                         if (CurrentPage < FilledStone.StoneListPages)
@@ -642,7 +593,6 @@ namespace Warlock_The_Soulbinder
                                 }
                             }
                         }
-
                         else
                         {
                             for (int i = 0; i < FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9); i++)
@@ -738,7 +688,6 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, Convert.ToString(InputHandler.Instance.KeyCancel), new Vector2(600, 520), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, Convert.ToString(InputHandler.Instance.KeyReturn), new Vector2(600, 600), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, Convert.ToString(InputHandler.Instance.KeyMenu), new Vector2(600, 680), Color.White);
-
             }
 
             //Draws a selection arrow to see what you are hovering over
@@ -746,8 +695,6 @@ namespace Warlock_The_Soulbinder
             {
                 spriteBatch.Draw(arrow, new Vector2(155, 120 + 80 * selectedInt), Color.White);
             }
-            
-
         }
 
         public void ChangeState()
@@ -781,22 +728,19 @@ namespace Warlock_The_Soulbinder
                         inventoryState = "Quit";
                         break;
                 }
-            }
-            else if (inventoryState == "Inventory")
+           }
+           else if (inventoryState == "Inventory")
+           {
+                switch (selectedInt)
                 {
-                    switch (selectedInt)
-                    {
-                        case 0:
-                            inventoryState = "Consumables";
-                            break;
-                        case 1:
-                            inventoryState = "FilledStones";
-                            break;
-
-
-                    }
-
+                    case 0:
+                        inventoryState = "Consumables";
+                        break;
+                    case 1:
+                        inventoryState = "FilledStones";
+                        break;
                 }
+           }
 
             else if(inventoryState == "FilledStones")
             {
@@ -805,7 +749,7 @@ namespace Warlock_The_Soulbinder
                     if (FilledStone.StoneList.Count != 0)
                     {
                         //Unequips the current weapon from the slot that is picked
-                         switch (equippingTo)
+                        switch (equippingTo)
                         {
                             case 0:
                                 if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.Equipped == true)
@@ -813,28 +757,24 @@ namespace Warlock_The_Soulbinder
                                     Equipment.Instance.Weapon.Equipped = false;
                                 }
                                 break;
-
                             case 1:
                                 if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.Equipped == true)
                                 {
                                     Equipment.Instance.Armor.Equipped = false;
                                 }
                                 break;
-
                             case 2:
                                 if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.Equipped == true)
                                 {
                                     Equipment.Instance.Skill1.Equipped = false;
                                 }
                                 break;
-
                             case 3:
                                 if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.Equipped == true)
                                 {
                                     Equipment.Instance.Skill2.Equipped = false;
                                 }
                                 break;
-
                             case 4:
                                 if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.Equipped == true)
                                 {
@@ -850,37 +790,30 @@ namespace Warlock_The_Soulbinder
                         }
 
                         //Checks all of the equipment slots and makes them null if the item is no longer equipped to them
-                                if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.Equipped == false)
-                                {
-                                    Equipment.Instance.Weapon = null ;
-                                }
-
-
-
-                                if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.Equipped == false)
-                                {
-                                    Equipment.Instance.Armor = null;
-                                }
-
-
-                                if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.Equipped == false)
-                                {
-                                    Equipment.Instance.Skill1 = null;
-                                }
-
-
-
-                                if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.Equipped == false)
-                                {
-                                    Equipment.Instance.Skill2 = null ;
-                                }
-
-
-
-                                if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.Equipped == false)
-                                {
-                                    Equipment.Instance.Skill3 = null;
-                                }
+                        if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.Equipped == false)
+                        {
+                            Equipment.Instance.Weapon = null ;
+                        }
+                            
+                        if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.Equipped == false)
+                        {
+                            Equipment.Instance.Armor = null;
+                        }
+                            
+                        if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.Equipped == false)
+                        {
+                            Equipment.Instance.Skill1 = null;
+                        }
+                            
+                        if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.Equipped == false)
+                        {
+                            Equipment.Instance.Skill2 = null ;
+                        }
+                            
+                        if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.Equipped == false)
+                        {
+                            Equipment.Instance.Skill3 = null;
+                        }
 
                         
 
@@ -890,7 +823,6 @@ namespace Warlock_The_Soulbinder
                         EquippingTo = 0;
                         inventoryState = "Equipment";
                     }
-                    
                 }
             }
 
@@ -966,8 +898,6 @@ namespace Warlock_The_Soulbinder
                 }
 
             }
-
-
         }
 
         //Changes selectedInt which determines what item you are going to press
