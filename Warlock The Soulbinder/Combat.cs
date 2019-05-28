@@ -173,6 +173,7 @@ namespace Warlock_The_Soulbinder
             //Draws health, healthbars and turn bar for enemy
             if (target != null)
             {
+                spriteBatch.DrawString(combatFont, $"Level {target.Level}", new Vector2(1350, 150), Color.White);
                 spriteBatch.Draw(HealthEmpty, new Vector2(1200, 800), Color.White);
                 spriteBatch.Draw(HealthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
                 spriteBatch.DrawString(CombatFont, $"{target.CurrentHealth} / {target.MaxHealth}", new Vector2(1260, 880), Color.White);
@@ -276,6 +277,7 @@ namespace Warlock_The_Soulbinder
                         {
                             Player.Instance.CurrentHealth += 20;
                             Consumable.Potion--;
+                            playerAttackTimer = 0;
                         }
                         break;
                     case 1: //Soul Capture
@@ -292,13 +294,15 @@ namespace Warlock_The_Soulbinder
                             }
 
                             Consumable.SoulStone--;
+                            playerAttackTimer = 0;
                         }
                         break;
                     case 2: //Bomb
                         if (Consumable.Bomb > 0)
                         {
-                            target.CurrentHealth -= 20;
+                            target.CurrentHealth -= 300;
                             Consumable.Bomb--;
+                            playerAttackTimer = 0;
                         }
                         
                         break;

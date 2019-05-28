@@ -129,11 +129,15 @@ namespace Warlock_The_Soulbinder
                 {
                     tempList[i].Experience += (experience / stoneShare);
 
-                    if (tempList[i].Experience - tempList[i].Experiencerequired < 0)
+                    for (int t = 0; t < 20; t++)
                     {
-                        tempList[i].Experience = 0;
-                        tempList[i].Level++;
+                        if (tempList[i].ExperienceRequired - tempList[i].Experience < 0)
+                        {
+                            tempList[i].Experience = tempList[i].Experience - tempList[i].ExperienceRequired;
+                            tempList[i].Level++;
+                        }
                     }
+                   
                 }
             }
 
