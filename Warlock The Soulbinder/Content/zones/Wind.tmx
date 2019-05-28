@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="6">
+ <layer id="1" name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAAAAAMCXARkAAAE=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Objects">
+  <object id="1" type="EntryTrigger" x="1280" y="2496" width="192" height="64">
+   <properties>
+    <property name="targetName" value="TownN"/>
+   </properties>
+  </object>
+  <object id="2" type="ExitTrigger" x="1280" y="2368" width="192" height="64">
+   <properties>
+    <property name="name" value="WindS"/>
+    <property name="zone" value="Wind"/>
+   </properties>
+  </object>
+  <object id="3" type="EntryTrigger" x="2496" y="896" width="64" height="192">
+   <properties>
+    <property name="targetName" value="DragonW"/>
+   </properties>
+  </object>
+  <object id="5" type="ExitTrigger" x="2432" y="896" width="64" height="192">
+   <properties>
+    <property name="name" value="WindE"/>
+    <property name="zone" value="Wind"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

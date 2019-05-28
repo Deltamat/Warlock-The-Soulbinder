@@ -76,5 +76,65 @@ namespace Warlock_The_Soulbinder
             }
             Player.Instance.UpdateStats();
         }
+
+        /// <summary>
+        /// Automatically divides the given experience with all equipped stones.
+        /// </summary>
+        /// <param name="experience"></param>
+        public void ExperienceEquipment (int experience)
+        {
+            int stoneShare = 0;
+            List<FilledStone> tempList = new List<FilledStone>();
+
+            if (weapon != null)
+            {
+                stoneShare++;
+                tempList.Add(weapon);
+            }
+
+            if (armor != null)
+            {
+                stoneShare++;
+                tempList.Add(armor);
+            }
+
+            if (skill1 != null)
+            {
+                stoneShare++;
+                tempList.Add(skill1);
+            }
+
+            if (skill2 != null)
+            {
+                stoneShare++;
+                tempList.Add(skill2);
+            }
+
+            if (skill3 != null)
+            {
+                stoneShare++;
+                tempList.Add(skill3);
+            }
+
+            if (stoneShare != 0)
+            {
+                for (int i = 0; i < tempList.Count; i++)
+                {
+                    tempList[i].Experience += (experience / stoneShare);
+
+                    for (int t = 0; t < 20; t++)
+                    {
+                        if (tempList[i].ExperienceRequired - tempList[i].Experience < 0)
+                        {
+                            tempList[i].Experience = tempList[i].Experience - tempList[i].ExperienceRequired;
+                            tempList[i].Level++;
+                        }
+                    }
+                   
+                }
+            }
+
+            tempList.Clear();
+        }
     }
 }

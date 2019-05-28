@@ -25,6 +25,7 @@ namespace Warlock_The_Soulbinder
         private float playerAttackTimer;
         private float enemyAttackTimer;
         private float turnTimer = 1;
+       
         private Color buttonColor = Color.White;
         Sound victorySound = new Sound("battleVictory");
 
@@ -103,6 +104,8 @@ namespace Warlock_The_Soulbinder
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
                     target.Alive = false;
+                    Equipment.Instance.ExperienceEquipment(target.Level * 20);
+
                     GameWorld.Instance.enemies.Remove(target);
                     ExitCombat();
                 }
@@ -155,9 +158,19 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(CombatFont, "Back", emptyButtonList[3].Position + new Vector2(50, 7), Color.White);
             }
 
+
+            else if (buttonType == "Items")
+            {
+                spriteBatch.DrawString(CombatFont, $"Pot x{Consumable.Potion}", emptyButtonList[0].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, $"SoSt x{Consumable.SoulStone} ", emptyButtonList[1].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, $"Bomb x{Consumable.Bomb}", emptyButtonList[2].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, "Flee", emptyButtonList[3].Position + new Vector2(50, 7), buttonColor);
+            }
+
             //Draws health, healthbars and turn bar for enemy
             if (target != null)
             {
+                spriteBatch.DrawString(combatFont, $"Level {target.Level}", new Vector2(1350, 150), Color.White);
                 spriteBatch.Draw(HealthEmpty, new Vector2(1200, 800), Color.White);
                 spriteBatch.Draw(HealthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
                 spriteBatch.DrawString(CombatFont, $"{target.CurrentHealth} / {target.MaxHealth}", new Vector2(1260, 880), Color.White);
@@ -213,7 +226,7 @@ namespace Warlock_The_Soulbinder
                         buttonType = "Skills";
                         break;
                     case 2: //item
-                        //buttonType = "Items";
+                        buttonType = "Items";
                         break;
                     case 3: //flee
                         ExitCombat();
@@ -246,6 +259,51 @@ namespace Warlock_The_Soulbinder
                         }
                         break;
                     case 3:
+                        buttonType = "Normal";
+                        break;
+                }
+
+             }
+
+            else if (buttonType == "Items")
+            {
+                switch (selectedInt)
+                {
+                    case 0: //Potion
+                        if (Consumable.Potion > 0)
+                        {
+                            Player.Instance.CurrentHealth += 20;
+                            Consumable.Potion--;
+                            playerAttackTimer = 0;
+                        }
+                        break;
+                    case 1: //Soul Capture
+
+                        if (Consumable.SoulStone > 0)
+                        {
+                            int tempChance = PercentStat(target.CurrentHealth, target.MaxHealth);
+                            int tempInt = GameWorld.Instance.RandomInt(0, 100);
+
+                            if ((tempChance) < tempInt)
+                            {
+                                FilledStone.CatchMonster(target);
+                                target.CurrentHealth = 0;
+                            }
+
+                            Consumable.SoulStone--;
+                            playerAttackTimer = 0;
+                        }
+                        break;
+                    case 2: //Bomb
+                        if (Consumable.Bomb > 0)
+                        {
+                            target.CurrentHealth -= 300;
+                            Consumable.Bomb--;
+                            playerAttackTimer = 0;
+                        }
+                        
+                        break;
+                    case 3: //Back
                         buttonType = "Normal";
                         break;
                 }

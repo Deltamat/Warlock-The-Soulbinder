@@ -59,7 +59,7 @@ namespace Warlock_The_Soulbinder
         public string WeaponName { get => weaponName; set => weaponName = value; }
         public string ArmorName { get => armorName; set => armorName = value; }
         public string SkillName { get => skillName; set => skillName = value; }
-        public int Experiencerequired { get => experienceRequired; set => experienceRequired = value; }
+        public int ExperienceRequired { get => experienceRequired; set => experienceRequired = value; }
         public Effect WeaponEffect { get => weaponEffect; set => weaponEffect = value; }
         public Effect ArmorEffect { get => armorEffect; set => armorEffect = value; }
         public Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
@@ -699,6 +699,16 @@ namespace Warlock_The_Soulbinder
         public void Skill()
         {
             SkillEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Skill", this, null);
+        }
+
+        public static void CatchMonster(Enemy target)
+        {
+            int tempLevel = target.Level / 2;
+                if (tempLevel == 0)
+            {
+                tempLevel = 1;
+            }
+            stoneList.Add(new FilledStone(target.Monster, tempLevel));
         }
     }
 }
