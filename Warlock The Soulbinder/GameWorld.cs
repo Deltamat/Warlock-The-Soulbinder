@@ -195,16 +195,12 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
             
-            
-
             enemies.Add(new Enemy(0, new Vector2(1100, 150)));
             enemies.Add(new Enemy(4, new Vector2(1100, 300)));
             enemies.Add(new Enemy(7, new Vector2(1100, 450)));
             enemies.Add(new Enemy(12, new Vector2(1100, 600)));
             enemies.Add(new Enemy(16, new Vector2(1100, 750)));
             enemies.Add(new Enemy(20, new Vector2(1100, 900)));
-
-            //Controller.Instance.enemy.SaveEnemy(1, 100, 200, 5, 10, 100, 5f, 10f, 11f, 12f, 13f, 14f, 15f, "sheep");
 
             FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
