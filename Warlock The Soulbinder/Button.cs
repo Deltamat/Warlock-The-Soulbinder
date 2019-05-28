@@ -69,6 +69,7 @@ namespace Warlock_The_Soulbinder
         {
             previousMouse = currentMouse;
             currentMouse = Mouse.GetState();
+            
 
             var mouseRectangle = new Rectangle(currentMouse.X, currentMouse.Y, 1, 1);
 

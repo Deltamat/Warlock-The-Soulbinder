@@ -21,13 +21,16 @@ namespace Warlock_The_Soulbinder
         enum EMonster
         {
             sheep, wolf, bear, //neutral (0,1,2)
-            plantEater, insectSoldier, slimeEater, //earth (3,4,5)
+            plantEater, insectSoldier, slimeSnake, //earth (3,4,5)
             tentacle, frog, fish, //water (6,7,8)
             mummy, vampire, banshee, //dark (9,10,11)
             bucketMan, defender, sentry, //metal (12,13,14)
             fireGolem, infernalDemon, ashZombie, //fire (15,16,17)
             falcon, bat, raven //air (18,19,20)
         };
+
+        public int Level { get => level; set => level = value; }
+        public string Monster { get => monster; set => monster = value; }
 
         /// <summary>
         /// Returns the collisionbox for the object
@@ -40,8 +43,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public string Monster { get => monster; set => monster = value; }
-        public int Level { get => level; set => level = value; }
+       
 
         public Enemy(int index, Vector2 startPos)
         {
@@ -62,15 +64,15 @@ namespace Warlock_The_Soulbinder
             #region
             Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
-            maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.5f));
-            currentHealth = maxHealth;
+            maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
+            currentHealth = 0 + maxHealth;
             attackSpeed = 5 * (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3);
-            metalResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            earthResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            airResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            fireResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            darkResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            waterResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            MetalResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            EarthResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            AirResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            FireResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            DarkResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            WaterResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             #endregion
 
             //switch case to determine special properties based on the monster's element (logistic function)
@@ -83,49 +85,49 @@ namespace Warlock_The_Soulbinder
                     break;
                 case "plantEater":
                 case "insectSoldier":
-                case "slimeEater":
-                    earthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    darkResistance = (float)(darkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                case "slimeSnake":
+                    EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     earthDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "tentacle":
                 case "frog":
                 case "fish":
-                    waterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    airResistance = (float)(airResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    WaterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    AirResistance = (float)(AirResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     waterDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "mummy":
                 case "vampire":
                 case "banshee":
-                    darkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    metalResistance = (float)(metalResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    DarkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    MetalResistance = (float)(MetalResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     darkDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "bucketMan":
                 case "defender":
                 case "sentry":
-                    metalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    fireResistance = (float)(fireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    metalDamage = (int)(damage * 0.8f);
+                    MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    earthDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "fireGolem":
                 case "infernalDemon":
                 case "ashZombie":
-                    fireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    waterResistance = (float)(waterResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    FireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    WaterResistance = (float)(WaterResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     fireDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "falcon":
                 case "bat":
                 case "raven":
-                    airResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    earthResistance = (float)(earthResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    AirResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    EarthResistance = (float)(EarthResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     airDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
@@ -133,12 +135,12 @@ namespace Warlock_The_Soulbinder
 
             //adds damage and resistances to lists for ease of use
             #region
-            ResistanceTypes.Add(earthResistance);
-            ResistanceTypes.Add(waterResistance);
-            ResistanceTypes.Add(darkResistance);
-            ResistanceTypes.Add(metalResistance);
-            ResistanceTypes.Add(fireResistance);
-            ResistanceTypes.Add(airResistance);
+            ResistanceTypes.Add(EarthResistance);
+            ResistanceTypes.Add(WaterResistance);
+            ResistanceTypes.Add(DarkResistance);
+            ResistanceTypes.Add(MetalResistance);
+            ResistanceTypes.Add(FireResistance);
+            ResistanceTypes.Add(AirResistance);
             DamageTypes.Add(earthDamage);
             DamageTypes.Add(waterDamage);
             DamageTypes.Add(darkDamage);
@@ -153,7 +155,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// contructor used to load the database
+        /// Contructor used to load the database
         /// </summary>
         /// <param name="level"></param>
         /// <param name="startPos"></param>
@@ -172,14 +174,14 @@ namespace Warlock_The_Soulbinder
             float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, 
             float waterResistance, string monster)
         {
-            this.monster = monster;
+            this.Monster = monster;
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
             scale = 0.25f;
 
             movementSpeed = 10;
             Position = startPos;
 
-            this.level = level;
+            this.Level = level;
 
 
             //base stats
@@ -189,12 +191,12 @@ namespace Warlock_The_Soulbinder
             this.maxHealth = maxHealth;
             currentHealth = 0 + maxHealth;
             this.attackSpeed = attackSpeed;
-            this.metalResistance = metalResistance;
-            this.earthResistance = earthResistance;
-            this.airResistance = airResistance;
-            this.fireResistance = fireResistance;
-            this.darkResistance = darkResistance;
-            this.waterResistance = waterResistance;
+            this.MetalResistance = metalResistance;
+            this.EarthResistance = earthResistance;
+            this.AirResistance = airResistance;
+            this.FireResistance = fireResistance;
+            this.DarkResistance = darkResistance;
+            this.WaterResistance = waterResistance;
             #endregion
 
             //switch case to determine special properties based on the monster's element (logistic function)
@@ -238,12 +240,12 @@ namespace Warlock_The_Soulbinder
             
             //adds damage and resistances to lists for ease of use
             #region
-            ResistanceTypes.Add(this.earthResistance);
-            ResistanceTypes.Add(this.waterResistance);
-            ResistanceTypes.Add(this.darkResistance);
-            ResistanceTypes.Add(this.metalResistance);
-            ResistanceTypes.Add(this.fireResistance);
-            ResistanceTypes.Add(this.airResistance);
+            ResistanceTypes.Add(this.EarthResistance);
+            ResistanceTypes.Add(this.WaterResistance);
+            ResistanceTypes.Add(this.DarkResistance);
+            ResistanceTypes.Add(this.MetalResistance);
+            ResistanceTypes.Add(this.FireResistance);
+            ResistanceTypes.Add(this.AirResistance);
             DamageTypes.Add(earthDamage);
             DamageTypes.Add(waterDamage);
             DamageTypes.Add(darkDamage);

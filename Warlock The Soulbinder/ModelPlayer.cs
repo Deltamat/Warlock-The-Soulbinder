@@ -12,14 +12,19 @@ namespace Warlock_The_Soulbinder
     {
         public ModelPlayer()
         {
-            string sqlexp = $"CREATE TABLE IF NOT EXISTS Player{Controller.Instance.CurrentSaveFile} (X integer primary key, " +
-                "Y integer, " +
+            string sqlexp = "CREATE TABLE IF NOT EXISTS Player (X string primary key, " +
+                "Y string, " +
                 "zone string, " +
-                $"FOREIGN KEY(soulWeapon) REFERENCES SoulStone{Controller.Instance.CurrentSaveFile}(id)," +
-                $"FOREIGN KEY(soulArmour) REFERENCES SoulStone{Controller.Instance.CurrentSaveFile}(id)," +
-                $"FOREIGN KEY(soulTrinket1) REFERENCES SoulStone{Controller.Instance.CurrentSaveFile}(id)," +
-                $"FOREIGN KEY(soulTrinket2) REFERENCES SoulStone{Controller.Instance.CurrentSaveFile}(id)," +
-                $"FOREIGN KEY(soulTrinket3) REFERENCES SoulStone{Controller.Instance.CurrentSaveFile}(id))";
+                "soulWeapon integer," +
+                "soulArmour integer," +
+                "soulTrinket1 integer," +
+                "soulTrinket2 integer," +
+                "soulTrinket3 integer," +
+                "FOREIGN KEY(soulWeapon) REFERENCES SoulStone(id)," +
+                "FOREIGN KEY(soulArmour) REFERENCES SoulStone(id)," +
+                "FOREIGN KEY(soulTrinket1) REFERENCES SoulStone(id)," +
+                "FOREIGN KEY(soulTrinket2) REFERENCES SoulStone(id)," +
+                "FOREIGN KEY(soulTrinket3) REFERENCES SoulStone(id))";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
             cmd.ExecuteNonQuery();
@@ -30,19 +35,19 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM Player{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "DELETE FROM Player";
             cmd.ExecuteNonQuery();
         }
 
-        public void SavePlayer(int X, int Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
+        public void SavePlayer(float X, float Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
         {
-            cmd.CommandText = $"INSERT INTO Player{Controller.Instance.CurrentSaveFile} (X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ({X}, {Y}, {zone}, {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
+            cmd.CommandText = $"INSERT INTO Player (X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ('{X}', '{Y}', '{zone}', {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
             cmd.ExecuteNonQuery();
         }
 
         public void LoadPlayer()
         {
-            cmd.CommandText = $"SELECT * FROM Player{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "SELECT * FROM Player";
 
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -90,7 +95,7 @@ namespace Warlock_The_Soulbinder
                 }
                 #endregion
 
-                Player.Instance.Position = new Vector2(reader.GetInt32(1), reader.GetInt32(2));
+                Player.Instance.Position = new Vector2(reader.GetFloat(1), reader.GetFloat(2));
                 GameWorld.Instance.currentZone = $"{reader.GetString(3)}";
             }
             reader.Close();

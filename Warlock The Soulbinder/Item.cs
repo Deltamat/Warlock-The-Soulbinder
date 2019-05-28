@@ -10,10 +10,16 @@ namespace Warlock_The_Soulbinder
 {
     class Item : GameObject
     {
-        protected string name;
-        protected int goldCost;
-        protected string type;
-        
+        private string name;
+        private int goldCost;
+        private string type;
+
+        public string Name { get => name; set => name = value; }
+        public int GoldCost { get => goldCost; set => goldCost = value; }
+        public string Type { get => type; set => type = value; }
+
+
+
         /// <summary>
         /// For the database
         /// </summary>
@@ -24,9 +30,9 @@ namespace Warlock_The_Soulbinder
         public Item(string spriteName, string name, int goldCost, string type)
         {
             this.spriteName = spriteName;
-            this.name = name;
-            this.goldCost = goldCost;
-            this.type = type;
+            this.Name = name;
+            this.GoldCost = goldCost;
+            this.Type = type;
         }
 
         public Item()

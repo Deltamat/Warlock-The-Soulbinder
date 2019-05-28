@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
+
 namespace Warlock_The_Soulbinder
 {
     /// <summary>
@@ -25,9 +26,13 @@ namespace Warlock_The_Soulbinder
         public Camera camera;
         private float delay;
         private string gameState = "Overworld";
+        private string currentSaveFile = "1";
+        public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
 
         Song overworldMusic;
         Song combatMusic;
+        private bool currentKeyH = true;
+        private bool previousKeyH = true;
         TimeSpan songPosition;
         private float musicVolume;
 
@@ -120,8 +125,7 @@ namespace Warlock_The_Soulbinder
                 gameState = value;
             }
         }
-
-
+        
         public float MusicVolume
         {
             get
@@ -191,12 +195,49 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
             
+            
+
             enemies.Add(new Enemy(0, new Vector2(1100, 150)));
             enemies.Add(new Enemy(4, new Vector2(1100, 300)));
             enemies.Add(new Enemy(7, new Vector2(1100, 450)));
             enemies.Add(new Enemy(12, new Vector2(1100, 600)));
             enemies.Add(new Enemy(16, new Vector2(1100, 750)));
             enemies.Add(new Enemy(20, new Vector2(1100, 900)));
+
+            //Controller.Instance.enemy.SaveEnemy(1, 100, 200, 5, 10, 100, 5f, 10f, 11f, 12f, 13f, 14f, 15f, "sheep");
+
+            FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("plantEater", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("insectSoldier", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("slimeSnake", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("tentacle", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("frog", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("mummy", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("vampire", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("banshee", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("bucketMan", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("sentry", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("fireGolem", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("ashZombie", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
+            //Code to make pages for the filled stones
+            FilledStone.StoneListPages = 0;
+            int tempStoneList = FilledStone.StoneList.Count;
+            for (int i = 0; i < 99; i++)
+            {
+                if (tempStoneList - 9 > 0)
+                {
+                    FilledStone.StoneListPages++;
+                    tempStoneList -= 9;
+                }
+            }
 
             // Music
             MusicVolume = 0.5f;
@@ -217,8 +258,13 @@ namespace Warlock_The_Soulbinder
         {
             #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-            #endif
+#endif
 
+            
+
+            #region load
+
+            #endregion
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -260,7 +306,7 @@ namespace Warlock_The_Soulbinder
             #region
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1,10)));
+                FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
@@ -302,7 +348,90 @@ namespace Warlock_The_Soulbinder
                 delay = 0;
             }
 
-            #endregion            
+            #endregion
+
+            //temporary save
+            #region save
+            previousKeyH = currentKeyH;
+            currentKeyH = Keyboard.GetState().IsKeyUp(Keys.H);
+
+            if (previousKeyH == false && currentKeyH == true)
+            {
+                Controller.Instance.OpenTheGates();
+
+                Controller.Instance.DeleteConsumableDB();
+                Controller.Instance.DeleteEnemyDB();
+                Controller.Instance.DeletePlayerDB();
+                Controller.Instance.DeleteQuestDB();
+                Controller.Instance.DeleteSoulStoneDB();
+                Controller.Instance.DeleteStatisticDB();
+
+                for (int i = 0; i < Consumable.ConsumableList.Count; i++)
+                {
+                    Controller.Instance.SaveToConsumableDB(Consumable.ConsumableList[i].Name, Consumable.ConsumableList[i].Amount);
+                }
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    Controller.Instance.SaveToEnemyDB(enemies[i].Level, enemies[i].Position.X, enemies[i].Position.Y, enemies[i].Defense, enemies[i].Damage, enemies[i].MaxHealth, enemies[i].AttackSpeed, enemies[i].MetalResistance, enemies[i].EarthResistance, enemies[i].AirResistance, enemies[i].FireResistance, enemies[i].DarkResistance, enemies[i].WaterResistance, enemies[i].Monster);
+                }
+                for (int i = 0; i < FilledStone.StoneList.Count; i++)
+                {
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Level);
+                }
+                //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
+                //{
+                //    Controller.Instance.SaveToQuestDB(Quest.Instance.Quests[i],); // mangler en bedre måde at gemme quests
+                //}
+                int weapon, armour, skill1, skill2, skill3;
+                try
+                {
+                    weapon = Equipment.Instance.Weapon.Id;
+                }
+                catch (Exception)
+                {
+                    weapon = -1;
+                }
+                try
+                {
+                    armour = Equipment.Instance.Armor.Id;
+                }
+                catch (Exception)
+                {
+                    armour = -1;
+                }
+                try
+                {
+                    skill1 = Equipment.Instance.Skill1.Id;
+                }
+                catch (Exception)
+                {
+                    skill1 = -1;
+                }
+                try
+                {
+                    skill2 = Equipment.Instance.Skill2.Id;
+                }
+                catch (Exception)
+                {
+                    skill2 = -1;
+                }
+                try
+                {
+                    skill3 = Equipment.Instance.Skill3.Id;
+                }
+                catch (Exception)
+                {
+                    skill3 = -1;
+                }
+               
+                Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
+                
+                Controller.Instance.SaveToStatisticDB(Gold, SoulCount);
+
+                Controller.Instance.CloseTheGates();
+            }
+
+            #endregion
 
             CurrentZone().Update(gameTime);
 
@@ -329,9 +458,7 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             
-
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);

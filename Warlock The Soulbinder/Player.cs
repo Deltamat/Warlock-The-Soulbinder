@@ -72,12 +72,12 @@ namespace Warlock_The_Soulbinder
 
             //adds damage and resistances to lists for ease of use
             #region
-            ResistanceTypes.Add(earthResistance);
-            ResistanceTypes.Add(waterResistance);
-            ResistanceTypes.Add(darkResistance);
-            ResistanceTypes.Add(metalResistance);
-            ResistanceTypes.Add(fireResistance);
-            ResistanceTypes.Add(airResistance);
+            ResistanceTypes.Add(EarthResistance);
+            ResistanceTypes.Add(WaterResistance);
+            ResistanceTypes.Add(DarkResistance);
+            ResistanceTypes.Add(MetalResistance);
+            ResistanceTypes.Add(FireResistance);
+            ResistanceTypes.Add(AirResistance);
             DamageTypes.Add(earthDamage);
             DamageTypes.Add(waterDamage);
             DamageTypes.Add(darkDamage);
@@ -334,6 +334,20 @@ namespace Warlock_The_Soulbinder
                     for (int i = 0; i < stone.ResistanceTypes.Count; i++)
                     {
                         ResistanceTypes[i] += stone.ResistanceTypes[i];
+                    }
+                    if (Equipment.Instance.EquippedEquipment[0] != null)
+                    {
+                        if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
+                        {
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this);
+                        }
+                    }
+                    if (Equipment.Instance.EquippedEquipment[1] != null)
+                    {
+                        if (Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                        {
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this);
+                        }
                     }
                 }
             }

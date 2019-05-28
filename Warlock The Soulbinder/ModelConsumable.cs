@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public ModelConsumable()
         {
-            string sqlexp = $"CREATE TABLE IF NOT EXISTS Consumable{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
+            string sqlexp = "CREATE TABLE IF NOT EXISTS Consumable (id integer primary key, " +
                 "name string, " +
                 "amount integer )";
             cmd = connection.CreateCommand();
@@ -27,7 +27,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM Consumable{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "DELETE FROM Consumable";
             cmd.ExecuteNonQuery();
         }
 
@@ -38,7 +38,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="amount"></param>
         public void SaveConsumable(string name, int amount)
         {
-            cmd.CommandText = $"INSERT INTO Consumable{Controller.Instance.CurrentSaveFile} (id, name, amount) VALUES (null, {name}, {amount})";
+            cmd.CommandText = $"INSERT INTO Consumable(id, name, amount) VALUES (null, '{name}', {amount})";
             cmd.ExecuteNonQuery();
         }
 
@@ -49,7 +49,7 @@ namespace Warlock_The_Soulbinder
         public Dictionary<int, Consumable> LoadConsumable()
         {
             Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
-            cmd.CommandText = $"SELECT * FROM Consumable{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "SELECT * FROM Consumable";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
