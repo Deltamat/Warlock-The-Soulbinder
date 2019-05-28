@@ -33,14 +33,7 @@ namespace Warlock_The_Soulbinder
         public FilledStone Skill1 { get => skill1; set => skill1 = value; }
         public FilledStone Skill2 { get => skill2; set => skill2 = value; }
         public FilledStone Skill3 { get => skill3; set => skill3 = value; }
-        public List<FilledStone> EquippedEquipment
-        {
-            get => equippedEquipment;
-            set
-            {
-                equippedEquipment = value;
-            }
-        }
+        internal List<FilledStone> EquippedEquipment { get => equippedEquipment; set => equippedEquipment = value; }
 
         private Equipment()
         {
@@ -62,23 +55,23 @@ namespace Warlock_The_Soulbinder
             {
                 case 0:
                     Weapon = selectedStone;
-                    EquippedEquipment[0] = Weapon;
+                    EquippedEquipment[slot] = Weapon;
                     break;
                 case 1:
                     Armor = selectedStone;
-                    EquippedEquipment[1] = Armor;
+                    EquippedEquipment[slot] = Armor;
                     break;
                 case 2:
                     Skill1 = selectedStone;
-                    EquippedEquipment[2] = Skill1;
+                    EquippedEquipment[slot] = Skill1;
                     break;
                 case 3:
                     Skill2 = selectedStone;
-                    EquippedEquipment[3] = Skill2;
+                    EquippedEquipment[slot] = Skill2;
                     break;
                 case 4:
                     Skill3 = selectedStone;
-                    EquippedEquipment[4] = Skill3;
+                    EquippedEquipment[slot] = Skill3;
                     break;
             }
             Player.Instance.UpdateStats();

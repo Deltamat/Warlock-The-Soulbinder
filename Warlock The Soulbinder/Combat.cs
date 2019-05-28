@@ -102,9 +102,6 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
-                    playerEffects.Clear();
-                    enemyEffects.Clear();
-                    victorySound.Play();
                     target.Alive = false;
                     GameWorld.Instance.enemies.Remove(target);
                     ExitCombat();
@@ -230,21 +227,21 @@ namespace Warlock_The_Soulbinder
                     case 0:
                         if (Equipment.Instance.Skill1 != null)
                         {
-                            Equipment.Instance.Skill1.Skill();
+                            Effect effect = Equipment.Instance.Skill1.SkillEffect;
+
                         }
-                        
                         break;
                     case 1:
                         if (Equipment.Instance.Skill2 != null)
                         {
-                            Equipment.Instance.Skill2.Skill();
+                            Effect effect = Equipment.Instance.Skill2.SkillEffect;
 
                         }
                         break;
                     case 2:
                         if (Equipment.Instance.Skill3 != null)
                         {
-                            Equipment.Instance.Skill3.Skill();
+                            Effect effect = Equipment.Instance.Skill3.SkillEffect;
 
                         }
                         break;
@@ -304,6 +301,11 @@ namespace Warlock_The_Soulbinder
             buttonColor = Color.Gray;
             if (target != null)
             {
+                foreach (Effect effect in playerEffects)
+                {
+
+                }
+
                 playerAttackTimer = 0;
                 Player.Instance.AttackStart = true;
 
@@ -326,7 +328,7 @@ namespace Warlock_The_Soulbinder
                 {
                     if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0)
                     {
-                        enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone));
+                        enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, null));
                     }
                 }
 
@@ -339,37 +341,33 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnemyTurn()
         {
+            //local values to apply effects
             bool stunned = new bool();
             bool confused = new bool();
-            int accuracyModCount = 1;
             float accuracyMod = 1f;
             float finalAccuracyMod = new float();
-            int damageModCount = 1;
             float damageMod = 1f;
             float finalDamageMod = new float();
+
+            //goes through all active effects on the enemy with an EffectLength greater than 0
             foreach (Effect effect in enemyEffects)
             {
-                if (effect.Effectlength > 0)
+                if (effect.EffectLength > 0)
                 {
-                    target.CurrentHealth -= effect.Damage;
-                    confused = effect.Confuse;
-                    stunned = effect.Stun;
-                    if (effect.AccuracyMod != 1f)
+                    target.CurrentHealth -= effect.Damage; //applies damage
+                    confused = effect.Confuse; //applies confuse
+                    stunned = effect.Stun; //applies stun
+                    if (effect.AccuracyMod != 1f && effect.AccuracyMod < accuracyMod) //effects has a base AccuracyMod of 1, only overrides if the AccuracyMod is more effective
                     {
-                        accuracyMod += effect.AccuracyMod;
-                        accuracyModCount++;
+                        accuracyMod = effect.AccuracyMod;
                     }
-                    if (effect.DamageMod != 1f)
+                    if (effect.DamageMod != 1f && effect.DamageMod < damageMod) //effects has a base DamageMod of 1, only overrides if the DamageMod is more effective
                     {
-                        damageMod += effect.DamageMod;
-                        damageModCount++;
+                        damageMod = effect.DamageMod;
                     }
                 }
-                effect.Effectlength--;
+                effect.EffectLength--;
             }
-
-            finalAccuracyMod = accuracyMod / accuracyModCount;
-            finalDamageMod = damageMod / damageModCount;
 
             enemyAttackTimer = 0;
             if (!stunned)
@@ -379,25 +377,29 @@ namespace Warlock_The_Soulbinder
                 List<int> damageToDeal = new List<int>();
                 int totalDamageToDeal = 0;
 
+                //adds the damage to be dealt
                 if (target.Damage - Player.Instance.Defense > 0)
                 {
                     damageToDeal.Add(target.Damage - Player.Instance.Defense);
                 }
 
+                //goes through all damage types and resistance types and calculates damage to be dealt
                 for (int i = 0; i < target.ResistanceTypes.Count; i++)
                 {
                     damageToDeal.Add((int)((target.DamageTypes[i] * finalDamageMod) - ((target.DamageTypes[i] * finalDamageMod) * 0.01 * Player.Instance.ResistanceTypes[i])));
                 }
+
+                //adds all damage to a single variable
                 for (int i = 0; i < damageToDeal.Count; i++)
                 {
                     totalDamageToDeal += damageToDeal[i];
                 }
 
-                if (confused && GameWorld.Instance.RandomInt(0, 100) < 50)
+                if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
                 {
                     target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
                 }
-                else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25)
+                else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
                 {
 
                 }
@@ -413,14 +415,17 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ExitCombat()
         {
+            playerEffects.Clear();
+            enemyEffects.Clear();
+            victorySound.Play();
             GameWorld.Instance.GameState = "Overworld";
             selectedInt = 0;
             playerAttackTimer = 0;
             enemyAttackTimer = 0;
             buttonType = "Normal";
+            target = null;
             Player.Instance.GracePeriod = 0;
             Player.Instance.GraceStart = false;
-            target = null;
             Player.Instance.Attacking = false;
             Player.Instance.AttackStart = false;
             Player.Instance.Hurt = false;
