@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="10">
+ <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="tilesetGrassland.png" width="1024" height="1024"/>
+ </tileset>
+ <layer id="1" name="Ground" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0jERACAMBLAeEmoFC/jXhAWG3vFDhjhIV1UDADBmhdvhTrjfvwAAAHhzAfp+evk=
+  </data>
+ </layer>
+ <layer id="2" name="Top" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAAAAAMCXARkAAAE=
+  </data>
+ </layer>
+ <objectgroup id="3" name="Objects">
+  <object id="1" type="EntryTrigger" x="2496" y="960" width="64" height="192">
+   <properties>
+    <property name="targetName" value="BeastW"/>
+   </properties>
+  </object>
+  <object id="2" type="ExitTrigger" x="2432" y="960" width="64" height="192">
+   <properties>
+    <property name="name" value="GrassE"/>
+    <property name="zone" value="Grass"/>
+   </properties>
+  </object>
+  <object id="4" type="EntryTrigger" x="1216" y="2496" width="192" height="64">
+   <properties>
+    <property name="targetName" value="UndeadN"/>
+   </properties>
+  </object>
+  <object id="5" type="ExitTrigger" x="1216" y="2368" width="192" height="64">
+   <properties>
+    <property name="name" value="GrassS"/>
+    <property name="zone" value="Grass"/>
+   </properties>
+  </object>
+  <object id="6" type="EntryTrigger" x="1216" y="0" width="192" height="64">
+   <properties>
+    <property name="targetName" value="MetalS"/>
+   </properties>
+  </object>
+  <object id="7" type="ExitTrigger" x="1216" y="64" width="192" height="64">
+   <properties>
+    <property name="name" value="GrassN"/>
+    <property name="zone" value="Grass"/>
+   </properties>
+  </object>
+  <object id="8" type="EntryTrigger" x="0" y="960" width="64" height="192">
+   <properties>
+    <property name="targetName" value="WaterE"/>
+   </properties>
+  </object>
+  <object id="9" type="ExitTrigger" x="64" y="960" width="64" height="192">
+   <properties>
+    <property name="name" value="GrassW"/>
+    <property name="zone" value="Grass"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

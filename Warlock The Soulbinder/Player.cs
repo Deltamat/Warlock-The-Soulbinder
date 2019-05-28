@@ -65,7 +65,7 @@ namespace Warlock_The_Soulbinder
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             scale = 0.25f;
 
-            movementSpeed = 250;
+            movementSpeed = 1000;
             Damage = 5;
             AttackSpeed = 5f;
             MaxHealth = 100;
@@ -119,7 +119,7 @@ namespace Warlock_The_Soulbinder
                 walking = true;
                 if (stepTimer > 0.35f)
                 {
-                    step.Play();
+                    //step.Play();
                     stepTimer = 0;
                 }
             }
@@ -166,7 +166,7 @@ namespace Warlock_The_Soulbinder
             {
                 foreach (Enemy enemy in GameWorld.Instance.enemies)
                 {
-                    if (enemy.CollisionBox.Intersects(CollisionBox))
+                    if (enemy.CollisionBox.Intersects(CollisionBox) && GameWorld.Instance.GameState == "Overworld")
                     {
                         GameWorld.Instance.GameState = "Combat";
                         Combat.Instance.SelectEnemy(enemy);

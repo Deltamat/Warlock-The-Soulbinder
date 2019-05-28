@@ -11,8 +11,7 @@ namespace Warlock_The_Soulbinder
     public class NPC : Character
     {
         bool hasQuest;
-        bool hasShop;
-        int index;       
+        bool hasShop;   
         int questID;
         Texture2D interact;
         float interactScale;
