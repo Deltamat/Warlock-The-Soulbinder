@@ -9,26 +9,47 @@ namespace Warlock_The_Soulbinder
 {
     class Model
     {
-        private static string connectionString = @"Data Source=Warlock1.db;version=3;New=true;Compress=true";
-        protected SQLiteConnection connection = new SQLiteConnection(ConnectionString);
+        protected SQLiteConnection connection;
         protected SQLiteCommand cmd;
-
-        public static string ConnectionString { get => connectionString; private set => connectionString = value; }
+        private const string connectionString1 = @"Data Source=Warlock1.db;version=3;New=true;Compress=true";
+        private const string connectionString2 = @"Data Source=Warlock2.db;version=3;New=true;Compress=true";
+        private const string connectionString3 = @"Data Source=Warlock3.db;version=3;New=true;Compress=true";
 
         public Model()
         {
-            ConnectionString = @"Data Source=Warlock1.db;version=3;New=true;Compress=true";
-            
+
+            switch (GameWorld.Instance.CurrentSaveFile)
+            {
+                case "1":
+                    connection = new SQLiteConnection(connectionString1);
+                    break;
+                case "2":
+                    connection = new SQLiteConnection(connectionString2);
+                    break;
+                case "3":
+                    connection = new SQLiteConnection(connectionString3);
+                    break;
+            }
+
+            OpenConnection();
         }
 
         public void OpenConnection()
         {
-            connection.Open();
+            if (connection.State != System.Data.ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            
         }
 
         public void CloseConnection()
         {
-            connection.Close();
+            if (connection.State != System.Data.ConnectionState.Closed)
+            {
+                connection.Close();
+            }
+           
         }
       
     }

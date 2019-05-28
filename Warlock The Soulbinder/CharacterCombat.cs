@@ -10,7 +10,7 @@ namespace Warlock_The_Soulbinder
     public class CharacterCombat : Character
     {
         protected Vector2 direction;
-        protected bool isInCombat;
+        protected bool isInCombat = true;
         protected float attackSpeed;
         protected bool alive = true;
         protected int currentHealth;
@@ -60,6 +60,12 @@ namespace Warlock_The_Soulbinder
         public bool Alive { get => alive; set => alive = value; }
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
+        public float WaterResistance { get => waterResistance; set => waterResistance = value; }
+        public float DarkResistance { get => darkResistance; set => darkResistance = value; }
+        public float FireResistance { get => fireResistance; set => fireResistance = value; }
+        public float AirResistance { get => airResistance; set => airResistance = value; }
+        public float EarthResistance { get => earthResistance; set => earthResistance = value; }
+        public float MetalResistance { get => metalResistance; set => metalResistance = value; }
 
         public CharacterCombat()
         {

@@ -49,7 +49,7 @@ namespace Warlock_The_Soulbinder
 
         public FilledStone(string name, string monster, int level)
         {
-            this.name = name;
+            this.Name = name;
             this.Monster = monster;
             this.Level = level;
             spriteName = $"monsters/Orbs/{monster}";
