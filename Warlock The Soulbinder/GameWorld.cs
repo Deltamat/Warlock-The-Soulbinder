@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
+
 namespace Warlock_The_Soulbinder
 {
     /// <summary>
@@ -25,9 +26,13 @@ namespace Warlock_The_Soulbinder
         public Camera camera;
         private float delay;
         private string gameState = "Overworld";
+        private string currentSaveFile = "1";
+        public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
 
         Song overworldMusic;
         Song combatMusic;
+        private bool currentKeyH = true;
+        private bool previousKeyH = true;
         TimeSpan songPosition;
 
         private float musicVolume;
@@ -253,8 +258,13 @@ namespace Warlock_The_Soulbinder
         {
             #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-            #endif
+#endif
 
+            
+
+            #region load
+
+            #endregion
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -338,7 +348,90 @@ namespace Warlock_The_Soulbinder
                 delay = 0;
             }
 
-            #endregion            
+            #endregion
+
+            //temporary save
+            #region save
+            previousKeyH = currentKeyH;
+            currentKeyH = Keyboard.GetState().IsKeyUp(Keys.H);
+
+            if (previousKeyH == false && currentKeyH == true)
+            {
+                Controller.Instance.OpenTheGates();
+
+                Controller.Instance.DeleteConsumableDB();
+                Controller.Instance.DeleteEnemyDB();
+                Controller.Instance.DeletePlayerDB();
+                Controller.Instance.DeleteQuestDB();
+                Controller.Instance.DeleteSoulStoneDB();
+                Controller.Instance.DeleteStatisticDB();
+
+                for (int i = 0; i < Consumable.ConsumableList.Count; i++)
+                {
+                    Controller.Instance.SaveToConsumableDB(Consumable.ConsumableList[i].Name, Consumable.ConsumableList[i].Amount);
+                }
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    Controller.Instance.SaveToEnemyDB(enemies[i].Level, enemies[i].Position.X, enemies[i].Position.Y, enemies[i].Defense, enemies[i].Damage, enemies[i].MaxHealth, enemies[i].AttackSpeed, enemies[i].MetalResistance, enemies[i].EarthResistance, enemies[i].AirResistance, enemies[i].FireResistance, enemies[i].DarkResistance, enemies[i].WaterResistance, enemies[i].Monster);
+                }
+                for (int i = 0; i < FilledStone.StoneList.Count; i++)
+                {
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Level);
+                }
+                //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
+                //{
+                //    Controller.Instance.SaveToQuestDB(Quest.Instance.Quests[i],); // mangler en bedre måde at gemme quests
+                //}
+                int weapon, armour, skill1, skill2, skill3;
+                try
+                {
+                    weapon = Equipment.Instance.Weapon.Id;
+                }
+                catch (Exception)
+                {
+                    weapon = -1;
+                }
+                try
+                {
+                    armour = Equipment.Instance.Armor.Id;
+                }
+                catch (Exception)
+                {
+                    armour = -1;
+                }
+                try
+                {
+                    skill1 = Equipment.Instance.Skill1.Id;
+                }
+                catch (Exception)
+                {
+                    skill1 = -1;
+                }
+                try
+                {
+                    skill2 = Equipment.Instance.Skill2.Id;
+                }
+                catch (Exception)
+                {
+                    skill2 = -1;
+                }
+                try
+                {
+                    skill3 = Equipment.Instance.Skill3.Id;
+                }
+                catch (Exception)
+                {
+                    skill3 = -1;
+                }
+               
+                Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
+                
+                Controller.Instance.SaveToStatisticDB(Gold, SoulCount);
+
+                Controller.Instance.CloseTheGates();
+            }
+
+            #endregion
 
             CurrentZone().Update(gameTime);
 

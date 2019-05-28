@@ -15,9 +15,8 @@ namespace Warlock_The_Soulbinder
         ModelPlayer player;
         ModelStatistic statistic;
         Model model;
-
         
-        public string CurrentSaveFile { get ; set ; }
+
 
         static Controller instance;
         static public Controller Instance
@@ -35,7 +34,8 @@ namespace Warlock_The_Soulbinder
                 instance = value;
             }
         }
-                
+
+        
 
         public Controller()
         {
@@ -45,9 +45,10 @@ namespace Warlock_The_Soulbinder
             enemy = new ModelEnemy();
             player = new ModelPlayer();
             statistic = new ModelStatistic();
+            quest = new ModelQuest();
         }
 
-
+       
 
         #region Model
         public void OpenTheGates()
@@ -142,7 +143,7 @@ namespace Warlock_The_Soulbinder
             player.ClearDB();
         }
 
-        public void SaveToPlayerDB(int X, int Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
+        public void SaveToPlayerDB(float X, float Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
         {
             player.SavePlayer(X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3);
         }
@@ -160,7 +161,7 @@ namespace Warlock_The_Soulbinder
             enemy.ClearDB();
         }
 
-        public void SaveToEnemyDB(int level, int X, int Y, int defense, int damage, int maxHealth, float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
+        public void SaveToEnemyDB(int level, float X, float Y, int defense, int damage, int maxHealth, float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
         {
             enemy.SaveEnemy(level, X, Y, defense, damage, maxHealth, attackSpeed, metalResistance, earthResistance, airResistance, fireResistance, darkResistance, waterResistance, monster);
         }

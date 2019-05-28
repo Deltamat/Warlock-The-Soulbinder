@@ -69,7 +69,7 @@ namespace Warlock_The_Soulbinder
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-        public string Name { get => name; set => name = value; }
+        //public string Name { get => name; set => name = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
