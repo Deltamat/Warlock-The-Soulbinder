@@ -10,7 +10,7 @@ namespace Warlock_The_Soulbinder
     {
         ModelConsumable consumable;
         ModelSoulStone filledStone;
-        ModelEnemy enemy;
+        public ModelEnemy enemy;
         ModelQuest quest;
         ModelPlayer player;
         ModelStatistic statistic;
@@ -39,10 +39,10 @@ namespace Warlock_The_Soulbinder
 
         public Controller()
         {
+            model = new Model();
             consumable = new ModelConsumable();
             filledStone = new ModelSoulStone();
             enemy = new ModelEnemy();
-            model = new Model();
             player = new ModelPlayer();
             statistic = new ModelStatistic();
         }
