@@ -335,6 +335,20 @@ namespace Warlock_The_Soulbinder
                     {
                         ResistanceTypes[i] += stone.ResistanceTypes[i];
                     }
+                    if (Equipment.Instance.EquippedEquipment[0] != null)
+                    {
+                        if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
+                        {
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this);
+                        }
+                    }
+                    if (Equipment.Instance.EquippedEquipment[1] != null)
+                    {
+                        if (Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                        {
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this);
+                        }
+                    }
                 }
             }
         }
