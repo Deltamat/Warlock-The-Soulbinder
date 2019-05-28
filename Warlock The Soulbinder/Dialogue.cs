@@ -57,7 +57,7 @@ namespace Warlock_The_Soulbinder
                 InDialogue = false;
                 foreach (var npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
-                    npc.Value.Talking = false;
+                    npc.Talking = false;
                 }
                 dialogueTimer = 0;
                 GameWorld.Instance.GameState = "Overworld";
