@@ -25,8 +25,12 @@ namespace Warlock_The_Soulbinder
         private float playerAttackTimer;
         private float enemyAttackTimer;
         private float turnTimer = 1;
+       
         private Color buttonColor = Color.White;
         Sound victorySound = new Sound("battleVictory");
+
+        private List<Effect> enemyEffects = new List<Effect>();
+        private List<Effect> playerEffects = new List<Effect>();
 
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
@@ -84,7 +88,7 @@ namespace Warlock_The_Soulbinder
                 buttonColor = Color.White;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) && combatDelay > 200 && playerAttackTimer >= turnTimer)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && combatDelay > 200 && playerAttackTimer >= turnTimer)
             {
                 CombatEvent();
                 combatDelay = 0;
@@ -99,8 +103,12 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
+                    playerEffects.Clear();
+                    enemyEffects.Clear();
                     victorySound.Play();
                     target.Alive = false;
+                    Equipment.Instance.ExperienceEquipment(target.Level * 20);
+
                     GameWorld.Instance.enemies.Remove(target);
                     ExitCombat();
                 }
@@ -134,10 +142,32 @@ namespace Warlock_The_Soulbinder
             }
             else if (buttonType == "Skills")
             {
-                spriteBatch.DrawString(CombatFont, "Dam.E", emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
-                spriteBatch.DrawString(CombatFont, "Heal.E", emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
-                spriteBatch.DrawString(CombatFont, "Heal.P", emptyButtonList[2].Position + new Vector2(50, 7), Color.White);
+                if (Equipment.Instance.Skill1 != null)
+                {
+                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill1.SkillName, emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
+                }
+
+                if (Equipment.Instance.Skill2 != null)
+                {
+                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill2.SkillName, emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
+                }
+
+                if (Equipment.Instance.Skill3 != null)
+                {
+                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill3.SkillName, emptyButtonList[2].Position + new Vector2(50, 7), Color.White);
+                }
+
+
                 spriteBatch.DrawString(CombatFont, "Back", emptyButtonList[3].Position + new Vector2(50, 7), Color.White);
+            }
+
+
+            else if (buttonType == "Items")
+            {
+                spriteBatch.DrawString(CombatFont, $"Pot x{Consumable.Potion}", emptyButtonList[0].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, $"SoSt x{Consumable.SoulStone} ", emptyButtonList[1].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, $"Bomb x{Consumable.Bomb}", emptyButtonList[2].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, "Flee", emptyButtonList[3].Position + new Vector2(50, 7), buttonColor);
             }
 
             //Draws health, healthbars and turn bar for enemy
@@ -198,7 +228,7 @@ namespace Warlock_The_Soulbinder
                         buttonType = "Skills";
                         break;
                     case 2: //item
-                        //buttonType = "Items";
+                        buttonType = "Items";
                         break;
                     case 3: //flee
                         ExitCombat();
@@ -210,15 +240,69 @@ namespace Warlock_The_Soulbinder
                 switch (selectedInt)
                 {
                     case 0:
-                        target.CurrentHealth -= 3;
+                        if (Equipment.Instance.Skill1 != null)
+                        {
+                            Equipment.Instance.Skill1.Skill();
+                        }
+                        
                         break;
                     case 1:
-                        target.CurrentHealth += 3;
+                        if (Equipment.Instance.Skill2 != null)
+                        {
+                            Equipment.Instance.Skill2.Skill();
+
+                        }
                         break;
                     case 2:
-                        Player.Instance.CurrentHealth += 2;
+                        if (Equipment.Instance.Skill3 != null)
+                        {
+                            Equipment.Instance.Skill3.Skill();
+
+                        }
                         break;
                     case 3:
+                        buttonType = "Normal";
+                        break;
+                }
+
+             }
+
+            else if (buttonType == "Items")
+            {
+                switch (selectedInt)
+                {
+                    case 0: //Potion
+                        if (Consumable.Potion > 0)
+                        {
+                            Player.Instance.CurrentHealth += 20;
+                            Consumable.Potion--;
+                        }
+                        break;
+                    case 1: //Soul Capture
+
+                        if (Consumable.SoulStone > 0)
+                        {
+                            int tempChance = PercentStat(target.CurrentHealth, target.MaxHealth);
+                            int tempInt = GameWorld.Instance.RandomInt(0, 100);
+
+                            if ((tempChance) < tempInt)
+                            {
+                                FilledStone.CatchMonster(target);
+                                target.CurrentHealth = 0;
+                            }
+
+                            Consumable.SoulStone--;
+                        }
+                        break;
+                    case 2: //Bomb
+                        if (Consumable.Bomb > 0)
+                        {
+                            target.CurrentHealth -= 20;
+                            Consumable.Bomb--;
+                        }
+                        
+                        break;
+                    case 3: //Back
                         buttonType = "Normal";
                         break;
                 }
@@ -232,7 +316,19 @@ namespace Warlock_The_Soulbinder
         public void SelectEnemy(Enemy combatEnemy)
         {
             target = combatEnemy;
-            turnTimer = (target.AttackSpeed + Player.Instance.AttackSpeed) * 200.5f;
+
+            //First take on turnTimer
+            //turnTimer = (target.AttackSpeed + Player.Instance.AttackSpeed) * 100.5f;
+
+            //Alternate take on turnTimer
+            if (target.AttackSpeed > Player.Instance.AttackSpeed)
+            {
+                turnTimer = target.AttackSpeed * 100.5f;
+            }
+            else
+            {
+                turnTimer = Player.Instance.AttackSpeed * 100.5f;
+            }
         }
         
         /// <summary>
@@ -271,7 +367,7 @@ namespace Warlock_The_Soulbinder
                 damageToDeal.Add(Player.Instance.Damage - target.Defense);
                 for (int i = 0; i < target.ResistanceTypes.Count; i++)
                 {
-                    damageToDeal.Add((int)(Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i]));
+                    damageToDeal.Add((int)(Player.Instance.DamageTypes[i] - (Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i])));
                 }
                 for (int i = 0; i < damageToDeal.Count; i++)
                 {
@@ -279,6 +375,15 @@ namespace Warlock_The_Soulbinder
                 }
 
                 target.CurrentHealth -= totalDamageToDeal;
+
+                if (Equipment.Instance.EquippedEquipment[0] != null)
+                {
+                    if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0)
+                    {
+                        enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone));
+                    }
+                }
+
                 combatDelay = 0;
             }
         }
@@ -288,23 +393,73 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnemyTurn()
         {
+            bool stunned = new bool();
+            bool confused = new bool();
+            int accuracyModCount = 1;
+            float accuracyMod = 1f;
+            float finalAccuracyMod = new float();
+            int damageModCount = 1;
+            float damageMod = 1f;
+            float finalDamageMod = new float();
+            foreach (Effect effect in enemyEffects)
+            {
+                if (effect.Effectlength > 0)
+                {
+                    target.CurrentHealth -= effect.Damage;
+                    confused = effect.Confuse;
+                    stunned = effect.Stun;
+                    if (effect.AccuracyMod != 1f)
+                    {
+                        accuracyMod += effect.AccuracyMod;
+                        accuracyModCount++;
+                    }
+                    if (effect.DamageMod != 1f)
+                    {
+                        damageMod += effect.DamageMod;
+                        damageModCount++;
+                    }
+                }
+                effect.Effectlength--;
+            }
+
+            finalAccuracyMod = accuracyMod / accuracyModCount;
+            finalDamageMod = damageMod / damageModCount;
+
             enemyAttackTimer = 0;
-            Player.Instance.HurtStart = true;
-
-            List<int> damageToDeal = new List<int>();
-            int totalDamageToDeal = 0;
-
-            damageToDeal.Add(target.Damage - Player.Instance.Defense);
-            for (int i = 0; i < target.ResistanceTypes.Count; i++)
+            if (!stunned)
             {
-                damageToDeal.Add((int)(target.DamageTypes[i] * 0.01 * Player.Instance.ResistanceTypes[i]));
-            }
-            for (int i = 0; i < damageToDeal.Count; i++)
-            {
-                totalDamageToDeal += damageToDeal[i];
-            }
+                Player.Instance.HurtStart = true;
 
-            target.CurrentHealth -= totalDamageToDeal;
+                List<int> damageToDeal = new List<int>();
+                int totalDamageToDeal = 0;
+
+                if (target.Damage - Player.Instance.Defense > 0)
+                {
+                    damageToDeal.Add(target.Damage - Player.Instance.Defense);
+                }
+
+                for (int i = 0; i < target.ResistanceTypes.Count; i++)
+                {
+                    damageToDeal.Add((int)((target.DamageTypes[i] * finalDamageMod) - ((target.DamageTypes[i] * finalDamageMod) * 0.01 * Player.Instance.ResistanceTypes[i])));
+                }
+                for (int i = 0; i < damageToDeal.Count; i++)
+                {
+                    totalDamageToDeal += damageToDeal[i];
+                }
+
+                if (confused && GameWorld.Instance.RandomInt(0, 100) < 50)
+                {
+                    target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
+                }
+                else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25)
+                {
+
+                }
+                else if (GameWorld.Instance.RandomInt((int)(100 * finalAccuracyMod), (int)(200 - (100 - (100 * finalAccuracyMod)))) >= 100)
+                {
+                    Player.Instance.CurrentHealth -= totalDamageToDeal;
+                }
+            }
         }
 
         /// <summary>

@@ -64,13 +64,11 @@ namespace Warlock_The_Soulbinder
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             scale = 0.25f;
-
-            movementSpeed = 1000;
-            Damage = 5;
-            AttackSpeed = 5f;
-            MaxHealth = 100;
-            CurrentHealth = 100;
+            movementSpeed = 250;
             Position = new Vector2(300);
+
+            BaseStats();
+            CurrentHealth = MaxHealth;
 
             //adds damage and resistances to lists for ease of use
             #region
@@ -108,7 +106,7 @@ namespace Warlock_The_Soulbinder
         public override void Update(GameTime gameTime)
         {
             stepTimer += GameWorld.deltaTimeSecond;
-            if (graceStart)
+            if (graceStart && GameWorld.Instance.GameState == "Overworld")
             {
                 gracePeriod += GameWorld.deltaTimeSecond;
             }            
@@ -162,7 +160,7 @@ namespace Warlock_The_Soulbinder
             #endregion
 
             //if the player's 5 second grace period is over and the player collides with an enemy, start combat
-            if (gracePeriod > 5) 
+            if (gracePeriod > 3) 
             {
                 foreach (Enemy enemy in GameWorld.Instance.enemies)
                 {
@@ -179,7 +177,7 @@ namespace Warlock_The_Soulbinder
         {
             ChooseAnimationFrame();
             
-            if (gracePeriod < 5 && graceSwitch < 15)
+            if (gracePeriod < 3 && graceSwitch < 15)
             {
                 spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
             }
@@ -313,6 +311,51 @@ namespace Warlock_The_Soulbinder
 
             aniIndex = (int)(elapsedTime * animationFPS);
             elapsedTime += GameWorld.deltaTimeSecond;
+        }
+
+        /// <summary>
+        /// Updates all stats according to items equipped
+        /// </summary>
+        public void UpdateStats()
+        {
+            BaseStats();
+            foreach (FilledStone stone in Equipment.Instance.EquippedEquipment)
+            {
+                if (stone != null)
+                {
+                    MaxHealth += stone.MaxHealth;
+                    Damage += stone.Damage;
+                    Defense += stone.Defense;
+                    AttackSpeed += stone.AttackSpeed;
+                    for (int i = 0; i < stone.DamageTypes.Count; i++)
+                    {
+                        DamageTypes[i] += stone.DamageTypes[i];
+                    }
+                    for (int i = 0; i < stone.ResistanceTypes.Count; i++)
+                    {
+                        ResistanceTypes[i] += stone.ResistanceTypes[i];
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets stats to be base value
+        /// </summary>
+        public void BaseStats()
+        {
+            Damage = 5;
+            Defense = 1;
+            AttackSpeed = 5f;
+            MaxHealth = 100;
+            for (int i = 0; i < DamageTypes.Count; i++)
+            {
+                DamageTypes[i] = 0;
+            }
+            for (int i = 0; i < ResistanceTypes.Count; i++)
+            {
+                ResistanceTypes[i] = 0;
+            }
         }
     }
 }

@@ -14,7 +14,6 @@ namespace Warlock_The_Soulbinder
         protected int goldCost;
         protected string type;
         
-        
         /// <summary>
         /// For the database
         /// </summary>
