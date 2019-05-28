@@ -121,7 +121,6 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        private float musicVolume;
         public float MusicVolume
         {
             get
