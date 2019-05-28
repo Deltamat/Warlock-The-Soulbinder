@@ -34,8 +34,8 @@ namespace Warlock_The_Soulbinder
         private bool currentKeyH = true;
         private bool previousKeyH = true;
         TimeSpan songPosition;
-
         private float musicVolume;
+
 
         //Tiled fields
         private Zone town;
@@ -300,7 +300,7 @@ namespace Warlock_The_Soulbinder
 
             //TEMPORARY
             #region
-            if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
+            if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
                 FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
@@ -460,16 +460,26 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
                 CurrentZone().Draw(spriteBatch);
-                
+
+                foreach (var layer in CurrentZone().Map.TileLayers)
+                {
+                    if (layer.Name != "Top" || layer.Name != "OverTop")
+                    {
+                        CurrentZone().MapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
+                    }
+                }
+
+
+                Player.Instance.Draw(spriteBatch);
+
                 foreach (Enemy enemy in enemies)
                 {
                     enemy.Draw(spriteBatch);
                     DrawCollisionBox(enemy);
                 }
-                Player.Instance.Draw(spriteBatch);
 
                 //collisionboxes
-                #if DEBUG
+#if DEBUG
                 DrawCollisionBox(Player.Instance);
                 #endif
                 if (GameState == "Dialogue")
@@ -496,6 +506,21 @@ namespace Warlock_The_Soulbinder
 
                 spriteBatch.End();
             }
+
+            if (GameState == "Overworld")
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                foreach (var layer in CurrentZone().Map.TileLayers)
+                {
+                    if (layer.Name == "Top" || layer.Name == "OverTop")
+                    {
+                        CurrentZone().MapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
+                    }
+                }
+                spriteBatch.End();
+            }
+            
+
         }
 
         /// <summary>
