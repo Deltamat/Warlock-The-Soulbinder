@@ -21,7 +21,7 @@ namespace Warlock_The_Soulbinder
         enum EMonster
         {
             sheep, wolf, bear, //neutral (0,1,2)
-            plantEater, insectSoldier, slimeEater, //earth (3,4,5)
+            plantEater, insectSoldier, slimeSnake, //earth (3,4,5)
             tentacle, frog, fish, //water (6,7,8)
             mummy, vampire, banshee, //dark (9,10,11)
             bucketMan, defender, sentry, //metal (12,13,14)
@@ -85,7 +85,7 @@ namespace Warlock_The_Soulbinder
                     break;
                 case "plantEater":
                 case "insectSoldier":
-                case "slimeEater":
+                case "slimeSnake":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     earthDamage = (int)(damage * 0.8f);
@@ -155,7 +155,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// contructor used to load the database
+        /// Contructor used to load the database
         /// </summary>
         /// <param name="level"></param>
         /// <param name="startPos"></param>

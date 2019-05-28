@@ -11,6 +11,7 @@ namespace Warlock_The_Soulbinder
     public class InputHandler
     {
         private Dictionary<Keys, ICommand> keybinds = new Dictionary<Keys, ICommand>();
+        private Dictionary<Buttons, ICommand> buttonbinds = new Dictionary<Buttons, ICommand>();
 
         static InputHandler instance;
         public static InputHandler Instance
@@ -25,8 +26,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-
+        KeyboardState state = Keyboard.GetState();
         //Saved Keys and Buttons
+
         private  Keys keyDown = Keys.Down;
         private  Keys keyUp = Keys.Up;
         private  Keys keyRight = Keys.Right;
@@ -76,17 +78,33 @@ namespace Warlock_The_Soulbinder
             keybinds.Add(Keys.Down, new MultiCommand(new Vector2(0, 1), 1));
 
             keybinds.Add(Keys.E, new UseCommand());
+
+            buttonbinds.Add(ButtonUp, new MultiCommand(new Vector2(0, -1), -1));
+            buttonbinds.Add(ButtonDown, new MultiCommand(new Vector2(0, 1), 1));
+            buttonbinds.Add(ButtonLeft, new MoveCommand(new Vector2(-1, 0)));
+            buttonbinds.Add(buttonRight, new MoveCommand(new Vector2(1, 0)));
+
+            buttonbinds.Add(ButtonSelect, new UseCommand());
         }
 
         public void Execute()
         {
             KeyboardState keystate = Keyboard.GetState();
+            GamePadState gamepadState = GamePad.GetState(PlayerIndex.One);
 
             foreach (Keys key in keybinds.Keys)
             {
                 if (keystate.IsKeyDown(key))
                 {
                     keybinds[key].Execute();
+                }
+            }
+
+            foreach (Buttons key in buttonbinds.Keys)
+            {
+                if (gamepadState.IsButtonDown(key))
+                {
+                    buttonbinds[key].Execute();
                 }
             }
         }
@@ -96,7 +114,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public bool keyPressed(Keys key)
+        public bool KeyPressed(Keys key)
         {
             bool pressed = Keyboard.GetState().IsKeyDown(key);
             return pressed;
@@ -107,17 +125,50 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="button"></param>
         /// <returns></returns>
-        public bool buttonPressed(Buttons button)
+        public bool ButtonPressed(Buttons button)
         {
             bool pressed = GamePad.GetState(PlayerIndex.One).IsButtonDown(button);
             return pressed;
         }
 
-        /// <summary>
-        /// Returns a keytype: 0 = Keybinds, 1 = Controller
-        /// </summary>
-        /// <param name="keyOption"></param>
-        /// <returns></returns>
+        //Code for changing keys
+        public Keys ChangeKey(Keys oldKey)
+        { 
+            foreach (Keys key in Keyboard.GetState().GetPressedKeys())
+            {
+
+                if (oldKey != key)
+                {
+                    oldKey = key;
+    
+                }
+                
+                break;
+            }
+
+            return oldKey;
+        }
+
+        public void ResetKeybinds()
+        {
+        keyDown = Keys.Down;
+        keyUp = Keys.Up;
+        keyRight = Keys.Right;
+        keyLeft = Keys.Left;
+        keySelect = Keys.Enter;
+        keyCancel = Keys.RightShift;
+        keyReturn = Keys.Back;
+        keyMenu = Keys.D3;
+
+        buttonDown = Buttons.DPadDown;
+        buttonUp = Buttons.DPadUp;
+        buttonRight = Buttons.DPadRight;
+        buttonLeft = Buttons.DPadLeft;
+        buttonSelect = Buttons.A;
+        buttonCancel = Buttons.B;
+        buttonReturn = Buttons.Y;
+         buttonMenu = Buttons.Start;
+    }
 
     }
 }

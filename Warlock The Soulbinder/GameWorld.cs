@@ -33,12 +33,24 @@ namespace Warlock_The_Soulbinder
         Song combatMusic;
         private bool currentKeyH = true;
         private bool previousKeyH = true;
+        TimeSpan songPosition;
+
+        private float musicVolume;
 
         //Tiled fields
-        private Zone t;
-        private Zone t2;
-        public string currentZone = "t";
+        private Zone town;
+        private Zone beast;
+        private Zone grass;
+        private Zone water;
+        private Zone dragon;
+        private Zone metal;
+        private Zone undead;
+        private Zone fire;
+        private Zone wind;
+        public string currentZone = "Town";
         public List<Zone> zones = new List<Zone>();
+
+
         public int Gold { get; set; }
         public int SoulCount { get; set; }
 
@@ -60,6 +72,8 @@ namespace Warlock_The_Soulbinder
         }
 
         private static ContentManager content;
+
+
         public static ContentManager ContentManager
         {
             get
@@ -80,7 +94,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Returns a rectangle whitin the bounds of the map
+        /// Returns a rectangle with the bounds of the current map
         /// </summary>
         public Rectangle TileMapBounds
         {
@@ -98,22 +112,33 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                if (value == "Overworld" && gameState != "Dialogue")
+                if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
                 {
-                    MediaPlayer.Stop();
-                    MediaPlayer.Play(overworldMusic);
+                    MediaPlayer.Play(overworldMusic, songPosition);
                 }
                 else if (value == "Combat")
                 {
-                    MediaPlayer.Stop();
-                    MediaPlayer.Play(combatMusic);
+                    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
                 }
 
                 gameState = value;
             }
         }
-        public float SoundVolume { get; set; }
         
+        public float MusicVolume
+        {
+            get
+            {
+                return musicVolume;
+            }
+            set
+            {
+                musicVolume = value;
+                MediaPlayer.Volume = musicVolume;
+            }
+        }
+        public float SoundEffectVolume { get; set; } = 0.3f;
 
         public GameWorld()
         {
@@ -139,13 +164,27 @@ namespace Warlock_The_Soulbinder
         {
             IsMouseVisible = true;
 
-            Quest.Instance.Quests.Add(1, "Kill");
+            Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
-            t = new Zone("t");
-            t2 = new Zone("t2");
-            zones.Add(t);
-            zones.Add(t2);
+            town = new Zone("Town");
+            beast = new Zone("Beast");
+            grass = new Zone("Grass");
+            dragon = new Zone("Dragon");
+            wind = new Zone("Wind");
+            fire = new Zone("Fire");
+            water = new Zone("Water");
+            undead = new Zone("Undead");
+            metal = new Zone("Metal");
+            zones.Add(town);
+            zones.Add(beast);
+            zones.Add(grass);
+            zones.Add(dragon);
+            zones.Add(wind);
+            zones.Add(fire);
+            zones.Add(water);
+            zones.Add(undead);
+            zones.Add(metal);
 
             foreach (var zone in zones)
             {
@@ -156,20 +195,52 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
             
-            enemies.Add(new Enemy(0, new Vector2(1100, 100)));
-            enemies.Add(new Enemy(4, new Vector2(1100, 250)));
-            enemies.Add(new Enemy(7, new Vector2(1100, 400)));
-            enemies.Add(new Enemy(12, new Vector2(1100, 550)));
-            enemies.Add(new Enemy(16, new Vector2(1100, 700)));
-            enemies.Add(new Enemy(20, new Vector2(1100, 850)));
+            enemies.Add(new Enemy(0, new Vector2(1100, 150)));
+            enemies.Add(new Enemy(4, new Vector2(1100, 300)));
+            enemies.Add(new Enemy(7, new Vector2(1100, 450)));
+            enemies.Add(new Enemy(12, new Vector2(1100, 600)));
+            enemies.Add(new Enemy(16, new Vector2(1100, 750)));
+            enemies.Add(new Enemy(20, new Vector2(1100, 900)));
+
+            FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("plantEater", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("insectSoldier", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("slimeSnake", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("tentacle", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("frog", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("mummy", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("vampire", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("banshee", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("bucketMan", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("sentry", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("fireGolem", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("ashZombie", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
+            //Code to make pages for the filled stones
+            FilledStone.StoneListPages = 0;
+            int tempStoneList = FilledStone.StoneList.Count;
+            for (int i = 0; i < 99; i++)
+            {
+                if (tempStoneList - 9 > 0)
+                {
+                    FilledStone.StoneListPages++;
+                    tempStoneList -= 9;
+                }
+            }
 
             // Music
-            SoundVolume = 0f;
+            MusicVolume = 0.5f;
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = SoundVolume;
+            MediaPlayer.Volume = MusicVolume;
+            combatMusic = Content.Load<Song>("sound/combatMusicV2");
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            combatMusic = Content.Load<Song>("sound/combatMusic");
-
             MediaPlayer.Play(overworldMusic);
 
             base.Initialize();
@@ -218,7 +289,6 @@ namespace Warlock_The_Soulbinder
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -232,7 +302,10 @@ namespace Warlock_The_Soulbinder
             #region
             if (Keyboard.GetState().IsKeyDown(Keys.E) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone("wolf", "wolf", RandomInt(1,10)));
+                FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
 
                 //Code to make pages for the filled stones
                 FilledStone.StoneListPages = 0;
@@ -256,9 +329,18 @@ namespace Warlock_The_Soulbinder
                 GameState = "Combat";
                 delay = 0;
             }
-            if ((InputHandler.Instance.keyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.buttonPressed(InputHandler.Instance.ButtonMenu)) && delay > 100)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
             {
-                GameState = "GeneralMenu";
+                if (GameState == "Overworld")
+                {
+                    GameState = "GeneralMenu";
+                }
+                
+                else if (GameState == "GeneralMenu")
+                {
+                    GameState = "Overworld";
+                }
+
                 delay = 0;
             }
 
@@ -373,8 +455,6 @@ namespace Warlock_The_Soulbinder
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             
-
-
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);

@@ -11,8 +11,7 @@ namespace Warlock_The_Soulbinder
     public class NPC : Character
     {
         bool hasQuest;
-        bool hasShop;
-        int index;       
+        bool hasShop;   
         int questID;
         Texture2D interact;
         float interactScale;
@@ -55,10 +54,6 @@ namespace Warlock_The_Soulbinder
 
         public override void Update(GameTime gameTime)
         {
-            if (Talking)
-            {
-                Dialogue.Instance.dialogueLines = dialogueLines;
-            }
             if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2()) < interactDistance)
             {
                 DrawInteract = true;
@@ -118,6 +113,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnterDialogue()
         {
+            Dialogue.Instance.dialogueLines = dialogueLines;
             Dialogue.Instance.InDialogue = true;
             Talking = true;
             GameWorld.Instance.GameState = "Dialogue";

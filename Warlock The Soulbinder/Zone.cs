@@ -25,8 +25,7 @@ namespace Warlock_The_Soulbinder
         {
             Name = zoneName;
 
-            Map = GameWorld.ContentManager.Load<TiledMap>($"{Name}"); 
-            //map = GameWorld.ContentManager.Load<TiledMap>("test3");
+            Map = GameWorld.ContentManager.Load<TiledMap>($"zones/{Name}"); 
             mapRenderer = new TiledMapRenderer(GameWorld.Instance.GraphicsDevice);
 
             // The following extracts the objects from the Tiled TileMap
@@ -53,7 +52,7 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (Name == "t") // giv navnet på zonen og opret de rigtige npc'er
+            if (Name == "Town") // giv navnet på zonen og opret de rigtige npc'er
             {
                 NPCs.Add(1, new NPC("npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
                 NPCs.Add(2, new NPC("npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
@@ -120,6 +119,18 @@ namespace Warlock_The_Soulbinder
             }
 
             mapRenderer.Draw(Map, GameWorld.Instance.camera.viewMatrix);
+            //foreach (var layer in Map.TileLayers)
+            //{
+            //    if (layer.Name == "Top")
+            //    {
+            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
+            //    }
+            //    else
+            //    {
+            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.1f);
+            //    }
+                
+            //}
 
         }
 

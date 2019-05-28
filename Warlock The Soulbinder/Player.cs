@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace Warlock_The_Soulbinder
         private bool hurt;
         private bool hurtStart;
         private bool blinking;
+
+        private Sound step = new Sound("playerStep");
+        private double stepTimer;
 
         static Player instance;
         public static Player Instance
@@ -60,13 +64,11 @@ namespace Warlock_The_Soulbinder
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             scale = 0.25f;
-
             movementSpeed = 250;
-            Damage = 5;
-            AttackSpeed = 5f;
-            MaxHealth = 100;
-            CurrentHealth = 100;
             Position = new Vector2(300);
+
+            BaseStats();
+            CurrentHealth = MaxHealth;
 
             //adds damage and resistances to lists for ease of use
             #region
@@ -103,7 +105,8 @@ namespace Warlock_The_Soulbinder
 
         public override void Update(GameTime gameTime)
         {
-            if (graceStart)
+            stepTimer += GameWorld.deltaTimeSecond;
+            if (graceStart && GameWorld.Instance.GameState == "Overworld")
             {
                 gracePeriod += GameWorld.deltaTimeSecond;
             }            
@@ -112,6 +115,11 @@ namespace Warlock_The_Soulbinder
             {
                 lastDirection = direction;
                 walking = true;
+                if (stepTimer > 0.35f)
+                {
+                    //step.Play();
+                    stepTimer = 0;
+                }
             }
             else
             {
@@ -152,11 +160,11 @@ namespace Warlock_The_Soulbinder
             #endregion
 
             //if the player's 5 second grace period is over and the player collides with an enemy, start combat
-            if (gracePeriod > 5) 
+            if (gracePeriod > 3) 
             {
                 foreach (Enemy enemy in GameWorld.Instance.enemies)
                 {
-                    if (enemy.CollisionBox.Intersects(CollisionBox))
+                    if (enemy.CollisionBox.Intersects(CollisionBox) && GameWorld.Instance.GameState == "Overworld")
                     {
                         GameWorld.Instance.GameState = "Combat";
                         Combat.Instance.SelectEnemy(enemy);
@@ -169,13 +177,13 @@ namespace Warlock_The_Soulbinder
         {
             ChooseAnimationFrame();
             
-            if (gracePeriod < 5 && graceSwitch < 15)
+            if (gracePeriod < 3 && graceSwitch < 15)
             {
-                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
             }
             else
             {
-                spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+                spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
             }
 
             graceSwitch++;
@@ -303,6 +311,65 @@ namespace Warlock_The_Soulbinder
 
             aniIndex = (int)(elapsedTime * animationFPS);
             elapsedTime += GameWorld.deltaTimeSecond;
+        }
+
+        /// <summary>
+        /// Updates all stats according to items equipped
+        /// </summary>
+        public void UpdateStats()
+        {
+            BaseStats();
+            foreach (FilledStone stone in Equipment.Instance.EquippedEquipment)
+            {
+                if (stone != null)
+                {
+                    MaxHealth += stone.MaxHealth;
+                    Damage += stone.Damage;
+                    Defense += stone.Defense;
+                    AttackSpeed += stone.AttackSpeed;
+                    for (int i = 0; i < stone.DamageTypes.Count; i++)
+                    {
+                        DamageTypes[i] += stone.DamageTypes[i];
+                    }
+                    for (int i = 0; i < stone.ResistanceTypes.Count; i++)
+                    {
+                        ResistanceTypes[i] += stone.ResistanceTypes[i];
+                    }
+                    if (Equipment.Instance.EquippedEquipment[0] != null)
+                    {
+                        if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
+                        {
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this);
+                        }
+                    }
+                    if (Equipment.Instance.EquippedEquipment[1] != null)
+                    {
+                        if (Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                        {
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Sets stats to be base value
+        /// </summary>
+        public void BaseStats()
+        {
+            Damage = 5;
+            Defense = 1;
+            AttackSpeed = 5f;
+            MaxHealth = 100;
+            for (int i = 0; i < DamageTypes.Count; i++)
+            {
+                DamageTypes[i] = 0;
+            }
+            for (int i = 0; i < ResistanceTypes.Count; i++)
+            {
+                ResistanceTypes[i] = 0;
+            }
         }
     }
 }
