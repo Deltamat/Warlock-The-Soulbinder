@@ -33,9 +33,16 @@ namespace Warlock_The_Soulbinder
         private float musicVolume;
 
         //Tiled fields
-        private Zone t;
-        private Zone t2;
-        public string currentZone = "t";
+        private Zone town;
+        private Zone beast;
+        private Zone grass;
+        private Zone water;
+        private Zone dragon;
+        private Zone metal;
+        private Zone undead;
+        private Zone fire;
+        private Zone wind;
+        public string currentZone = "Town";
         public List<Zone> zones = new List<Zone>();
 
 
@@ -100,20 +107,21 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                if (value == "Overworld" && gameState != "Dialogue")
+                if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
                 {
-                    //MediaPlayer.Play(overworldMusic, songPosition);
+                    MediaPlayer.Play(overworldMusic, songPosition);
                 }
                 else if (value == "Combat")
                 {
-                    //songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-                    //MediaPlayer.Play(combatMusic, TimeSpan.Zero);
+                    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
                 }
 
                 gameState = value;
             }
         }
 
+        private float musicVolume;
         public float MusicVolume
         {
             get
@@ -152,13 +160,27 @@ namespace Warlock_The_Soulbinder
         {
             IsMouseVisible = true;
 
-            Quest.Instance.Quests.Add(1, "Kill");
+            Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
-            t = new Zone("t");
-            t2 = new Zone("t2");
-            zones.Add(t);
-            zones.Add(t2);
+            town = new Zone("Town");
+            beast = new Zone("Beast");
+            grass = new Zone("Grass");
+            dragon = new Zone("Dragon");
+            wind = new Zone("Wind");
+            fire = new Zone("Fire");
+            water = new Zone("Water");
+            undead = new Zone("Undead");
+            metal = new Zone("Metal");
+            zones.Add(town);
+            zones.Add(beast);
+            zones.Add(grass);
+            zones.Add(dragon);
+            zones.Add(wind);
+            zones.Add(fire);
+            zones.Add(water);
+            zones.Add(undead);
+            zones.Add(metal);
 
             foreach (var zone in zones)
             {
@@ -182,8 +204,6 @@ namespace Warlock_The_Soulbinder
             MediaPlayer.Volume = MusicVolume;
             combatMusic = Content.Load<Song>("sound/combatMusicV2");
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            combatMusic = Content.Load<Song>("sound/combatMusic");
-
             MediaPlayer.Play(overworldMusic);
 
             base.Initialize();
