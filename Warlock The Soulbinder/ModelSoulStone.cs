@@ -14,6 +14,7 @@ namespace Warlock_The_Soulbinder
         {
             string sqlexp = "CREATE TABLE IF NOT EXISTS SoulStone (id integer primary key, " +
                 "monster string, " +
+                "experience integer, " +
                 "level integer )";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
@@ -29,15 +30,15 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveSoulStone(string monster, int level)
+        public void SaveSoulStone(string monster, int experience, int level)
         {
-            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, level) VALUES (null, '{monster}', {level})";
+            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, experience, level) VALUES (null, '{monster}', {experience}, {level})";
             cmd.ExecuteNonQuery();
         }
 
-        public Dictionary<int, FilledStone> LoadSoulStone()
+        public List<FilledStone> LoadSoulStone()
         {
-            Dictionary<int, FilledStone> soulStoneDic = new Dictionary<int, FilledStone>();
+            List<FilledStone> soulStones = new List<FilledStone>();
 
           
             cmd.CommandText = "SELECT * FROM SoulStone";
@@ -45,11 +46,11 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                soulStoneDic.Add(reader.GetInt32(0), new FilledStone(reader.GetString(1), reader.GetInt32(2)));
+                soulStones.Add(new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3)));
             }
             reader.Close();
            
-            return soulStoneDic;
+            return soulStones;
         }
 
 

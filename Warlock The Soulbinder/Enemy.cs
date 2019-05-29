@@ -26,7 +26,8 @@ namespace Warlock_The_Soulbinder
             mummy, vampire, banshee, //dark (9,10,11)
             bucketMan, defender, sentry, //metal (12,13,14)
             fireGolem, infernalDemon, ashZombie, //fire (15,16,17)
-            falcon, bat, raven //air (18,19,20)
+            falcon, bat, raven, //air (18,19,20)
+            neutralDragon, earthDragon, waterDragon, darkDragon, metalDragon, fireDragon, airDragon //dragons (21,22,23,24,25,26,27)
         };
 
         public int Level { get => level; set => level = value; }
@@ -42,24 +43,40 @@ namespace Warlock_The_Soulbinder
                 return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
             }
         }
-
-       
-
+        
         public Enemy(int index, Vector2 startPos)
         {
-            Monster = Enum.GetName(typeof(EMonster), index);
+            Monster = Enum.GetName(typeof(EMonster), index); //gets the string value of the enum with the index, index
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{Monster}");
-            scale = 0.25f;
+
+            //scaling for the sprites. If the enemy is a dragon, the scaling is larger
+            if (index >= 21)
+            {
+                scale = 0.75f;
+            }
+            else
+            {
+                scale = 0.25f;
+            }
 
             movementSpeed = 10;
             Position = startPos;
 
-            Level = index + GameWorld.Instance.RandomInt(-1, 2);
+            //if the enemy is a dragon, sets their level to 25, else their level is based on their index +/- 1
+            if (index >= 21)
+            {
+                Level = 25;
+            }
+            else
+            {
+                Level = index + GameWorld.Instance.RandomInt(-1, 2);
+            }
+            
             if (Level <= 0)
             {
                 Level = 1;
             }
-
+            
             //base stats
             #region
             Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
@@ -171,19 +188,18 @@ namespace Warlock_The_Soulbinder
         /// <param name="waterResistance"></param>
         /// <param name="monster"></param>
         public Enemy(int level, Vector2 startPos, int defense, int damage, int maxHealth, 
-            float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, 
-            float waterResistance, string monster)
+        float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, 
+        float waterResistance, string monster)
         {
-            this.Monster = monster;
+            Monster = monster;
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
             scale = 0.25f;
 
             movementSpeed = 10;
             Position = startPos;
 
-            this.Level = level;
-
-
+            Level = level;
+            
             //base stats
             #region
             Defense = defense;

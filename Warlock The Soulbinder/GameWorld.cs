@@ -24,19 +24,21 @@ namespace Warlock_The_Soulbinder
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
         public Camera camera;
+        private Texture2D fullScreen;
         private float delay;
         private string gameState = "Overworld";
+        private SpriteFont smallFont;
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
-        Random rng = new Random();
+        private Random rng = new Random();
 
+        private bool loading = false;
         Song overworldMusic;
         Song combatMusic;
         private bool currentKeyH = true;
         private bool previousKeyH = true;
         TimeSpan songPosition;
         private float musicVolume;
-
 
         //Tiled fields
         private Zone town, beast, grass, water, dragon, metal, undead, fire, wind, dragonRealm;
@@ -132,6 +134,7 @@ namespace Warlock_The_Soulbinder
             }
         }
         public float SoundEffectVolume { get; set; } = 0.3f;
+        public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
 
         public GameWorld()
         {
@@ -156,7 +159,7 @@ namespace Warlock_The_Soulbinder
         protected override void Initialize()
         {
             IsMouseVisible = true;
-
+            
             Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
@@ -170,6 +173,8 @@ namespace Warlock_The_Soulbinder
             water = new Zone("Water", 3);
             undead = new Zone("Undead", 3);
             metal = new Zone("Metal", 3);
+            SmallFont = Content.Load<SpriteFont>("smallFont");
+            fullScreen = Content.Load<Texture2D>("fullScreen");
             dragonRealm = new Zone("DragonRealm", 8);
             zones.Add(town);
             zones.Add(beast);
@@ -200,6 +205,7 @@ namespace Warlock_The_Soulbinder
             //enemies.Add(new Enemy(16, new Vector2(1100, 750)));
             //enemies.Add(new Enemy(20, new Vector2(1100, 900)));
 
+            //adds one of all enemy types as stones to the player's inventory - TEMP
             FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
@@ -221,17 +227,22 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
-            //Code to make pages for the filled stones
-            FilledStone.StoneListPages = 0;
-            int tempStoneList = FilledStone.StoneList.Count;
-            for (int i = 0; i < 99; i++)
+
+            #region load
+            if (loading == true)
             {
-                if (tempStoneList - 9 > 0)
-                {
-                    FilledStone.StoneListPages++;
-                    tempStoneList -= 9;
-                }
+                Controller.Instance.OpenTheGates();
+
+                FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
+                enemies = Controller.Instance.LoadFromEnemyDB();
+                Controller.Instance.LoadFromPlayerDB();
+                Controller.Instance.LoadFromStatisticDB();
+                //dictionary? = Controller.Instance.LoadFromConsumableDB();
+                //list? = Controller.Instance.LoadFromQuestDB();
+
+                Controller.Instance.CloseTheGates();
             }
+            #endregion
 
             // Music
             MusicVolume = 0.5f;
@@ -254,10 +265,6 @@ namespace Warlock_The_Soulbinder
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 #endif
             
-
-            #region load
-
-            #endregion
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -303,18 +310,6 @@ namespace Warlock_The_Soulbinder
                 FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
-
-                //Code to make pages for the filled stones
-                FilledStone.StoneListPages = 0;
-                int tempStoneList = FilledStone.StoneList.Count;
-                for (int i = 0; i < 99; i++)
-                {
-                    if (tempStoneList - 9 > 0)
-                    {
-                        FilledStone.StoneListPages++;
-                        tempStoneList -= 9;
-                    }
-                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
@@ -369,7 +364,7 @@ namespace Warlock_The_Soulbinder
                 }
                 for (int i = 0; i < FilledStone.StoneList.Count; i++)
                 {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Level);
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience , FilledStone.StoneList[i].Level);
                 }
                 //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
                 //{
@@ -456,6 +451,7 @@ namespace Warlock_The_Soulbinder
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
+                
                 CurrentZone().Draw(spriteBatch);
 
                 foreach (var layer in CurrentZone().Map.TileLayers)
