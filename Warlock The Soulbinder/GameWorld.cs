@@ -28,6 +28,7 @@ namespace Warlock_The_Soulbinder
         private string gameState = "Overworld";
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
+        private Random rng = new Random();
 
         Song overworldMusic;
         Song combatMusic;
@@ -35,7 +36,6 @@ namespace Warlock_The_Soulbinder
         private bool previousKeyH = true;
         TimeSpan songPosition;
         private float musicVolume;
-
 
         //Tiled fields
         private Zone town;
@@ -200,8 +200,9 @@ namespace Warlock_The_Soulbinder
             enemies.Add(new Enemy(7, new Vector2(1100, 450)));
             enemies.Add(new Enemy(12, new Vector2(1100, 600)));
             enemies.Add(new Enemy(16, new Vector2(1100, 750)));
-            enemies.Add(new Enemy(20, new Vector2(1100, 900)));
+            enemies.Add(new Enemy(22, new Vector2(1100, 900)));
 
+            //adds one of all enemy types as stones to the player's inventory - TEMP
             FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
@@ -223,17 +224,6 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
-            //Code to make pages for the filled stones
-            FilledStone.StoneListPages = 0;
-            int tempStoneList = FilledStone.StoneList.Count;
-            for (int i = 0; i < 99; i++)
-            {
-                if (tempStoneList - 9 > 0)
-                {
-                    FilledStone.StoneListPages++;
-                    tempStoneList -= 9;
-                }
-            }
 
             // Music
             MusicVolume = 0.5f;
@@ -306,18 +296,6 @@ namespace Warlock_The_Soulbinder
                 FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
-
-                //Code to make pages for the filled stones
-                FilledStone.StoneListPages = 0;
-                int tempStoneList = FilledStone.StoneList.Count;
-                for (int i = 0; i < 99; i++)
-                {
-                    if (tempStoneList - 9 > 0)
-                    {
-                        FilledStone.StoneListPages++;
-                        tempStoneList -= 9;
-                    }
-                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
@@ -566,8 +544,6 @@ namespace Warlock_The_Soulbinder
         /// <returns></returns>
         public int RandomInt(int x, int y)
         {
-            Random rng = new Random();
-            Thread.Sleep(10);
             return rng.Next(x, y);
         }
 

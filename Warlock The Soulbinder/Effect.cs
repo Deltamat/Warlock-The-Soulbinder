@@ -32,9 +32,7 @@ namespace Warlock_The_Soulbinder
         private string type;
         private FilledStone stone;
 
-        private int damageDealt;
-
-        public Effect(int index, string type, FilledStone stone, CharacterCombat characterCombat)
+        public Effect(int index, string type, FilledStone stone, CharacterCombat characterCombat, int damageDealt)
         {
             Index = index;
             Type = type;
@@ -67,7 +65,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to steal nutrients from the enemy, healing you";
                             UpperChanceBounds = 5;
                             TargetsSelf = true;
-                            Heal = (int)(damageDealt * 0.2f);                            
+                            Heal = (int)(damageDealt * 0.2f);
                             break;
                         case 4: //insect soldier
                             EffectString = "Has a chance to poison the enemy";
@@ -110,7 +108,7 @@ namespace Warlock_The_Soulbinder
                             Heal = (int)(damageDealt * 0.3f);
                             break;
                         case 11: //banshee
-                            EffectString = "Has a chance to paralyze your enemy, stunning them";
+                            EffectString = "Has a chance to paralyse your enemy, stunning them";
                             UpperChanceBounds = 15;
                             Stun = true;
                             EffectLength = 2;
@@ -190,12 +188,10 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 1: //wolf
                             EffectString = "Has a chance to give you more damage after being hit";
-                            if (GameWorld.Instance.RandomInt(0, 8) == 0)
-                            {
-                                TargetsSelf = true;
-                                DamageMod = 1.5f;
-                                EffectLength = 2;
-                            }
+                            UpperChanceBounds = 8;
+                            TargetsSelf = true;
+                            DamageMod = 1.5f;
+                            EffectLength = 2;
                             break;
                         case 2: //bear
                             EffectString = "Passively gives you more max health";
@@ -207,57 +203,45 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 3: //plant eater
                             EffectString = "Has a chance to retaliate when attacked, \ndealing damage and healing you";
-                            if (GameWorld.Instance.RandomInt(0, 7) == 0)
+                            UpperChanceBounds = 7;
+                            TargetBoth = true;
+                            if (characterCombat != null)
                             {
-                                if (characterCombat != null)
-                                {
-                                    TargetBoth = true;
-                                    int localDamage;
-                                    localDamage = (int)(characterCombat.Damage * 0.25f);
-                                    Damage = localDamage;
-                                    Heal = (int)(localDamage * 0.5f);
-                                }
+                                int localDamage;
+                                localDamage = (int)(characterCombat.Damage * 0.25f);
+                                Damage = localDamage;
+                                Heal = (int)(localDamage * 0.5f);
                             }
                             break;
                         case 4: //insect soldier
                             EffectString = "Has a chance to posion the enemy when attacked";
-                            if (GameWorld.Instance.RandomInt(0, 8) == 0)
-                            {
-                                Damage = (int)(2.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.15f));
-                                EffectLength = 4;
-                            }
+                            UpperChanceBounds = 8;
+                            Damage = (int)(2.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.15f));
+                            EffectLength = 4;
                             break;
                         case 5: //slime eater
                             EffectString = "Has a chance to give you a shield after being hit";
-                            if (GameWorld.Instance.RandomInt(0, 7) == 0)
-                            {
-                                TargetsSelf = true;
-                                Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f));
-                                EffectLength = 5;
-                            }
+                            UpperChanceBounds = 7;
+                            TargetsSelf = true;
+                            Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f));
+                            EffectLength = 5;
                             break;
                         case 6: //tentacle
                             EffectString = "Has a chance to retaliate with a tentacle when hit, \ndealing damage to your attacker";
-                            if (GameWorld.Instance.RandomInt(0, 2) == 0)
-                            {
-                                Damage = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
-                            }
+                            UpperChanceBounds = 2;
+                            Damage = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
                             break;
                         case 7: //frog
                             EffectString = "Has a chance to slow your enemy down when attacked";
-                            if (GameWorld.Instance.RandomInt(0, 10) == 0)
-                            {
-                                SpeedMod = 0.8f;
-                                EffectLength = 2;
-                            }
+                            UpperChanceBounds = 10;
+                            SpeedMod = 0.8f;
+                            EffectLength = 2;
                             break;
                         case 8: //fish
                             EffectString = "Has a chance to regenerate some health when attacked";
-                            if (GameWorld.Instance.RandomInt(0, 15) == 0)
-                            {
-                                TargetsSelf = true;
-                                Heal = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
-                            }
+                            UpperChanceBounds = 15;
+                            TargetsSelf = true;
+                            Heal = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
                             break;
                         case 9: //mummy
                             EffectString = "Gives you immunity to curses";
@@ -267,12 +251,10 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 10: //vampire
                             EffectString = "Has a chance to block the next hit after being attacked";
-                            if (GameWorld.Instance.RandomInt(0, 5) == 0)
-                            {
-                                TargetsSelf = true;
-                                Shield = damageDealt;
-                                EffectLength = 5;
-                            }
+                            UpperChanceBounds = 5;
+                            TargetsSelf = true;
+                            Shield = damageDealt;
+                            EffectLength = 5;
                             break;
                         case 11: //banshee
                             EffectString = "Grants immunity to all stuns";
@@ -281,12 +263,10 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 12: //bucket man
                             EffectString = "Has a chance to give yourself a shield after being hit";
-                            if (GameWorld.Instance.RandomInt(0, 7) == 0)
-                            {
-                                TargetsSelf = true;
-                                Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f));
-                                EffectLength = 5;
-                            }
+                            UpperChanceBounds = 7;
+                            TargetsSelf = true;
+                            Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f));
+                            EffectLength = 5;
                             break;
                         case 13: //defender
                             EffectString = "Passively reduces damage taken";
@@ -296,11 +276,9 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase your dodge rating after being hit";
-                            if (GameWorld.Instance.RandomInt(0, 7) == 0)
-                            {
-                                AccuracyMod = 0.6f;
-                                EffectLength = 3;
-                            }
+                            UpperChanceBounds = 7;
+                            AccuracyMod = 0.6f;
+                            EffectLength = 3;
                             break;
                         case 15: //fire golem
                             EffectString = "Passively reduces damage taken";
@@ -310,17 +288,15 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your enemy on fire when attacked";
-                            if (GameWorld.Instance.RandomInt(0, 6) == 0)
-                            {
-                                Damage = (int)(3.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.25f));
-                                EffectLength = 2;
-                            }
+                            UpperChanceBounds = 6;
+                            Damage = (int)(3.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.25f));
+                            EffectLength = 2;
                             break;
                         case 17: //ash zombie
+                            EffectString = "Passively increases your attack speed";
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                EffectString = "Passively increases your attack speed";
                                 characterCombat.AttackSpeed *= 1.25f;
                             }
                             break;
@@ -331,19 +307,15 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse your enemy when attacked";
-                            if (GameWorld.Instance.RandomInt(0, 8) == 0)
-                            {
-                                Confuse = true;
-                                EffectLength = 2;
-                            }
+                            UpperChanceBounds = 8;
+                            Confuse = true;
+                            EffectLength = 2;
                             break;
                         case 20: //raven
                             EffectString = "Has a chance to blind the enemy when hit";
-                            if (GameWorld.Instance.RandomInt(0, 20) == 0)
-                            {
-                                AccuracyMod = 0.1f;
-                                EffectLength = 3;
-                            }
+                            UpperChanceBounds = 20;
+                            AccuracyMod = 0.1f;
+                            EffectLength = 3;
                             break;
                     }
                     break;
@@ -369,10 +341,10 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 5;
                             break;
                         case 3: //plant eater
+                            EffectString = "Steal health from the enemy";
+                            TargetBoth = true;
                             if (characterCombat != null)
                             {
-                                EffectString = "Steal health from the enemy";
-                                TargetBoth = true;
                                 int localDamage;
                                 localDamage = (int)(characterCombat.Damage * 0.75f);
                                 Damage = localDamage;
@@ -432,14 +404,14 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 5;
                             break;
                         case 12: //bucket man
+                            EffectString = "A powerful attack that is difficult to land";
+                            TargetBoth = true;
+                            AccuracyMod = 0.1f;
                             if (characterCombat != null)
                             {
-                                EffectString = "A powerful attack that is difficult to land";
-                                TargetBoth = true;
-                                AccuracyMod = 0.1f;
                                 Damage = (characterCombat.Damage + characterCombat.DamageTypes[3]) * 15;
-                                Cooldown = 0;
                             }
+                            Cooldown = 0;
                             break;
                         case 13: //defender
                             EffectString = "Causes you to enter a defensive stance, \nincreasing your defences but lowers your damage";

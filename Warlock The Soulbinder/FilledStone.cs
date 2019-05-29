@@ -26,7 +26,6 @@ namespace Warlock_The_Soulbinder
         private Effect armorEffect;
         private Effect skillEffect;
         public string SpriteName { get => spriteName; set => spriteName = value; }
-        public static List<FilledStone> StoneList { get => stoneList; set => stoneList = value; }
         public string Monster { get => monster; set => monster = value; }
         public string Element { get => element; set => element = value; }
         public int Level { get => level; set => level = value; }
@@ -69,7 +68,29 @@ namespace Warlock_The_Soulbinder
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-        //public string Name { get => name; set => name = value; }
+        public static List<FilledStone> StoneList
+        {
+            get
+            {
+                //Code to make pages for the filled stones
+                StoneListPages = 0;
+                int tempStoneList = stoneList.Count + 1;
+                for (int i = 0; i < 99; i++)
+                {
+                    if (tempStoneList - 9 > 0)
+                    {
+                        StoneListPages++;
+                        tempStoneList -= 9;
+                    }
+                }
+                return stoneList;
+            }
+            set
+            {
+                stoneList = value;
+                
+            }
+        }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
@@ -156,8 +177,8 @@ namespace Warlock_The_Soulbinder
                     break;
                 case "banshee":
                     Element = "dark";
-                    weaponName = "Paralyzing Touch";
-                    armorName = "Paralyze Immunity";
+                    weaponName = "Paralysing Touch";
+                    armorName = "Paralyse Immunity";
                     skillName = "Banshee's Song";
                     break;
                 case "bucketMan":
@@ -375,8 +396,8 @@ namespace Warlock_The_Soulbinder
                 case "banshee":
                     Name = "Banshee";
                     Element = "dark";
-                    weaponName = "Paralyzing Touch";
-                    armorName = "Paralyze Immunity";
+                    weaponName = "Paralysing Touch";
+                    armorName = "Paralyse Immunity";
                     skillName = "Banshee's Song";
                     break;
                 case "bucketMan":
@@ -688,23 +709,23 @@ namespace Warlock_The_Soulbinder
 
         public void WeaponSkill()
         {
-            WeaponEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Weapon", this, null);
+            WeaponEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Weapon", this, null, 0);
         }
 
         public void ArmorSkill()
         {
-            ArmorEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Armor", this, null);
+            ArmorEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Armor", this, null, 0);
         }
 
         public void Skill()
         {
-            SkillEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Skill", this, null);
+            SkillEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Skill", this, null, 0);
         }
 
         public static void CatchMonster(Enemy target)
         {
-            int tempLevel = target.Level / 2;
-                if (tempLevel == 0)
+            int tempLevel = (int)(target.Level * 0.5);
+            if (tempLevel == 0)
             {
                 tempLevel = 1;
             }
