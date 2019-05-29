@@ -349,7 +349,7 @@ namespace Warlock_The_Soulbinder
 
                     if (Equipment.Instance.EquippedEquipment[1] != null)
                     {
-                        if (Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                        if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
                         {
                             Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this, 0);
                         }

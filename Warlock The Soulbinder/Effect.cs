@@ -43,12 +43,12 @@ namespace Warlock_The_Soulbinder
                     switch (index)
                     {
                         case 0: //sheep
-                            EffectString = "Has a chance to headbutt the enemy, stunning them";
+                            EffectString = "Has a chance to headbutt the\nenemy, stunning them";
                             UpperChanceBounds = 10;
                             Stun = true;
                             break;
                         case 1: //wolf
-                            EffectString = "Activates your killer instincts, passively giving you more damage";
+                            EffectString = "Activates your killer instincts,\npassively giving you more damage";
                             StatBuff = true;
                             if (characterCombat != null)
                             {
@@ -56,13 +56,13 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 2: //bear
-                            EffectString = "Has a chance to maul the enemy, causing them to bleed";
+                            EffectString = "Has a chance to maul the enemy,\ncausing them to bleed";
                             UpperChanceBounds = 8;
                             Damage = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.2f));
                             EffectLength = 3;
                             break;
                         case 3: //plant eater
-                            EffectString = "Has a chance to steal nutrients from the enemy, healing you";
+                            EffectString = "Has a chance to steal nutrients\nfrom the enemy, healing you";
                             UpperChanceBounds = 5;
                             TargetsSelf = true;
                             Heal = (int)(damageDealt * 0.2f);
@@ -74,41 +74,41 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 5;
                             break;
                         case 5: //slime snake
-                            EffectString = "Has a chance to lower the damage of your enemy";
+                            EffectString = "Has a chance to lower the\ndamage of your enemy";
                             UpperChanceBounds = 9;
                             DamageMod = 0.75f;
                             break;
                         case 6: //tentacle
-                            EffectString = "Has a chance to constrict your enemy with tentacles, crushing them";
+                            EffectString = "Has a chance to constrict your\nenemy with tentacles, crushing them";
                             UpperChanceBounds = 7;
                             Damage = (int)(2.75 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
                             EffectLength = 4;
                             break;
                         case 7: //frog
-                            EffectString = "Has a chance to slow your enemy's speed";
+                            EffectString = "Has a chance to slow your\nenemy's speed";
                             UpperChanceBounds = 5;
                             SpeedMod = 0.7f;
                             break;
                         case 8: //fish
-                            EffectString = "Has a chance to regenerate your health";
+                            EffectString = "Has a chance to regenerate\nyour health";
                             UpperChanceBounds = 10;
                             TargetsSelf = true;
                             Heal = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
                             break;
                         case 9: //mummy
-                            EffectString = "Has a chance to curse your enemy, lowering their accuracy";
+                            EffectString = "Has a chance to curse your\nenemy, lowering their accuracy";
                             UpperChanceBounds = 6;
                             AccuracyMod = 0.7f;
                             EffectLength = 2;
                             break;
                         case 10: //vampire
-                            EffectString = "Has a chance to steal blood from your enemy, \nhealing a percentage of the damage you dealt";
+                            EffectString = "Has a chance to steal blood from\nyour enemy, healing a percentage\nof the damage you dealt";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
                             Heal = (int)(damageDealt * 0.3f);
                             break;
                         case 11: //banshee
-                            EffectString = "Has a chance to paralyse your enemy, stunning them";
+                            EffectString = "Has a chance to paralyze your\nenemy, stunning them";
                             UpperChanceBounds = 15;
                             Stun = true;
                             EffectLength = 2;
@@ -120,20 +120,20 @@ namespace Warlock_The_Soulbinder
                             DamageMod = 2;
                             break;
                         case 13: //defender
-                            EffectString = "Has a chance to break your enemy's armor";
+                            EffectString = "Has a chance to break your\nenemy's armor";
                             UpperChanceBounds = 3;
                             DamageReduction = -0.33f;
                             EffectLength = 3;
                             break;
                         case 14: //sentry
-                            EffectString = "Has a chance to increase you hit rating";
+                            EffectString = "Has a chance to increase\nyou hit rating";
                             UpperChanceBounds = 3;
                             TargetsSelf = true;
                             AccuracyMod = 1.25f;
                             EffectLength = 3;
                             break;
                         case 15: //fire golem
-                            EffectString = "Causes you to attack slower, but deal more damage";
+                            EffectString = "Causes you to attack slower,\nbut deal more damage";
                             StatBuff = true;
                             if (characterCombat != null)
                             {
@@ -142,33 +142,33 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 16: //infernal golem
-                            EffectString = "Has a chance to set your enemy on fire";
+                            EffectString = "Has a chance to set your\nenemy on fire";
                             UpperChanceBounds = 3;
                             Damage = (int)(4 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.3f));
                             EffectLength = 2;
                             break;
                         case 17: //ash zombie
-                            EffectString = "Has a chance to quickly deal two smaller blows to your enemy";
+                            EffectString = "Has a chance to quickly deal\ntwo smaller blows to your enemy";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
                             DoubleAttack = true;
                             DamageMod = 0.75f;
                             break;
                         case 18: //falcon
-                            EffectString = "Has a chance to increase your speed for a little while";
+                            EffectString = "Has a chance to increase\nyour speed for a little while";
                             UpperChanceBounds = 8;
                             TargetsSelf = true;
                             SpeedMod = 1.5f;
                             EffectLength = 3;
                             break;
                         case 19: //bat
-                            EffectString = "Has a chance to confuse your enemy";
+                            EffectString = "Has a chance to confuse\nyour enemy";
                             UpperChanceBounds = 15;
                             Confuse = true;
                             EffectLength = 2;
                             break;
                         case 20: //raven
-                            EffectString = "Has a chance to blind your enemy, reducing their accuracy";
+                            EffectString = "Has a chance to blind\nyour enemy, reducing \ntheir accuracy";
                             UpperChanceBounds = 13;
                             AccuracyMod = 0.1f;
                             EffectLength = 3;
@@ -202,7 +202,7 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 3: //plant eater
-                            EffectString = "Has a chance to retaliate when attacked, \ndealing damage and healing you";
+                            EffectString = "Has a chance to retaliate \nwhen attacked, dealing damage\nand healing you";
                             UpperChanceBounds = 7;
                             TargetBoth = true;
                             if (characterCombat != null)
@@ -214,13 +214,13 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 4: //insect soldier
-                            EffectString = "Has a chance to posion the enemy when attacked";
+                            EffectString = "Has a chance to posion the \nenemy when attacked";
                             UpperChanceBounds = 8;
                             Damage = (int)(2.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.15f));
                             EffectLength = 4;
                             break;
                         case 5: //slime eater
-                            EffectString = "Has a chance to give you a shield after being hit";
+                            EffectString = "Has a chance to give you a \nshield after being hit";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
                             Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f));
@@ -238,7 +238,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 2;
                             break;
                         case 8: //fish
-                            EffectString = "Has a chance to regenerate some health when attacked";
+                            EffectString = "Has a chance to regenerate \nsome health when attacked";
                             UpperChanceBounds = 15;
                             TargetsSelf = true;
                             Heal = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
@@ -250,7 +250,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 999;
                             break;
                         case 10: //vampire
-                            EffectString = "Has a chance to block the next hit after being attacked";
+                            EffectString = "Has a chance to block the \nnext hit after being attacked";
                             UpperChanceBounds = 5;
                             TargetsSelf = true;
                             Shield = damageDealt;
@@ -275,7 +275,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 999;
                             break;
                         case 14: //sentry
-                            EffectString = "Has a chance to increase your dodge rating after being hit";
+                            EffectString = "Has a chance to increase your \ndodge rating after being hit";
                             UpperChanceBounds = 7;
                             AccuracyMod = 0.6f;
                             EffectLength = 3;
@@ -287,7 +287,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 999;
                             break;
                         case 16: //infernal golem
-                            EffectString = "Has a chance to set your enemy on fire when attacked";
+                            EffectString = "Has a chance to set your enemy \non fire when attacked";
                             UpperChanceBounds = 6;
                             Damage = (int)(3.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.25f));
                             EffectLength = 2;
@@ -301,12 +301,12 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 18: //falcon
-                            EffectString = "Passively increases your dodge chance";
+                            EffectString = "Passively increases your\ndodge chance";
                             AccuracyMod = 0.7f;
                             EffectLength = 999;
                             break;
                         case 19: //bat
-                            EffectString = "Has a chance to confuse your enemy when attacked";
+                            EffectString = "Has a chance to confuse \nyour enemy when attacked";
                             UpperChanceBounds = 8;
                             Confuse = true;
                             EffectLength = 2;
@@ -328,14 +328,14 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 3;
                             break;
                         case 1: //wolf
-                            EffectString = "Activate you killer instincts, increasing your damage";
+                            EffectString = "Activate you killer instincts,\nincreasing your damage";
                             TargetsSelf = true;
                             DamageMod = 1.5f;
                             EffectLength = 3;
                             Cooldown = 6;
                             break;
                         case 2: //bear
-                            EffectString = "Maul your enemy causing them to bleed";
+                            EffectString = "Maul your enemy causing them\nto bleed";
                             Damage = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.33f));
                             EffectLength = 3;
                             Cooldown = 5;
@@ -359,20 +359,20 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 5;
                             break;
                         case 5: //slime eater
-                            EffectString = "Cover you self in a thick layer of slime, reducing damage you take";
+                            EffectString = "Cover you self in a thick \nlayer of slime, reducing \ndamage you take";
                             TargetsSelf = true;
                             DamageAbs = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(2, 3)) * 0.4f));
                             EffectLength = 4;
                             Cooldown = 5;
                             break;
                         case 6: //tentacle
-                            EffectString = "Wrap tentacles around your enemy crushing them for a few rounds";
+                            EffectString = "Wrap tentacles around your \nenemy crushing them \nfor a few rounds";
                             Damage = (int)(3.25 * ((stone.Level + GameWorld.Instance.RandomInt(2, 6)) * 0.3f));
                             EffectLength = 4;
                             Cooldown = 6;
                             break;
                         case 7: //frog
-                            EffectString = "Shoot mucus at you enemy slowing them down";
+                            EffectString = "Shoot mucus at you enemy \nslowing them down";
                             SpeedMod = 0.6f;
                             EffectLength = 3;
                             Cooldown = 6;
@@ -385,13 +385,13 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 8;
                             break;
                         case 9: //mummy
-                            EffectString = "Curses your enemy, lowering their accuracy";
+                            EffectString = "Curses your enemy, \nlowering their accuracy";
                             AccuracyMod = 0.6f;
                             EffectLength = 5;
                             Cooldown = 7;
                             break;
                         case 10: //vampire
-                            EffectString = "Creates a bloodshield blocking your enemy's next three attacks";
+                            EffectString = "Creates a bloodshield blocking \nyour enemy's next three attacks";
                             TargetsSelf = true;
                             Shield = damageDealt * 3;
                             EffectLength = 5;
@@ -404,7 +404,7 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 5;
                             break;
                         case 12: //bucket man
-                            EffectString = "A powerful attack that is difficult to land";
+                            EffectString = "A powerful attack that \nis difficult to land";
                             TargetBoth = true;
                             AccuracyMod = 0.1f;
                             if (characterCombat != null)
@@ -414,7 +414,7 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 0;
                             break;
                         case 13: //defender
-                            EffectString = "Causes you to enter a defensive stance, \nincreasing your defences but lowers your damage";
+                            EffectString = "Causes you to enter a defensive \nstance, increasing your defences \nbut lowers your damage";
                             TargetsSelf = true;
                             DamageMod = 0.25f;
                             DamageReduction = 80;
@@ -422,11 +422,11 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 9;
                             break;
                         case 14: //sentry
-                            EffectString = "Scans your enemy revealing their stats to you";
+                            EffectString = "Scans your enemy, adding \ntheir info to your Log";
                             //scan code goes here!
                             break;
                         case 15: //fire golem
-                            EffectString = "Attacks your enemy with a critical attack";
+                            EffectString = "Attacks your enemy with \na critical attack";
                             Damage = damageDealt * 2;
                             Cooldown = 4;
                             break;
@@ -437,26 +437,26 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 6;
                             break;
                         case 17: //ash zombie
-                            EffectString = "Causes your next two attacks to strike twice";
+                            EffectString = "Causes your next two attacks to \nstrike twice";
                             DoubleAttack = true;
                             EffectLength = 2;
                             Cooldown = 7;
                             break;
                         case 18: //falcon
-                            EffectString = "Increases your speed for a few rounds";
+                            EffectString = "Increases your speed for\n a few rounds";
                             TargetsSelf = true;
                             SpeedMod = 1.55f;
                             EffectLength = 3;
                             Cooldown = 6;
                             break;
                         case 19: //bat
-                            EffectString = "Confuses your enemy with a super sonic screech";
+                            EffectString = "Confuses your enemy with a \nsuper sonic screech";
                             Confuse = true;
                             EffectLength = 2;
                             Cooldown = 5;
                             break;
                         case 20: //raven
-                            EffectString = "Pecks out your enemy's eyes, lowering their accuracy for a few rounds, \nuntil they magically regenerate their eyes";
+                            EffectString = "Pecks out your enemy's eyes, \nlowering their accuracy for \na few rounds";
                             AccuracyMod = 0.1f;
                             EffectLength = 3;
                             Cooldown = 10;

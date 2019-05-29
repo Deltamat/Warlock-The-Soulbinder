@@ -26,6 +26,7 @@ namespace Warlock_The_Soulbinder
         private float enemyAttackTimer;
         private float turnTimer = 1;
         private int playerAttackAmount = 1;
+        private List<Effect> toBeRemovedEffects = new List<Effect>();
         private int enemyAttackAmount = 1;
         private float playerSpeedMod = 1;
         private float enemySpeedMod = 1;
@@ -145,17 +146,46 @@ namespace Warlock_The_Soulbinder
             {
                 if (Equipment.Instance.Skill1 != null)
                 {
-                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill1.SkillName, emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
+                    if (Equipment.Instance.Skill1.InternalCooldown == 0)
+                    {
+                        spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill1.SkillName, emptyButtonList[0].Position + new Vector2(50, 7), Color.White);
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill1.SkillName, emptyButtonList[0].Position + new Vector2(50, 7), Color.Gray);
+                        spriteBatch.DrawString(CombatFont, $"{Equipment.Instance.Skill1.InternalCooldown}", emptyButtonList[0].Position + new Vector2(-100, 7), Color.Gray);
+                    }
                 }
 
                 if (Equipment.Instance.Skill2 != null)
                 {
-                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill2.SkillName, emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
+                    if (Equipment.Instance.Skill2.InternalCooldown == 0)
+                    {
+                        spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill2.SkillName, emptyButtonList[1].Position + new Vector2(50, 7), Color.White);
+                    }
+
+                    else
+
+                    {
+                        spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill2.SkillName, emptyButtonList[1].Position + new Vector2(50, 7), Color.Gray);
+                        spriteBatch.DrawString(CombatFont, $"{Equipment.Instance.Skill2.InternalCooldown}", emptyButtonList[1].Position + new Vector2(-100, 7), Color.Gray);
+                    }
                 }
 
                 if (Equipment.Instance.Skill3 != null)
                 {
-                    spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill3.SkillName, emptyButtonList[2].Position + new Vector2(50, 7), Color.White);
+                    if (Equipment.Instance.Skill3.InternalCooldown == 0)
+                    {
+                        spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill3.SkillName, emptyButtonList[2].Position + new Vector2(50, 7), Color.White);
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(CombatFont, Equipment.Instance.Skill3.SkillName, emptyButtonList[2].Position + new Vector2(50, 7), Color.Gray);
+                        spriteBatch.DrawString(CombatFont, $"{Equipment.Instance.Skill3.InternalCooldown}", emptyButtonList[2].Position + new Vector2(-100, 7), Color.Gray);
+                    }
+                   
                 }
 
 
@@ -168,12 +198,13 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(CombatFont, $"Pot x{Consumable.Potion}", emptyButtonList[0].Position + new Vector2(50, 7), buttonColor);
                 spriteBatch.DrawString(CombatFont, $"SoSt x{Consumable.SoulStone} ", emptyButtonList[1].Position + new Vector2(50, 7), buttonColor);
                 spriteBatch.DrawString(CombatFont, $"Bomb x{Consumable.Bomb}", emptyButtonList[2].Position + new Vector2(50, 7), buttonColor);
-                spriteBatch.DrawString(CombatFont, "Flee", emptyButtonList[3].Position + new Vector2(50, 7), buttonColor);
+                spriteBatch.DrawString(CombatFont, "Back", emptyButtonList[3].Position + new Vector2(50, 7), buttonColor);
             }
 
             //Draws health, healthbars and turn bar for enemy
             if (target != null)
             {
+                spriteBatch.DrawString(CombatFont, $"{enemyEffects.Count}", new Vector2(700,50) , Color.White);
                 spriteBatch.DrawString(combatFont, $"Level {target.Level}", new Vector2(1350, 150), Color.White);
                 spriteBatch.Draw(HealthEmpty, new Vector2(1200, 800), Color.White);
                 spriteBatch.Draw(HealthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
@@ -225,6 +256,7 @@ namespace Warlock_The_Soulbinder
                 {
                     case 0: //attack
                         PlayerTurn();
+                        countCooldown();
                         break;
                     case 1: //skill
                         buttonType = "Skills";
@@ -242,24 +274,30 @@ namespace Warlock_The_Soulbinder
                 switch (selectedInt)
                 {
                     case 0:
-                        if (Equipment.Instance.Skill1 != null)
+                        if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.InternalCooldown == 0)
                         {
-                            Effect effect = Equipment.Instance.Skill1.SkillEffect;
-
+                            countCooldown();
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, null,0));
+                            playerAttackTimer = 0;
+                            Equipment.Instance.Skill1.InternalCooldown = Equipment.Instance.Skill1.SkillEffect.Cooldown;
                         }
                         break;
                     case 1:
-                        if (Equipment.Instance.Skill2 != null)
+                        if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.InternalCooldown == 0)
                         {
-                            Effect effect = Equipment.Instance.Skill2.SkillEffect;
-
+                            countCooldown();
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, null,0));
+                            playerAttackTimer = 0;
+                            Equipment.Instance.Skill2.InternalCooldown = Equipment.Instance.Skill2.SkillEffect.Cooldown;
                         }
                         break;
                     case 2:
-                        if (Equipment.Instance.Skill3 != null)
+                        if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.InternalCooldown == 0)
                         {
-                            Effect effect = Equipment.Instance.Skill3.SkillEffect;
-
+                            countCooldown();
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, null,0));
+                            playerAttackTimer = 0;
+                            Equipment.Instance.Skill3.InternalCooldown = Equipment.Instance.Skill3.SkillEffect.Cooldown;
                         }
                         break;
                     case 3:
@@ -276,6 +314,7 @@ namespace Warlock_The_Soulbinder
                     case 0: //Potion
                         if (Consumable.Potion > 0)
                         {
+                            countCooldown();
                             Player.Instance.CurrentHealth += 20;
                             Consumable.Potion--;
                             playerAttackTimer = 0;
@@ -285,6 +324,7 @@ namespace Warlock_The_Soulbinder
 
                         if (Consumable.SoulStone > 0)
                         {
+                            countCooldown();
                             int tempChance = PercentStat(target.CurrentHealth, target.MaxHealth);
                             int tempInt = GameWorld.Instance.RandomInt(0, 100);
 
@@ -301,6 +341,7 @@ namespace Warlock_The_Soulbinder
                     case 2: //Bomb
                         if (Consumable.Bomb > 0)
                         {
+                            countCooldown();
                             target.CurrentHealth -= 300;
                             Consumable.Bomb--;
                             playerAttackTimer = 0;
@@ -362,12 +403,9 @@ namespace Warlock_The_Soulbinder
             buttonColor = Color.Gray;
             if (target != null)
             {
-                if (Equipment.Instance.EquippedEquipment[0] != null)
+                if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
                 {
-                    if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
-                    {
-                        playerAttackAmount++;
-                    }
+                    playerAttackAmount++;
                 }
 
                 //local values to apply effects
@@ -402,7 +440,9 @@ namespace Warlock_The_Soulbinder
                     effect.EffectLength--; //decreases how many rounds the effect is still in effect
                 }
 
-                if (Equipment.Instance.EquippedEquipment[1] != null)
+
+
+                if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StunImmunity)
                 {
                     if (Equipment.Instance.EquippedEquipment[1].ArmorEffect.StunImmunity) //checks if the player is immune to stuns
                     {
@@ -498,11 +538,23 @@ namespace Warlock_The_Soulbinder
                     }
                 }
                 effect.EffectLength--;
+
+
+                if (effect.EffectLength == 0)
+                {
+                    toBeRemovedEffects.Add(effect);
+                }
             }
 
-            enemyAttackTimer = 0; //resets enemy's attack timer
+            foreach (Effect effect in toBeRemovedEffects)
+            {
+                enemyEffects.Remove(effect);
+            }
 
-            if (!stunned) //checks for stun
+            toBeRemovedEffects.Clear();
+
+            enemyAttackTimer = 0;
+            if (!stunned)
             {
                 Player.Instance.HurtStart = true; //starts player's hurt animation
 
@@ -542,6 +594,23 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        private void countCooldown()
+        {
+            if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.InternalCooldown > 0)
+            {
+                Equipment.Instance.Skill1.InternalCooldown--;
+            }
+
+            if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.InternalCooldown > 0)
+            {
+                Equipment.Instance.Skill2.InternalCooldown--;
+            }
+
+            if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill3.InternalCooldown > 0)
+            {
+                Equipment.Instance.Skill3.InternalCooldown--;
+            }
+        }
         /// <summary>
         /// Resets relevant variables when leaving combat
         /// </summary>
