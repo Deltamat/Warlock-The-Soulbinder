@@ -64,7 +64,7 @@ namespace Warlock_The_Soulbinder
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             scale = 0.25f;
-            movementSpeed = 250;
+            movementSpeed = 1000;
             Position = new Vector2(300);
 
             BaseStats();
@@ -162,7 +162,7 @@ namespace Warlock_The_Soulbinder
             //if the player's 5 second grace period is over and the player collides with an enemy, start combat
             if (gracePeriod > 3) 
             {
-                foreach (Enemy enemy in GameWorld.Instance.enemies)
+                foreach (Enemy enemy in GameWorld.Instance.CurrentZone().Enemies)
                 {
                     if (enemy.CollisionBox.Intersects(CollisionBox) && GameWorld.Instance.GameState == "Overworld")
                     {
@@ -319,34 +319,39 @@ namespace Warlock_The_Soulbinder
         public void UpdateStats()
         {
             BaseStats();
+            //foreach equipped stone, adds the stone's stats to the player's
             foreach (FilledStone stone in Equipment.Instance.EquippedEquipment)
             {
                 if (stone != null)
                 {
-                    MaxHealth += stone.MaxHealth;
-                    Damage += stone.Damage;
-                    Defense += stone.Defense;
-                    AttackSpeed += stone.AttackSpeed;
-                    for (int i = 0; i < stone.DamageTypes.Count; i++)
+                    MaxHealth += stone.MaxHealth; //adds max health to the player
+                    Damage += stone.Damage; //adds damage to the player
+                    Defense += stone.Defense; //adds defense to the player
+                    AttackSpeed += stone.AttackSpeed; //adds attack speed to the player
+
+                    for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
                     {
                         DamageTypes[i] += stone.DamageTypes[i];
                     }
-                    for (int i = 0; i < stone.ResistanceTypes.Count; i++)
+
+                    for (int i = 0; i < stone.ResistanceTypes.Count; i++) //adds resistance types to the player
                     {
                         ResistanceTypes[i] += stone.ResistanceTypes[i];
                     }
-                    if (Equipment.Instance.EquippedEquipment[0] != null)
+
+                    if (Equipment.Instance.EquippedEquipment[0] != null) //adds any
                     {
                         if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
                         {
-                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this);
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this, 0);
                         }
                     }
+
                     if (Equipment.Instance.EquippedEquipment[1] != null)
                     {
                         if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
                         {
-                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this);
+                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this, 0);
                         }
                     }
                 }

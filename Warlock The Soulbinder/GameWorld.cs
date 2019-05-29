@@ -30,14 +30,15 @@ namespace Warlock_The_Soulbinder
         private SpriteFont smallFont;
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
+        private Random rng = new Random();
 
+        private bool loading = false;
         Song overworldMusic;
         Song combatMusic;
         private bool currentKeyH = true;
         private bool previousKeyH = true;
         TimeSpan songPosition;
         private float musicVolume;
-
 
         //Tiled fields
         private Zone town;
@@ -166,19 +167,19 @@ namespace Warlock_The_Soulbinder
         protected override void Initialize()
         {
             IsMouseVisible = true;
-
+            
             Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
-            town = new Zone("Town");
-            beast = new Zone("Beast");
-            grass = new Zone("Grass");
-            dragon = new Zone("Dragon");
-            wind = new Zone("Wind");
-            fire = new Zone("Fire");
-            water = new Zone("Water");
-            undead = new Zone("Undead");
-            metal = new Zone("Metal");
+            town = new Zone("Town", 0);
+            beast = new Zone("Beast", 1);
+            grass = new Zone("Grass", 3);
+            dragon = new Zone("Dragon", 3);
+            wind = new Zone("Wind", 3);
+            fire = new Zone("Fire", 3);
+            water = new Zone("Water", 3);
+            undead = new Zone("Undead", 3);
+            metal = new Zone("Metal", 3);
             SmallFont = Content.Load<SpriteFont>("smallFont");
             fullScreen = Content.Load<Texture2D>("fullScreen");
             zones.Add(town);
@@ -200,13 +201,16 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
             
-            enemies.Add(new Enemy(0, new Vector2(1100, 150)));
-            enemies.Add(new Enemy(4, new Vector2(1100, 300)));
-            enemies.Add(new Enemy(7, new Vector2(1100, 450)));
-            enemies.Add(new Enemy(12, new Vector2(1100, 600)));
-            enemies.Add(new Enemy(16, new Vector2(1100, 750)));
-            enemies.Add(new Enemy(20, new Vector2(1100, 900)));
+            
 
+            //enemies.Add(new Enemy(0, new Vector2(1100, 150)));
+            //enemies.Add(new Enemy(4, new Vector2(1100, 300)));
+            //enemies.Add(new Enemy(7, new Vector2(1100, 450)));
+            //enemies.Add(new Enemy(12, new Vector2(1100, 600)));
+            //enemies.Add(new Enemy(16, new Vector2(1100, 750)));
+            //enemies.Add(new Enemy(20, new Vector2(1100, 900)));
+
+            //adds one of all enemy types as stones to the player's inventory - TEMP
             FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
@@ -228,17 +232,22 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
-            //Code to make pages for the filled stones
-            FilledStone.StoneListPages = 0;
-            int tempStoneList = FilledStone.StoneList.Count;
-            for (int i = 0; i < 99; i++)
+
+            #region load
+            if (loading == true)
             {
-                if (tempStoneList - 9 > 0)
-                {
-                    FilledStone.StoneListPages++;
-                    tempStoneList -= 9;
-                }
+                Controller.Instance.OpenTheGates();
+
+                FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
+                enemies = Controller.Instance.LoadFromEnemyDB();
+                Controller.Instance.LoadFromPlayerDB();
+                Controller.Instance.LoadFromStatisticDB();
+                //dictionary? = Controller.Instance.LoadFromConsumableDB();
+                //list? = Controller.Instance.LoadFromQuestDB();
+
+                Controller.Instance.CloseTheGates();
             }
+            #endregion
 
             // Music
             MusicVolume = 0.5f;
@@ -260,12 +269,7 @@ namespace Warlock_The_Soulbinder
             #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 #endif
-
             
-
-            #region load
-
-            #endregion
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -311,18 +315,6 @@ namespace Warlock_The_Soulbinder
                 FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
                 FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
-
-                //Code to make pages for the filled stones
-                FilledStone.StoneListPages = 0;
-                int tempStoneList = FilledStone.StoneList.Count;
-                for (int i = 0; i < 99; i++)
-                {
-                    if (tempStoneList - 9 > 0)
-                    {
-                        FilledStone.StoneListPages++;
-                        tempStoneList -= 9;
-                    }
-                }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {
@@ -377,7 +369,7 @@ namespace Warlock_The_Soulbinder
                 }
                 for (int i = 0; i < FilledStone.StoneList.Count; i++)
                 {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Level);
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience , FilledStone.StoneList[i].Level);
                 }
                 //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
                 //{
@@ -572,8 +564,6 @@ namespace Warlock_The_Soulbinder
         /// <returns></returns>
         public int RandomInt(int x, int y)
         {
-            Random rng = new Random();
-            Thread.Sleep(10);
             return rng.Next(x, y);
         }
 

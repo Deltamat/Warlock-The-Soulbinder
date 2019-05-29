@@ -65,12 +65,12 @@ namespace Warlock_The_Soulbinder
             filledStone.ClearDB();
         }
 
-        public void SaveToSoulStoneDB(string monster, int level)
+        public void SaveToSoulStoneDB(string monster, int experience, int level)
         {
-            filledStone.SaveSoulStone(monster, level);
+            filledStone.SaveSoulStone(monster, experience, level);
         }
 
-        public Dictionary<int, FilledStone> LoadFromFilledStoneDB()
+        public List<FilledStone> LoadFromFilledStoneDB()
         {
             return filledStone.LoadSoulStone();
         }

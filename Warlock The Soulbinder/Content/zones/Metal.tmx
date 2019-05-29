@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="5">
- <layer id="1" name="Tile Layer 1" width="40" height="40">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="14">
+ <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="tilesetGrassland.png" width="1024" height="1024"/>
+ </tileset>
+ <layer id="1" name="Ground" width="40" height="40">
   <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20PBxQAAAAAAMCXARkAAAE=
+   eJztwwEJAAAMBKHL8P3DrsdQcNVUVVVVVVUfPYxxcIE=
+  </data>
+ </layer>
+ <layer id="3" name="Top" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt2cEJwEAIAEGLvv5JD9kEPJgBv7IPf56ZOctnK32NvkZfo6/R1+hr9DU39G2mr7nh/vS9p6/R1+hr9DX6Gn2NvkZf8+cf4KudD1NPQ/k=
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
@@ -28,5 +36,14 @@
     <property name="zone" value="Metal"/>
    </properties>
   </object>
+  <object id="5" x="0" y="0" width="64" height="1088"/>
+  <object id="6" x="0" y="1280" width="64" height="1280"/>
+  <object id="7" x="64" y="2496" width="1152" height="64"/>
+  <object id="8" x="1408" y="2496" width="1152" height="64"/>
+  <object id="9" x="2496" y="0" width="64" height="2496"/>
+  <object id="10" x="64" y="0" width="2432" height="64"/>
+  <object id="11" type="Spawn" x="640" y="960" width="128" height="128"/>
+  <object id="12" type="Spawn" x="1088" y="1664" width="128" height="128"/>
+  <object id="13" type="Spawn" x="1728" y="896" width="128" height="128"/>
  </objectgroup>
 </map>
