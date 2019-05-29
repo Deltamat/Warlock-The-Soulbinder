@@ -39,15 +39,7 @@ namespace Warlock_The_Soulbinder
 
 
         //Tiled fields
-        private Zone town;
-        private Zone beast;
-        private Zone grass;
-        private Zone water;
-        private Zone dragon;
-        private Zone metal;
-        private Zone undead;
-        private Zone fire;
-        private Zone wind;
+        private Zone town, beast, grass, water, dragon, metal, undead, fire, wind, dragonRealm;
         public string currentZone = "Town";
         public List<Zone> zones = new List<Zone>();
 
@@ -168,8 +160,9 @@ namespace Warlock_The_Soulbinder
             Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
+            // zoner laves med navn og antal af fjender. Der kan ikke være flere fjender end spawnPoints
             town = new Zone("Town", 0);
-            beast = new Zone("Beast", 1);
+            beast = new Zone("Beast", 5);
             grass = new Zone("Grass", 3);
             dragon = new Zone("Dragon", 3);
             wind = new Zone("Wind", 3);
@@ -177,6 +170,7 @@ namespace Warlock_The_Soulbinder
             water = new Zone("Water", 3);
             undead = new Zone("Undead", 3);
             metal = new Zone("Metal", 3);
+            dragonRealm = new Zone("DragonRealm", 8);
             zones.Add(town);
             zones.Add(beast);
             zones.Add(grass);
@@ -186,6 +180,7 @@ namespace Warlock_The_Soulbinder
             zones.Add(water);
             zones.Add(undead);
             zones.Add(metal);
+            zones.Add(dragonRealm);
 
             foreach (var zone in zones)
             {
@@ -568,7 +563,6 @@ namespace Warlock_The_Soulbinder
         /// <returns></returns>
         public int RandomInt(int x, int y)
         {
-            //Thread.Sleep(10);
             return rng.Next(x, y);
         }
 

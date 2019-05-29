@@ -13,6 +13,7 @@ namespace Warlock_The_Soulbinder
     {
         int currentDialogue = 1;
         private Texture2D dialogueBar;
+        public NPC talkingNPC;
 
 
         public Dictionary<int, string> dialogueLines { get; set; } = new Dictionary<int, string>();
@@ -61,6 +62,11 @@ namespace Warlock_The_Soulbinder
                 }
                 dialogueTimer = 0;
                 GameWorld.Instance.GameState = "Overworld";
+                if (talkingNPC.IsShrine == true)
+                {
+                    GameWorld.Instance.currentZone = $"DragonRealm";
+                    GameWorld.Instance.CurrentZone().GenerateZone();
+                }
             }
         }
 

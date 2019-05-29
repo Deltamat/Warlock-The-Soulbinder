@@ -11,14 +11,17 @@ namespace Warlock_The_Soulbinder
     public class NPC : Character
     {
         bool hasQuest;
-        bool hasShop;   
+        bool hasShop;
+        
         int questID;
         Texture2D interact;
         float interactScale;
         float interactDistance = 100;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
-        public string dragonType;
 
+        public string DragonElement { get; set; }
+        public bool HasHeal { get; set; }
+        public bool IsShrine { get; set; }
         public bool DrawInteract { get; set; }
         public bool Talking { get; set; } = false;
         public override Rectangle CollisionBox
@@ -38,11 +41,13 @@ namespace Warlock_The_Soulbinder
         /// <param name="hasShop">Does the NPC have a shop</param>
         /// <param name="questID">The id of the quest this NPC has</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
-        public NPC(string spriteName, Vector2 position, bool hasQuest, bool hasShop, int questID, string dialogue)
+        public NPC(string spriteName, Vector2 position, bool hasQuest, bool hasShop, bool hasHeal, bool isShrine, int questID, string dialogue)
         {
             this.hasQuest = hasQuest;
             this.hasShop = hasShop;
             this.questID = questID;
+            IsShrine = isShrine;
+            HasHeal = hasHeal;
             Position = position;
             Sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             scale = 0.135f;
@@ -82,7 +87,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void UpdateDialogue()
         {
-            if (hasQuest || hasShop) // remove the default dialogue if NPC has quest or shop
+            if (hasQuest || hasShop || HasHeal || IsShrine) // remove the default dialogue if NPC has quest or shop
             {
                 dialogueLines = new Dictionary<int, string>();
             }
@@ -107,6 +112,14 @@ namespace Warlock_The_Soulbinder
             {
                 dialogueLines.Add(1, "Khajit has wares, if you have coins.");
             }
+            else if (HasHeal) // if a healer
+            {
+                dialogueLines.Add(1, "You look hurt. Let me heal you right up!");
+            }
+            else if (IsShrine) // if a dragon shrine
+            {
+                dialogueLines.Add(1, "Are thy worthy to face the Dragon?");
+            }
         }
 
         /// <summary>
@@ -118,11 +131,7 @@ namespace Warlock_The_Soulbinder
             Dialogue.Instance.InDialogue = true;
             Talking = true;
             GameWorld.Instance.GameState = "Dialogue";
-        }
-
-        public void DragonShrine()
-        {
-            GameWorld.Instance.currentZone = dragonType;
+            Dialogue.Instance.talkingNPC = this;
         }
     }
 }

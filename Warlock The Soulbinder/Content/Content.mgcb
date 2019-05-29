@@ -2982,6 +2982,16 @@
 /processor:TiledMapProcessor
 /build:zones/Dragon.tmx
 
+#begin zones/DragonFire.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/DragonFire.tmx
+
+#begin zones/DragonRealm.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/DragonRealm.tmx
+
 #begin zones/Fire.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor

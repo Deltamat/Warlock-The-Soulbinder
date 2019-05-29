@@ -59,18 +59,28 @@ namespace Warlock_The_Soulbinder
                     }
                 }
             }
+            if (this.enemiesInZone > spawnPoints.Count)
+            {
+                this.enemiesInZone = spawnPoints.Count;
+            }
 
             if (Name == "Town") // giv navnet på zonen og opret de rigtige npc'er
             {
-                NPCs.Add(new NPC("npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
-                NPCs.Add(new NPC("npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
+                NPCs.Add(new NPC("npc_knight", new Vector2(400), true, false, false, false, 1, ""));
+                NPCs.Add(new NPC("npc_old", new Vector2(1000), false, true, false, false, 1, ""));
+                NPCs.Add(new NPC("npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
             }
             if (Name == "Dragon")
             {
-                NPC fireDragon = new NPC("npc_old", new Vector2(100), false, false, 1, "rawr");
-                fireDragon.dragonType = "Grass";
-                NPCs.Add(fireDragon);
+                NPC fireDragonShrine = new NPC("npc_knight", new Vector2(500, 100), false, false, false, true, 1, "");
+                fireDragonShrine.DragonElement = "Fire";
+                NPCs.Add(fireDragonShrine);
+
+                NPC waterDragonShrine = new NPC("npc_knight", new Vector2(600, 100), false, false, false, true, 1, "");
+                waterDragonShrine.DragonElement = "Water";
+                NPCs.Add(waterDragonShrine);
             }
+
             foreach (var npc in NPCs)
             {
                 CollisionRects.Add(npc.CollisionBox);
@@ -82,89 +92,13 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void GenerateZone()
         {
-            if (Name == "Beast")
+            if (Name == "DragonRealm")
             {
-                for (int i = 0; i < enemiesInZone; i++)
-                {
-                    Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
-                    Enemies.Add(new Enemy(GameWorld.Instance.RandomInt(0, 3), new Vector2(temp.X, temp.Y)));
-                    usedSpawnPoints.Add(temp);
-                    spawnPoints.Remove(temp);
-                }
-                spawnPoints.AddRange(usedSpawnPoints);
-                usedSpawnPoints = new List<Rectangle>();
+                GenerateEnemies(Dialogue.Instance.talkingNPC.DragonElement);
             }
-            else if (Name == "Grass")
+            else
             {
-                for (int i = 0; i < enemiesInZone; i++)
-                {
-                    Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
-                    Enemies.Add(new Enemy(GameWorld.Instance.RandomInt(3, 6), new Vector2(temp.X, temp.Y)));
-                    usedSpawnPoints.Add(temp);
-                    spawnPoints.Remove(temp);
-                }
-                spawnPoints.AddRange(usedSpawnPoints);
-                usedSpawnPoints = new List<Rectangle>();
-            }
-            else if (Name == "Water")
-            {
-                for (int i = 0; i < enemiesInZone; i++)
-                {
-                    Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
-                    Enemies.Add(new Enemy(GameWorld.Instance.RandomInt(6, 9), new Vector2(temp.X, temp.Y)));
-                    usedSpawnPoints.Add(temp);
-                    spawnPoints.Remove(temp);
-                }
-                spawnPoints.AddRange(usedSpawnPoints);
-                usedSpawnPoints = new List<Rectangle>();
-            }
-            else if (Name == "Undead")
-            {
-                for (int i = 0; i < enemiesInZone; i++)
-                {
-                    Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
-                    Enemies.Add(new Enemy(GameWorld.Instance.RandomInt(9, 12), new Vector2(temp.X, temp.Y)));
-                    usedSpawnPoints.Add(temp);
-                    spawnPoints.Remove(temp);
-                }
-                spawnPoints.AddRange(usedSpawnPoints);
-                usedSpawnPoints = new List<Rectangle>();
-            }
-            else if (Name == "Metal")
-            {
-                for (int i = 0; i < enemiesInZone; i++)
-                {
-                    Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
-                    Enemies.Add(new Enemy(GameWorld.Instance.RandomInt(12, 15), new Vector2(temp.X, temp.Y)));
-                    usedSpawnPoints.Add(temp);
-                    spawnPoints.Remove(temp);
-                }
-                spawnPoints.AddRange(usedSpawnPoints);
-                usedSpawnPoints = new List<Rectangle>();
-            }
-            else if (Name == "Fire")
-            {
-                for (int i = 0; i < enemiesInZone; i++)
-                {
-                    Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
-                    Enemies.Add(new Enemy(GameWorld.Instance.RandomInt(15, 18), new Vector2(temp.X, temp.Y)));
-                    usedSpawnPoints.Add(temp);
-                    spawnPoints.Remove(temp);
-                }
-                spawnPoints.AddRange(usedSpawnPoints);
-                usedSpawnPoints = new List<Rectangle>();
-            }
-            else if (Name == "Wind")
-            {
-                for (int i = 0; i < enemiesInZone; i++)
-                {
-                    Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
-                    Enemies.Add(new Enemy(GameWorld.Instance.RandomInt(18, 21), new Vector2(temp.X, temp.Y)));
-                    usedSpawnPoints.Add(temp);
-                    spawnPoints.Remove(temp);
-                }
-                spawnPoints.AddRange(usedSpawnPoints);
-                usedSpawnPoints = new List<Rectangle>();
+                GenerateEnemies(Name);
             }
         }
 
@@ -255,6 +189,53 @@ namespace Warlock_The_Soulbinder
             }
             
             
+        }
+
+        /// <summary>
+        /// Method that generates enemies in the zone
+        /// </summary>
+        /// <param name="enemyType">the type of enemy to generate</param>
+        private void GenerateEnemies(string enemyType)
+        {
+            int enemyindex = 0;
+            if (enemyType == "Beast")
+            {
+                enemyindex = GameWorld.Instance.RandomInt(0, 3);
+            }
+            if (enemyType == "Grass")
+            {
+                enemyindex = GameWorld.Instance.RandomInt(3, 6);
+            }
+            if (enemyType == "Water")
+            {
+                enemyindex = GameWorld.Instance.RandomInt(6, 9);
+            }
+            if (enemyType == "Undead")
+            {
+                enemyindex = GameWorld.Instance.RandomInt(9, 12);
+            }
+            if (enemyType == "Metal")
+            {
+                enemyindex = GameWorld.Instance.RandomInt(12, 15);
+            }
+            if (enemyType == "Fire")
+            {
+                enemyindex = GameWorld.Instance.RandomInt(15, 18);
+            }
+            if (enemyType == "Wind")
+            {
+                enemyindex = GameWorld.Instance.RandomInt(18, 21);
+            }
+
+            for (int i = 0; i < enemiesInZone; i++)
+            {
+                Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
+                Enemies.Add(new Enemy(enemyindex, new Vector2(temp.X, temp.Y)));
+                usedSpawnPoints.Add(temp);
+                spawnPoints.Remove(temp);
+            }
+            spawnPoints.AddRange(usedSpawnPoints);
+            usedSpawnPoints = new List<Rectangle>();
         }
     }
 }
