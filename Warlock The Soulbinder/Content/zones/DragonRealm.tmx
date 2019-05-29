@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="11">
+ <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="tilesetGrassland.png" width="1024" height="1024"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKHr9P27rcdQcNVUVVVVVVUfPeAdPtA=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="1" type="EntryTrigger" x="1280" y="832" width="64" height="64">
+   <properties>
+    <property name="targetName" value="dragonFire"/>
+   </properties>
+  </object>
+  <object id="2" type="Spawn" x="896" y="1280" width="128" height="128"/>
+  <object id="3" type="Spawn" x="1280" y="1856" width="128" height="128"/>
+  <object id="4" type="Spawn" x="1792" y="1408" width="128" height="128"/>
+  <object id="5" type="Spawn" x="2112" y="640" width="128" height="128"/>
+  <object id="6" type="Spawn" x="576" y="448" width="128" height="128"/>
+  <object id="7" type="Spawn" x="256" y="1600" width="128" height="128"/>
+  <object id="8" type="Spawn" x="1984" y="1920" width="128" height="128"/>
+  <object id="9" type="Spawn" x="1728" y="448" width="128" height="128"/>
+  <object id="10" type="Spawn" x="640" y="960" width="128" height="128"/>
+ </objectgroup>
+</map>

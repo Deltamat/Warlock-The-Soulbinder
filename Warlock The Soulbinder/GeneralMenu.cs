@@ -82,7 +82,7 @@ namespace Warlock_The_Soulbinder
                     ChangeSelected(4);
 
                     //Code for unequipping stones
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 200)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyCancel) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonCancel)) && delay > 200)
                     {
                         switch (selectedInt)
                         {
@@ -213,7 +213,7 @@ namespace Warlock_The_Soulbinder
             }
 
             //Key for going back in menus
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyCancel) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonCancel)) && delay > 150)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 150)
             {
                 switch (inventoryState)
                 {
@@ -421,6 +421,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Weapon.Experience, Equipment.Instance.Weapon.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Weapon.ExperienceRequired - Equipment.Instance.Weapon.Experience}", new Vector2(1200, 425), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont,$"{Equipment.Instance.Weapon.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
 
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Weapon.WeaponName, new Vector2(350, 160), Color.White);
@@ -445,6 +446,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Armor.Experience, Equipment.Instance.Armor.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Armor.ExperienceRequired - Equipment.Instance.Armor.Experience}", new Vector2(1200, 425), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Armor.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Armor.ArmorName, new Vector2(350, 320), Color.White);
                 }
@@ -467,6 +469,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Skill1.Experience, Equipment.Instance.Skill1.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill1.ExperienceRequired - Equipment.Instance.Skill1.Experience}", new Vector2(1200, 425), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Skill1.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
 
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill1.SkillName, new Vector2(350, 480), Color.White);
@@ -491,6 +494,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Skill2.Experience, Equipment.Instance.Skill2.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill2.ExperienceRequired - Equipment.Instance.Skill2.Experience}", new Vector2(1200, 425), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Skill2.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
 
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill2.SkillName, new Vector2(350, 640), Color.White);
@@ -513,6 +517,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Skill3.Experience, Equipment.Instance.Skill3.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill3.ExperienceRequired - Equipment.Instance.Skill3.Experience}", new Vector2(1200, 425), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Skill3.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(350, 800), Color.White);
                 }
@@ -576,6 +581,9 @@ namespace Warlock_The_Soulbinder
                 {
                     //Consumables
                     case 0:
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Potions: {Consumable.Potion}", new Vector2(1100, 120), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Soul Stones: {Consumable.SoulStone}", new Vector2(1100, 200), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bombs: {Consumable.Bomb}", new Vector2(1100, 280), Color.White);
                         break;
                     //Filled Stones
                     case 1:
@@ -653,6 +661,9 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.Draw(weaponRing, new Vector2(1000, 400), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                     spriteBatch.Draw(armorRing, new Vector2(1000, 600), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
                     spriteBatch.Draw(skillRing, new Vector2(1000, 800), null, Color.White, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
+                    spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].WeaponEffect.EffectString}", new Vector2(1190, 410), Color.White);
+                    spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].ArmorEffect.EffectString}", new Vector2(1190, 610), Color.White);
+                    spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].SkillEffect.EffectString}", new Vector2(1190, 810), Color.White);
 
                 }
 
@@ -733,9 +744,6 @@ namespace Warlock_The_Soulbinder
            {
                 switch (selectedInt)
                 {
-                    case 0:
-                        inventoryState = "Consumables";
-                        break;
                     case 1:
                         inventoryState = "FilledStones";
                         break;
