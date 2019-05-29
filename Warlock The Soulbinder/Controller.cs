@@ -10,14 +10,12 @@ namespace Warlock_The_Soulbinder
     {
         ModelConsumable consumable;
         ModelSoulStone filledStone;
-        public ModelEnemy enemy;
+        ModelEnemy enemy;
         ModelQuest quest;
         ModelPlayer player;
         ModelStatistic statistic;
         Model model;
         
-
-
         static Controller instance;
         static public Controller Instance
         {
@@ -34,9 +32,7 @@ namespace Warlock_The_Soulbinder
                 instance = value;
             }
         }
-
         
-
         public Controller()
         {
             model = new Model();

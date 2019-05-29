@@ -205,8 +205,6 @@ namespace Warlock_The_Soulbinder
             //enemies.Add(new Enemy(16, new Vector2(1100, 750)));
             //enemies.Add(new Enemy(20, new Vector2(1100, 900)));
 
-            //Controller.Instance.enemy.SaveEnemy(1, 100, 200, 5, 10, 100, 5f, 10f, 11f, 12f, 13f, 14f, 15f, "sheep");
-
             FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
