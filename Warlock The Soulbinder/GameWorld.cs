@@ -167,15 +167,15 @@ namespace Warlock_The_Soulbinder
             Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
-            town = new Zone("Town");
-            beast = new Zone("Beast");
-            grass = new Zone("Grass");
-            dragon = new Zone("Dragon");
-            wind = new Zone("Wind");
-            fire = new Zone("Fire");
-            water = new Zone("Water");
-            undead = new Zone("Undead");
-            metal = new Zone("Metal");
+            town = new Zone("Town", 0);
+            beast = new Zone("Beast", 1);
+            grass = new Zone("Grass", 3);
+            dragon = new Zone("Dragon", 3);
+            wind = new Zone("Wind", 3);
+            fire = new Zone("Fire", 3);
+            water = new Zone("Water", 3);
+            undead = new Zone("Undead", 3);
+            metal = new Zone("Metal", 3);
             zones.Add(town);
             zones.Add(beast);
             zones.Add(grass);
@@ -195,12 +195,14 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
             
-            enemies.Add(new Enemy(0, new Vector2(1100, 150)));
-            enemies.Add(new Enemy(4, new Vector2(1100, 300)));
-            enemies.Add(new Enemy(7, new Vector2(1100, 450)));
-            enemies.Add(new Enemy(12, new Vector2(1100, 600)));
-            enemies.Add(new Enemy(16, new Vector2(1100, 750)));
-            enemies.Add(new Enemy(22, new Vector2(1100, 900)));
+            
+
+            //enemies.Add(new Enemy(0, new Vector2(1100, 150)));
+            //enemies.Add(new Enemy(4, new Vector2(1100, 300)));
+            //enemies.Add(new Enemy(7, new Vector2(1100, 450)));
+            //enemies.Add(new Enemy(12, new Vector2(1100, 600)));
+            //enemies.Add(new Enemy(16, new Vector2(1100, 750)));
+            //enemies.Add(new Enemy(20, new Vector2(1100, 900)));
 
             //adds one of all enemy types as stones to the player's inventory - TEMP
             FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
@@ -245,7 +247,6 @@ namespace Warlock_The_Soulbinder
             #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 #endif
-
             
 
             #region load
