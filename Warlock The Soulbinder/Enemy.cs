@@ -77,8 +77,7 @@ namespace Warlock_The_Soulbinder
                 Level = 1;
             }
             
-            //base stats
-            #region
+            #region base stats
             Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
             maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
@@ -151,7 +150,7 @@ namespace Warlock_The_Soulbinder
             }
 
             //adds damage and resistances to lists for ease of use
-            #region
+            #region resistances
             ResistanceTypes.Add(EarthResistance);
             ResistanceTypes.Add(WaterResistance);
             ResistanceTypes.Add(DarkResistance);
