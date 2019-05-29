@@ -30,6 +30,7 @@ namespace Warlock_The_Soulbinder
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
         private Random rng = new Random();
 
+        private bool loading = false;
         Song overworldMusic;
         Song combatMusic;
         private bool currentKeyH = true;
@@ -163,7 +164,7 @@ namespace Warlock_The_Soulbinder
         protected override void Initialize()
         {
             IsMouseVisible = true;
-
+            
             Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
@@ -227,6 +228,22 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
 
+            #region load
+            if (loading == true)
+            {
+                Controller.Instance.OpenTheGates();
+
+                FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
+                enemies = Controller.Instance.LoadFromEnemyDB();
+                Controller.Instance.LoadFromPlayerDB();
+                Controller.Instance.LoadFromStatisticDB();
+                //dictionary? = Controller.Instance.LoadFromConsumableDB();
+                //list? = Controller.Instance.LoadFromQuestDB();
+
+                Controller.Instance.CloseTheGates();
+            }
+            #endregion
+
             // Music
             MusicVolume = 0.5f;
             MediaPlayer.IsRepeating = true;
@@ -248,10 +265,6 @@ namespace Warlock_The_Soulbinder
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 #endif
             
-
-            #region load
-
-            #endregion
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -351,7 +364,7 @@ namespace Warlock_The_Soulbinder
                 }
                 for (int i = 0; i < FilledStone.StoneList.Count; i++)
                 {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Level);
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience , FilledStone.StoneList[i].Level);
                 }
                 //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
                 //{
