@@ -255,7 +255,7 @@ namespace Warlock_The_Soulbinder
                 switch (selectedInt)
                 {
                     case 0: //attack
-                        PlayerAttack();
+                        PlayerTurn();
                         countCooldown();
                         break;
                     case 1: //skill
@@ -277,7 +277,7 @@ namespace Warlock_The_Soulbinder
                         if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.InternalCooldown == 0)
                         {
                             countCooldown();
-                            enemyEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, null));
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, null,0));
                             playerAttackTimer = 0;
                             Equipment.Instance.Skill1.InternalCooldown = Equipment.Instance.Skill1.SkillEffect.Cooldown;
                         }
@@ -286,7 +286,7 @@ namespace Warlock_The_Soulbinder
                         if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.InternalCooldown == 0)
                         {
                             countCooldown();
-                            enemyEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, null));
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, null,0));
                             playerAttackTimer = 0;
                             Equipment.Instance.Skill2.InternalCooldown = Equipment.Instance.Skill2.SkillEffect.Cooldown;
                         }
@@ -295,7 +295,7 @@ namespace Warlock_The_Soulbinder
                         if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.InternalCooldown == 0)
                         {
                             countCooldown();
-                            enemyEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, null));
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, null,0));
                             playerAttackTimer = 0;
                             Equipment.Instance.Skill3.InternalCooldown = Equipment.Instance.Skill3.SkillEffect.Cooldown;
                         }
