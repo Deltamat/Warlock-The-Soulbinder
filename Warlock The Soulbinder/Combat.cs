@@ -110,7 +110,7 @@ namespace Warlock_The_Soulbinder
                     target.Alive = false;
                     Equipment.Instance.ExperienceEquipment(target.Level * 20);
 
-                    GameWorld.Instance.enemies.Remove(target);
+                    GameWorld.Instance.CurrentZone().Enemies.Remove(target);
                     ExitCombat();
                 }
             }
