@@ -15,7 +15,7 @@ namespace Warlock_The_Soulbinder
         int questID;
         Texture2D interact;
         float interactScale;
-        float interactDistance = 80;
+        float interactDistance = 100;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
         public string dragonType;
 
