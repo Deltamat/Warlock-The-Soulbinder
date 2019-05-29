@@ -11,7 +11,7 @@ namespace Warlock_The_Soulbinder
     {
         public ModelQuest()
         {
-            string sqlexp = $"CREATE TABLE IF NOT EXISTS Quest{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
+            string sqlexp = "CREATE TABLE IF NOT EXISTS Quest (id integer primary key, " +
                 "name string, " +
                 "status string )";
             cmd = connection.CreateCommand();
@@ -22,13 +22,13 @@ namespace Warlock_The_Soulbinder
 
         public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM Quest{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "DELETE FROM Quest";
             cmd.ExecuteNonQuery();
         }
 
         public void SaveQuest(string questName, string questStatus)
         {
-            cmd.CommandText = $"INSERT INTO Quest{Controller.Instance.CurrentSaveFile} (id, name, status) VALUES (null, {questName}, {questStatus})";
+            cmd.CommandText = $"INSERT INTO Quest(id, name, status) VALUES (null, {questName}, {questStatus})";
             cmd.ExecuteNonQuery();
         }
        
@@ -36,7 +36,7 @@ namespace Warlock_The_Soulbinder
         public Dictionary<int, string> LoadQuest()
         {
             Dictionary<int, string> questsDic = new Dictionary<int, string>();
-            cmd.CommandText = $"SELECT * FROM Quest{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "SELECT * FROM Quest";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {

@@ -17,7 +17,7 @@ namespace Warlock_The_Soulbinder
         private static int bomb = 5;
        
         public int Amount { get => amount; set => amount = value; }
-        internal static List<Consumable> ConsumableList { get => consumableList; set => consumableList = value; }
+        public static List<Consumable> ConsumableList { get => consumableList; set => consumableList = value; }
         public static int Potion { get => potion; set => potion = value; }
         public static int SoulStone { get => soulStone; set => soulStone = value; }
         public static int Bomb { get => bomb; set => bomb = value; }

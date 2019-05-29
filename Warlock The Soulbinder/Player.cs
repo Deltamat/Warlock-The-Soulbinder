@@ -72,12 +72,12 @@ namespace Warlock_The_Soulbinder
 
             //adds damage and resistances to lists for ease of use
             #region
-            ResistanceTypes.Add(earthResistance);
-            ResistanceTypes.Add(waterResistance);
-            ResistanceTypes.Add(darkResistance);
-            ResistanceTypes.Add(metalResistance);
-            ResistanceTypes.Add(fireResistance);
-            ResistanceTypes.Add(airResistance);
+            ResistanceTypes.Add(EarthResistance);
+            ResistanceTypes.Add(WaterResistance);
+            ResistanceTypes.Add(DarkResistance);
+            ResistanceTypes.Add(MetalResistance);
+            ResistanceTypes.Add(FireResistance);
+            ResistanceTypes.Add(AirResistance);
             DamageTypes.Add(earthDamage);
             DamageTypes.Add(waterDamage);
             DamageTypes.Add(darkDamage);
@@ -179,7 +179,7 @@ namespace Warlock_The_Soulbinder
             
             if (gracePeriod < 3 && graceSwitch < 15)
             {
-                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
+                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.1f);
             }
             else
             {

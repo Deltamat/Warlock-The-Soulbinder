@@ -24,6 +24,7 @@ namespace Warlock_The_Soulbinder
         private bool stun = false;
         private bool confuse = false;
         private bool doubleAttack = false;
+        private bool stunImmunity;
         private string effectString;
         private int upperChanceBounds;
 
@@ -274,7 +275,9 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 11: //banshee
-                            //help! don't know what to do here!
+                            EffectString = "Grants immunity to all stuns";
+                            TargetsSelf = true;
+                            StunImmunity = true;
                             break;
                         case 12: //bucket man
                             EffectString = "Has a chance to give yourself a shield after being hit";
@@ -512,5 +515,6 @@ namespace Warlock_The_Soulbinder
         public string Type { get => type; set => type = value; }
         public FilledStone Stone { get => stone; set => stone = value; }
         public bool StatBuff { get => statBuff; set => statBuff = value; }
+        public bool StunImmunity { get => stunImmunity; set => stunImmunity = value; }
     }
 }

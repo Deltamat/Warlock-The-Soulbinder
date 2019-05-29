@@ -12,7 +12,7 @@ namespace Warlock_The_Soulbinder
     {
         public ModelSoulStone()
         {
-            string sqlexp = $"CREATE TABLE IF NOT EXISTS SoulStone{Controller.Instance.CurrentSaveFile} (id integer primary key, " +
+            string sqlexp = "CREATE TABLE IF NOT EXISTS SoulStone (id integer primary key, " +
                 "monster string, " +
                 "level integer )";
             cmd = connection.CreateCommand();
@@ -25,13 +25,13 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM SoulStone{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "DELETE FROM SoulStone";
             cmd.ExecuteNonQuery();
         }
 
         public void SaveSoulStone(string monster, int level)
         {
-            cmd.CommandText = $"INSERT INTO SoulStone{Controller.Instance.CurrentSaveFile} (id, monster, level) VALUES (null, {monster}, {level})";
+            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, level) VALUES (null, '{monster}', {level})";
             cmd.ExecuteNonQuery();
         }
 
@@ -40,12 +40,12 @@ namespace Warlock_The_Soulbinder
             Dictionary<int, FilledStone> soulStoneDic = new Dictionary<int, FilledStone>();
 
           
-            cmd.CommandText = $"SELECT * FROM SoulStone{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "SELECT * FROM SoulStone";
             
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                //soulStoneDic.Add(reader.GetInt32(0), new FilledStone(reader.GetString(1), reader.GetInt32(2)));
+                soulStoneDic.Add(reader.GetInt32(0), new FilledStone(reader.GetString(1), reader.GetInt32(2)));
             }
             reader.Close();
            

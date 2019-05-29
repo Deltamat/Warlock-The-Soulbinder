@@ -52,7 +52,7 @@ namespace Warlock_The_Soulbinder
                 (halfScreenSize.X - position.X, -GameWorld.Instance.TileMapBounds.Width + GameWorld.Instance.ScreenSize.Width, 0),
                 MathHelper.Clamp //Clamps the Y position of the viewMatrix translation
                 (halfScreenSize.Y - position.Y, -GameWorld.Instance.TileMapBounds.Height + GameWorld.Instance.ScreenSize.Height, 0),
-                0f);       
+                0);       
         }
     }
 }

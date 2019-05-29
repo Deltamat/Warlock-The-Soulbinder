@@ -8,14 +8,14 @@ namespace Warlock_The_Soulbinder
 {
     public class Zone
     {
-        TiledMapRenderer mapRenderer;
+        public TiledMapRenderer MapRenderer { get; set; }
         List<Enemy> enemies = new List<Enemy>();
 
         public string Name { get; private set; }
         public TiledMap Map { get; private set; }
         public List<Rectangle> CollisionRects { get; private set; } = new List<Rectangle>();
         public List<Trigger> Triggers { get; private set; } = new List<Trigger>();
-        public Dictionary<int, NPC> NPCs { get; private set; } = new Dictionary<int, NPC>();
+        public List<NPC> NPCs { get; private set; } = new List<NPC>();
 
         /// <summary>
         /// Creates a Zone with a name that contains the Tiled map and Tiled objects
@@ -25,8 +25,8 @@ namespace Warlock_The_Soulbinder
         {
             Name = zoneName;
 
-            Map = GameWorld.ContentManager.Load<TiledMap>($"zones/{Name}"); 
-            mapRenderer = new TiledMapRenderer(GameWorld.Instance.GraphicsDevice);
+            Map = GameWorld.ContentManager.Load<TiledMap>($"zones/{Name}");
+            MapRenderer = new TiledMapRenderer(GameWorld.Instance.GraphicsDevice);
 
             // The following extracts the objects from the Tiled TileMap
             foreach (TiledMapObjectLayer layer in Map.ObjectLayers) // go through all object layers
@@ -54,12 +54,18 @@ namespace Warlock_The_Soulbinder
 
             if (Name == "Town") // giv navnet på zonen og opret de rigtige npc'er
             {
-                NPCs.Add(1, new NPC("npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
-                NPCs.Add(2, new NPC("npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
+                NPCs.Add(new NPC("npc_knight", new Vector2(400), true, false, 1, "normies get out reeeee"));
+                NPCs.Add(new NPC("npc_old", new Vector2(1000), false, true, 1, "normies get out reeeee"));
+            }
+            if (Name == "Dragon")
+            {
+                NPC fireDragon = new NPC("npc_old", new Vector2(100), false, false, 1, "rawr");
+                fireDragon.dragonType = "Grass";
+                NPCs.Add(fireDragon);
             }
             foreach (var npc in NPCs)
             {
-                CollisionRects.Add(npc.Value.CollisionBox);
+                CollisionRects.Add(npc.CollisionBox);
             }
         }
 
@@ -74,7 +80,7 @@ namespace Warlock_The_Soulbinder
 
         public void Update(GameTime gameTime)
         {
-            mapRenderer.Update(Map, gameTime);
+            MapRenderer.Update(Map, gameTime);
 
             foreach (Trigger trigger in Triggers) // checks if the player entered a trigger
             {
@@ -90,7 +96,7 @@ namespace Warlock_The_Soulbinder
 
             foreach (var item in NPCs)
             {
-                item.Value.Update(gameTime);
+                item.Update(gameTime);
             }
         }
 
@@ -112,24 +118,23 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.DrawRectangle(item.CollisionBox);
             }
 
-            foreach (var item in NPCs)
+            foreach (var npc in NPCs)
             {
-                item.Value.Draw(spriteBatch);
-                GameWorld.Instance.DrawRectangle(item.Value.CollisionBox);
+                npc.Draw(spriteBatch);
+                GameWorld.Instance.DrawRectangle(npc.CollisionBox);
             }
 
-            mapRenderer.Draw(Map, GameWorld.Instance.camera.viewMatrix);
+            //mapRenderer.Draw(Map, GameWorld.Instance.camera.viewMatrix);
             //foreach (var layer in Map.TileLayers)
             //{
-            //    if (layer.Name == "Top")
+            //    if (layer.Name == "Top" || layer.Name == "OverTop")
             //    {
             //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
             //    }
             //    else
             //    {
-            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.1f);
+            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.98f);
             //    }
-                
             //}
 
         }

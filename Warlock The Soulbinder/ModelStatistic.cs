@@ -11,7 +11,7 @@ namespace Warlock_The_Soulbinder
     {
         public ModelStatistic()
         {
-            string sqlexp = $"CREATE TABLE IF NOT EXISTS Statistic{Controller.Instance.CurrentSaveFile} (gold integer primary key, " +
+            string sqlexp = "CREATE TABLE IF NOT EXISTS Statistic (gold integer primary key, " +
                 "soulCount integer )";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
@@ -23,19 +23,19 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ClearDB()
         {
-            cmd.CommandText = $"DELETE FROM Statistic{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "DELETE FROM Statistic";
             cmd.ExecuteNonQuery();
         }
 
         public void SaveStatistic(int gold, int soulCount)
         {
-            cmd.CommandText = $"INSERT INTO Statistic{Controller.Instance.CurrentSaveFile} (gold, soulCount) VALUES ({gold}, {soulCount})";
+            cmd.CommandText = $"INSERT INTO Statistic (gold, soulCount) VALUES ({gold}, {soulCount})";
             cmd.ExecuteNonQuery();
         }
 
         public void LoadStatistic()
         {
-            cmd.CommandText = $"SELECT * FROM Statistic{Controller.Instance.CurrentSaveFile}";
+            cmd.CommandText = "SELECT * FROM Statistic";
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
