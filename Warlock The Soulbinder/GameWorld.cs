@@ -24,8 +24,10 @@ namespace Warlock_The_Soulbinder
         private Texture2D collisionTexture;
         public List<Enemy> enemies = new List<Enemy>();
         public Camera camera;
+        private Texture2D fullScreen;
         private float delay;
         private string gameState = "Overworld";
+        private SpriteFont smallFont;
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
 
@@ -139,6 +141,7 @@ namespace Warlock_The_Soulbinder
             }
         }
         public float SoundEffectVolume { get; set; } = 0.3f;
+        public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
 
         public GameWorld()
         {
@@ -176,6 +179,8 @@ namespace Warlock_The_Soulbinder
             water = new Zone("Water");
             undead = new Zone("Undead");
             metal = new Zone("Metal");
+            SmallFont = Content.Load<SpriteFont>("smallFont");
+            fullScreen = Content.Load<Texture2D>("fullScreen");
             zones.Add(town);
             zones.Add(beast);
             zones.Add(grass);
@@ -459,6 +464,7 @@ namespace Warlock_The_Soulbinder
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
+                
                 CurrentZone().Draw(spriteBatch);
 
                 foreach (var layer in CurrentZone().Map.TileLayers)

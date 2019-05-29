@@ -22,6 +22,7 @@ namespace Warlock_The_Soulbinder
         private string weaponName;
         private string armorName;
         private string skillName;
+        private int internalCooldown;
         private Effect weaponEffect;
         private Effect armorEffect;
         private Effect skillEffect;
@@ -69,6 +70,8 @@ namespace Warlock_The_Soulbinder
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+        public int InternalCooldown { get => internalCooldown; set => internalCooldown = value; }
+
         //public string Name { get => name; set => name = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
