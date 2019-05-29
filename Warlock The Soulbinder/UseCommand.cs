@@ -28,11 +28,15 @@ namespace Warlock_The_Soulbinder
                 foreach (var npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
                     // if close to an npc enter dialogue
-                    if (npc.Value.DrawInteract == true)
+                    if (npc.DrawInteract == true && npc.dragonType == null)
                     {
                         npcTalk.Play();
-                        npc.Value.EnterDialogue();
+                        npc.EnterDialogue();
                         break;
+                    }
+                    else
+                    {
+                        npc.DragonShrine();
                     }
                 }
             }

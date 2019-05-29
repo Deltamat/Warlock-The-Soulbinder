@@ -64,7 +64,7 @@ namespace Warlock_The_Soulbinder
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             scale = 0.25f;
-            movementSpeed = 250;
+            movementSpeed = 1000;
             Position = new Vector2(300);
 
             BaseStats();
@@ -162,7 +162,7 @@ namespace Warlock_The_Soulbinder
             //if the player's 5 second grace period is over and the player collides with an enemy, start combat
             if (gracePeriod > 3) 
             {
-                foreach (Enemy enemy in GameWorld.Instance.enemies)
+                foreach (Enemy enemy in GameWorld.Instance.CurrentZone().Enemies)
                 {
                     if (enemy.CollisionBox.Intersects(CollisionBox) && GameWorld.Instance.GameState == "Overworld")
                     {
@@ -179,7 +179,7 @@ namespace Warlock_The_Soulbinder
             
             if (gracePeriod < 3 && graceSwitch < 15)
             {
-                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.8f);
+                spriteBatch.Draw(sprite, Position, null, Color.FromNonPremultiplied(255, 255, 255, 175), 0f, Vector2.Zero, scale, new SpriteEffects(), 0.1f);
             }
             else
             {

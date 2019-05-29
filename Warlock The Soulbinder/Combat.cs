@@ -25,7 +25,9 @@ namespace Warlock_The_Soulbinder
         private float playerAttackTimer;
         private float enemyAttackTimer;
         private float turnTimer = 1;
-       
+        private int playerAttackAmount = 1;
+        private int enemyAttackAmount = 1;
+
         private Color buttonColor = Color.White;
         Sound victorySound = new Sound("battleVictory");
 
@@ -359,37 +361,87 @@ namespace Warlock_The_Soulbinder
             buttonColor = Color.Gray;
             if (target != null)
             {
+                if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
+                {
+                    playerAttackAmount++;
+                }
+
+                //local values to apply effects
+                bool stunned = new bool();
+                bool confused = new bool();
+                float accuracyMod = 1f;
+                float finalAccuracyMod = new float();
+                float damageMod = 1f;
+                float finalDamageMod = new float();
+
+                //goes through all active effects on the enemy with an EffectLength greater than 0
                 foreach (Effect effect in playerEffects)
                 {
-
-                }
-
-                playerAttackTimer = 0;
-                Player.Instance.AttackStart = true;
-
-                List<int> damageToDeal = new List<int>();
-                int totalDamageToDeal = 0;
-
-                damageToDeal.Add(Player.Instance.Damage - target.Defense);
-                for (int i = 0; i < target.ResistanceTypes.Count; i++)
-                {
-                    damageToDeal.Add((int)(Player.Instance.DamageTypes[i] - (Player.Instance.DamageTypes[i] * 0.01 * target.ResistanceTypes[i])));
-                }
-                for (int i = 0; i < damageToDeal.Count; i++)
-                {
-                    totalDamageToDeal += damageToDeal[i];
-                }
-
-                target.CurrentHealth -= totalDamageToDeal;
-
-                if (Equipment.Instance.EquippedEquipment[0] != null)
-                {
-                    if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0)
+                    if (effect.EffectLength > 0)
                     {
-                        enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, null));
+                        Player.Instance.CurrentHealth -= effect.Damage; //applies damage
+                        confused = effect.Confuse; //applies confuse
+                        stunned = effect.Stun; //applies stun
+                        if (effect.AccuracyMod != 1f && effect.AccuracyMod < accuracyMod) //effects has a base AccuracyMod of 1, only overrides if the AccuracyMod is more effective
+                        {
+                            accuracyMod = effect.AccuracyMod;
+                        }
+                        if (effect.DamageMod != 1f && effect.DamageMod < damageMod) //effects has a base DamageMod of 1, only overrides if the DamageMod is more effective
+                        {
+                            damageMod = effect.DamageMod;
+                        }
+                    }
+                    effect.EffectLength--;
+                }
+
+                if (Equipment.Instance.EquippedEquipment[1].ArmorEffect.StunImmunity)
+                {
+                    stunned = false;
+                }
+
+                if (stunned)
+                {
+                    playerAttackTimer = 0;
+                    Player.Instance.AttackStart = true;
+
+                    List<int> damageToDeal = new List<int>();
+                    int totalDamageToDeal = 0;
+
+                    for (int j = 0; j < playerAttackAmount; j++)
+                    {
+                        damageToDeal.Add(Player.Instance.Damage - target.Defense);
+                        for (int i = 0; i < target.ResistanceTypes.Count; i++)
+                        {
+                            damageToDeal.Add((int)((Player.Instance.DamageTypes[i] * finalDamageMod) - (Player.Instance.DamageTypes[i] * finalDamageMod * 0.01 * target.ResistanceTypes[i])));
+                        }
+                        for (int i = 0; i < damageToDeal.Count; i++)
+                        {
+                            totalDamageToDeal += damageToDeal[i];
+                        }
+                    }
+                    
+                    if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
+                    {
+                        Player.Instance.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
+                    }
+                    else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
+                    {
+
+                    }
+                    else if (GameWorld.Instance.RandomInt((int)(100 * finalAccuracyMod), (int)(200 - (100 - (100 * finalAccuracyMod)))) >= 100)
+                    {
+                        target.CurrentHealth -= totalDamageToDeal;
+                    }
+
+                    if (Equipment.Instance.EquippedEquipment[0] != null)
+                    {
+                        if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0)
+                        {
+                            enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, null));
+                        }
                     }
                 }
-
+                playerAttackAmount = 1;
                 combatDelay = 0;
             }
         }
@@ -444,7 +496,7 @@ namespace Warlock_The_Soulbinder
                 //goes through all damage types and resistance types and calculates damage to be dealt
                 for (int i = 0; i < target.ResistanceTypes.Count; i++)
                 {
-                    damageToDeal.Add((int)((target.DamageTypes[i] * finalDamageMod) - ((target.DamageTypes[i] * finalDamageMod) * 0.01 * Player.Instance.ResistanceTypes[i])));
+                    damageToDeal.Add((int)((target.DamageTypes[i] * finalDamageMod) - (target.DamageTypes[i] * finalDamageMod * 0.01 * Player.Instance.ResistanceTypes[i])));
                 }
 
                 //adds all damage to a single variable

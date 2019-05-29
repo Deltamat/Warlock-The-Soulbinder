@@ -15,10 +15,11 @@ namespace Warlock_The_Soulbinder
         int questID;
         Texture2D interact;
         float interactScale;
-        float interactDistance = 80;
+        float interactDistance = 100;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
-        public bool DrawInteract { get; set; }
+        public string dragonType;
 
+        public bool DrawInteract { get; set; }
         public bool Talking { get; set; } = false;
         public override Rectangle CollisionBox
         {
@@ -117,6 +118,11 @@ namespace Warlock_The_Soulbinder
             Dialogue.Instance.InDialogue = true;
             Talking = true;
             GameWorld.Instance.GameState = "Dialogue";
+        }
+
+        public void DragonShrine()
+        {
+            GameWorld.Instance.currentZone = dragonType;
         }
     }
 }

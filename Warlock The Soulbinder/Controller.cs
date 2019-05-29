@@ -16,8 +16,6 @@ namespace Warlock_The_Soulbinder
         ModelStatistic statistic;
         Model model;
         
-
-
         static Controller instance;
         static public Controller Instance
         {
@@ -34,9 +32,7 @@ namespace Warlock_The_Soulbinder
                 instance = value;
             }
         }
-
         
-
         public Controller()
         {
             model = new Model();
