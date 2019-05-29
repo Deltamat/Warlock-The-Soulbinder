@@ -73,148 +73,172 @@ namespace Warlock_The_Soulbinder
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
-        public FilledStone(string name, string monster, int level)
+        
+
+        public FilledStone(string monster, int level)
         {
-            Name = name;
             Monster = monster;
             Level = level;
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-
+            
             Damage = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 5)) * 0.25f));
             maxHealth = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 6)) * 1.15f));
             attackSpeed = (Level * 0.15f) + GameWorld.Instance.RandomInt(-1, 3);
 
             //switch case to determine the element, and name of abilities, based on the monster type
-            switch (Monster)
+            switch (Monster) 
             {
                 case "sheep":
+                    Name = "Sheep";
                     Element = "neutral";
                     weaponName = "Headbutt";
                     armorName = "Woolen Armor";
                     skillName = "Headbutt";
                     break;
                 case "bear":
+                    Name = "Bear";
                     Element = "neutral";
                     weaponName = "Maul";
                     armorName = "Ursadaen Fortitude";
                     skillName = "Maul";
                     break;
                 case "wolf":
+                    Name = "Wolf";
                     Element = "neutral";
                     weaponName = "Wolf Bite";
                     armorName = "Wolf Revenge";
                     skillName = "Wolf Frenzy";
                     break;
                 case "plantEater":
+                    Name = "Plant Eater";
                     Element = "earth";
                     weaponName = "Symplastic Strike";
                     armorName = "Apoplastic Defence";
                     skillName = "Drain Life";
                     break;
                 case "insectSoldier":
+                    Name = "Insect Soldier";
                     Element = "earth";
                     weaponName = "Toxic Barbs";
                     armorName = "Poisonous Skin";
                     skillName = "Venomous Strike";
                     break;
                 case "slimeSnake":
+                    Name = "Slime Snake";
                     Element = "earth";
                     weaponName = "Corrosive Slime";
                     armorName = "Hardened Gel";
                     skillName = "Protective Goop";
                     break;
                 case "tentacle":
+                    Name = "Tentacle";
                     Element = "water";
                     weaponName = "Constraining Grapple";
                     armorName = "Retaliating Slap";
                     skillName = "Tentacle Grap";
                     break;
                 case "frog":
+                    Name = "Frog";
                     Element = "water";
                     weaponName = "Slipping Splash";
                     armorName = "Slimy Skin";
                     skillName = "Mucus Shot";
                     break;
                 case "fish":
+                    Name = "Fish";
                     Element = "water";
                     weaponName = "Regenerative Strike";
                     armorName = "Sudden Mending";
                     skillName = "Healing Rain";
                     break;
                 case "mummy":
+                    Name = "Mummy";
                     Element = "dark";
                     weaponName = "Cursing Strike";
                     armorName = "Curse Immunity";
                     skillName = "Curse of the Mummy";
                     break;
                 case "vampire":
+                    Name = "Vampire";
                     Element = "dark";
                     weaponName = "Vampiric Touch";
                     armorName = "Bloodied Shield";
                     skillName = "Blood Shield";
                     break;
                 case "banshee":
+                    Name = "Banshee";
                     Element = "dark";
                     weaponName = "Paralyzing Touch";
                     armorName = "Paralyze Immunity";
                     skillName = "Banshee's Song";
                     break;
                 case "bucketMan":
+                    Name = "Bucket Man";
                     Element = "metal";
                     weaponName = "Critical Bucket";
                     armorName = "Bucket Shield";
                     skillName = "ULTIMATE BUCKET DESTRUCTION!";
                     break;
                 case "defender":
+                    Name = "Defender";
                     Element = "metal";
                     weaponName = "Sunder Armor";
                     armorName = "Thick Plates";
                     skillName = "Defensive Stance";
                     break;
                 case "sentry":
+                    Name = "Sentry";
                     Element = "metal";
                     weaponName = "Accurate Strikes";
                     armorName = "Predicting Algorithm";
                     skillName = "Scan";
                     break;
                 case "fireGolem":
+                    Name = "Fire Golem";
                     Element = "fire";
                     weaponName = "Heavy Strikes";
                     armorName = "Obsidian Skin";
                     skillName = "Momentous Slam";
                     break;
                 case "infernalDemon":
+                    Name = "Infernal Demon";
                     Element = "fire";
                     weaponName = "Red-hot Smite";
                     armorName = "Immolating Presence";
                     skillName = "Incenerate";
                     break;
                 case "ashZombie":
+                    Name = "Ash Zombie";
                     Element = "fire";
                     weaponName = "Fiery Double-tap";
                     armorName = "Blazing Assault";
                     skillName = "Flaring Assailment";
                     break;
                 case "falcon":
+                    Name = "Falcon";
                     Element = "air";
                     weaponName = "Speedy Swoop";
                     armorName = "Evasive Wing-work";
                     skillName = "Quickened Agility";
                     break;
                 case "bat":
+                    Name = "Bat";
                     Element = "air";
                     weaponName = "Confusing Menoeuvre";
                     armorName = "Perplexing Retaliation";
                     skillName = "Sonic Scream";
                     break;
                 case "raven":
+                    Name = "Raven";
                     Element = "air";
                     weaponName = "Blinding Assault";
                     armorName = "Retaliative Amaurotic";
                     skillName = "Blind";
                     break;
             }
+
+
 
             //switch case to determine stats
             switch (Element)
@@ -281,19 +305,26 @@ namespace Warlock_The_Soulbinder
             Skill();
         }
 
-        public FilledStone(string monster, int level)
+        /// <summary>
+        /// Constructor for loading in from a saved game
+        /// </summary>
+        /// <param name="monster"></param>
+        /// <param name="experience"></param>
+        /// <param name="level"></param>
+        public FilledStone(string monster, int experience, int level)
         {
+            Experience = experience;
             Monster = monster;
             Level = level;
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-            
+
             Damage = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 5)) * 0.25f));
             maxHealth = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 6)) * 1.15f));
             attackSpeed = (Level * 0.15f) + GameWorld.Instance.RandomInt(-1, 3);
 
             //switch case to determine the element, and name of abilities, based on the monster type
-            switch (Monster) 
+            switch (Monster)
             {
                 case "sheep":
                     Name = "Sheep";

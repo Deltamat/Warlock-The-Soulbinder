@@ -28,7 +28,7 @@ namespace Warlock_The_Soulbinder
         private string gameState = "Overworld";
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
-
+        private bool loading = false;
         Song overworldMusic;
         Song combatMusic;
         private bool currentKeyH = true;
@@ -163,7 +163,7 @@ namespace Warlock_The_Soulbinder
         protected override void Initialize()
         {
             IsMouseVisible = true;
-
+            
             Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
 
@@ -194,7 +194,7 @@ namespace Warlock_The_Soulbinder
             camera = new Camera();
 
             IsMouseVisible = true;
-            
+
             enemies.Add(new Enemy(0, new Vector2(1100, 150)));
             enemies.Add(new Enemy(4, new Vector2(1100, 300)));
             enemies.Add(new Enemy(7, new Vector2(1100, 450)));
@@ -223,6 +223,23 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
+
+            #region load
+            if (loading == true)
+            {
+                Controller.Instance.OpenTheGates();
+
+                FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
+                enemies = Controller.Instance.LoadFromEnemyDB();
+                Controller.Instance.LoadFromPlayerDB();
+                Controller.Instance.LoadFromStatisticDB();
+                //dictionary? = Controller.Instance.LoadFromConsumableDB();
+                //list? = Controller.Instance.LoadFromQuestDB();
+
+                Controller.Instance.CloseTheGates();
+            }
+            #endregion
+
             //Code to make pages for the filled stones
             FilledStone.StoneListPages = 0;
             int tempStoneList = FilledStone.StoneList.Count;
@@ -255,12 +272,7 @@ namespace Warlock_The_Soulbinder
             #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 #endif
-
             
-
-            #region load
-
-            #endregion
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -372,7 +384,7 @@ namespace Warlock_The_Soulbinder
                 }
                 for (int i = 0; i < FilledStone.StoneList.Count; i++)
                 {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Level);
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience , FilledStone.StoneList[i].Level);
                 }
                 //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
                 //{
