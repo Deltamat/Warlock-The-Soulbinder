@@ -13,11 +13,10 @@ namespace Warlock_The_Soulbinder
     {
         int currentDialogue = 1;
         private Texture2D dialogueBar;
-        public NPC talkingNPC;
 
-
+        public NPC talkingNPC { get; set; }
         public Dictionary<int, string> dialogueLines { get; set; } = new Dictionary<int, string>();
-        public double dialogueTimer { get; set; }
+        public double dialogueTimer { get; private set; }
         public bool InDialogue { get; set; } = false;
         public double exitDialogueTimer { get; set; }
 
@@ -72,7 +71,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 dialogueBarPos = new Vector2(GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.viewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
+            Vector2 dialogueBarPos = new Vector2(-GameWorld.Instance.camera.viewMatrix.Translation.X + GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.viewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
             spriteBatch.Draw(dialogueBar, dialogueBarPos, Color.White);
             spriteBatch.DrawString(GameWorld.Instance.copperFont, dialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 20, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 15), Color.Black);
 

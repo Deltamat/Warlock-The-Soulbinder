@@ -162,6 +162,8 @@ namespace Warlock_The_Soulbinder
             
             Quest.Instance.OngoingQuests.Add(1, "Kill");
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
+            SmallFont = Content.Load<SpriteFont>("smallFont");
+            fullScreen = Content.Load<Texture2D>("fullScreen");
 
             // zoner laves med navn og antal af fjender. Der kan ikke være flere fjender end spawnPoints
             town = new Zone("Town", 0);
@@ -173,8 +175,6 @@ namespace Warlock_The_Soulbinder
             water = new Zone("Water", 3);
             undead = new Zone("Undead", 3);
             metal = new Zone("Metal", 3);
-            SmallFont = Content.Load<SpriteFont>("smallFont");
-            fullScreen = Content.Load<Texture2D>("fullScreen");
             dragonRealm = new Zone("DragonRealm", 8);
             zones.Add(town);
             zones.Add(beast);
@@ -228,7 +228,7 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
 
-            #region load
+#region load
             if (loading == true)
             {
                 Controller.Instance.OpenTheGates();
@@ -242,7 +242,7 @@ namespace Warlock_The_Soulbinder
 
                 Controller.Instance.CloseTheGates();
             }
-            #endregion
+#endregion
 
             // Music
             MusicVolume = 0.5f;
@@ -261,7 +261,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
-            #if DEBUG
+#if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 #endif
             
@@ -303,7 +303,7 @@ namespace Warlock_The_Soulbinder
             Combat.Instance.Update(gameTime);
 
             //TEMPORARY
-            #region
+#region
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
                 FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
@@ -336,10 +336,10 @@ namespace Warlock_The_Soulbinder
                 delay = 0;
             }
 
-            #endregion
+#endregion
 
             //temporary save
-            #region save
+#region save
             previousKeyH = currentKeyH;
             currentKeyH = Keyboard.GetState().IsKeyUp(Keys.H);
 
@@ -419,7 +419,7 @@ namespace Warlock_The_Soulbinder
                 Controller.Instance.CloseTheGates();
             }
 
-            #endregion
+#endregion
 
             CurrentZone().Update(gameTime);
 
@@ -474,7 +474,7 @@ namespace Warlock_The_Soulbinder
                 //collisionboxes
 #if DEBUG
                 DrawCollisionBox(Player.Instance);
-                #endif
+#endif
                 if (GameState == "Dialogue")
                 {
                     Dialogue.Instance.Draw(spriteBatch);

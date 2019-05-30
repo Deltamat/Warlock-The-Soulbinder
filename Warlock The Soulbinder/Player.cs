@@ -65,7 +65,7 @@ namespace Warlock_The_Soulbinder
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             scale = 0.25f;
             movementSpeed = 1000;
-            Position = new Vector2(300);
+            Position = new Vector2(1200);
 
             BaseStats();
             CurrentHealth = MaxHealth;

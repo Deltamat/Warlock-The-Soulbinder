@@ -28,7 +28,14 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return new Rectangle((int)(Position.X + Sprite.Width * 0.32 * scale), (int)(Position.Y + Sprite.Height * 0.2 * scale), (int)(Sprite.Width * 0.4 * scale), (int)(Sprite.Height * 0.65 * scale));
+                if (!IsShrine)
+                {
+                    return new Rectangle((int)(Position.X + Sprite.Width * 0.32 * scale), (int)(Position.Y + Sprite.Height * 0.2 * scale), (int)(Sprite.Width * 0.4 * scale), (int)(Sprite.Height * 0.65 * scale));
+                }
+                else
+                {
+                    return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
+                }
             }
         }
 
@@ -50,7 +57,14 @@ namespace Warlock_The_Soulbinder
             HasHeal = hasHeal;
             Position = position;
             Sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-            scale = 0.135f;
+            if (IsShrine)
+            {
+                scale = 0.3f;
+            }
+            else
+            {
+                scale = 0.135f;
+            }
             interact = GameWorld.ContentManager.Load<Texture2D>("interact");
             interactScale = 0.3f;
 
@@ -72,14 +86,20 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
-
+            if (IsShrine)
+            {
+                spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+            }
+            else
+            {
+                spriteBatch.Draw(Sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
+            }
+            
             if (DrawInteract == true && Talking == false)
             {
                 spriteBatch.Draw(interact, new Vector2(Player.Instance.Position.X + 20, Player.Instance.Position.Y - 50), null, Color.White, 0f, Vector2.Zero, interactScale, new SpriteEffects(), 1f);
                 spriteBatch.DrawString(GameWorld.Instance.copperFont, "E", new Vector2(Player.Instance.Position.X + 32, Player.Instance.Position.Y - 47), Color.Black);
             }
-
         }
 
         /// <summary>
@@ -118,7 +138,7 @@ namespace Warlock_The_Soulbinder
             }
             else if (IsShrine) // if a dragon shrine
             {
-                dialogueLines.Add(1, "Are thy worthy to face the Dragon?");
+                dialogueLines.Add(1, $"Are thy worthy to face the {DragonElement} Dragon?");
             }
         }
 

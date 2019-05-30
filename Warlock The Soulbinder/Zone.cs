@@ -25,6 +25,7 @@ namespace Warlock_The_Soulbinder
         /// Creates a Zone with a name that contains the Tiled map and Tiled objects
         /// </summary>
         /// <param name="zoneName">The name of the Zone</param>
+        /// <param name="enemiesInZone">How many enemies to spawn in the zone. If exceeds spawnpoints get rounded down</param>
         public Zone(string zoneName, int enemiesInZone)
         {
             Name = zoneName;
@@ -59,26 +60,52 @@ namespace Warlock_The_Soulbinder
                     }
                 }
             }
-            if (this.enemiesInZone > spawnPoints.Count)
+            if (this.enemiesInZone > spawnPoints.Count) // if the specifed enemies exceeds the toal amount of spawnpoints, set to spawnPoints.Count
             {
                 this.enemiesInZone = spawnPoints.Count;
             }
 
-            if (Name == "Town") // giv navnet på zonen og opret de rigtige npc'er
+            // based on the name of the zone create the belonging npc's
+            if (Name == "Town")
             {
-                NPCs.Add(new NPC("npc_knight", new Vector2(400), true, false, false, false, 1, ""));
-                NPCs.Add(new NPC("npc_old", new Vector2(1000), false, true, false, false, 1, ""));
-                NPCs.Add(new NPC("npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
+                NPCs.Add(new NPC("npc/npc_knight", new Vector2(400), true, false, false, false, 1, ""));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(1000), false, true, false, false, 1, ""));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
             }
             if (Name == "Dragon")
             {
-                NPC fireDragonShrine = new NPC("npc_knight", new Vector2(500, 100), false, false, false, true, 1, "");
+                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(600, 100), false, false, false, true, 1, "");
                 fireDragonShrine.DragonElement = "Fire";
                 NPCs.Add(fireDragonShrine);
 
-                NPC waterDragonShrine = new NPC("npc_knight", new Vector2(600, 100), false, false, false, true, 1, "");
+                NPC waterDragonShrine = new NPC("npc/waterDragonShrine", new Vector2(800, 100), false, false, false, true, 1, "");
                 waterDragonShrine.DragonElement = "Water";
                 NPCs.Add(waterDragonShrine);
+
+                NPC metalDragonShrine = new NPC("npc/metalDragonShrine", new Vector2(1000, 100), false, false, false, true, 1, "");
+                metalDragonShrine.DragonElement = "Metal";
+                NPCs.Add(metalDragonShrine);
+
+                NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(1200, 100), false, false, false, true, 1, "");
+                earthDragonShrine.DragonElement = "Grass";
+                NPCs.Add(earthDragonShrine);
+
+                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(1400, 100), false, false, false, true, 1, "");
+                undeadDragonShrine.DragonElement = "Undead";
+                NPCs.Add(undeadDragonShrine);
+
+                NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(1600, 100), false, false, false, true, 1, "");
+                airDragonShrine.DragonElement = "Wind";
+                NPCs.Add(airDragonShrine);
+
+                NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(1800, 2000), false, false, false, true, 1, "");
+                neutralDragonShrine.DragonElement = "Beast";
+                NPCs.Add(neutralDragonShrine);
+
+                foreach (var npc in NPCs)
+                {
+                    npc.UpdateDialogue();
+                }
             }
 
             foreach (var npc in NPCs)
@@ -236,6 +263,40 @@ namespace Warlock_The_Soulbinder
             }
             spawnPoints.AddRange(usedSpawnPoints);
             usedSpawnPoints = new List<Rectangle>();
+
+            if (Name == "DragonRealm")
+            {
+                int dragon = -1;
+                if (enemyType == "Beast")
+                {
+                    dragon = 21;
+                }
+                if (enemyType == "Grass")
+                {
+                    dragon = 22;
+                }
+                if (enemyType == "Water")
+                {
+                    dragon = 23;
+                }
+                if (enemyType == "Undead")
+                {
+                    dragon = 24;
+                }
+                if (enemyType == "Metal")
+                {
+                    dragon = 25;
+                }
+                if (enemyType == "Fire")
+                {
+                    dragon = 26;
+                }
+                if (enemyType == "Wind")
+                {
+                    dragon = 27;
+                }
+                Enemies.Add(new Enemy(dragon, new Vector2(100, 100)));
+            }
         }
     }
 }
