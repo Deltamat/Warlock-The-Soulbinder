@@ -68,9 +68,11 @@ namespace Warlock_The_Soulbinder
             // based on the name of the zone create the belonging npc's
             if (Name == "Town")
             {
-                NPCs.Add(new NPC("npc/npc_knight", new Vector2(400), true, false, false, false, 1, ""));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(1000), false, true, false, false, 1, ""));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
+                //NPCs.Add(new NPC("npc/npc_knight", new Vector2(400), true, false, false, false, 1, ""));
+                //NPCs.Add(new NPC("npc/npc_old", new Vector2(1000), false, true, false, false, 1, ""));
+                //NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(2800, 3000), false, false, false, false, 1, "What a nice little lake."));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 1, "")); // healer
             }
             if (Name == "Dragon")
             {
@@ -267,35 +269,40 @@ namespace Warlock_The_Soulbinder
             if (Name == "DragonRealm")
             {
                 int dragon = -1;
-                if (enemyType == "Beast")
+                if (enemyType == "Beast" && Combat.Instance.neutralDragonDead == false)
                 {
                     dragon = 21;
                 }
-                if (enemyType == "Grass")
+                if (enemyType == "Grass" && Combat.Instance.earthDragonDead == false)
                 {
                     dragon = 22;
                 }
-                if (enemyType == "Water")
+                if (enemyType == "Water" && Combat.Instance.waterDragonDead == false)
                 {
                     dragon = 23;
                 }
-                if (enemyType == "Undead")
+                if (enemyType == "Undead" && Combat.Instance.darkDragonDead == false)
                 {
                     dragon = 24;
                 }
-                if (enemyType == "Metal")
+                if (enemyType == "Metal" && Combat.Instance.metalDragonDead == false)
                 {
                     dragon = 25;
                 }
-                if (enemyType == "Fire")
+                if (enemyType == "Fire" && Combat.Instance.fireDragonDead == false)
                 {
                     dragon = 26;
                 }
-                if (enemyType == "Wind")
+                if (enemyType == "Wind" && Combat.Instance.airDragonDead == false)
                 {
                     dragon = 27;
                 }
-                Enemies.Add(new Enemy(dragon, new Vector2(100, 100)));
+
+                if (dragon != -1)
+                {
+                    Enemies.Add(new Enemy(dragon, new Vector2(100, 100)));
+                }
+                
             }
         }
     }
