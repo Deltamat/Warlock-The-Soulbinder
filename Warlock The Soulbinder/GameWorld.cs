@@ -364,7 +364,7 @@ namespace Warlock_The_Soulbinder
                 }
                 for (int i = 0; i < FilledStone.StoneList.Count; i++)
                 {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience , FilledStone.StoneList[i].Level);
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level);
                 }
                 //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
                 //{
