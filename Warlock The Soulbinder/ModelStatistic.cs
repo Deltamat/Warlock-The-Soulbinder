@@ -12,7 +12,14 @@ namespace Warlock_The_Soulbinder
         public ModelStatistic()
         {
             string sqlexp = "CREATE TABLE IF NOT EXISTS Statistic (gold integer primary key, " +
-                "soulCount integer )";
+                "soulCount integer, " +
+                "earthDragonDead boolean, " +
+                "fireDragonDead boolean, " +
+                "darkDragonDead boolean, " +
+                "metalDragonDead boolean, " +
+                "waterDragonDead boolean, " +
+                "airDragonDead boolean, " +
+                "neutralDragonDead boolean )";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
             cmd.ExecuteNonQuery();
@@ -27,9 +34,9 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveStatistic(int gold, int soulCount)
+        public void SaveStatistic(int gold, int soulCount, bool earthDragonDead, bool fireDragonDead, bool darkDragonDead, bool metalDragonDead, bool waterDragonDead, bool airDragonDead, bool neutralDragonDead)
         {
-            cmd.CommandText = $"INSERT INTO Statistic (gold, soulCount) VALUES ({gold}, {soulCount})";
+            cmd.CommandText = $"INSERT INTO Statistic (gold, soulCount, earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead) VALUES ({gold}, {soulCount}, {earthDragonDead}, {fireDragonDead}, {darkDragonDead}, {metalDragonDead}, {waterDragonDead}, {airDragonDead}, {neutralDragonDead})";
             cmd.ExecuteNonQuery();
         }
 
