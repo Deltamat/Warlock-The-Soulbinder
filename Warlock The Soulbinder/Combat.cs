@@ -41,6 +41,14 @@ namespace Warlock_The_Soulbinder
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
 
+        public bool fireDragonDead { get; set; } = false;
+        public bool waterDragonDead { get; set; } = false;
+        public bool earthDragonDead { get; set; } = false;
+        public bool metalDragonDead { get; set; } = false;
+        public bool neutralDragonDead { get; set; } = false;
+        public bool airDragonDead { get; set; } = false;
+        public bool darkDragonDead { get; set; } = false;
+
         public SpriteFont CombatFont { get => combatFont; private set => combatFont = value; }
 
         public static Combat Instance
@@ -110,6 +118,34 @@ namespace Warlock_The_Soulbinder
                 {
                     target.Alive = false;
                     Equipment.Instance.ExperienceEquipment(target.Level * 20);
+
+                    if (target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
+                    {
+                        switch (target.Monster)
+                        {
+                            case "fireDragon":
+                                fireDragonDead = true;
+                                break;
+                            case "waterDragon":
+                                waterDragonDead = true;
+                                break;
+                            case "metalDragon":
+                                metalDragonDead = true;
+                                break;
+                            case "earthDragon":
+                                earthDragonDead = true;
+                                break;
+                            case "airDragon":
+                                airDragonDead = true;
+                                break;
+                            case "neutralDragon":
+                                neutralDragonDead = true;
+                                break;
+                            case "darkDragon":
+                                darkDragonDead = true;
+                                break;
+                        }
+                    }
 
                     GameWorld.Instance.CurrentZone().Enemies.Remove(target);
                     ExitCombat();

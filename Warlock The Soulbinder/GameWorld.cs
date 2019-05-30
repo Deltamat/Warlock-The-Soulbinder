@@ -451,10 +451,11 @@ namespace Warlock_The_Soulbinder
                 {
                     if (layer.Name != "Top" || layer.Name != "OverTop")
                     {
-                        CurrentZone().MapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
+                        CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
                     }
                 }
 
+                spriteBatch.DrawString(font, $"{Player.Instance.Position}", Player.Instance.Position, Color.Red); // for npc placement
 
                 Player.Instance.Draw(spriteBatch);
 
@@ -500,7 +501,7 @@ namespace Warlock_The_Soulbinder
                 {
                     if (layer.Name == "Top" || layer.Name == "OverTop")
                     {
-                        CurrentZone().MapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
+                        CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
                     }
                 }
                 spriteBatch.End();
