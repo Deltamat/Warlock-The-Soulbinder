@@ -101,9 +101,9 @@ namespace Warlock_The_Soulbinder
             statistic.ClearDB();
         }
 
-        public void SaveToStatisticDB(int gold, int soulCount)
+        public void SaveToStatisticDB(int gold, int soulCount, bool earthDragonDead, bool fireDragonDead, bool darkDragonDead, bool metalDragonDead, bool waterDragonDead, bool airDragonDead, bool neutralDragonDead)
         {
-            statistic.SaveStatistic(gold, soulCount);
+            statistic.SaveStatistic(gold, soulCount, earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead);
         }
 
         public void LoadFromStatisticDB()
