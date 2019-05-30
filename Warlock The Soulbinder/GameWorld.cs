@@ -221,12 +221,16 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
             #endregion
 
-#region load
-           //flyttet til metoden LoadDB()
-#endregion
+            #region load
+            //flyttet til metoden LoadDB()
+            #endregion
 
+            //LogLoad
+            Log.Instance.GenerateLogList();
+            Log.Instance.FullScans();
+            Log.Instance.CalculateBonus();
             // Music
-            MusicVolume = 0.5f;
+            MusicVolume = 0f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
             combatMusic = Content.Load<Song>("sound/combatMusicV2");
