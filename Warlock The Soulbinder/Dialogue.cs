@@ -72,7 +72,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Vector2 dialogueBarPos = new Vector2(GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.viewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
+            Vector2 dialogueBarPos = new Vector2(-GameWorld.Instance.camera.viewMatrix.Translation.X + GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.viewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
             spriteBatch.Draw(dialogueBar, dialogueBarPos, Color.White);
             spriteBatch.DrawString(GameWorld.Instance.copperFont, dialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 20, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 15), Color.Black);
 
