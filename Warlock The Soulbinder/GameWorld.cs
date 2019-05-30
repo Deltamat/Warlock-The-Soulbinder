@@ -32,7 +32,7 @@ namespace Warlock_The_Soulbinder
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
         private Random rng = new Random();
 
-        private bool loading = false;
+        //private bool loading = false; // temporary
         Song overworldMusic;
         Song combatMusic;
         private bool currentKeyH = true;
@@ -222,19 +222,7 @@ namespace Warlock_The_Soulbinder
             #endregion
 
 #region load
-            if (loading == true)
-            {
-                Controller.Instance.OpenTheGates();
-
-                FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
-                enemies = Controller.Instance.LoadFromEnemyDB();
-                Controller.Instance.LoadFromPlayerDB();
-                Controller.Instance.LoadFromStatisticDB();
-                //dictionary? = Controller.Instance.LoadFromConsumableDB();
-                //list? = Controller.Instance.LoadFromQuestDB();
-
-                Controller.Instance.CloseTheGates();
-            }
+           //flyttet til metoden LoadDB()
 #endregion
 
             // Music
@@ -338,78 +326,7 @@ namespace Warlock_The_Soulbinder
 
             if (previousKeyH == false && currentKeyH == true)
             {
-                Controller.Instance.OpenTheGates();
-
-                Controller.Instance.DeleteConsumableDB();
-                Controller.Instance.DeleteEnemyDB();
-                Controller.Instance.DeletePlayerDB();
-                Controller.Instance.DeleteQuestDB();
-                Controller.Instance.DeleteSoulStoneDB();
-                Controller.Instance.DeleteStatisticDB();
-
-                for (int i = 0; i < Consumable.ConsumableList.Count; i++)
-                {
-                    Controller.Instance.SaveToConsumableDB(Consumable.ConsumableList[i].Name, Consumable.ConsumableList[i].Amount);
-                }
-                for (int i = 0; i < enemies.Count; i++)
-                {
-                    Controller.Instance.SaveToEnemyDB(enemies[i].Level, enemies[i].Position.X, enemies[i].Position.Y, enemies[i].Defense, enemies[i].Damage, enemies[i].MaxHealth, enemies[i].AttackSpeed, enemies[i].MetalResistance, enemies[i].EarthResistance, enemies[i].AirResistance, enemies[i].FireResistance, enemies[i].DarkResistance, enemies[i].WaterResistance, enemies[i].Monster);
-                }
-                for (int i = 0; i < FilledStone.StoneList.Count; i++)
-                {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level);
-                }
-                //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
-                //{
-                //    Controller.Instance.SaveToQuestDB(Quest.Instance.Quests[i],); // mangler en bedre måde at gemme quests
-                //}
-                int weapon, armour, skill1, skill2, skill3;
-                try
-                {
-                    weapon = Equipment.Instance.Weapon.Id;
-                }
-                catch (Exception)
-                {
-                    weapon = -1;
-                }
-                try
-                {
-                    armour = Equipment.Instance.Armor.Id;
-                }
-                catch (Exception)
-                {
-                    armour = -1;
-                }
-                try
-                {
-                    skill1 = Equipment.Instance.Skill1.Id;
-                }
-                catch (Exception)
-                {
-                    skill1 = -1;
-                }
-                try
-                {
-                    skill2 = Equipment.Instance.Skill2.Id;
-                }
-                catch (Exception)
-                {
-                    skill2 = -1;
-                }
-                try
-                {
-                    skill3 = Equipment.Instance.Skill3.Id;
-                }
-                catch (Exception)
-                {
-                    skill3 = -1;
-                }
-               
-                Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
-                
-                Controller.Instance.SaveToStatisticDB(Gold, SoulCount);
-
-                Controller.Instance.CloseTheGates();
+                SaveToDB();
             }
 
 #endregion
@@ -575,17 +492,98 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Loads all the variables from the database
         /// </summary>
-        private void LoadDB()
+        public void LoadDB()
         {
+            Controller.Instance.OpenTheGates();
+
+            FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
+            CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
+            Controller.Instance.LoadFromPlayerDB();
+            Controller.Instance.LoadFromStatisticDB();
+            //dictionary? = Controller.Instance.LoadFromConsumableDB();
+            //list? = Controller.Instance.LoadFromQuestDB();
+
+            Controller.Instance.CloseTheGates();
 
         }
 
         /// <summary>
         /// Saves all the variables to the database
         /// </summary>
-        private void SaveToDB()
+        public void SaveToDB()
         {
+            Controller.Instance.OpenTheGates();
 
+            Controller.Instance.DeleteConsumableDB();
+            Controller.Instance.DeleteEnemyDB();
+            Controller.Instance.DeletePlayerDB();
+            Controller.Instance.DeleteQuestDB();
+            Controller.Instance.DeleteSoulStoneDB();
+            Controller.Instance.DeleteStatisticDB();
+
+            //for (int i = 0; i < Consumable.ConsumableList.Count; i++)
+            //{
+            //    Controller.Instance.SaveToConsumableDB(Consumable.ConsumableList[i].Name, Consumable.ConsumableList[i].Amount);
+            //}
+            for (int i = 0; i < CurrentZone().Enemies.Count; i++)
+            {
+                Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
+            }
+            for (int i = 0; i < FilledStone.StoneList.Count; i++)
+            {
+                Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level);
+            }
+            //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
+            //{
+            //    Controller.Instance.SaveToQuestDB(Quest.Instance.Quests[i],); // mangler en bedre måde at gemme quests
+            //}
+            int weapon, armour, skill1, skill2, skill3;
+            try
+            {
+                weapon = Equipment.Instance.Weapon.Id;
+            }
+            catch (Exception)
+            {
+                weapon = -1;
+            }
+            try
+            {
+                armour = Equipment.Instance.Armor.Id;
+            }
+            catch (Exception)
+            {
+                armour = -1;
+            }
+            try
+            {
+                skill1 = Equipment.Instance.Skill1.Id;
+            }
+            catch (Exception)
+            {
+                skill1 = -1;
+            }
+            try
+            {
+                skill2 = Equipment.Instance.Skill2.Id;
+            }
+            catch (Exception)
+            {
+                skill2 = -1;
+            }
+            try
+            {
+                skill3 = Equipment.Instance.Skill3.Id;
+            }
+            catch (Exception)
+            {
+                skill3 = -1;
+            }
+
+            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
+
+            Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.earthDragonDead, Combat.Instance.fireDragonDead, Combat.Instance.darkDragonDead, Combat.Instance.metalDragonDead, Combat.Instance.waterDragonDead, Combat.Instance.airDragonDead, Combat.Instance.neutralDragonDead);
+
+            Controller.Instance.CloseTheGates();
         }
     }
 }
