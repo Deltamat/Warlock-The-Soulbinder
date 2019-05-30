@@ -239,6 +239,18 @@
 /processorParam:TextureFormat=Color
 /build:interact.png
 
+#begin mainMenuBackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mainMenuBackground.png
+
 #begin monsters/airDragon.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3084,11 +3096,6 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Dragon.tmx
-
-#begin zones/DragonFire.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/DragonFire.tmx
 
 #begin zones/DragonRealm.tmx
 /importer:TiledMapImporter
