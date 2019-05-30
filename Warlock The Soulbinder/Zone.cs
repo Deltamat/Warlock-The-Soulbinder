@@ -73,6 +73,8 @@ namespace Warlock_The_Soulbinder
                 //NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(2800, 3000), false, false, false, false, 1, "What a nice little lake."));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 1, "")); // healer
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 1, "I once shat my pants :O"));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 1, "Empire did nothing wrong!"));
             }
             if (Name == "Dragon")
             {

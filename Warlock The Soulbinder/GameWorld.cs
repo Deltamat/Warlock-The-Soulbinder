@@ -26,7 +26,7 @@ namespace Warlock_The_Soulbinder
         public Camera camera;
         private Texture2D fullScreen;
         private float delay;
-        private string gameState = "Overworld";
+        private string gameState = "MainMenu";
         private SpriteFont smallFont;
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
@@ -284,6 +284,11 @@ namespace Warlock_The_Soulbinder
 
             InputHandler.Instance.Execute(); //gets keys pressed
 
+            if (GameState == "MainMenu")
+            {
+                MainMenu.Instance.Update(gameTime);
+            }
+
             Player.Instance.Update(gameTime);
             Combat.Instance.Update(gameTime);
 
@@ -360,7 +365,14 @@ namespace Warlock_The_Soulbinder
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
+
+            if (GameState == "MainMenu")
+            {
+                spriteBatch.Begin();
+                MainMenu.Instance.Draw(spriteBatch);
+                spriteBatch.End();
+            }
+
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);

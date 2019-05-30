@@ -39,7 +39,7 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, texture.Width, texture.Height);
+                return new Rectangle((int)positionButton.X, (int)positionButton.Y, texture.Width, texture.Height);
             }
         }
 
@@ -52,12 +52,12 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="texture">loads the image as texture for the Button</param>
         /// <param name="font">loads the font</param>
-        public Button(Texture2D texture, SpriteFont font, Vector2 position, string spriteName, ContentManager content)
+        public Button(Texture2D texture, SpriteFont font, Vector2 position, ContentManager content)
         {
             this.texture = texture;
             this.font = font;
             this.positionButton = position;
-            FontColor = Color.Black;
+            FontColor = Color.White;
         }
 
         /// <summary>
