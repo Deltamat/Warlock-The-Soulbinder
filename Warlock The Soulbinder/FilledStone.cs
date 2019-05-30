@@ -103,6 +103,7 @@ namespace Warlock_The_Soulbinder
 
         public FilledStone(string monster, int level)
         {
+            //EquipmentSlot = "none";
             Monster = monster;
             Level = level;
             spriteName = $"monsters/Orbs/{Monster}";
@@ -337,8 +338,10 @@ namespace Warlock_The_Soulbinder
         /// <param name="monster"></param>
         /// <param name="experience"></param>
         /// <param name="level"></param>
-        public FilledStone(string monster, int experience, int level)
+        public FilledStone(string monster, int experience, string equipmentSlot, int level)
         {
+            EquipmentSlot = equipmentSlot;
+            
             Experience = experience;
             Monster = monster;
             Level = level;

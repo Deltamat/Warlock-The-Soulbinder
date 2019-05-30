@@ -159,7 +159,7 @@ namespace Warlock_The_Soulbinder
             }
             #endregion
 
-            //if the player's 5 second grace period is over and the player collides with an enemy, start combat
+            //if the player's 3 second grace period is over and the player collides with an enemy, start combat
             if (gracePeriod > 3) 
             {
                 foreach (Enemy enemy in GameWorld.Instance.CurrentZone().Enemies)

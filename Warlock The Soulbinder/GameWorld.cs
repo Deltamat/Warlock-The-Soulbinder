@@ -195,17 +195,9 @@ namespace Warlock_The_Soulbinder
             camera = new Camera();
 
             IsMouseVisible = true;
-            
-            
-
-            //enemies.Add(new Enemy(0, new Vector2(1100, 150)));
-            //enemies.Add(new Enemy(4, new Vector2(1100, 300)));
-            //enemies.Add(new Enemy(7, new Vector2(1100, 450)));
-            //enemies.Add(new Enemy(12, new Vector2(1100, 600)));
-            //enemies.Add(new Enemy(16, new Vector2(1100, 750)));
-            //enemies.Add(new Enemy(20, new Vector2(1100, 900)));
 
             //adds one of all enemy types as stones to the player's inventory - TEMP
+            #region tempStonesAdd
             FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
@@ -227,6 +219,7 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
+            #endregion
 
 #region load
             if (loading == true)
@@ -263,7 +256,7 @@ namespace Warlock_The_Soulbinder
         {
 #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-#endif
+            #endif
             
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -303,7 +296,7 @@ namespace Warlock_The_Soulbinder
             Combat.Instance.Update(gameTime);
 
             //TEMPORARY
-#region
+            #region TEMP
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
                 FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
@@ -364,7 +357,7 @@ namespace Warlock_The_Soulbinder
                 }
                 for (int i = 0; i < FilledStone.StoneList.Count; i++)
                 {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience , FilledStone.StoneList[i].Level);
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level);
                 }
                 //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
                 //{
