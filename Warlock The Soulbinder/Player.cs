@@ -363,7 +363,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void BaseStats()
         {
-            Damage = 2000;
+            Damage = 10;
             Defense = 1;
             AttackSpeed = 100f;
             MaxHealth = 100;

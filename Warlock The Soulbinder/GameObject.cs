@@ -13,8 +13,11 @@ namespace Warlock_The_Soulbinder
     {
         protected Random rng = new Random();
         protected Texture2D sprite;
-        protected string spriteName;
         protected Vector2 position;
+        protected string spriteName;
+        private string stringText;
+        private Vector2 stringPosition;
+        private Color stringColor;
 
 
         public virtual Rectangle CollisionBox
@@ -27,12 +30,29 @@ namespace Warlock_The_Soulbinder
 
         public Vector2 Position { get => position; set => position = value; }
         public Texture2D Sprite { get => sprite; set => sprite = value; }
+        public string StringText { get => stringText; set => stringText = value; }
+        public Vector2 StringPosition { get => stringPosition; set => stringPosition = value; }
+        public Color StringColor { get => stringColor; set => stringColor = value; }
 
         /// <summary>
         /// For the database
         /// </summary>
         public GameObject()
         {
+
+        }
+
+        /// <summary>
+        /// For scrolling strings
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="Text"></param>
+        /// <param name="color"></param>
+        public GameObject(Vector2 position, string Text, Color color)
+        {
+            stringPosition = position;
+            stringText = Text;
+            stringColor = color;
 
         }
 
