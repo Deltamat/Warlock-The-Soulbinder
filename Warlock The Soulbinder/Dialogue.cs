@@ -13,11 +13,10 @@ namespace Warlock_The_Soulbinder
     {
         int currentDialogue = 1;
         private Texture2D dialogueBar;
-        public NPC talkingNPC;
 
-
+        public NPC talkingNPC { get; set; }
         public Dictionary<int, string> dialogueLines { get; set; } = new Dictionary<int, string>();
-        public double dialogueTimer { get; set; }
+        public double dialogueTimer { get; private set; }
         public bool InDialogue { get; set; } = false;
         public double exitDialogueTimer { get; set; }
 
