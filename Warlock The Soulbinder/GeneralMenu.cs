@@ -688,8 +688,8 @@ namespace Warlock_The_Soulbinder
 
                 if (FilledStone.StoneList.Count != 0)
                 {
-                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1250, 100), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].Element}", new Vector2(1375 - (Combat.Instance.CombatFont.MeasureString(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element).X * 0.5f), 310), Color.White);
+                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1000, 100), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].Element}", new Vector2(1125 - (Combat.Instance.CombatFont.MeasureString(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element).X * 0.5f), 310), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 400), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 600), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 800), Color.White);
@@ -699,6 +699,10 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].WeaponEffect.EffectString}", new Vector2(1190, 410), Color.White);
                     spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].ArmorEffect.EffectString}", new Vector2(1190, 610), Color.White);
                     spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].SkillEffect.EffectString}", new Vector2(1190, 810), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"DMG: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].Damage}", new Vector2(1260, 80), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Max HP: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].MaxHealth}", new Vector2(1260, 160), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Def: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].Defense}", new Vector2(1260, 240), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont,$"Att.Speed: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].AttackSpeed}", new Vector2(1260, 320), Color.White);
 
                 }
 

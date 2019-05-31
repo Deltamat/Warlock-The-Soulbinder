@@ -238,6 +238,7 @@ namespace Warlock_The_Soulbinder
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
             MediaPlayer.Play(overworldMusic);
 
+            Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();
         }
 
