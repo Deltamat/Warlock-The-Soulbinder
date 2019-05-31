@@ -41,6 +41,30 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public override int CurrentHealth
+        {
+            get
+            {
+                return currentHealth;
+            }
+            set
+            {
+                currentHealth = value;
+                if (currentHealth <= 0) // if the player is dead, teleport back to the town
+                {
+                    Position = new Vector2(1800, 2630);
+                    GameWorld.Instance.CurrentZone().KillEnemiesInZone();
+                    GameWorld.Instance.currentZone = "Town";
+                    GameWorld.Instance.GameState = "Overworld";
+                    currentHealth = maxHealth;
+                }
+                else if (currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
+            }
+        }
+
         public double GracePeriod { get => gracePeriod; set => gracePeriod = value; }
         public bool GraceStart { get => graceStart; set => graceStart = value; }
         public bool AttackStart { get => attackStart; set => attackStart = value; }
@@ -363,9 +387,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void BaseStats()
         {
-            Damage = 2000;
+            Damage = 5;
             Defense = 1;
-            AttackSpeed = 100f;
+            AttackSpeed = 5f;
             MaxHealth = 100;
             for (int i = 0; i < DamageTypes.Count; i++)
             {
