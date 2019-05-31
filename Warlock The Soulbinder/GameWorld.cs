@@ -529,7 +529,7 @@ namespace Warlock_The_Soulbinder
         {
             Controller.Instance.OpenTheGates();
 
-            Controller.Instance.DeleteConsumableDB();
+            //Controller.Instance.DeleteConsumableDB();
             Controller.Instance.DeleteEnemyDB();
             Controller.Instance.DeletePlayerDB();
             Controller.Instance.DeleteQuestDB();
