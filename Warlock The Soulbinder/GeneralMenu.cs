@@ -287,7 +287,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(book, new Vector2(50,20), Color.White);
+            spriteBatch.Draw(book, new Vector2(50, 20), Color.White);
 
             if (inventoryState == "GeneralMenu")
             { 
@@ -656,7 +656,7 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, $"{logPage +1}", new Vector2(125, 885), Color.White);
             }
 
-                if (inventoryState == "FilledStones")
+            if (inventoryState == "FilledStones")
             {
                 if (CurrentPage < FilledStone.StoneListPages)
                 {
@@ -688,8 +688,8 @@ namespace Warlock_The_Soulbinder
 
                 if (FilledStone.StoneList.Count != 0)
                 {
-                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1000, 100), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].Element}", new Vector2(1125 - (Combat.Instance.CombatFont.MeasureString(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element).X * 0.5f), 310), Color.White);
+                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1250, 100), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{char.ToUpper(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element[0]) + FilledStone.StoneList[selectedInt + CurrentPage * 9].Element.Substring(1)}", new Vector2(1375 - (Combat.Instance.CombatFont.MeasureString(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element).X * 0.5f), 310), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 400), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 600), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 800), Color.White);
@@ -749,7 +749,7 @@ namespace Warlock_The_Soulbinder
 
         public void ChangeState()
         {
-           if (inventoryState == "GeneralMenu")
+            if (inventoryState == "GeneralMenu")
             {
                 switch (selectedInt)
                 {
@@ -779,7 +779,7 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
            }
-           else if (inventoryState == "Inventory")
+            else if (inventoryState == "Inventory")
            {
                 switch (selectedInt)
                 {
@@ -788,8 +788,7 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
            }
-
-            else if(inventoryState == "FilledStones")
+            else if (inventoryState == "FilledStones")
             {
                 if (equipping == true)
                 {
@@ -861,10 +860,7 @@ namespace Warlock_The_Soulbinder
                         {
                             Equipment.Instance.Skill3 = null;
                         }
-
                         
-
-
                         Equipment.Instance.EquipStone(EquippingTo, FilledStone.StoneList[selectedInt + currentPage * 9]);
                         FilledStone.StoneList[selectedInt + currentPage * 9].Equipped = true;
                         EquippingTo = 0;
@@ -872,14 +868,12 @@ namespace Warlock_The_Soulbinder
                     }
                 }
             }
-
-            else if(inventoryState == "Equipment")
+            else if (inventoryState == "Equipment")
             {
                 Equipping = true;
                 EquippingTo = selectedInt;
                 inventoryState = "FilledStones";
             }
-
             else if (inventoryState == "Options")
             {
                 if (selectedInt == 2)
@@ -887,7 +881,6 @@ namespace Warlock_The_Soulbinder
                     inventoryState = "Keybinds";
                 }
             }
-
             else if (inventoryState == "Keybinds")
             {
                 if (delay > 200)
