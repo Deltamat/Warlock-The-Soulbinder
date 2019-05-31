@@ -328,7 +328,7 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 3;
                             break;
                         case 1: //wolf
-                            EffectString = "Activate you killer instincts,\nincreasing your damage";
+                            EffectString = "Activate your killer instincts,\nincreasing your damage";
                             TargetsSelf = true;
                             DamageMod = 1.5f;
                             EffectLength = 3;
@@ -359,7 +359,7 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 5;
                             break;
                         case 5: //slime eater
-                            EffectString = "Cover you self in a thick \nlayer of slime, reducing \ndamage you take";
+                            EffectString = "Cover yourself in a thick \nlayer of slime, reducing \ndamage you take";
                             TargetsSelf = true;
                             DamageAbs = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(2, 3)) * 0.4f));
                             EffectLength = 4;
