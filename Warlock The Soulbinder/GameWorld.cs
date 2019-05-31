@@ -166,7 +166,7 @@ namespace Warlock_The_Soulbinder
             SmallFont = Content.Load<SpriteFont>("smallFont");
             fullScreen = Content.Load<Texture2D>("fullScreen");
 
-            // zoner laves med navn og antal af fjender. Der kan ikke være flere fjender end spawnPoints
+            // zoner laves med navn og antal af fjender.
             town = new Zone("Town", 0);
             beast = new Zone("Beast", 5);
             grass = new Zone("Grass", 3);
@@ -199,27 +199,27 @@ namespace Warlock_The_Soulbinder
 
             //adds one of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
             #endregion
 
             #region load
@@ -248,7 +248,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
-#if DEBUG
+            #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             #endif
             

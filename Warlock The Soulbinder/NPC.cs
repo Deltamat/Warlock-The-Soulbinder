@@ -138,7 +138,7 @@ namespace Warlock_The_Soulbinder
             }
             else if (IsShrine) // if a dragon shrine
             {
-                dialogueLines.Add(1, $"Are thy worthy to face the {DragonElement} Dragon?");
+                dialogueLines.Add(1, $"Prepare to face the {DragonElement} Dragon!");
             }
         }
 

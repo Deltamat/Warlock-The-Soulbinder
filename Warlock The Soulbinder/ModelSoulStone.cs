@@ -47,7 +47,34 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                soulStones.Add(new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4)));
+                FilledStone stone = new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4));
+                
+                if (reader.GetString(3) == "Weapon")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(0, stone);
+                }
+                if (reader.GetString(3) == "Armor")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(1, stone);
+                }
+                if (reader.GetString(3) == "Skill1")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(2, stone);
+                }
+                if (reader.GetString(3) == "Skill2")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(3, stone);
+                }
+                if (reader.GetString(3) == "Skill3")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(4, stone);
+                }
+                soulStones.Add(stone);
             }
             reader.Close();
            
