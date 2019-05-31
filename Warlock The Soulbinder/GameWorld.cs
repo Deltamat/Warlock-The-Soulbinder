@@ -222,7 +222,7 @@ namespace Warlock_The_Soulbinder
             //FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
             #endregion
 
-         
+
             //LogLoad
             Log.Instance.GenerateLogList();
             Log.Instance.FullScans();
@@ -517,6 +517,9 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.LoadFromStatisticDB();
             //dictionary? = Controller.Instance.LoadFromConsumableDB();
             //list? = Controller.Instance.LoadFromQuestDB();
+
+            Equipment.Instance.LoadEquipment();
+            Equipment.Instance.UpdateExperienceRequired();
 
             Controller.Instance.CloseTheGates();
 

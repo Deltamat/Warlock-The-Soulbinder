@@ -344,7 +344,7 @@ namespace Warlock_The_Soulbinder
         {
             BaseStats();
             //foreach equipped stone, adds the stone's stats to the player's
-            foreach (FilledStone stone in Equipment.Instance.EquippedEquipment.Values)
+            foreach (FilledStone stone in Equipment.Instance.EquippedEquipment)
             {
                 if (stone != null)
                 {

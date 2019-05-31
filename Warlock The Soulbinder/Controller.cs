@@ -88,10 +88,10 @@ namespace Warlock_The_Soulbinder
             consumable.SaveConsumable(name, amount);
         }
 
-        public Dictionary<int, Consumable> LoadFromConsumableDB()
-        {
-            return consumable.LoadConsumable();
-        }
+        //public Dictionary<int, Consumable> LoadFromConsumableDB()
+        //{
+        //    return consumable.LoadConsumable();
+        //}
         #endregion
 
 

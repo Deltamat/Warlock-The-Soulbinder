@@ -46,17 +46,17 @@ namespace Warlock_The_Soulbinder
         /// Loads into a dictionary all the consumables, which then all need to be given their individual position
         /// </summary>
         /// <returns>a dictionary of all the consumables saved in the database</returns>
-        public Dictionary<int, Consumable> LoadConsumable()
-        {
-            Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
-            cmd.CommandText = "SELECT * FROM Consumable";
-            SQLiteDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                consumableDic.Add(reader.GetInt32(0), new Consumable(reader.GetString(1), reader.GetInt32(2)));
-            }
-            reader.Close();
-            return consumableDic;
-        }
+        //public Dictionary<int, Consumable> LoadConsumable()
+        //{
+        //    Dictionary<int, Consumable> consumableDic = new Dictionary<int, Consumable>();
+        //    cmd.CommandText = "SELECT * FROM Consumable";
+        //    SQLiteDataReader reader = cmd.ExecuteReader();
+        //    while (reader.Read())
+        //    {
+        //        consumableDic.Add(reader.GetInt32(0), new Consumable(reader.GetString(1), reader.GetInt32(2)));
+        //    }
+        //    reader.Close();
+        //    return consumableDic;
+        //}
     }
 }
