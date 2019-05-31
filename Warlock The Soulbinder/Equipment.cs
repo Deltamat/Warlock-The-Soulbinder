@@ -33,7 +33,7 @@ namespace Warlock_The_Soulbinder
         public FilledStone Skill1 { get => skill1; set => skill1 = value; }
         public FilledStone Skill2 { get => skill2; set => skill2 = value; }
         public FilledStone Skill3 { get => skill3; set => skill3 = value; }
-        internal List<FilledStone> EquippedEquipment { get => equippedEquipment; set => equippedEquipment = value; }
+        public List<FilledStone> EquippedEquipment { get => equippedEquipment; set => equippedEquipment = value; }
 
         private Equipment()
         {
