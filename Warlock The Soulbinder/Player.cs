@@ -364,8 +364,8 @@ namespace Warlock_The_Soulbinder
         public void BaseStats()
         {
             Damage = 10;
-            Defense = 1;
-            AttackSpeed = 100f;
+            Defense = 2;
+            AttackSpeed = 15f;
             MaxHealth = 100;
             for (int i = 0; i < DamageTypes.Count; i++)
             {

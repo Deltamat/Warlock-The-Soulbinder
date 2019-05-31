@@ -127,6 +127,7 @@ namespace Warlock_The_Soulbinder
                 //enemies.Add(new Enemy(reader.GetInt32(1), new Vector2(a2, a3), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), a7, a8, a9, a10, a11, a12, a13, reader.GetString(14)));
                 enemies.Add(new Enemy(reader.GetInt32(1), new Vector2((float)Convert.ToDouble(reader.GetString(2)) - 0.1f, (float)Convert.ToDouble(reader.GetString(3))-0.1f), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), (float)Convert.ToDouble(reader.GetString(7)) - 0.1f, (float)Convert.ToDouble(reader.GetString(8)), (float)Convert.ToDouble(reader.GetString(9)), (float)Convert.ToDouble(reader.GetString(10)), (float)Convert.ToDouble(reader.GetString(11)), (float)Convert.ToDouble(reader.GetString(12)), (float)Convert.ToDouble(reader.GetString(13)), reader.GetString(14)));
             }
+            reader.Close();
             return enemies;
         }
     }

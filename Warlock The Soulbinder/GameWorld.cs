@@ -514,8 +514,8 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.OpenTheGates();
 
             FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
-            CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromPlayerDB();
+            CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
             //dictionary? = Controller.Instance.LoadFromConsumableDB();
             //list? = Controller.Instance.LoadFromQuestDB();
