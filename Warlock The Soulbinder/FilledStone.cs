@@ -15,7 +15,7 @@ namespace Warlock_The_Soulbinder
         private string element;
         private int level;
         private int experience = 0;
-        private int experienceRequired = 23;
+        private int experienceRequired = 13;
         private bool equipped;
         private string equipmentSlot;
         private static int stoneListPages = 0;

@@ -269,7 +269,6 @@ namespace Warlock_The_Soulbinder
             //Draws health, healthbars and turn bar for enemy
             if (target != null)
             {
-                spriteBatch.DrawString(CombatFont, $"{enemyEffects.Count}", new Vector2(700,50) , Color.White);
                 spriteBatch.DrawString(combatFont, $"Level {target.Level}", new Vector2(1350, 150), Color.White);
                 spriteBatch.Draw(HealthEmpty, new Vector2(1200, 800), Color.White);
                 spriteBatch.Draw(HealthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
@@ -342,7 +341,7 @@ namespace Warlock_The_Soulbinder
                         int tempChance = Combat.Instance.PercentStat(target.CurrentHealth, target.MaxHealth);
                         int tempInt = GameWorld.Instance.RandomInt(0, 100);
 
-                        if ((tempChance) < tempInt)
+                        if ((tempChance)*3 < tempInt)
                         {
                             FilledStone.CatchMonster(target);
                             target.CurrentHealth = 0;
