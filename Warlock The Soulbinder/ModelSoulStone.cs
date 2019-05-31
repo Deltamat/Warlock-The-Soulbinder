@@ -16,7 +16,10 @@ namespace Warlock_The_Soulbinder
                 "monster string, " +
                 "experience integer, " +
                 "equipmentSlot string, " +
-                "level integer )";
+                "level integer, " +
+                "damage integer, " +
+                "maxHealth string, " +
+                "attackSpeed integer )";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
             cmd.ExecuteNonQuery();
@@ -31,9 +34,9 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveSoulStone(string monster, int experience, string equipmentSlot, int level)
+        public void SaveSoulStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, int attackSpeed)
         {
-            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, experience, equipmentSlot, level) VALUES (null, '{monster}', {experience}, '{equipmentSlot}', {level})";
+            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, experience, equipmentSlot, level, damage, maxhealth, attackSpeed) VALUES (null, '{monster}', {experience}, '{equipmentSlot}', {level}, {damage}, {maxHealth}, {attackSpeed})";
             cmd.ExecuteNonQuery();
         }
 
@@ -47,7 +50,7 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                soulStones.Add(new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4)));
+                soulStones.Add(new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7)));
             }
             reader.Close();
            

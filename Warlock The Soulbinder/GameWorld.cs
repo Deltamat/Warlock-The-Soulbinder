@@ -222,10 +222,7 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
             #endregion
 
-            #region load
-            //flyttet til metoden LoadDB()
-            #endregion
-
+         
             //LogLoad
             Log.Instance.GenerateLogList();
             Log.Instance.FullScans();
@@ -548,7 +545,7 @@ namespace Warlock_The_Soulbinder
             }
             for (int i = 0; i < FilledStone.StoneList.Count; i++)
             {
-                Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level);
+                Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
             //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
             //{

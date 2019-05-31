@@ -48,6 +48,13 @@ namespace Warlock_The_Soulbinder
             {
                 GameWorld.Instance.Gold = reader.GetInt32(0);
                 GameWorld.Instance.SoulCount = reader.GetInt32(1);
+                Combat.Instance.earthDragonDead = reader.GetBoolean(2);
+                Combat.Instance.fireDragonDead = reader.GetBoolean(3);
+                Combat.Instance.darkDragonDead = reader.GetBoolean(4);
+                Combat.Instance.metalDragonDead = reader.GetBoolean(5);
+                Combat.Instance.waterDragonDead = reader.GetBoolean(6);
+                Combat.Instance.airDragonDead = reader.GetBoolean(7);
+                Combat.Instance.neutralDragonDead = reader.GetBoolean(8);
             }
             reader.Close();
             

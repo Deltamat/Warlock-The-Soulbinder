@@ -138,7 +138,7 @@ namespace Warlock_The_Soulbinder
                             if (characterCombat != null)
                             {
                                 characterCombat.Damage = (int)(characterCombat.Damage * 1.5f);
-                                characterCombat.AttackSpeed *= 0.8f;
+                                characterCombat.AttackSpeed *= (int)0.8f;
                             }
                             break;
                         case 16: //infernal golem
@@ -297,7 +297,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.AttackSpeed *= 1.25f;
+                                characterCombat.AttackSpeed *= (int)1.25f;
                             }
                             break;
                         case 18: //falcon
