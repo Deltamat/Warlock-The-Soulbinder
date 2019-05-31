@@ -52,7 +52,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.Damage += (int)(characterCombat.Damage * 0.2f);
+                                Combat.Instance.WolfBuff = 0.2f;
                             }
                             break;
                         case 2: //bear

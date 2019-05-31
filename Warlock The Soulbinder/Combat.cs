@@ -25,6 +25,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D healthFull;
         private Texture2D turnFull;
         private SpriteFont combatFont;
+        private float wolfBuff = 0;
         private float combatDelay = 0;
         private float playerAttackTimer;
         private float enemyAttackTimer;
@@ -73,6 +74,7 @@ namespace Warlock_The_Soulbinder
         public Texture2D HealthFull { get => healthFull; set => healthFull = value; }
         public List<GameObject> PlayerText { get => playerText; set => playerText = value; }
         public List<GameObject> EnemyText { get => enemyText; set => enemyText = value; }
+        public float WolfBuff { get => wolfBuff; set => wolfBuff = value; }
 
         private Combat()
         {
@@ -532,6 +534,8 @@ namespace Warlock_The_Soulbinder
                             totalDamageToDeal += damageToDeal[i];
                         }
 
+                        //Adds wolf damage buff
+                        totalDamageToDeal = (int)(totalDamageToDeal + (totalDamageToDeal * WolfBuff));
                         switch (target.EnemyStone.Element)
                         {
                             case "Neutral":
