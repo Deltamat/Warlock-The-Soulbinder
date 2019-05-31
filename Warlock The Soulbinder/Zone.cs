@@ -300,6 +300,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Method that kills the enemy threads in the zone and removes them from the list
+        /// </summary>
         public void KillEnemiesInZone()
         {
             foreach (var enemy in Enemies)

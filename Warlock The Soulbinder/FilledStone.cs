@@ -98,8 +98,6 @@ namespace Warlock_The_Soulbinder
         }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
-        
-
 
         /// <summary>
         /// Constructor for loading in from a saved game
@@ -337,7 +335,10 @@ namespace Warlock_The_Soulbinder
             Monster = enemy.Monster;
             Level = enemy.Level;
             spriteName = $"monsters/Orbs/{Monster}";
-            sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
+            if (Enemy.ReturnMonsterIndex(enemy.Monster) <= 20)
+            {
+                sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
+            }
 
             //base stats
             Damage = (int)(enemy.Damage * 0.15);

@@ -353,30 +353,30 @@ namespace Warlock_The_Soulbinder
                     AttackSpeed += stone.AttackSpeed; //adds attack speed to the player
                     MaxHealth += stone.MaxHealth; //adds max health to the player
 
-                    for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
+                    if (Equipment.Instance.EquippedEquipment[0] != null &&stone == Equipment.Instance.EquippedEquipment[0])
                     {
-                        DamageTypes[i] += stone.DamageTypes[i];
-                    }
-
-                    for (int i = 0; i < stone.ResistanceTypes.Count; i++) //adds resistance types to the player
-                    {
-                        ResistanceTypes[i] += stone.ResistanceTypes[i];
-                    }
-
-                    if (Equipment.Instance.EquippedEquipment[0] != null) //adds any stat buffs from weapons
-                    {
-                        if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
+                        for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
                         {
-                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this, 0);
+                            DamageTypes[i] += stone.DamageTypes[i];
                         }
                     }
 
-                    if (Equipment.Instance.EquippedEquipment[1] != null) //adds any stat buffs from armor
+                    if (Equipment.Instance.EquippedEquipment[1] != null && stone == Equipment.Instance.EquippedEquipment[1])
                     {
-                        if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                        for (int i = 0; i < stone.ResistanceTypes.Count; i++) //adds resistance types to the player
                         {
-                            Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this, 0);
+                            ResistanceTypes[i] += stone.ResistanceTypes[i];
                         }
+                    }
+                    
+                    if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
+                    {
+                        Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this, 0);
+                    }
+                    
+                    if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                    {
+                        Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this, 0);
                     }
                 }
             }

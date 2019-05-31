@@ -17,9 +17,7 @@ namespace Warlock_The_Soulbinder
         public string Name { get => name; set => name = value; }
         public int GoldCost { get => goldCost; set => goldCost = value; }
         public string Type { get => type; set => type = value; }
-
-
-
+        
         /// <summary>
         /// For the database
         /// </summary>
