@@ -324,10 +324,10 @@ namespace Warlock_The_Soulbinder
             {
                 if (stone != null)
                 {
-                    MaxHealth += stone.MaxHealth; //adds max health to the player
                     Damage += stone.Damage; //adds damage to the player
                     Defense += stone.Defense; //adds defense to the player
                     AttackSpeed += stone.AttackSpeed; //adds attack speed to the player
+                    MaxHealth += stone.MaxHealth; //adds max health to the player
 
                     for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
                     {

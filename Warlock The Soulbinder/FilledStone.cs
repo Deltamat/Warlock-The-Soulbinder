@@ -98,9 +98,7 @@ namespace Warlock_The_Soulbinder
         }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
-
         
-
         public FilledStone(string monster, int level)
         {
             //EquipmentSlot = "none";
@@ -264,9 +262,7 @@ namespace Warlock_The_Soulbinder
                     skillName = "Blind";
                     break;
             }
-
-
-
+            
             //switch case to determine stats
             switch (Element)
             {
@@ -768,7 +764,7 @@ namespace Warlock_The_Soulbinder
             {
                 tempLevel = 1;
             }
-            stoneList.Add(new FilledStone(target.Monster, tempLevel));
+            stoneList.Add(new FilledStone(target));
         }
     }
 }

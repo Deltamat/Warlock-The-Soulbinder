@@ -114,7 +114,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 2;
                             break;
                         case 12: //bucket man
-                            EffectString = "Has a chance to deal double damage";
+                            EffectString = "Has a chance to deal double damage\non your next attack";
                             UpperChanceBounds = 14;
                             TargetsSelf = true;
                             DamageMod = 2;
@@ -126,7 +126,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 3;
                             break;
                         case 14: //sentry
-                            EffectString = "Has a chance to increase\nyou hit rating";
+                            EffectString = "Has a chance to increase\nyour hit rating";
                             UpperChanceBounds = 3;
                             TargetsSelf = true;
                             AccuracyMod = 1.25f;
@@ -148,7 +148,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 2;
                             break;
                         case 17: //ash zombie
-                            EffectString = "Has a chance to quickly deal\ntwo smaller blows to your enemy";
+                            EffectString = "Has a chance to quickly deal\ntwo smaller blows to your enemy\non your next turn";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
                             DoubleAttack = true;
