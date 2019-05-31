@@ -45,7 +45,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Equip a stone to a slot, 0: weapon, 1: armor, 2: skill1, 3: skill2, 4: skill5
+        /// Equip a stone to a slot, 0: weapon, 1: armor, 2: skill1, 3: skill2, 4: skill3
         /// </summary>
         /// <param name="slot"></param>
         /// <param name="selectedStone"></param>

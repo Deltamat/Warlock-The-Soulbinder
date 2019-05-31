@@ -557,7 +557,6 @@ namespace Warlock_The_Soulbinder
                                 totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.FireBonus));
                                 break;
                         }
-                        
 
                         if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
                         {
