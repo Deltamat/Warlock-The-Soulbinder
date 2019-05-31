@@ -78,15 +78,15 @@ namespace Warlock_The_Soulbinder
 
 
         #region Consumable
-        public void DeleteConsumableDB()
-        {
-            consumable.ClearDB();
-        }
+        //public void DeleteConsumableDB()
+        //{
+        //    consumable.ClearDB();
+        //}
 
-        public void SaveToConsumableDB(string name, int amount)
-        {
-            consumable.SaveConsumable(name, amount);
-        }
+        //public void SaveToConsumableDB(string name, int amount)
+        //{
+        //    consumable.SaveConsumable(name, amount);
+        //}
 
         //public Dictionary<int, Consumable> LoadFromConsumableDB()
         //{
