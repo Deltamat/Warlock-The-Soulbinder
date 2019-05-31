@@ -10,7 +10,7 @@ namespace Warlock_The_Soulbinder
     {
         List<Rectangle> spawnPoints = new List<Rectangle>();
         List<Rectangle> usedSpawnPoints = new List<Rectangle>();
-        int enemiesInZone = 3;
+        int enemiesInZone;
 
         public TiledMapRenderer MapRenderer { get; set; }
         public List<Enemy> Enemies { get; set; } = new List<Enemy>();
@@ -71,38 +71,38 @@ namespace Warlock_The_Soulbinder
                 //NPCs.Add(new NPC("npc/npc_knight", new Vector2(400), true, false, false, false, 1, ""));
                 //NPCs.Add(new NPC("npc/npc_old", new Vector2(1000), false, true, false, false, 1, ""));
                 //NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(2800, 3000), false, false, false, false, 1, "What a nice little lake."));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 1, "")); // healer
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 1, "I once shat my pants :O"));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 1, "Empire did nothing wrong!"));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake."));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 0, "")); // healer
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "I once shat my pants :O"));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 0, "Empire did nothing wrong!"));
             }
             if (Name == "Dragon")
             {
-                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(600, 100), false, false, false, true, 1, "");
+                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(600, 100), false, false, false, true, 0, "");
                 fireDragonShrine.DragonElement = "Fire";
                 NPCs.Add(fireDragonShrine);
 
-                NPC waterDragonShrine = new NPC("npc/waterDragonShrine", new Vector2(800, 100), false, false, false, true, 1, "");
+                NPC waterDragonShrine = new NPC("npc/waterDragonShrine", new Vector2(800, 100), false, false, false, true, 0, "");
                 waterDragonShrine.DragonElement = "Water";
                 NPCs.Add(waterDragonShrine);
 
-                NPC metalDragonShrine = new NPC("npc/metalDragonShrine", new Vector2(1000, 100), false, false, false, true, 1, "");
+                NPC metalDragonShrine = new NPC("npc/metalDragonShrine", new Vector2(1000, 100), false, false, false, true, 0, "");
                 metalDragonShrine.DragonElement = "Metal";
                 NPCs.Add(metalDragonShrine);
 
-                NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(1200, 100), false, false, false, true, 1, "");
+                NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(1200, 100), false, false, false, true, 0, "");
                 earthDragonShrine.DragonElement = "Grass";
                 NPCs.Add(earthDragonShrine);
 
-                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(1400, 100), false, false, false, true, 1, "");
+                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(1400, 100), false, false, false, true, 0, "");
                 undeadDragonShrine.DragonElement = "Undead";
                 NPCs.Add(undeadDragonShrine);
 
-                NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(1600, 100), false, false, false, true, 1, "");
+                NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(1600, 100), false, false, false, true, 0, "");
                 airDragonShrine.DragonElement = "Wind";
                 NPCs.Add(airDragonShrine);
 
-                NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(1800, 2000), false, false, false, true, 1, "");
+                NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(1800, 2000), false, false, false, true, 0, "");
                 neutralDragonShrine.DragonElement = "Beast";
                 NPCs.Add(neutralDragonShrine);
 
@@ -142,11 +142,7 @@ namespace Warlock_The_Soulbinder
                 // What happpens when player enters a zone trigger
                 if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox))
                 {
-                    foreach (var enemy in Enemies)
-                    {
-                        enemy.Alive = false;
-                    }
-                    Enemies = new List<Enemy>();
+                    KillEnemiesInZone();
                     GameWorld.Instance.currentZone = trigger.TargetZone;
                     GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies/npcs
                     Player.Instance.Position = new Vector2(trigger.TargetPos.X - 19, trigger.TargetPos.Y - 6);
@@ -306,6 +302,15 @@ namespace Warlock_The_Soulbinder
                 }
                 
             }
+        }
+
+        public void KillEnemiesInZone()
+        {
+            foreach (var enemy in Enemies)
+            {
+                enemy.Alive = false;
+            }
+            Enemies = new List<Enemy>();
         }
     }
 }
