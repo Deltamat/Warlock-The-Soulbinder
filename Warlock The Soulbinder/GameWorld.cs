@@ -89,7 +89,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Returns a rectangle with the bounds of the current map
+        /// Returns a rectangle with the bounds of the current tile map
         /// </summary>
         public Rectangle TileMapBounds
         {
@@ -171,7 +171,7 @@ namespace Warlock_The_Soulbinder
             beast = new Zone("Beast", 5);
             grass = new Zone("Grass", 3);
             dragon = new Zone("Dragon", 3);
-            wind = new Zone("Wind", 3);
+            wind = new Zone("Wind", 8);
             fire = new Zone("Fire", 3);
             water = new Zone("Water", 3);
             undead = new Zone("Undead", 3);
