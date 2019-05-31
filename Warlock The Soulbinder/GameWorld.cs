@@ -221,9 +221,9 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
             #endregion
 
-#region load
-           //flyttet til metoden LoadDB()
-#endregion
+            #region load
+            //flyttet til metoden LoadDB()
+            #endregion
 
             // Music
             MusicVolume = 0.5f;
@@ -509,8 +509,8 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.OpenTheGates();
 
             FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
-            CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromPlayerDB();
+            CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
             //dictionary? = Controller.Instance.LoadFromConsumableDB();
             //list? = Controller.Instance.LoadFromQuestDB();
