@@ -73,7 +73,7 @@ namespace Warlock_The_Soulbinder
                 //NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake."));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 0, "")); // healer
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "I once shat my pants :O"));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "I just pooped my pants :O"));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 0, "Empire did nothing wrong!"));
             }
             if (Name == "Dragon")
@@ -225,35 +225,31 @@ namespace Warlock_The_Soulbinder
         private void GenerateEnemies(string enemyType)
         {
             int enemyindex = 0;
-            if (enemyType == "Beast")
+            switch (enemyType)
             {
-                enemyindex = GameWorld.Instance.RandomInt(0, 3);
+                case "Beast":
+                    enemyindex = GameWorld.Instance.RandomInt(0, 3);
+                    break;
+                case "Grass":
+                    enemyindex = GameWorld.Instance.RandomInt(3, 6);
+                    break;
+                case "Water":
+                    enemyindex = GameWorld.Instance.RandomInt(6, 9);
+                    break;
+                case "Undead":
+                    enemyindex = GameWorld.Instance.RandomInt(9, 12);
+                    break;
+                case "Metal":
+                    enemyindex = GameWorld.Instance.RandomInt(12, 15);
+                    break;
+                case "Fire":
+                    enemyindex = GameWorld.Instance.RandomInt(15, 18);
+                    break;
+                case "Wind":
+                    enemyindex = GameWorld.Instance.RandomInt(18, 21);
+                    break;
             }
-            if (enemyType == "Grass")
-            {
-                enemyindex = GameWorld.Instance.RandomInt(3, 6);
-            }
-            if (enemyType == "Water")
-            {
-                enemyindex = GameWorld.Instance.RandomInt(6, 9);
-            }
-            if (enemyType == "Undead")
-            {
-                enemyindex = GameWorld.Instance.RandomInt(9, 12);
-            }
-            if (enemyType == "Metal")
-            {
-                enemyindex = GameWorld.Instance.RandomInt(12, 15);
-            }
-            if (enemyType == "Fire")
-            {
-                enemyindex = GameWorld.Instance.RandomInt(15, 18);
-            }
-            if (enemyType == "Wind")
-            {
-                enemyindex = GameWorld.Instance.RandomInt(18, 21);
-            }
-
+            
             for (int i = 0; i < enemiesInZone; i++)
             {
                 Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
@@ -304,6 +300,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Method that kills the enemy threads in the zone and removes them from the list
+        /// </summary>
         public void KillEnemiesInZone()
         {
             foreach (var enemy in Enemies)

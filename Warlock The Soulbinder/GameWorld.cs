@@ -89,7 +89,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Returns a rectangle with the bounds of the current map
+        /// Returns a rectangle with the bounds of the current tile map
         /// </summary>
         public Rectangle TileMapBounds
         {
@@ -166,12 +166,12 @@ namespace Warlock_The_Soulbinder
             SmallFont = Content.Load<SpriteFont>("smallFont");
             fullScreen = Content.Load<Texture2D>("fullScreen");
 
-            // zoner laves med navn og antal af fjender. Der kan ikke være flere fjender end spawnPoints
+            // zoner laves med navn og antal af fjender.
             town = new Zone("Town", 0);
             beast = new Zone("Beast", 5);
             grass = new Zone("Grass", 3);
             dragon = new Zone("Dragon", 3);
-            wind = new Zone("Wind", 3);
+            wind = new Zone("Wind", 8);
             fire = new Zone("Fire", 3);
             water = new Zone("Water", 3);
             undead = new Zone("Undead", 3);
@@ -199,33 +199,30 @@ namespace Warlock_The_Soulbinder
 
             //adds one of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
-            FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
+            //FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
             #endregion
 
-            #region load
-            //flyttet til metoden LoadDB()
-            #endregion
-
+         
             //LogLoad
             Log.Instance.GenerateLogList();
             Log.Instance.FullScans();
@@ -238,6 +235,7 @@ namespace Warlock_The_Soulbinder
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
             MediaPlayer.Play(overworldMusic);
 
+            Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();
         }
 
@@ -247,7 +245,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
-#if DEBUG
+            #if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
             #endif
             
@@ -548,7 +546,7 @@ namespace Warlock_The_Soulbinder
             }
             for (int i = 0; i < FilledStone.StoneList.Count; i++)
             {
-                Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level);
+                Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
             //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
             //{

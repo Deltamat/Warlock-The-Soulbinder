@@ -12,8 +12,8 @@ namespace Warlock_The_Soulbinder
     {
         static Log instance;
         private List<int> logList = new List<int>();
-        private int sheepLog = 1;
-        private int wolfLog = 1;
+        private int sheepLog = 0;
+        private int wolfLog = 0;
         private int bearLog = 1;
         private int plantEaterLog = 2;
         private int insectSoldierLog = 0;
@@ -116,30 +116,18 @@ namespace Warlock_The_Soulbinder
         public void Draw(SpriteBatch spriteBatch, int monsterIndex)
         {
 
-            switch(monsterIndex)
-            {
-                case 0:
-                    if (sheepLog > 0)
-                    {
-                        spriteBatch.Draw(GameWorld.Instance.Content.Load<Texture2D>("monsters/orbs/Sheep"), new Vector2(425, 100), Color.White);
+            DrawLog(spriteBatch, monsterIndex);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 1:", new Vector2(175, 310), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 2:", new Vector2(175, 390), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 3:", new Vector2(175, 470), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 4:", new Vector2(175, 550), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 5:", new Vector2(175, 630), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 6:", new Vector2(175, 710), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 7:", new Vector2(175, 790), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 8:", new Vector2(1050, 150), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 9:", new Vector2(1050, 230), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 10:", new Vector2(1050, 310), Color.White);
 
-                    }
-                    else
-                    {
-                        spriteBatch.Draw(GameWorld.Instance.Content.Load<Texture2D>("monsters/orbs/Sheep"), new Vector2(425, 100), Color.Black);
-
-                    }
-                    break;
-                
-               
-            }
-
-            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Name:", new Vector2(175, 310), Color.White);
-            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Element:", new Vector2(175, 390), Color.White);
-            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Levels:", new Vector2(175, 470), Color.White);
-            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Health:", new Vector2(175, 550), Color.White);
-            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Resistance:", new Vector2(175, 630), Color.White);
-            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Defense:", new Vector2(175, 710), Color.White);
 
         }
 
@@ -167,5 +155,232 @@ namespace Warlock_The_Soulbinder
             MetalBonus = ((float)(defenderLog + sentryLog + bucketManLog) / 100);
             AirBonus = ((float)(ravenLog + falconLog + batLog) / 100);
         }
+
+        public void DrawLog(SpriteBatch spriteBatch, int monsterIndex)
+        {
+            int monsterLog = 0;
+            string monsterString = "0";
+            switch (monsterIndex)
+            {
+                case 0:
+                    monsterLog = sheepLog;
+                    monsterString = "Sheep";
+                    break;
+
+                case 1:
+                    monsterLog = wolfLog;
+                    monsterString = "Wolf";
+                    break;
+
+                case 2:
+                    monsterLog = bearLog;
+                    monsterString = "Bear";
+                    break;
+
+                case 3:
+                    monsterLog = plantEaterLog;
+                    monsterString = "PlantEater";
+                    break;
+
+                case 4:
+                    monsterLog = insectSoldierLog;
+                    monsterString = "InsectSoldier";
+                    break;
+
+                case 5:
+                    monsterLog = slimeSnakeLog;
+                    monsterString = "SlimeSnake";
+                    break;
+
+                case 6:
+                    monsterLog = tentacleLog;
+                    monsterString = "Tentacle";
+                    break;
+
+                case 7:
+                    monsterLog = FrogLog;
+                    monsterString = "Frog";
+                    break;
+
+                case 8:
+                    monsterLog = FishLog;
+                    monsterString = "Fish";
+                    break;
+
+                case 9:
+                    monsterLog = MummyLog;
+                    monsterString = "Mummy";
+                    break;
+
+                case 10:
+                    monsterLog = VampireLog;
+                    monsterString = "Vampire";
+                    break;
+
+                case 11:
+                    monsterLog = BansheeLog;
+                    monsterString = "Banshee";
+                    break;
+
+                case 12:
+                    monsterLog = BucketManLog;
+                    monsterString = "BucketMan";
+                    break;
+
+                case 13:
+                    monsterLog = DefenderLog;
+                    monsterString = "Defender";
+                    break;
+
+                case 14:
+                    monsterLog = SentryLog;
+                    monsterString = "Sentry";
+                    break;
+
+                case 15:
+                    monsterLog = FireGolemLog;
+                    monsterString = "FireGolem";
+                    break;
+
+                case 16:
+                    monsterLog = InfernalDemonLog;
+                    monsterString = "InfernalDemon";
+                    break;
+
+                case 17:
+                    monsterLog = AshZombieLog;
+                    monsterString = "AshZombie";
+                    break;
+
+                case 18:
+                    monsterLog = FalconLog;
+                    monsterString = "Falcon";
+                    break;
+
+                case 19:
+                    monsterLog = BatLog;
+                    monsterString = "Bat";
+                    break;
+
+                case 20:
+                    monsterLog = RavenLog;
+                    monsterString = "Raven";
+                    break;
+
+            }
+
+                    spriteBatch.Draw(GameWorld.Instance.Content.Load<Texture2D>($"monsters/orbs/{monsterString}"), new Vector2(425, 100), Color.White);
+
+                    if (monsterLog > 0)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(400, 310), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(400, 310), Color.White);
+                    }
+
+                    if (monsterLog > 1)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(400, 390), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(400, 390), Color.White);
+                    }
+
+                    if (monsterLog > 2)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(400, 470), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(400, 470), Color.White);
+                    }
+
+                    if (monsterLog > 3)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(400, 550), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(400, 550), Color.White);
+                    }
+
+                    if (monsterLog > 4)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(400, 630), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(400, 630), Color.White);
+                    }
+
+                    if (monsterLog > 5)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(400, 710), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(400, 710), Color.White);
+                    }
+
+                    if (monsterLog > 6)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(400, 790), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(400, 790), Color.White);
+                    }
+
+                    if (monsterLog > 7)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(1275, 150), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(1275, 150), Color.White);
+                    }
+
+                    if (monsterLog > 8)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(1275, 230), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(1275, 230), Color.White);
+                    }
+
+                    if (monsterLog > 9)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete", new Vector2(1310, 310), Color.Gold);
+
+                    }
+
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Incomplete", new Vector2(1310, 310), Color.White);
+                    }
+
+            }
     }
 }

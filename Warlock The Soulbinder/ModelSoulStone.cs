@@ -16,7 +16,10 @@ namespace Warlock_The_Soulbinder
                 "monster string, " +
                 "experience integer, " +
                 "equipmentSlot string, " +
-                "level integer )";
+                "level integer, " +
+                "damage integer, " +
+                "maxHealth string, " +
+                "attackSpeed integer )";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
             cmd.ExecuteNonQuery();
@@ -31,9 +34,9 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveSoulStone(string monster, int experience, string equipmentSlot, int level)
+        public void SaveSoulStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, int attackSpeed)
         {
-            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, experience, equipmentSlot, level) VALUES (null, '{monster}', {experience}, '{equipmentSlot}', {level})";
+            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, experience, equipmentSlot, level, damage, maxhealth, attackSpeed) VALUES (null, '{monster}', {experience}, '{equipmentSlot}', {level}, {damage}, {maxHealth}, {attackSpeed})";
             cmd.ExecuteNonQuery();
         }
 
@@ -47,7 +50,34 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                soulStones.Add(new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4)));
+                FilledStone stone = new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4));
+                
+                if (reader.GetString(3) == "Weapon")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(0, stone);
+                }
+                if (reader.GetString(3) == "Armor")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(1, stone);
+                }
+                if (reader.GetString(3) == "Skill1")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(2, stone);
+                }
+                if (reader.GetString(3) == "Skill2")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(3, stone);
+                }
+                if (reader.GetString(3) == "Skill3")
+                {
+                    stone.Equipped = true;
+                    Equipment.Instance.EquipStone(4, stone);
+                }
+                soulStones.Add(stone);
             }
             reader.Close();
            

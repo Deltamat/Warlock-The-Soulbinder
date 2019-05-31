@@ -76,9 +76,6 @@ namespace Warlock_The_Soulbinder
                 case "GeneralMenu":
                     ChangeSelected(7);
                     break;
-                case "Inventory":
-                    ChangeSelected(1);
-                    break;
                 case "Equipment":
                     ChangeSelected(4);
 
@@ -231,10 +228,6 @@ namespace Warlock_The_Soulbinder
             {
                 switch (inventoryState)
                 {
-                    case "Inventory":
-                        inventoryState = "GeneralMenu";
-                        selectedInt = 0;
-                        break;
                     case "Equipment":
                         inventoryState = "GeneralMenu";
                         selectedInt = 0;
@@ -246,7 +239,7 @@ namespace Warlock_The_Soulbinder
                     case "FilledStones":
                         if (equipping == false)
                         {
-                            inventoryState = "Inventory";
+                            inventoryState = "GeneralMenu";
                             selectedInt = 0;
                             break;
                         }
@@ -281,6 +274,14 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
 
+                //Removes equipment slots for unequipped stones
+                foreach (FilledStone stone in FilledStone.StoneList)
+                {
+                    if (stone.Equipped == false)
+                    {
+                        stone.EquipmentSlot = null;
+                    }
+                }
                 delay = 0;
             }
         }
@@ -293,7 +294,7 @@ namespace Warlock_The_Soulbinder
             { 
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Character", new Vector2(200, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(200, 200), Color.White);
-                spriteBatch.DrawString(Combat.Instance.CombatFont, "Inventory", new Vector2(200, 280), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(200, 280), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Quests", new Vector2(200, 360), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Log", new Vector2(200, 440), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Save", new Vector2(200, 520), Color.White);
@@ -406,9 +407,38 @@ namespace Warlock_The_Soulbinder
                         }
                         break;
                     case 2:
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, "Consumables", new Vector2(1100, 120), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(1100, 200), Color.White);
+                        if (CurrentPage < FilledStone.StoneListPages)
+                        {
+                            for (int i = 0; i < 9; i++)
+                            {
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
+
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
+
+                                if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
+                                {
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(1725, 120 + i * 80), Color.Green);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9); i++)
+                            {
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
+
+                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
+
+                                if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
+                                {
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(1725, 120 + i * 80), Color.Green);
+                                }
+                            }
+                        }
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1) + " / " + (FilledStone.StoneListPages + 1), new Vector2(1300, 870), Color.White);
                         break;
+
 
                     case 4:
                         spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete Scans: {Log.Instance.FullScans()} / 21", new Vector2(1050, 120), Color.White);
@@ -601,55 +631,6 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Draw(emptyRing, new Vector2(150, 120 + selectedInt * 160), null, Color.Gold, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
             }
 
-            if (inventoryState == "Inventory")
-            {
-                spriteBatch.DrawString(Combat.Instance.CombatFont, "Consumables", new Vector2(200, 120), Color.White);
-                spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(200, 200), Color.White);
-
-                switch (selectedInt)
-                {
-                    //Consumables
-                    case 0:
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Potions: {Consumable.Potion}", new Vector2(1100, 120), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Soul Stones: {Consumable.SoulStone}", new Vector2(1100, 200), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bombs: {Consumable.Bomb}", new Vector2(1100, 280), Color.White);
-                        break;
-                    //Filled Stones
-                    case 1:
-                        if (CurrentPage < FilledStone.StoneListPages)
-                        {
-                            for (int i = 0; i < 9; i++)
-                            {
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
-                               
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
-
-                                if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
-                                {
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(1725, 120 + i * 80), Color.Green);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            for (int i = 0; i < FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9); i++)
-                            {
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, FilledStone.StoneList[i + (currentPage * 9)].Name, new Vector2(1100, 120 + i * 80), Color.White);
-                               
-                                spriteBatch.DrawString(Combat.Instance.CombatFont, "lvl" + FilledStone.StoneList[i + (currentPage * 9)].Level, new Vector2(1600, 120 + i * 80), Color.White);
-
-                                if (FilledStone.StoneList[i + (currentPage * 9)].Equipped == true)
-                                {
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, "E", new Vector2(1725, 120 + i * 80), Color.Green);
-                                }
-                            }
-                        }
-
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1) + " / " + (FilledStone.StoneListPages + 1), new Vector2(1300, 870), Color.White);
-                        break;
-                }
-            }
-
             if (inventoryState == "Log")
             {
                 Log.Instance.Draw(spriteBatch, logPage);
@@ -688,8 +669,8 @@ namespace Warlock_The_Soulbinder
 
                 if (FilledStone.StoneList.Count != 0)
                 {
-                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1250, 100), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{char.ToUpper(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element[0]) + FilledStone.StoneList[selectedInt + CurrentPage * 9].Element.Substring(1)}", new Vector2(1375 - (Combat.Instance.CombatFont.MeasureString(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element).X * 0.5f), 310), Color.White);
+                    spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1000, 100), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{char.ToUpper(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element[0]) + FilledStone.StoneList[selectedInt + CurrentPage * 9].Element.Substring(1)}", new Vector2(1125 - (Combat.Instance.CombatFont.MeasureString(FilledStone.StoneList[selectedInt + CurrentPage * 9].Element).X * 0.5f), 310), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 400), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 600), Color.White);
                     spriteBatch.Draw(skillPlank, new Vector2(1175, 800), Color.White);
@@ -699,6 +680,10 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].WeaponEffect.EffectString}", new Vector2(1190, 410), Color.White);
                     spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].ArmorEffect.EffectString}", new Vector2(1190, 610), Color.White);
                     spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{FilledStone.StoneList[selectedInt + CurrentPage * 9].SkillEffect.EffectString}", new Vector2(1190, 810), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"DMG: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].Damage}", new Vector2(1260, 80), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Max HP: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].MaxHealth}", new Vector2(1260, 160), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Def: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].Defense}", new Vector2(1260, 240), Color.White);
+                    spriteBatch.DrawString(Combat.Instance.CombatFont,$"Att.Speed: +{FilledStone.StoneList[selectedInt + CurrentPage * 9].AttackSpeed}", new Vector2(1260, 320), Color.White);
 
                 }
 
@@ -756,7 +741,7 @@ namespace Warlock_The_Soulbinder
                         inventoryState = "Equipment";
                         break;
                     case 2:
-                        inventoryState = "Inventory";
+                        inventoryState = "FilledStones";
                         break;
                     case 3:
                         inventoryState = "Options";
@@ -775,15 +760,7 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
            }
-            else if (inventoryState == "Inventory")
-           {
-                switch (selectedInt)
-                {
-                    case 1:
-                        inventoryState = "FilledStones";
-                        break;
-                }
-           }
+
             else if (inventoryState == "FilledStones")
             {
                 if (equipping == true)

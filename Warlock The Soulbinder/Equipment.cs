@@ -55,22 +55,27 @@ namespace Warlock_The_Soulbinder
             {
                 case 0:
                     Weapon = selectedStone;
-                    EquippedEquipment[slot] = selectedStone;
+                    selectedStone.EquipmentSlot = "Weapon";
+                    EquippedEquipment[slot] = Weapon;
                     break;
                 case 1:
                     Armor = selectedStone;
+                    selectedStone.EquipmentSlot = "Armor";
                     EquippedEquipment[slot] = Armor;
                     break;
                 case 2:
                     Skill1 = selectedStone;
+                    selectedStone.EquipmentSlot = "Skill1";
                     EquippedEquipment[slot] = Skill1;
                     break;
                 case 3:
                     Skill2 = selectedStone;
+                    selectedStone.EquipmentSlot = "Skill2";
                     EquippedEquipment[slot] = Skill2;
                     break;
                 case 4:
                     Skill3 = selectedStone;
+                    selectedStone.EquipmentSlot = "Skill3";
                     EquippedEquipment[slot] = Skill3;
                     break;
             }
@@ -126,8 +131,10 @@ namespace Warlock_The_Soulbinder
                     {
                         if (tempList[i].ExperienceRequired - tempList[i].Experience < 0)
                         {
+
                             tempList[i].Experience = tempList[i].Experience - tempList[i].ExperienceRequired;
                             tempList[i].Level++;
+                            tempList[i].ExperienceRequired = (int)(10 * Math.Pow(1.3, tempList[i].Level));
                         }
                     }
                    
@@ -135,6 +142,14 @@ namespace Warlock_The_Soulbinder
             }
 
             tempList.Clear();
+        }
+
+        public void UpdateExperienceRequired()
+        {
+            foreach (FilledStone stone in FilledStone.StoneList)
+            {
+                stone.ExperienceRequired =  (int)(10 * Math.Pow(1.3, stone.Level));
+            }
         }
     }
 }
