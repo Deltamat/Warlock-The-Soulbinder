@@ -33,7 +33,7 @@ namespace Warlock_The_Soulbinder
         public FilledStone Skill1 { get => skill1; set => skill1 = value; }
         public FilledStone Skill2 { get => skill2; set => skill2 = value; }
         public FilledStone Skill3 { get => skill3; set => skill3 = value; }
-        internal List<FilledStone> EquippedEquipment { get => equippedEquipment; set => equippedEquipment = value; }
+        public List<FilledStone> EquippedEquipment { get => equippedEquipment; set => equippedEquipment = value; }
 
         private Equipment()
         {
@@ -45,7 +45,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Equip a stone to a slot, 0: weapon, 1: armor, 2: skill1, 3: skill2, 4: skill5
+        /// Equip a stone to a slot, 0: weapon, 1: armor, 2: skill1, 3: skill2, 4: skill3
         /// </summary>
         /// <param name="slot"></param>
         /// <param name="selectedStone"></param>
@@ -55,7 +55,7 @@ namespace Warlock_The_Soulbinder
             {
                 case 0:
                     Weapon = selectedStone;
-                    EquippedEquipment[slot] = Weapon;
+                    EquippedEquipment[slot] = selectedStone;
                     break;
                 case 1:
                     Armor = selectedStone;

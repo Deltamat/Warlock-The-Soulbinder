@@ -548,8 +548,7 @@ namespace Warlock_The_Soulbinder
                         {
                             totalDamageToDeal += damageToDeal[i];
                         }
-
-
+                        
                         if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
                         {
                             Player.Instance.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
