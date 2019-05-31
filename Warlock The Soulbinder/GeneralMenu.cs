@@ -23,6 +23,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D levelCircle;
         private Texture2D expFull;
         private GameTime tempTime;
+        private int logPage = 0;
         private List<String> menuList = new List<string>();
         private Texture2D arrow;
         private string inventoryState = "GeneralMenu";
@@ -202,6 +203,19 @@ namespace Warlock_The_Soulbinder
                         InputHandler.Instance.ResetKeybinds();
                     }
                     break;
+                case "Log":
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && logPage < 20)
+                    {
+                        logPage++;
+                        delay = 0;
+                    }
+
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && logPage > 0)
+                    {
+                        logPage--;
+                        delay = 0;
+                    }
+                    break;
             }   
             
             //Key to execute code dependent on the inventory state
@@ -258,6 +272,10 @@ namespace Warlock_The_Soulbinder
                         selectedInt = 0;
                         break;
                     case "Character":
+                        inventoryState = "GeneralMenu";
+                        selectedInt = 0;
+                        break;
+                    case "Log":
                         inventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
@@ -390,6 +408,17 @@ namespace Warlock_The_Soulbinder
                     case 2:
                     spriteBatch.DrawString(Combat.Instance.CombatFont, "Consumables", new Vector2(1100, 120), Color.White);
                     spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(1100, 200), Color.White);
+                        break;
+
+                    case 4:
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete Scans: {Log.Instance.FullScans()} / 21", new Vector2(1050, 120), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Neutral: {Log.Instance.NeutralBonus * 100}%", new Vector2(1050, 200), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Earth: {Log.Instance.EarthBonus * 100}%", new Vector2(1050, 280), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Water: {Log.Instance.WaterBonus * 100}%", new Vector2(1050, 360), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Dark: {Log.Instance.DarkBonus * 100}%", new Vector2(1050, 440), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Metal: {Log.Instance.MetalBonus * 100}%", new Vector2(1050, 520), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Fire: {Log.Instance.FireBonus * 100}%", new Vector2(1050, 600), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Air: {Log.Instance.AirBonus * 100}%", new Vector2(1050, 680), Color.White);
                         break;
                 }
             }
@@ -621,7 +650,13 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (inventoryState == "FilledStones")
+            if (inventoryState == "Log")
+            {
+                Log.Instance.Draw(spriteBatch, logPage);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, $"{logPage +1}", new Vector2(125, 885), Color.White);
+            }
+
+                if (inventoryState == "FilledStones")
             {
                 if (CurrentPage < FilledStone.StoneListPages)
                 {
@@ -702,7 +737,7 @@ namespace Warlock_The_Soulbinder
             }
 
             //Draws a selection arrow to see what you are hovering over
-            if (inventoryState != "Equipment")
+            if (inventoryState != "Equipment" && inventoryState != "Log")
             {
                 spriteBatch.Draw(arrow, new Vector2(155, 120 + 80 * selectedInt), Color.White);
             }

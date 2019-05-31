@@ -363,7 +363,7 @@ namespace Warlock_The_Soulbinder
                         ResistanceTypes[i] += stone.ResistanceTypes[i];
                     }
 
-                    if (Equipment.Instance.EquippedEquipment[0] != null) //adds any
+                    if (Equipment.Instance.EquippedEquipment[0] != null) //adds any stat buffs from weapons
                     {
                         if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
                         {
@@ -371,7 +371,7 @@ namespace Warlock_The_Soulbinder
                         }
                     }
 
-                    if (Equipment.Instance.EquippedEquipment[1] != null)
+                    if (Equipment.Instance.EquippedEquipment[1] != null) //adds any stat buffs from armor
                     {
                         if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
                         {
@@ -387,9 +387,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void BaseStats()
         {
-            Damage = 5;
-            Defense = 1;
-            AttackSpeed = 5f;
+            Damage = 10;
+            Defense = 2;
+            AttackSpeed = 15f;
             MaxHealth = 100;
             for (int i = 0; i < DamageTypes.Count; i++)
             {
