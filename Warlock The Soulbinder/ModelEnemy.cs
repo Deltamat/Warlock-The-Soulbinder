@@ -19,7 +19,7 @@ namespace Warlock_The_Soulbinder
                 "defense integer, " +
                 "damage integer, " +
                 "maxHealth integer, " +
-                "attackSpeed string, " +
+                "attackSpeed integer, " +
                 "metalResistance string, " +
                 "earthResistance string, " +
                 "airResistance string, " +
@@ -38,9 +38,9 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveEnemy(int level, float X, float Y, int defense, int damage, int maxHealth, float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
+        public void SaveEnemy(int level, float X, float Y, int defense, int damage, int maxHealth, int attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
         {
-            cmd.CommandText = $"INSERT INTO Enemy (id, level, X, Y, defense, damage, maxHealth, attackSpeed, metalResistance, earthResistance, airResistance, fireResistance, darkResistance, waterResistance, monster) VALUES (null, {level}, '{Math.Floor(X)+ 0.1f}', '{Math.Floor(Y)+0.1f}', {defense}, {damage}, {maxHealth}, '{Math.Floor(attackSpeed) + 0.1f}', '{metalResistance}', '{earthResistance}', '{airResistance}', '{fireResistance}', '{darkResistance}', '{waterResistance}', '{monster}')";
+            cmd.CommandText = $"INSERT INTO Enemy (id, level, X, Y, defense, damage, maxHealth, attackSpeed, metalResistance, earthResistance, airResistance, fireResistance, darkResistance, waterResistance, monster) VALUES (null, {level}, '{Math.Floor(X)+ 0.1f}', '{Math.Floor(Y)+0.1f}', {defense}, {damage}, {maxHealth}, {attackSpeed}, '{metalResistance}', '{earthResistance}', '{airResistance}', '{fireResistance}', '{darkResistance}', '{waterResistance}', '{monster}')";
             cmd.ExecuteNonQuery();
         }
 
@@ -125,7 +125,7 @@ namespace Warlock_The_Soulbinder
                 //    a13 = (float)Convert.ToDouble(reader.GetString(13)) + 0.000001f;
                 //}
                 //enemies.Add(new Enemy(reader.GetInt32(1), new Vector2(a2, a3), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), a7, a8, a9, a10, a11, a12, a13, reader.GetString(14)));
-                enemies.Add(new Enemy(reader.GetInt32(1), new Vector2((float)Convert.ToDouble(reader.GetString(2)) - 0.1f, (float)Convert.ToDouble(reader.GetString(3))-0.1f), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), (float)Convert.ToDouble(reader.GetString(7)) - 0.1f, (float)Convert.ToDouble(reader.GetString(8)), (float)Convert.ToDouble(reader.GetString(9)), (float)Convert.ToDouble(reader.GetString(10)), (float)Convert.ToDouble(reader.GetString(11)), (float)Convert.ToDouble(reader.GetString(12)), (float)Convert.ToDouble(reader.GetString(13)), reader.GetString(14)));
+                enemies.Add(new Enemy(reader.GetInt32(1), new Vector2((float)Convert.ToDouble(reader.GetString(2)) - 0.1f, (float)Convert.ToDouble(reader.GetString(3))-0.1f), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7), (float)Convert.ToDouble(reader.GetString(8)), (float)Convert.ToDouble(reader.GetString(9)), (float)Convert.ToDouble(reader.GetString(10)), (float)Convert.ToDouble(reader.GetString(11)), (float)Convert.ToDouble(reader.GetString(12)), (float)Convert.ToDouble(reader.GetString(13)), reader.GetString(14)));
             }
             reader.Close();
             return enemies;

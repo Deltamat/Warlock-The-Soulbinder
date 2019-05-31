@@ -37,7 +37,7 @@ namespace Warlock_The_Soulbinder
         private int id;
 
         private int maxHealth;
-        protected float attackSpeed;
+        protected int attackSpeed;
         protected int damage;
         protected int waterDamage;
         protected int darkDamage;
@@ -65,7 +65,7 @@ namespace Warlock_The_Soulbinder
         public Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
         public int Damage { get => damage; set => damage = value; }
         public int Defense { get => defense; set => defense = value; }
-        public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+        public int AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
@@ -99,7 +99,7 @@ namespace Warlock_The_Soulbinder
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
         
-       
+
 
         /// <summary>
         /// Constructor for loading in from a saved game
@@ -107,7 +107,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="monster"></param>
         /// <param name="experience"></param>
         /// <param name="level"></param>
-        public FilledStone(string monster, int experience, string equipmentSlot, int level)
+        public FilledStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, int attackSpeed)
         {
             EquipmentSlot = equipmentSlot;
             
@@ -117,9 +117,9 @@ namespace Warlock_The_Soulbinder
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
 
-            Damage = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 5)) * 0.25f));
-            maxHealth = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 6)) * 1.15f));
-            attackSpeed = (Level * 0.15f) + GameWorld.Instance.RandomInt(-1, 3);
+            Damage = damage;
+            this.maxHealth = maxHealth;
+            this.attackSpeed = attackSpeed;
 
             //switch case to determine the element, and name of abilities, based on the monster type
             switch (Monster)
@@ -282,38 +282,32 @@ namespace Warlock_The_Soulbinder
                 case "earth":
                     earthResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     darkResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    earthDamage = (int)(damage * 4f);
                     break;
                 case "water":
                     waterResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     airResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    waterDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    waterDamage = (int)(damage * 4f);
                     break;
                 case "dark":
                     darkResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     metalResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    darkDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    darkDamage = (int)(damage * 4f);
                     break;
                 case "metal":
                     metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    metalDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    metalDamage = (int)(damage * 4f);
                     break;
                 case "fire":
                     fireResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     waterResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    fireDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    fireDamage = (int)(damage * 4f);
                     break;
                 case "air":
                     airResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     earthResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    airDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    airDamage = (int)(damage * 4f);
                     break;
             }
 
@@ -348,7 +342,7 @@ namespace Warlock_The_Soulbinder
             //base stats
             Damage = (int)(enemy.Damage * 0.15);
             maxHealth = (int)(enemy.MaxHealth * 0.15);
-            attackSpeed = enemy.AttackSpeed * 0.15f;
+            attackSpeed = (int)(enemy.AttackSpeed * 0.15f);
             Defense = (int)(enemy.Defense * 0.15f);
 
             //switch case to determine the element, and name of abilities, based on the monster type
