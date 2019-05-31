@@ -16,6 +16,8 @@ namespace Warlock_The_Soulbinder
 
         static Combat instance;
         private Texture2D sheet;
+        private List<GameObject> playerText = new List<GameObject>();
+        private List<GameObject> enemyText = new List<GameObject>();
         private Texture2D emptyButton;
         private Texture2D healthEmpty;
         private Texture2D healthFull;
@@ -65,6 +67,8 @@ namespace Warlock_The_Soulbinder
 
         public Texture2D HealthEmpty { get => healthEmpty; set => healthEmpty = value; }
         public Texture2D HealthFull { get => healthFull; set => healthFull = value; }
+        public List<GameObject> PlayerText { get => playerText; set => playerText = value; }
+        public List<GameObject> EnemyText { get => enemyText; set => enemyText = value; }
 
         private Combat()
         {
@@ -146,11 +150,23 @@ namespace Warlock_The_Soulbinder
                                 break;
                         }
                     }
-
                     GameWorld.Instance.CurrentZone().Enemies.Remove(target);
                     ExitCombat();
                 }
+
+                //Scrolls playerText
+                foreach (GameObject stringObject in  playerText)
+                {
+                    stringObject.StringPosition += new Vector2(0, -1);
+                }
+
+                //Scrolls enemyText
+                foreach (GameObject stringObject in enemyText)
+                {
+                    stringObject.StringPosition += new Vector2(0, -1);
+                }
             }
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -259,6 +275,19 @@ namespace Warlock_The_Soulbinder
             spriteBatch.Draw(turnFull, new Vector2(102, 702), new Rectangle(0, 0, Convert.ToInt32(PercentStat((int)playerAttackTimer, (int)turnTimer) * 5.9), 70), Color.White);
             
             spriteBatch.DrawString(CombatFont, $"{Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth}", new Vector2(160, 880), Color.White);
+
+
+
+            for (int i = 0; i < playerText.Count; i++)
+            {
+                spriteBatch.DrawString(CombatFont, playerText[i].StringText, playerText[i].StringPosition, playerText[i].StringColor);
+            }
+
+            for (int i = 0; i < enemyText.Count; i++)
+            {
+                spriteBatch.DrawString(CombatFont, enemyText[i].StringText, enemyText[i].StringPosition, enemyText[i].StringColor);
+            }
+
         }
 
         //Goes up and down on the button list
@@ -539,6 +568,8 @@ namespace Warlock_The_Soulbinder
                             playerEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, null, totalDamageToDeal));
                         }
                     }
+
+                    enemyScrolling($"HP -{totalDamageToDeal}", Color.Red);
                 }
                 playerAttackAmount = 1; //resets how many times the player attacks
                 combatDelay = 0; //resets combat delay
@@ -647,6 +678,18 @@ namespace Warlock_The_Soulbinder
                 Equipment.Instance.Skill3.InternalCooldown--;
             }
         }
+
+        public void playerScrolling(string Text, Color color)
+        {
+            enemyText.Add(new GameObject(new Vector2(1300, 400), Text, color));
+        }
+
+        public void enemyScrolling(string Text, Color color)
+        {
+            enemyText.Add(new GameObject(new Vector2(1300, 400), Text, color));
+        }
+
+
         /// <summary>
         /// Resets relevant variables when leaving combat
         /// </summary>

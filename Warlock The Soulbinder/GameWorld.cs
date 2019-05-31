@@ -135,6 +135,7 @@ namespace Warlock_The_Soulbinder
         }
         public float SoundEffectVolume { get; set; } = 0.3f;
         public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
+        public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
 
         public GameWorld()
         {
@@ -225,8 +226,12 @@ namespace Warlock_The_Soulbinder
             //flyttet til metoden LoadDB()
             #endregion
 
+            //LogLoad
+            Log.Instance.GenerateLogList();
+            Log.Instance.FullScans();
+            Log.Instance.CalculateBonus();
             // Music
-            MusicVolume = 0.5f;
+            MusicVolume = 0f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
             combatMusic = Content.Load<Song>("sound/combatMusicV2");
@@ -247,7 +252,7 @@ namespace Warlock_The_Soulbinder
             #endif
             
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("font");
             copperFont = Content.Load<SpriteFont>("fontCopperplate");
@@ -364,17 +369,17 @@ namespace Warlock_The_Soulbinder
 
             if (GameState == "MainMenu")
             {
-                spriteBatch.Begin();
-                MainMenu.Instance.Draw(spriteBatch);
-                spriteBatch.End();
+                SpriteBatch.Begin();
+                MainMenu.Instance.Draw(SpriteBatch);
+                SpriteBatch.End();
             }
 
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
-                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
 
                 
-                CurrentZone().Draw(spriteBatch);
+                CurrentZone().Draw(SpriteBatch);
 
                 foreach (var layer in CurrentZone().Map.TileLayers)
                 {
@@ -384,13 +389,13 @@ namespace Warlock_The_Soulbinder
                     }
                 }
 
-                spriteBatch.DrawString(font, $"{Player.Instance.Position}", Player.Instance.Position, Color.Red); // for npc placement
+                SpriteBatch.DrawString(font, $"{Player.Instance.Position}", Player.Instance.Position, Color.Red); // for npc placement
 
-                Player.Instance.Draw(spriteBatch);
+                Player.Instance.Draw(SpriteBatch);
 
                 foreach (Enemy enemy in enemies)
                 {
-                    enemy.Draw(spriteBatch);
+                    enemy.Draw(SpriteBatch);
                     DrawCollisionBox(enemy);
                 }
 
@@ -400,32 +405,32 @@ namespace Warlock_The_Soulbinder
 #endif
                 if (GameState == "Dialogue")
                 {
-                    Dialogue.Instance.Draw(spriteBatch);
+                    Dialogue.Instance.Draw(SpriteBatch);
                 }
 
-                spriteBatch.End();
+                SpriteBatch.End();
                 base.Draw(gameTime);
             }
             else if (GameState == "Combat") //Combat draw
             {
-                spriteBatch.Begin();
+                SpriteBatch.Begin();
 
-                Combat.Instance.Draw(spriteBatch);
+                Combat.Instance.Draw(SpriteBatch);
 
-                spriteBatch.End();
+                SpriteBatch.End();
             }
             else if (GameState == "GeneralMenu") //Menu draw
             {
-                spriteBatch.Begin();
+                SpriteBatch.Begin();
 
-                GeneralMenu.Instance.Draw(spriteBatch);
+                GeneralMenu.Instance.Draw(SpriteBatch);
 
-                spriteBatch.End();
+                SpriteBatch.End();
             }
 
             if (GameState == "Overworld")
             {
-                spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
                 foreach (var layer in CurrentZone().Map.TileLayers)
                 {
                     if (layer.Name == "Top" || layer.Name == "OverTop")
@@ -433,7 +438,7 @@ namespace Warlock_The_Soulbinder
                         CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
                     }
                 }
-                spriteBatch.End();
+                SpriteBatch.End();
             }
             
 
@@ -451,10 +456,10 @@ namespace Warlock_The_Soulbinder
             Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
             Rectangle leftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
 
-            spriteBatch.Draw(collisionTexture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(collisionTexture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(collisionTexture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         /// <summary>
@@ -468,10 +473,10 @@ namespace Warlock_The_Soulbinder
             Rectangle rightLine = new Rectangle(collisionBox.X + collisionBox.Width, collisionBox.Y, 1, collisionBox.Height);
             Rectangle leftLine = new Rectangle(collisionBox.X, collisionBox.Y, 1, collisionBox.Height);
 
-            spriteBatch.Draw(collisionTexture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(collisionTexture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(collisionTexture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, topLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, bottomLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, rightLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            SpriteBatch.Draw(collisionTexture, leftLine, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         /// <summary>
