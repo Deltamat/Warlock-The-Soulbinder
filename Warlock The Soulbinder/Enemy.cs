@@ -15,6 +15,7 @@ namespace Warlock_The_Soulbinder
         private int level;
         private float moveCDTimer;
         private float movingTimer;
+        private FilledStone enemyStone;
         
         private Thread thread;
 
@@ -43,7 +44,9 @@ namespace Warlock_The_Soulbinder
                 return new Rectangle((int)(Position.X), (int)(Position.Y), (int)(sprite.Width * scale), (int)(sprite.Height * scale));
             }
         }
-        
+
+        internal FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
+
         public Enemy(int index, Vector2 startPos)
         {
             Monster = Enum.GetName(typeof(EMonster), index); //gets the string value of the enum with the index, index
@@ -165,6 +168,9 @@ namespace Warlock_The_Soulbinder
             DamageTypes.Add(airDamage);
             #endregion
 
+            //gives the enemy a FilledStone with its effects
+            EnemyStone = new FilledStone(this);
+
             thread = new Thread(() => Update());
             thread.IsBackground = true;
             thread.Start();
@@ -268,6 +274,9 @@ namespace Warlock_The_Soulbinder
             DamageTypes.Add(fireDamage);
             DamageTypes.Add(airDamage);
             #endregion
+
+            //gives the enemy a FilledStone with its effects
+            EnemyStone = new FilledStone(this);
 
             thread = new Thread(() => Update());
             thread.IsBackground = true;

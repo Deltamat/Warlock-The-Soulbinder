@@ -126,8 +126,10 @@ namespace Warlock_The_Soulbinder
                     {
                         if (tempList[i].ExperienceRequired - tempList[i].Experience < 0)
                         {
+
                             tempList[i].Experience = tempList[i].Experience - tempList[i].ExperienceRequired;
                             tempList[i].Level++;
+                            tempList[i].ExperienceRequired = (int)(10 * Math.Pow(1.3, tempList[i].Level));
                         }
                     }
                    
@@ -135,6 +137,14 @@ namespace Warlock_The_Soulbinder
             }
 
             tempList.Clear();
+        }
+
+        public void UpdateExperienceRequired()
+        {
+            foreach (FilledStone stone in FilledStone.StoneList)
+            {
+                stone.ExperienceRequired =  (int)(10 * Math.Pow(1.3, stone.Level));
+            }
         }
     }
 }

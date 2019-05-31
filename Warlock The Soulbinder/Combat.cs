@@ -18,6 +18,8 @@ namespace Warlock_The_Soulbinder
         private Texture2D sheet;
         private List<GameObject> playerText = new List<GameObject>();
         private List<GameObject> enemyText = new List<GameObject>();
+        private List<GameObject> toBeRemovedPlayerText = new List<GameObject>();
+        private List<GameObject> toBeRemovedEnemyText = new List<GameObject>();
         private Texture2D emptyButton;
         private Texture2D healthEmpty;
         private Texture2D healthFull;
@@ -27,9 +29,11 @@ namespace Warlock_The_Soulbinder
         private float playerAttackTimer;
         private float enemyAttackTimer;
         private float turnTimer = 1;
-        private int playerAttackAmount = 1;
         private List<Effect> toBeRemovedEffects = new List<Effect>();
         private int enemyAttackAmount = 1;
+        private int playerAttackAmount = 1;
+        private float enemyDamageReduction;
+        private float playerDamageReduction;
         private float playerSpeedMod = 1;
         private float enemySpeedMod = 1;
 
@@ -120,8 +124,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
-                    target.Alive = false;
-                    Equipment.Instance.ExperienceEquipment(target.Level * 20);
+                    Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, target.Level)));
 
                     if (target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
                     {
@@ -150,6 +153,8 @@ namespace Warlock_The_Soulbinder
                                 break;
                         }
                     }
+
+                    target.Alive = false;
                     GameWorld.Instance.CurrentZone().Enemies.Remove(target);
                     ExitCombat();
                 }
@@ -158,15 +163,34 @@ namespace Warlock_The_Soulbinder
                 foreach (GameObject stringObject in  playerText)
                 {
                     stringObject.StringPosition += new Vector2(0, -1);
+
+                    if (stringObject.Position.X < 0)
+                    {
+                        toBeRemovedPlayerText.Add(stringObject);
+                    }
                 }
 
                 //Scrolls enemyText
                 foreach (GameObject stringObject in enemyText)
                 {
                     stringObject.StringPosition += new Vector2(0, -1);
+
+                    if (stringObject.Position.X < 0)
+                    {
+                        toBeRemovedEnemyText.Add(stringObject);
+                    }
+                }
+
+                foreach (GameObject stringObject in toBeRemovedPlayerText)
+                {
+                    PlayerText.Remove(stringObject);
+                }
+
+                foreach (GameObject stringObject in toBeRemovedEnemyText)
+                {
+                    EnemyText.Remove(stringObject);
                 }
             }
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -179,7 +203,6 @@ namespace Warlock_The_Soulbinder
                 {
                     emptyButtonList[i].Draw(spriteBatch, Color.Gray);
                 }
-
                 else
                 {
                     emptyButtonList[i].Draw(spriteBatch);
@@ -239,12 +262,9 @@ namespace Warlock_The_Soulbinder
                     }
                    
                 }
-
-
+                
                 spriteBatch.DrawString(CombatFont, "Back", emptyButtonList[3].Position + new Vector2(50, 7), Color.White);
             }
-
-
             else if (buttonType == "Items")
             {
                 spriteBatch.DrawString(CombatFont, $"Pot x{Consumable.Potion}", emptyButtonList[0].Position + new Vector2(50, 7), buttonColor);
@@ -275,9 +295,7 @@ namespace Warlock_The_Soulbinder
             spriteBatch.Draw(turnFull, new Vector2(102, 702), new Rectangle(0, 0, Convert.ToInt32(PercentStat((int)playerAttackTimer, (int)turnTimer) * 5.9), 70), Color.White);
             
             spriteBatch.DrawString(CombatFont, $"{Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth}", new Vector2(160, 880), Color.White);
-
-
-
+            
             for (int i = 0; i < playerText.Count; i++)
             {
                 spriteBatch.DrawString(CombatFont, playerText[i].StringText, playerText[i].StringPosition, playerText[i].StringColor);
@@ -321,7 +339,7 @@ namespace Warlock_The_Soulbinder
                 {
                     case 0: //attack
                         PlayerTurn();
-                        countCooldown();
+                        CountCooldown();
                         break;
                     case 1: //skill
                         buttonType = "Skills";
@@ -330,7 +348,11 @@ namespace Warlock_The_Soulbinder
                         buttonType = "Items";
                         break;
                     case 3: //flee
-                        ExitCombat();
+                        playerAttackTimer = 0;
+                        if (GameWorld.Instance.RandomInt(0, 4) != 0)
+                        {
+                            ExitCombat();
+                        }
                         break;
                 }
             }
@@ -341,8 +363,8 @@ namespace Warlock_The_Soulbinder
                     case 0:
                         if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.InternalCooldown == 0)
                         {
-                            countCooldown();
-                            enemyEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, null,0));
+                            CountCooldown();
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, null, 0));
                             playerAttackTimer = 0;
                             Equipment.Instance.Skill1.InternalCooldown = Equipment.Instance.Skill1.SkillEffect.Cooldown;
                         }
@@ -350,8 +372,8 @@ namespace Warlock_The_Soulbinder
                     case 1:
                         if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.InternalCooldown == 0)
                         {
-                            countCooldown();
-                            enemyEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, null,0));
+                            CountCooldown();
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, null, 0));
                             playerAttackTimer = 0;
                             Equipment.Instance.Skill2.InternalCooldown = Equipment.Instance.Skill2.SkillEffect.Cooldown;
                         }
@@ -359,8 +381,8 @@ namespace Warlock_The_Soulbinder
                     case 2:
                         if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.InternalCooldown == 0)
                         {
-                            countCooldown();
-                            enemyEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, null,0));
+                            CountCooldown();
+                            enemyEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, null, 0));
                             playerAttackTimer = 0;
                             Equipment.Instance.Skill3.InternalCooldown = Equipment.Instance.Skill3.SkillEffect.Cooldown;
                         }
@@ -369,8 +391,7 @@ namespace Warlock_The_Soulbinder
                         buttonType = "Normal";
                         break;
                 }
-
-             }
+            }
 
             else if (buttonType == "Items")
             {
@@ -379,17 +400,16 @@ namespace Warlock_The_Soulbinder
                     case 0: //Potion
                         if (Consumable.Potion > 0)
                         {
-                            countCooldown();
+                            CountCooldown();
                             Player.Instance.CurrentHealth += 20;
                             Consumable.Potion--;
                             playerAttackTimer = 0;
                         }
                         break;
                     case 1: //Soul Capture
-
                         if (Consumable.SoulStone > 0)
                         {
-                            countCooldown();
+                            CountCooldown();
                             int tempChance = PercentStat(target.CurrentHealth, target.MaxHealth);
                             int tempInt = GameWorld.Instance.RandomInt(0, 100);
 
@@ -406,7 +426,7 @@ namespace Warlock_The_Soulbinder
                     case 2: //Bomb
                         if (Consumable.Bomb > 0)
                         {
-                            countCooldown();
+                            CountCooldown();
                             target.CurrentHealth -= 300;
                             Consumable.Bomb--;
                             playerAttackTimer = 0;
@@ -426,9 +446,6 @@ namespace Warlock_The_Soulbinder
         public void SelectEnemy(Enemy combatEnemy)
         {
             target = combatEnemy;
-
-            //First take on turnTimer
-            //turnTimer = (target.AttackSpeed + Player.Instance.AttackSpeed) * 100.5f;
 
             //Alternate take on turnTimer
             if (target.AttackSpeed > Player.Instance.AttackSpeed)
@@ -468,19 +485,19 @@ namespace Warlock_The_Soulbinder
             buttonColor = Color.Gray;
             if (target != null)
             {
-                if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
-                {
-                    playerAttackAmount++;
-                }
-
                 //local values to apply effects
                 bool stunned = new bool();
                 bool confused = new bool();
                 float accuracyMod = 1f;
                 float damageMod = 1f;
-                playerSpeedMod = 1;
+                playerSpeedMod = 1f;
 
-                //goes through all active effects on the enemy with an EffectLength greater than 0
+                if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
+                {
+                    playerAttackAmount++;
+                }
+
+                //goes through all active effects on the enemy with an EffectLength greater than 0 and applies their effect
                 foreach (Effect effect in playerEffects)
                 {
                     if (effect.EffectLength > 0)
@@ -493,7 +510,7 @@ namespace Warlock_The_Soulbinder
                         {
                             accuracyMod *= effect.AccuracyMod;
                         }
-                        if (effect.DamageMod != 1f && effect.DamageMod < damageMod) //effects has a base DamageMod of 1, only overrides if the DamageMod is more effective
+                        if (effect.DamageMod != 1f) //effects has a base DamageMod of 1
                         {
                             damageMod *= effect.DamageMod;
                         }
@@ -503,9 +520,20 @@ namespace Warlock_The_Soulbinder
                         }
                     }
                     effect.EffectLength--; //decreases how many rounds the effect is still in effect
+
+                    //adds any effects with an effectLength of 0 or less to a list so they can be removed
+                    if (effect.EffectLength <= 0)
+                    {
+                        toBeRemovedEffects.Add(effect);
+                    }
                 }
 
-
+                //removes any effects in the toBeRemovedEffects list
+                foreach (Effect effect in toBeRemovedEffects)
+                {
+                    enemyEffects.Remove(effect);
+                }
+                toBeRemovedEffects.Clear();
 
                 if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StunImmunity)
                 {
@@ -524,7 +552,7 @@ namespace Warlock_The_Soulbinder
                     List<int> damageToDeal = new List<int>();
                     int totalDamageToDeal = 0;
 
-                    for (int j = 0; j < playerAttackAmount; j++) //foreach time the player should attack..
+                    for (int j = 0; j < playerAttackAmount; j++) //foreach time the player should attack
                     {
                         if (Player.Instance.Damage - target.Defense > 0) //if the base damage the player should deal, after defense reduction, is greater than 0
                         {
@@ -534,7 +562,7 @@ namespace Warlock_The_Soulbinder
                         //adds damage foreach damage type to the list damageToDeal
                         for (int i = 0; i < Player.Instance.DamageTypes.Count; i++)
                         {
-                            damageToDeal.Add((int)((Player.Instance.DamageTypes[i] * damageMod) - (Player.Instance.DamageTypes[i] * damageMod * 0.01 * target.ResistanceTypes[i])));
+                            damageToDeal.Add((int)(((Player.Instance.DamageTypes[i] * damageMod) - (Player.Instance.DamageTypes[i] * damageMod * 0.01 * target.ResistanceTypes[i])) * enemyDamageReduction));
                         }
 
                         //adds all damage together into one variable
@@ -542,34 +570,46 @@ namespace Warlock_The_Soulbinder
                         {
                             totalDamageToDeal += damageToDeal[i];
                         }
-                    }
-                    
-                    if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
-                    {
-                        Player.Instance.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
-                    }
-                    else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
-                    {
-                        //does nothing
-                    }
-                    else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
-                    {
-                        target.CurrentHealth -= totalDamageToDeal;
-                    }
 
-                    if (Equipment.Instance.EquippedEquipment[0] != null)
-                    {
-                        if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the enemy
-                        {
-                            enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, null, totalDamageToDeal));
-                        }
-                        else if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the player
-                        {
-                            playerEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, null, totalDamageToDeal));
-                        }
-                    }
 
-                    enemyScrolling($"HP -{totalDamageToDeal}", Color.Red);
+                        if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
+                        {
+                            Player.Instance.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
+                        }
+                        else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
+                        {
+                            //does nothing
+                        }
+                        else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
+                        {
+                            target.CurrentHealth -= totalDamageToDeal;
+                        }
+
+                        if (Equipment.Instance.EquippedEquipment[0] != null)
+                        {
+                            if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the enemy
+                            {
+                                enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, Player.Instance, totalDamageToDeal));
+                            }
+                            else if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the player
+                            {
+                                playerEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, Player.Instance, totalDamageToDeal));
+                            }
+                        }
+
+                        //applies healing
+                        foreach (Effect effect in playerEffects)
+                        {
+                            if (effect.EffectLength > 0 && effect.Heal > 0)
+                            {
+                                Player.Instance.CurrentHealth += effect.Heal;
+                                effect.EffectLength--;
+                                PlayerScrolling($"HP +{effect.Heal}", Color.Green);
+                            }
+                        }
+
+                        EnemyScrolling($"HP -{totalDamageToDeal}", Color.Red);
+                    }
                 }
                 playerAttackAmount = 1; //resets how many times the player attacks
                 combatDelay = 0; //resets combat delay
@@ -586,6 +626,7 @@ namespace Warlock_The_Soulbinder
             bool confused = new bool();
             float accuracyMod = 1f;
             float damageMod = 1f;
+            enemySpeedMod = 1f;
 
             //goes through all active effects on the enemy with an EffectLength greater than 0
             foreach (Effect effect in enemyEffects)
@@ -599,20 +640,25 @@ namespace Warlock_The_Soulbinder
                     {
                         accuracyMod *= effect.AccuracyMod;
                     }
-                    if (effect.DamageMod != 1f && effect.DamageMod < damageMod) //effects has a base DamageMod of 1, only overrides if the DamageMod is more effective
+                    if (effect.DamageMod != 1f) //effects has a base DamageMod of 1
                     {
                         damageMod *= effect.DamageMod;
                     }
+                    if (effect.SpeedMod != 1f)
+                    {
+                        enemySpeedMod *= effect.SpeedMod;
+                    }
                 }
                 effect.EffectLength--;
-
-
-                if (effect.EffectLength == 0)
+                
+                //adds any effects with an effectLength of 0 or less to a list so they can be removed
+                if (effect.EffectLength <= 0)
                 {
                     toBeRemovedEffects.Add(effect);
                 }
             }
 
+            //removes any effects in the toBeRemovedEffects list
             foreach (Effect effect in toBeRemovedEffects)
             {
                 enemyEffects.Remove(effect);
@@ -628,40 +674,69 @@ namespace Warlock_The_Soulbinder
                 List<int> damageToDeal = new List<int>();
                 int totalDamageToDeal = 0;
 
-                //adds the damage to be dealt
-                if (target.Damage - Player.Instance.Defense > 0)
+                for (int j = 0; j < enemyAttackAmount; j++) //foreach time the enemy should attack
                 {
-                    damageToDeal.Add(target.Damage - Player.Instance.Defense);
-                }
+                    //adds the damage to be dealt
+                    if (target.Damage - Player.Instance.Defense > 0)
+                    {
+                        damageToDeal.Add(target.Damage - Player.Instance.Defense);
+                    }
 
-                //goes through all damage types and resistance types and calculates damage to be dealt
-                for (int i = 0; i < target.DamageTypes.Count; i++)
-                {
-                    damageToDeal.Add((int)((target.DamageTypes[i] * damageMod) - (target.DamageTypes[i] * damageMod * 0.01 * Player.Instance.ResistanceTypes[i])));
-                }
+                    //goes through all damage types and resistance types and calculates damage to be dealt
+                    for (int i = 0; i < target.DamageTypes.Count; i++)
+                    {
+                        damageToDeal.Add((int)(((target.DamageTypes[i] * damageMod) - (target.DamageTypes[i] * damageMod * 0.01 * Player.Instance.ResistanceTypes[i])) * playerDamageReduction));
+                    }
 
-                //adds all damage to a single variable
-                for (int i = 0; i < damageToDeal.Count; i++)
-                {
-                    totalDamageToDeal += damageToDeal[i];
-                }
+                    //adds all damage to a single variable
+                    for (int i = 0; i < damageToDeal.Count; i++)
+                    {
+                        totalDamageToDeal += damageToDeal[i];
+                    }
 
-                if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
-                {
-                    target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
+                    if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
+                    {
+                        target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
+                    }
+                    else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
+                    {
+                        //does nothing
+                    }
+                    else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
+                    {
+                        Player.Instance.CurrentHealth -= totalDamageToDeal;
+                    }
+
+                    if (!target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the player
+                    {
+                        playerEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone.WeaponEffect.Stone, target, totalDamageToDeal));
+                    }
+                    else if (target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
+                    {
+                        enemyEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone.WeaponEffect.Stone, target, totalDamageToDeal));
+                    }
+
+                    //applies healing
+                    foreach (Effect effect in enemyEffects)
+                    {
+                        if (effect.EffectLength > 0 && effect.Heal > 0)
+                        {
+                            target.CurrentHealth += effect.Heal;
+                            effect.EffectLength--;
+                            EnemyScrolling($"HP +{effect.Heal}", Color.Green);
+                        }
+                    }
+
+                    PlayerScrolling($"HP -{totalDamageToDeal}", Color.Red);
                 }
-                else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
-                {
-                    //does nothing
-                }
-                else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
-                {
-                    Player.Instance.CurrentHealth -= totalDamageToDeal;
-                }
+                enemyAttackAmount = 1;
             }
         }
 
-        private void countCooldown()
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CountCooldown()
         {
             if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.InternalCooldown > 0)
             {
@@ -679,17 +754,26 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public void playerScrolling(string Text, Color color)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Text"></param>
+        /// <param name="color"></param>
+        public void PlayerScrolling(string Text, Color color)
         {
-            enemyText.Add(new GameObject(new Vector2(1300, 400), Text, color));
+            playerText.Add(new GameObject(new Vector2(350, 400), Text, color));
         }
 
-        public void enemyScrolling(string Text, Color color)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Text"></param>
+        /// <param name="color"></param>
+        public void EnemyScrolling(string Text, Color color)
         {
-            enemyText.Add(new GameObject(new Vector2(1300, 400), Text, color));
+            enemyText.Add(new GameObject(new Vector2(1350, 400), Text, color));
         }
-
-
+        
         /// <summary>
         /// Resets relevant variables when leaving combat
         /// </summary>
@@ -697,7 +781,11 @@ namespace Warlock_The_Soulbinder
         {
             playerEffects.Clear();
             enemyEffects.Clear();
+            playerText.Clear();
+            enemyText.Clear();
             victorySound.Play();
+            PlayerText.Clear();
+            EnemyText.Clear();
             GameWorld.Instance.GameState = "Overworld";
             selectedInt = 0;
             playerAttackTimer = 0;

@@ -89,7 +89,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Returns a rectangle with the bounds of the current map
+        /// Returns a rectangle with the bounds of the current tile map
         /// </summary>
         public Rectangle TileMapBounds
         {
@@ -171,7 +171,7 @@ namespace Warlock_The_Soulbinder
             beast = new Zone("Beast", 5);
             grass = new Zone("Grass", 3);
             dragon = new Zone("Dragon", 3);
-            wind = new Zone("Wind", 3);
+            wind = new Zone("Wind", 8);
             fire = new Zone("Fire", 3);
             water = new Zone("Water", 3);
             undead = new Zone("Undead", 3);
@@ -199,27 +199,27 @@ namespace Warlock_The_Soulbinder
 
             //adds one of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
-            FilledStone.StoneList.Add(new FilledStone("sheep", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("bear", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("plantEater", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("insectSoldier", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("slimeSnake", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("tentacle", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("frog", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("mummy", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("vampire", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("banshee", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("bucketMan", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("sentry", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("fireGolem", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("ashZombie", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("falcon", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("bat", RandomInt(1, 10)));
-            FilledStone.StoneList.Add(new FilledStone("raven", RandomInt(1, 10)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
+            FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
             #endregion
 
          
@@ -235,6 +235,7 @@ namespace Warlock_The_Soulbinder
             overworldMusic = Content.Load<Song>("sound/overworldMusic");
             MediaPlayer.Play(overworldMusic);
 
+            Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();
         }
 
@@ -294,10 +295,10 @@ namespace Warlock_The_Soulbinder
             #region TEMP
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone("wolf", RandomInt(1, 10)));
-                FilledStone.StoneList.Add(new FilledStone("fish", RandomInt(1, 10)));
-                FilledStone.StoneList.Add(new FilledStone("infernalDemon", RandomInt(1, 10)));
-                FilledStone.StoneList.Add(new FilledStone("defender", RandomInt(1, 10)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
             {

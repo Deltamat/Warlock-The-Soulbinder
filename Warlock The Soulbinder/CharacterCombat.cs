@@ -32,7 +32,7 @@ namespace Warlock_The_Soulbinder
         protected List<int> damageTypes = new List<int>();
         protected List<float> resistanceTypes = new List<float>();
 
-        public int CurrentHealth
+        public virtual int CurrentHealth
         {
             get
             {

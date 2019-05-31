@@ -41,6 +41,30 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public override int CurrentHealth
+        {
+            get
+            {
+                return currentHealth;
+            }
+            set
+            {
+                currentHealth = value;
+                if (currentHealth <= 0) // if the player is dead, teleport back to the town
+                {
+                    Position = new Vector2(1800, 2630);
+                    GameWorld.Instance.CurrentZone().KillEnemiesInZone();
+                    GameWorld.Instance.currentZone = "Town";
+                    GameWorld.Instance.GameState = "Overworld";
+                    currentHealth = maxHealth;
+                }
+                else if (currentHealth > maxHealth)
+                {
+                    currentHealth = maxHealth;
+                }
+            }
+        }
+
         public double GracePeriod { get => gracePeriod; set => gracePeriod = value; }
         public bool GraceStart { get => graceStart; set => graceStart = value; }
         public bool AttackStart { get => attackStart; set => attackStart = value; }
@@ -324,10 +348,10 @@ namespace Warlock_The_Soulbinder
             {
                 if (stone != null)
                 {
-                    MaxHealth += stone.MaxHealth; //adds max health to the player
                     Damage += stone.Damage; //adds damage to the player
                     Defense += stone.Defense; //adds defense to the player
                     AttackSpeed += stone.AttackSpeed; //adds attack speed to the player
+                    MaxHealth += stone.MaxHealth; //adds max health to the player
 
                     for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
                     {
@@ -339,7 +363,7 @@ namespace Warlock_The_Soulbinder
                         ResistanceTypes[i] += stone.ResistanceTypes[i];
                     }
 
-                    if (Equipment.Instance.EquippedEquipment[0] != null) //adds any
+                    if (Equipment.Instance.EquippedEquipment[0] != null) //adds any stat buffs from weapons
                     {
                         if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
                         {
@@ -347,7 +371,7 @@ namespace Warlock_The_Soulbinder
                         }
                     }
 
-                    if (Equipment.Instance.EquippedEquipment[1] != null)
+                    if (Equipment.Instance.EquippedEquipment[1] != null) //adds any stat buffs from armor
                     {
                         if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
                         {

@@ -111,13 +111,13 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot1(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "1";
+
             if (mainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
             }
             else
             {
-                
                 GameWorld.Instance.LoadDB();
                 GameWorld.Instance.GameState = "Overworld";
             }
@@ -125,13 +125,13 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot2(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "2";
+
             if (mainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
             }
             else
             {
-                
                 GameWorld.Instance.LoadDB();
                 GameWorld.Instance.GameState = "Overworld";
             }
@@ -139,13 +139,13 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot3(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "3";
+
             if (mainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
             }
             else
             {
-                
                 GameWorld.Instance.LoadDB();
                 GameWorld.Instance.GameState = "Overworld";
             }
