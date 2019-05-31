@@ -65,9 +65,9 @@ namespace Warlock_The_Soulbinder
             filledStone.ClearDB();
         }
 
-        public void SaveToSoulStoneDB(string monster, int experience, string equipmentSlot, int level)
+        public void SaveToSoulStoneDB(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, int attackSpeed)
         {
-            filledStone.SaveSoulStone(monster, experience, equipmentSlot, level);
+            filledStone.SaveSoulStone(monster, experience, equipmentSlot, level, damage, maxHealth, attackSpeed);
         }
 
         public List<FilledStone> LoadFromFilledStoneDB()
@@ -157,7 +157,7 @@ namespace Warlock_The_Soulbinder
             enemy.ClearDB();
         }
 
-        public void SaveToEnemyDB(int level, float X, float Y, int defense, int damage, int maxHealth, float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
+        public void SaveToEnemyDB(int level, float X, float Y, int defense, int damage, int maxHealth, int attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
         {
             enemy.SaveEnemy(level, X, Y, defense, damage, maxHealth, attackSpeed, metalResistance, earthResistance, airResistance, fireResistance, darkResistance, waterResistance, monster);
         }

@@ -11,7 +11,7 @@ namespace Warlock_The_Soulbinder
     {
         protected Vector2 direction;
         protected bool isInCombat = true;
-        protected float attackSpeed;
+        protected int attackSpeed;
         protected bool alive = true;
         protected int currentHealth;
         protected int maxHealth;
@@ -54,7 +54,7 @@ namespace Warlock_The_Soulbinder
 
         public int Damage { get => damage; set => damage = value; }
         public int Defense { get => defense; set => defense = value; }
-        public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+        public int AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public bool IsInCombat { get => isInCombat; set => isInCombat = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
         public bool Alive { get => alive; set => alive = value; }

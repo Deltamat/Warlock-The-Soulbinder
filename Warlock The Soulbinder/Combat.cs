@@ -735,7 +735,7 @@ namespace Warlock_The_Soulbinder
                 Equipment.Instance.Skill2.InternalCooldown--;
             }
 
-            if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill3.InternalCooldown > 0)
+            if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.InternalCooldown > 0)
             {
                 Equipment.Instance.Skill3.InternalCooldown--;
             }

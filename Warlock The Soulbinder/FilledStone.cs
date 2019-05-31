@@ -37,7 +37,7 @@ namespace Warlock_The_Soulbinder
         private int id;
 
         private int maxHealth;
-        protected float attackSpeed;
+        protected int attackSpeed;
         protected int damage;
         protected int waterDamage;
         protected int darkDamage;
@@ -65,7 +65,7 @@ namespace Warlock_The_Soulbinder
         public Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
         public int Damage { get => damage; set => damage = value; }
         public int Defense { get => defense; set => defense = value; }
-        public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+        public int AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
@@ -99,234 +99,7 @@ namespace Warlock_The_Soulbinder
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
         
-        //public FilledStone(string monster, int level)
-        //{
-        //    //EquipmentSlot = "none";
-        //    Monster = monster;
-        //    Level = level;
-        //    spriteName = $"monsters/Orbs/{Monster}";
-        //    sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-            
-        //    Damage = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 5)) * 0.25f));
-        //    maxHealth = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 6)) * 1.15f));
-        //    attackSpeed = (Level * 0.15f) + GameWorld.Instance.RandomInt(-1, 3);
 
-        //    //switch case to determine the element, and name of abilities, based on the monster type
-        //    switch (Monster) 
-        //    {
-        //        case "sheep":
-        //            Name = "Sheep";
-        //            Element = "neutral";
-        //            weaponName = "Headbutt";
-        //            armorName = "Woolen Armor";
-        //            skillName = "Headbutt";
-        //            break;
-        //        case "bear":
-        //            Name = "Bear";
-        //            Element = "neutral";
-        //            weaponName = "Maul";
-        //            armorName = "Ursadaen Fortitude";
-        //            skillName = "Maul";
-        //            break;
-        //        case "wolf":
-        //            Name = "Wolf";
-        //            Element = "neutral";
-        //            weaponName = "Wolf Bite";
-        //            armorName = "Wolf Revenge";
-        //            skillName = "Wolf Frenzy";
-        //            break;
-        //        case "plantEater":
-        //            Name = "Plant Eater";
-        //            Element = "earth";
-        //            weaponName = "Symplastic Strike";
-        //            armorName = "Apoplastic Defence";
-        //            skillName = "Drain Life";
-        //            break;
-        //        case "insectSoldier":
-        //            Name = "Insect Soldier";
-        //            Element = "earth";
-        //            weaponName = "Toxic Barbs";
-        //            armorName = "Poisonous Skin";
-        //            skillName = "Venomous Strike";
-        //            break;
-        //        case "slimeSnake":
-        //            Name = "Slime Snake";
-        //            Element = "earth";
-        //            weaponName = "Corrosive Slime";
-        //            armorName = "Hardened Gel";
-        //            skillName = "Protective Goop";
-        //            break;
-        //        case "tentacle":
-        //            Name = "Tentacle";
-        //            Element = "water";
-        //            weaponName = "Constraining Grapple";
-        //            armorName = "Retaliating Slap";
-        //            skillName = "Tentacle Grap";
-        //            break;
-        //        case "frog":
-        //            Name = "Frog";
-        //            Element = "water";
-        //            weaponName = "Slipping Splash";
-        //            armorName = "Slimy Skin";
-        //            skillName = "Mucus Shot";
-        //            break;
-        //        case "fish":
-        //            Name = "Fish";
-        //            Element = "water";
-        //            weaponName = "Regenerative Strike";
-        //            armorName = "Sudden Mending";
-        //            skillName = "Healing Rain";
-        //            break;
-        //        case "mummy":
-        //            Name = "Mummy";
-        //            Element = "dark";
-        //            weaponName = "Cursing Strike";
-        //            armorName = "Curse Immunity";
-        //            skillName = "Curse of the Mummy";
-        //            break;
-        //        case "vampire":
-        //            Name = "Vampire";
-        //            Element = "dark";
-        //            weaponName = "Vampiric Touch";
-        //            armorName = "Bloodied Shield";
-        //            skillName = "Blood Shield";
-        //            break;
-        //        case "banshee":
-        //            Name = "Banshee";
-        //            Element = "dark";
-        //            weaponName = "Paralysing Touch";
-        //            armorName = "Paralyse Immunity";
-        //            skillName = "Banshee's Song";
-        //            break;
-        //        case "bucketMan":
-        //            Name = "Bucket Man";
-        //            Element = "metal";
-        //            weaponName = "Critical Bucket";
-        //            armorName = "Bucket Shield";
-        //            skillName = "ULTIMATE BUCKET DESTRUCTION!";
-        //            break;
-        //        case "defender":
-        //            Name = "Defender";
-        //            Element = "metal";
-        //            weaponName = "Sunder Armor";
-        //            armorName = "Thick Plates";
-        //            skillName = "Defensive Stance";
-        //            break;
-        //        case "sentry":
-        //            Name = "Sentry";
-        //            Element = "metal";
-        //            weaponName = "Accurate Strikes";
-        //            armorName = "Predicting Algorithm";
-        //            skillName = "Scan";
-        //            break;
-        //        case "fireGolem":
-        //            Name = "Fire Golem";
-        //            Element = "fire";
-        //            weaponName = "Heavy Strikes";
-        //            armorName = "Obsidian Skin";
-        //            skillName = "Momentous Slam";
-        //            break;
-        //        case "infernalDemon":
-        //            Name = "Infernal Demon";
-        //            Element = "fire";
-        //            weaponName = "Red-hot Smite";
-        //            armorName = "Immolating Presence";
-        //            skillName = "Incenerate";
-        //            break;
-        //        case "ashZombie":
-        //            Name = "Ash Zombie";
-        //            Element = "fire";
-        //            weaponName = "Fiery Double-tap";
-        //            armorName = "Blazing Assault";
-        //            skillName = "Flaring Assailment";
-        //            break;
-        //        case "falcon":
-        //            Name = "Falcon";
-        //            Element = "air";
-        //            weaponName = "Speedy Swoop";
-        //            armorName = "Evasive Wing-work";
-        //            skillName = "Quickened Agility";
-        //            break;
-        //        case "bat":
-        //            Name = "Bat";
-        //            Element = "air";
-        //            weaponName = "Confusing Menoeuvre";
-        //            armorName = "Perplexing Retaliation";
-        //            skillName = "Sonic Scream";
-        //            break;
-        //        case "raven":
-        //            Name = "Raven";
-        //            Element = "air";
-        //            weaponName = "Blinding Assault";
-        //            armorName = "Retaliative Amaurotic";
-        //            skillName = "Blind";
-        //            break;
-        //    }
-            
-        //    //switch case to determine stats
-        //    switch (Element)
-        //    {
-        //        case "neutral":
-        //            Defense = (int)(Level * 0.75f);
-        //            break;
-        //        case "earth":
-        //            earthResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-        //            darkResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-        //            earthDamage = (int)(damage * 0.8f);
-        //            damage = (int)(damage * 0.2f);
-        //            break;
-        //        case "water":
-        //            waterResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-        //            airResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-        //            waterDamage = (int)(damage * 0.8f);
-        //            damage = (int)(damage * 0.2f);
-        //            break;
-        //        case "dark":
-        //            darkResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-        //            metalResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-        //            darkDamage = (int)(damage * 0.8f);
-        //            damage = (int)(damage * 0.2f);
-        //            break;
-        //        case "metal":
-        //            metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-        //            fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-        //            metalDamage = (int)(damage * 0.8f);
-        //            damage = (int)(damage * 0.2f);
-        //            break;
-        //        case "fire":
-        //            fireResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-        //            waterResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-        //            fireDamage = (int)(damage * 0.8f);
-        //            damage = (int)(damage * 0.2f);
-        //            break;
-        //        case "air":
-        //            airResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-        //            earthResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-        //            airDamage = (int)(damage * 0.8f);
-        //            damage = (int)(damage * 0.2f);
-        //            break;
-        //    }
-
-        //    //adds damage and resistances to lists for ease of use
-        //    #region
-        //    ResistanceTypes.Add(earthResistance);
-        //    ResistanceTypes.Add(waterResistance);
-        //    ResistanceTypes.Add(darkResistance);
-        //    ResistanceTypes.Add(metalResistance);
-        //    ResistanceTypes.Add(fireResistance);
-        //    ResistanceTypes.Add(airResistance);
-        //    DamageTypes.Add(earthDamage);
-        //    DamageTypes.Add(waterDamage);
-        //    DamageTypes.Add(darkDamage);
-        //    DamageTypes.Add(metalDamage);
-        //    DamageTypes.Add(fireDamage);
-        //    DamageTypes.Add(airDamage);
-        //    #endregion
-
-        //    WeaponSkill();
-        //    ArmorSkill();
-        //    Skill();
-        //}
 
         /// <summary>
         /// Constructor for loading in from a saved game
@@ -334,7 +107,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="monster"></param>
         /// <param name="experience"></param>
         /// <param name="level"></param>
-        public FilledStone(string monster, int experience, string equipmentSlot, int level)
+        public FilledStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, int attackSpeed)
         {
             EquipmentSlot = equipmentSlot;
             
@@ -344,9 +117,9 @@ namespace Warlock_The_Soulbinder
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
 
-            Damage = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 5)) * 0.25f));
-            maxHealth = (int)(5 * ((Level * 0.15 + GameWorld.Instance.RandomInt(1, 6)) * 1.15f));
-            attackSpeed = (Level * 0.15f) + GameWorld.Instance.RandomInt(-1, 3);
+            Damage = damage;
+            this.maxHealth = maxHealth;
+            this.attackSpeed = attackSpeed;
 
             //switch case to determine the element, and name of abilities, based on the monster type
             switch (Monster)
@@ -509,38 +282,32 @@ namespace Warlock_The_Soulbinder
                 case "earth":
                     earthResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     darkResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    earthDamage = (int)(damage * 4f);
                     break;
                 case "water":
                     waterResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     airResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    waterDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    waterDamage = (int)(damage * 4f);
                     break;
                 case "dark":
                     darkResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     metalResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    darkDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    darkDamage = (int)(damage * 4f);
                     break;
                 case "metal":
                     metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    metalDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    metalDamage = (int)(damage * 4f);
                     break;
                 case "fire":
                     fireResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     waterResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    fireDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    fireDamage = (int)(damage * 4f);
                     break;
                 case "air":
                     airResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     earthResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    airDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    airDamage = (int)(damage * 4f);
                     break;
             }
 
@@ -575,7 +342,7 @@ namespace Warlock_The_Soulbinder
             //base stats
             Damage = (int)(enemy.Damage * 0.15);
             maxHealth = (int)(enemy.MaxHealth * 0.15);
-            attackSpeed = enemy.AttackSpeed * 0.15f;
+            attackSpeed = (int)(enemy.AttackSpeed * 0.15f);
             Defense = (int)(enemy.Defense * 0.15f);
 
             //switch case to determine the element, and name of abilities, based on the monster type
