@@ -739,7 +739,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="color"></param>
         public void PlayerScrolling(string Text, Color color)
         {
-            enemyText.Add(new GameObject(new Vector2(350, 400), Text, color));
+            playerText.Add(new GameObject(new Vector2(350, 400), Text, color));
         }
 
         /// <summary>
@@ -759,6 +759,8 @@ namespace Warlock_The_Soulbinder
         {
             playerEffects.Clear();
             enemyEffects.Clear();
+            playerText.Clear();
+            enemyText.Clear();
             victorySound.Play();
             GameWorld.Instance.GameState = "Overworld";
             selectedInt = 0;
