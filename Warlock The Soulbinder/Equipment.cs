@@ -55,22 +55,27 @@ namespace Warlock_The_Soulbinder
             {
                 case 0:
                     Weapon = selectedStone;
+                    selectedStone.EquipmentSlot = "Weapon";
                     EquippedEquipment[slot] = Weapon;
                     break;
                 case 1:
                     Armor = selectedStone;
+                    selectedStone.EquipmentSlot = "Armor";
                     EquippedEquipment[slot] = Armor;
                     break;
                 case 2:
                     Skill1 = selectedStone;
+                    selectedStone.EquipmentSlot = "Skill1";
                     EquippedEquipment[slot] = Skill1;
                     break;
                 case 3:
                     Skill2 = selectedStone;
+                    selectedStone.EquipmentSlot = "Skill2";
                     EquippedEquipment[slot] = Skill2;
                     break;
                 case 4:
                     Skill3 = selectedStone;
+                    selectedStone.EquipmentSlot = "Skill3";
                     EquippedEquipment[slot] = Skill3;
                     break;
             }
