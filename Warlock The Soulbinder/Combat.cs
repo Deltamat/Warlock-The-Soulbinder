@@ -18,6 +18,8 @@ namespace Warlock_The_Soulbinder
         private Texture2D sheet;
         private List<GameObject> playerText = new List<GameObject>();
         private List<GameObject> enemyText = new List<GameObject>();
+        private List<GameObject> toBeRemovedPlayerText = new List<GameObject>();
+        private List<GameObject> toBeRemovedEnemyText = new List<GameObject>();
         private Texture2D emptyButton;
         private Texture2D healthEmpty;
         private Texture2D healthFull;
@@ -122,7 +124,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (target.CurrentHealth <= 0) //if the target dies, remove target
                 {
-                    Equipment.Instance.ExperienceEquipment(target.Level * 20);
+                    Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, target.Level)));
 
                     if (target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
                     {
@@ -161,12 +163,32 @@ namespace Warlock_The_Soulbinder
                 foreach (GameObject stringObject in  playerText)
                 {
                     stringObject.StringPosition += new Vector2(0, -1);
+
+                    if (stringObject.Position.X < 0)
+                    {
+                        toBeRemovedPlayerText.Add(stringObject);
+                    }
                 }
 
                 //Scrolls enemyText
                 foreach (GameObject stringObject in enemyText)
                 {
                     stringObject.StringPosition += new Vector2(0, -1);
+
+                    if (stringObject.Position.X < 0)
+                    {
+                        toBeRemovedEnemyText.Add(stringObject);
+                    }
+                }
+
+                foreach (GameObject stringObject in toBeRemovedPlayerText)
+                {
+                    PlayerText.Remove(stringObject);
+                }
+
+                foreach (GameObject stringObject in toBeRemovedEnemyText)
+                {
+                    EnemyText.Remove(stringObject);
                 }
             }
         }
@@ -762,6 +784,8 @@ namespace Warlock_The_Soulbinder
             playerText.Clear();
             enemyText.Clear();
             victorySound.Play();
+            PlayerText.Clear();
+            EnemyText.Clear();
             GameWorld.Instance.GameState = "Overworld";
             selectedInt = 0;
             playerAttackTimer = 0;

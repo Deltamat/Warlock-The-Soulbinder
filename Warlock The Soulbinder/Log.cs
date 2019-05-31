@@ -12,8 +12,8 @@ namespace Warlock_The_Soulbinder
     {
         static Log instance;
         private List<int> logList = new List<int>();
-        private int sheepLog = 1;
-        private int wolfLog = 1;
+        private int sheepLog = 0;
+        private int wolfLog = 0;
         private int bearLog = 1;
         private int plantEaterLog = 2;
         private int insectSoldierLog = 0;
@@ -114,20 +114,42 @@ namespace Warlock_The_Soulbinder
         }
 
         public void Draw(SpriteBatch spriteBatch, int monsterIndex)
-        {
-
+        {            
             switch(monsterIndex)
             {
                 case 0:
-                    if (sheepLog > 0)
+                    int monsterLog = sheepLog;
+                    if (monsterLog > 0)
                     {
                         spriteBatch.Draw(GameWorld.Instance.Content.Load<Texture2D>("monsters/orbs/Sheep"), new Vector2(425, 100), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Sheep", new Vector2(575, 310), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Neutral", new Vector2(575, 390), Color.White);
 
                     }
                     else
                     {
                         spriteBatch.Draw(GameWorld.Instance.Content.Load<Texture2D>("monsters/orbs/Sheep"), new Vector2(425, 100), Color.Black);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Kill 1", new Vector2(375, 310), Color.Gray);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Kill 1", new Vector2(450, 390), Color.Gray);
 
+                    }
+
+                    if (monsterLog > 1)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"1 - 1", new Vector2(375, 470), Color.Gray);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 1", new Vector2(375, 470), Color.Gray);
+                    }
+
+                    if (monsterLog > 1)
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"1 - 2", new Vector2(375, 470), Color.Gray);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 2", new Vector2(375, 470), Color.Gray);
                     }
                     break;
                 
@@ -140,6 +162,11 @@ namespace Warlock_The_Soulbinder
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Health:", new Vector2(175, 550), Color.White);
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Resistance:", new Vector2(175, 630), Color.White);
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Defense:", new Vector2(175, 710), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Damage:", new Vector2(175, 780), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Attack Speed:", new Vector2(1050, 150), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Immunities:", new Vector2(1050, 230), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Weaknesses:", new Vector2(1050, 310), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus:", new Vector2(1050, 390), Color.White);
 
         }
 

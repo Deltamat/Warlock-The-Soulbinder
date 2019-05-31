@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
         private string monster;
         private string element;
         private int level;
-        private int experience = 10;
+        private int experience = 0;
         private int experienceRequired = 23;
         private bool equipped;
         private string equipmentSlot;
