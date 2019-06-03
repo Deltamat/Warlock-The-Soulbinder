@@ -78,7 +78,7 @@ namespace Warlock_The_Soulbinder
             }
             if (Name == "Dragon")
             {
-                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(600, 100), false, false, false, true, 0, "");
+                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(1800, 720), false, false, false, true, 0, "");
                 fireDragonShrine.DragonElement = "Fire";
                 NPCs.Add(fireDragonShrine);
 
