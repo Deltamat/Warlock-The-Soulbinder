@@ -3141,6 +3141,18 @@
 /processorParam:TextureFormat=Color
 /build:zones/tilesetGrassland.png
 
+#begin zones/tilesetLava.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zones/tilesetLava.png
+
 #begin zones/tilesetTown.png
 /importer:TextureImporter
 /processor:TextureProcessor

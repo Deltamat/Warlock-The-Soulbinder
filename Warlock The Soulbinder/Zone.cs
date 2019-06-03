@@ -78,31 +78,31 @@ namespace Warlock_The_Soulbinder
             }
             if (Name == "Dragon")
             {
-                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(600, 100), false, false, false, true, 0, "");
+                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(1800, 720), false, false, false, true, 0, "");
                 fireDragonShrine.DragonElement = "Fire";
                 NPCs.Add(fireDragonShrine);
 
-                NPC waterDragonShrine = new NPC("npc/waterDragonShrine", new Vector2(800, 100), false, false, false, true, 0, "");
+                NPC waterDragonShrine = new NPC("npc/waterDragonShrine", new Vector2(2000, 720), false, false, false, true, 0, "");
                 waterDragonShrine.DragonElement = "Water";
                 NPCs.Add(waterDragonShrine);
 
-                NPC metalDragonShrine = new NPC("npc/metalDragonShrine", new Vector2(1000, 100), false, false, false, true, 0, "");
+                NPC metalDragonShrine = new NPC("npc/metalDragonShrine", new Vector2(2200, 720), false, false, false, true, 0, "");
                 metalDragonShrine.DragonElement = "Metal";
                 NPCs.Add(metalDragonShrine);
 
-                NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(1200, 100), false, false, false, true, 0, "");
+                NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(2400, 720), false, false, false, true, 0, "");
                 earthDragonShrine.DragonElement = "Grass";
                 NPCs.Add(earthDragonShrine);
 
-                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(1400, 100), false, false, false, true, 0, "");
+                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(2600, 720), false, false, false, true, 0, "");
                 undeadDragonShrine.DragonElement = "Undead";
                 NPCs.Add(undeadDragonShrine);
 
-                NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(1600, 100), false, false, false, true, 0, "");
+                NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(2800, 720), false, false, false, true, 0, "");
                 airDragonShrine.DragonElement = "Wind";
                 NPCs.Add(airDragonShrine);
 
-                NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(1800, 2000), false, false, false, true, 0, "");
+                NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(3000, 2000), false, false, false, true, 0, "");
                 neutralDragonShrine.DragonElement = "Beast";
                 NPCs.Add(neutralDragonShrine);
 

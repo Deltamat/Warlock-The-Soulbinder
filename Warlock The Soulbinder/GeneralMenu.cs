@@ -747,7 +747,8 @@ namespace Warlock_The_Soulbinder
                         inventoryState = "Log";
                         break;
                     case 5:
-                        inventoryState = "Save";
+                        //inventoryState = "Save";
+                        GameWorld.Instance.SaveToDB();
                         break;
                     case 6:
                         inventoryState = "Options";
@@ -756,7 +757,7 @@ namespace Warlock_The_Soulbinder
                         inventoryState = "Quit";
                         break;
                 }
-           }
+            }
 
             else if (inventoryState == "FilledStones")
             {
