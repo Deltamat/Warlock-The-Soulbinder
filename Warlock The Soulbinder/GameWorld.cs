@@ -251,9 +251,6 @@ namespace Warlock_The_Soulbinder
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
 #endif
 
-#if !DEBUG
-            collisionTexture = Content.Load<Texture2D>("CollisionTextureBlank");
-#endif
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -380,7 +377,6 @@ namespace Warlock_The_Soulbinder
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
                 SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
-
                 
                 CurrentZone().Draw(SpriteBatch);
 
@@ -399,7 +395,9 @@ namespace Warlock_The_Soulbinder
                 foreach (Enemy enemy in enemies)
                 {
                     enemy.Draw(SpriteBatch);
+#if DEBUG
                     DrawCollisionBox(enemy);
+#endif
                 }
 
                 //collisionboxes
