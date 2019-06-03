@@ -146,7 +146,7 @@ namespace Warlock_The_Soulbinder
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1020;
 #if !DEBUG
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
 #endif
             graphics.ApplyChanges();
         }
@@ -247,10 +247,13 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void LoadContent()
         {
-            #if DEBUG
+#if DEBUG
             collisionTexture = Content.Load<Texture2D>("CollisionTexture");
-            #endif
-            
+#endif
+
+#if !DEBUG
+            collisionTexture = Content.Load<Texture2D>("CollisionTextureBlank");
+#endif
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -294,7 +297,7 @@ namespace Warlock_The_Soulbinder
             Combat.Instance.Update(gameTime);
 
             //TEMPORARY
-            #region TEMP
+#region TEMP
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
@@ -517,6 +520,9 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.LoadFromStatisticDB();
             //dictionary? = Controller.Instance.LoadFromConsumableDB();
             //list? = Controller.Instance.LoadFromQuestDB();
+
+            Equipment.Instance.LoadEquipment();
+            Equipment.Instance.UpdateExperienceRequired();
 
             Controller.Instance.CloseTheGates();
 

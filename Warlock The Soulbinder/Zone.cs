@@ -71,7 +71,7 @@ namespace Warlock_The_Soulbinder
                 //NPCs.Add(new NPC("npc/npc_knight", new Vector2(400), true, false, false, false, 1, ""));
                 //NPCs.Add(new NPC("npc/npc_old", new Vector2(1000), false, true, false, false, 1, ""));
                 //NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake."));
+                NPCs.Add(new NPC("npc/npc_knight", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake."));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 0, "")); // healer
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "I just pooped my pants :O"));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 0, "Empire did nothing wrong!"));
@@ -225,33 +225,34 @@ namespace Warlock_The_Soulbinder
         private void GenerateEnemies(string enemyType)
         {
             int enemyindex = 0;
-            switch (enemyType)
-            {
-                case "Beast":
-                    enemyindex = GameWorld.Instance.RandomInt(0, 3);
-                    break;
-                case "Grass":
-                    enemyindex = GameWorld.Instance.RandomInt(3, 6);
-                    break;
-                case "Water":
-                    enemyindex = GameWorld.Instance.RandomInt(6, 9);
-                    break;
-                case "Undead":
-                    enemyindex = GameWorld.Instance.RandomInt(9, 12);
-                    break;
-                case "Metal":
-                    enemyindex = GameWorld.Instance.RandomInt(12, 15);
-                    break;
-                case "Fire":
-                    enemyindex = GameWorld.Instance.RandomInt(15, 18);
-                    break;
-                case "Wind":
-                    enemyindex = GameWorld.Instance.RandomInt(18, 21);
-                    break;
-            }
             
             for (int i = 0; i < enemiesInZone; i++)
             {
+                switch (enemyType)
+                {
+                    case "Beast":
+                        enemyindex = GameWorld.Instance.RandomInt(0, 3);
+                        break;
+                    case "Grass":
+                        enemyindex = GameWorld.Instance.RandomInt(3, 6);
+                        break;
+                    case "Water":
+                        enemyindex = GameWorld.Instance.RandomInt(6, 9);
+                        break;
+                    case "Undead":
+                        enemyindex = GameWorld.Instance.RandomInt(9, 12);
+                        break;
+                    case "Metal":
+                        enemyindex = GameWorld.Instance.RandomInt(12, 15);
+                        break;
+                    case "Fire":
+                        enemyindex = GameWorld.Instance.RandomInt(15, 18);
+                        break;
+                    case "Wind":
+                        enemyindex = GameWorld.Instance.RandomInt(18, 21);
+                        break;
+                }
+
                 Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
                 Enemies.Add(new Enemy(enemyindex, new Vector2(temp.X, temp.Y)));
                 usedSpawnPoints.Add(temp);

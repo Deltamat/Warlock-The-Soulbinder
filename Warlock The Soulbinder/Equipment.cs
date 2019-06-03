@@ -55,7 +55,7 @@ namespace Warlock_The_Soulbinder
             {
                 case 0:
                     Weapon = selectedStone;
-                    selectedStone.EquipmentSlot = "Weapon";
+                    selectedStone.EquipmentSlot = "Weapon";                   
                     EquippedEquipment[slot] = Weapon;
                     break;
                 case 1:
@@ -149,6 +149,47 @@ namespace Warlock_The_Soulbinder
             foreach (FilledStone stone in FilledStone.StoneList)
             {
                 stone.ExperienceRequired =  (int)(10 * Math.Pow(1.3, stone.Level));
+            }
+        }
+
+        public void LoadEquipment()
+        {
+            foreach (FilledStone stone in FilledStone.StoneList)
+            {
+                if (stone.EquipmentSlot == "Weapon")
+                {
+                    EquipStone(0, stone);
+                    stone.Equipped = true;
+                }
+
+                else if (stone.EquipmentSlot == "Armor")
+                {
+                    EquipStone(1, stone);
+                    stone.Equipped = true;
+                }
+
+                else if (stone.EquipmentSlot == "Skill1")
+                {
+                    EquipStone(2, stone);
+                    stone.Equipped = true;
+                }
+
+                else if (stone.EquipmentSlot == "Skill2")
+                {
+                    EquipStone(3, stone);
+                    stone.Equipped = true;
+                }
+
+                else if (stone.EquipmentSlot == "Skill3")
+                {
+                    EquipStone(4, stone);
+                    stone.Equipped = true;
+                }
+
+                else
+                {
+                    stone.Equipped = false;
+                }
             }
         }
     }

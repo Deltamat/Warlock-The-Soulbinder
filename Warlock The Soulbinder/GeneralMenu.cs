@@ -480,7 +480,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Weapon.Experience, Equipment.Instance.Weapon.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Weapon.ExperienceRequired - Equipment.Instance.Weapon.Experience}", new Vector2(1200, 425), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont,$"{Equipment.Instance.Weapon.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont,$"{Equipment.Instance.Weapon.WeaponEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
 
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Weapon.WeaponName, new Vector2(350, 160), Color.White);
@@ -505,7 +505,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Armor.Experience, Equipment.Instance.Armor.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Armor.ExperienceRequired - Equipment.Instance.Armor.Experience}", new Vector2(1200, 425), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Armor.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Armor.ArmorEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Armor.ArmorName, new Vector2(350, 320), Color.White);
                 }
@@ -734,9 +734,6 @@ namespace Warlock_The_Soulbinder
             {
                 switch (selectedInt)
                 {
-                    case 0:
-                        inventoryState = "Character";
-                        break;
                     case 1:
                         inventoryState = "Equipment";
                         break;
