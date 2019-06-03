@@ -24,9 +24,10 @@ namespace Warlock_The_Soulbinder
         private bool stun = false;
         private bool confuse = false;
         private bool doubleAttack = false;
-        private bool stunImmunity;
+        private bool retaliate = false;
+        private bool stunImmunity = false;
         private string effectString;
-        private int upperChanceBounds;
+        private int upperChanceBounds = 1;
 
         private int index;
         private string type;
@@ -109,25 +110,25 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 11: //banshee
                             EffectString = "Has a chance to paralyze your\nenemy, stunning them";
-                            UpperChanceBounds = 15;
+                            UpperChanceBounds = 13;
                             Stun = true;
                             EffectLength = 2;
                             break;
                         case 12: //bucket man
                             EffectString = "Has a chance to deal double damage\non your next attack";
-                            UpperChanceBounds = 14;
+                            UpperChanceBounds = 9;
                             TargetsSelf = true;
                             DamageMod = 2;
                             break;
                         case 13: //defender
                             EffectString = "Has a chance to break your\nenemy's armor";
                             UpperChanceBounds = 3;
-                            DamageReduction = -0.33f;
+                            DamageReduction = 1.66f;
                             EffectLength = 3;
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase\nyour hit rating";
-                            UpperChanceBounds = 3;
+                            //UpperChanceBounds = 3;
                             TargetsSelf = true;
                             AccuracyMod = 1.25f;
                             EffectLength = 3;
@@ -187,7 +188,7 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 1: //wolf
-                            EffectString = "Has a chance to give you more damage after being hit";
+                            EffectString = "Has a chance to give you more \ndamage after being hit";
                             UpperChanceBounds = 8;
                             TargetsSelf = true;
                             DamageMod = 1.5f;
@@ -223,16 +224,16 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to give you a \nshield after being hit";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
-                            Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f));
-                            EffectLength = 5;
+                            Shield = 3 * stone.Level + GameWorld.Instance.RandomInt(1, 3) + 1;
                             break;
                         case 6: //tentacle
-                            EffectString = "Has a chance to retaliate with a tentacle when hit, \ndealing damage to your attacker";
+                            EffectString = "Has a chance to retaliate with a \ntentacle when hit, dealing damage \nto your attacker";
+                            Retaliate = true;
                             UpperChanceBounds = 2;
                             Damage = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
                             break;
                         case 7: //frog
-                            EffectString = "Has a chance to slow your enemy down when attacked";
+                            EffectString = "Has a chance to slow your enemy \ndown when attacked";
                             UpperChanceBounds = 10;
                             SpeedMod = 0.8f;
                             EffectLength = 2;
@@ -253,8 +254,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to block the \nnext hit after being attacked";
                             UpperChanceBounds = 5;
                             TargetsSelf = true;
-                            Shield = damageDealt;
-                            EffectLength = 5;
+                            Shield = damageDealt + 1;
                             break;
                         case 11: //banshee
                             EffectString = "Grants immunity to all stuns";
@@ -262,21 +262,20 @@ namespace Warlock_The_Soulbinder
                             StunImmunity = true;
                             break;
                         case 12: //bucket man
-                            EffectString = "Has a chance to give yourself a shield after being hit";
+                            EffectString = "Has a chance to give yourself a shield \nafter being hit";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
-                            Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f));
-                            EffectLength = 5;
+                            Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f)) + 1;
                             break;
                         case 13: //defender
-                            EffectString = "Passively reduces damage taken";
+                            EffectString = "Strengthens your defense after being hit";
                             TargetsSelf = true;
-                            DamageAbs = (int)(1.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
-                            EffectLength = 999;
+                            DamageAbs = (int)(1.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.6f));
+                            EffectLength = 1;
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase your \ndodge rating after being hit";
-                            UpperChanceBounds = 7;
+                            //UpperChanceBounds = 7;
                             AccuracyMod = 0.6f;
                             EffectLength = 3;
                             break;
@@ -312,7 +311,7 @@ namespace Warlock_The_Soulbinder
                             EffectLength = 2;
                             break;
                         case 20: //raven
-                            EffectString = "Has a chance to blind the enemy when hit";
+                            EffectString = "Has a chance to blind the enemy \nwhen hit";
                             UpperChanceBounds = 20;
                             AccuracyMod = 0.1f;
                             EffectLength = 3;
@@ -391,10 +390,13 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 7;
                             break;
                         case 10: //vampire
-                            EffectString = "Creates a bloodshield blocking \nyour enemy's next three attacks";
+                            EffectString = "Creates a bloodshield blocking \ndamage equal to 1/4 of your missing health";
                             TargetsSelf = true;
-                            Shield = damageDealt * 3;
-                            EffectLength = 5;
+                            Shield = 1; 
+                            if (characterCombat != null)
+                            {
+                                Shield = (int)((characterCombat.MaxHealth - characterCombat.CurrentHealth) * 0.25);
+                            }
                             Cooldown = 10;
                             break;
                         case 11: //banshee
@@ -406,7 +408,7 @@ namespace Warlock_The_Soulbinder
                         case 12: //bucket man
                             EffectString = "A powerful attack that \nis difficult to land";
                             TargetsBoth = true;
-                            AccuracyMod = 0.1f;
+                            UpperChanceBounds = 10;
                             if (characterCombat != null)
                             {
                                 Damage = (characterCombat.Damage + characterCombat.DamageTypes[3]) * 15;
@@ -490,5 +492,6 @@ namespace Warlock_The_Soulbinder
         public FilledStone Stone { get => stone; set => stone = value; }
         public bool StatBuff { get => statBuff; set => statBuff = value; }
         public bool StunImmunity { get => stunImmunity; set => stunImmunity = value; }
+        public bool Retaliate { get => retaliate; set => retaliate = value; }
     }
 }

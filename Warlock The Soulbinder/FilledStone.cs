@@ -376,7 +376,7 @@ namespace Warlock_The_Soulbinder
                     Name = "Plant Eater";
                     Element = "earth";
                     weaponName = "Symplastic Strike";
-                    armorName = "Apoplastic Defence";
+                    armorName = "Apoplastic Defense";
                     skillName = "Drain Life";
                     break;
                 case "insectSoldier":
