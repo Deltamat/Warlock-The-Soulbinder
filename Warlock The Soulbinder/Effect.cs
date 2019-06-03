@@ -15,7 +15,7 @@ namespace Warlock_The_Soulbinder
         private int damage;
         private int heal;
         private int effectlength = 1;
-        private float damageReduction;
+        private float damageReduction = 1;
         private int damageAbs;
         private float speedMod = 1;
         private float accuracyMod = 1;
@@ -283,7 +283,7 @@ namespace Warlock_The_Soulbinder
                         case 15: //fire golem
                             EffectString = "Passively reduces damage taken";
                             TargetsSelf = true;
-                            DamageReduction = 0.2f;
+                            DamageReduction = 0.8f;
                             EffectLength = 999;
                             break;
                         case 16: //infernal golem
@@ -417,7 +417,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Causes you to enter a defensive \nstance, increasing your defences \nbut lowers your damage";
                             TargetsSelf = true;
                             DamageMod = 0.25f;
-                            DamageReduction = 80;
+                            DamageReduction = 0.3f;
                             EffectLength = 5;
                             Cooldown = 9;
                             break;
@@ -438,12 +438,13 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 17: //ash zombie
                             EffectString = "Causes your next two attacks to \nstrike twice";
+                            TargetsSelf = true;
                             DoubleAttack = true;
                             EffectLength = 2;
                             Cooldown = 7;
                             break;
                         case 18: //falcon
-                            EffectString = "Increases your speed for\n a few rounds";
+                            EffectString = "Increases your speed for\na few rounds";
                             TargetsSelf = true;
                             SpeedMod = 1.55f;
                             EffectLength = 3;
