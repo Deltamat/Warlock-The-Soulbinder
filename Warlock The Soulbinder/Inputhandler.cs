@@ -36,7 +36,7 @@ namespace Warlock_The_Soulbinder
         private  Keys keySelect = Keys.Enter;
         private  Keys keyCancel = Keys.RightShift;
         private  Keys keyReturn = Keys.Back;
-        private  Keys keyMenu = Keys.D3;
+        private  Keys keyMenu = Keys.Escape;
 
         private  Buttons buttonDown = Buttons.DPadDown;
         private  Buttons buttonUp = Buttons.DPadUp;

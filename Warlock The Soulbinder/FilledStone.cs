@@ -79,7 +79,7 @@ namespace Warlock_The_Soulbinder
             {
                 //Code to make pages for the filled stones
                 StoneListPages = 0;
-                int tempStoneList = stoneList.Count + 1;
+                int tempStoneList = stoneList.Count;
                 for (int i = 0; i < 99; i++)
                 {
                     if (tempStoneList - 9 > 0)

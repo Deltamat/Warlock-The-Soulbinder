@@ -278,8 +278,6 @@ namespace Warlock_The_Soulbinder
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -303,30 +301,7 @@ namespace Warlock_The_Soulbinder
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
-            {
-                GameState = "Overworld";
-                delay = 0;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
-            {
-                GameState = "Combat";
-                delay = 0;
-            }
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
-            {
-                if (GameState == "Overworld")
-                {
-                    GameState = "GeneralMenu";
-                }
-                
-                else if (GameState == "GeneralMenu")
-                {
-                    GameState = "Overworld";
-                }
-
-                delay = 0;
-            }
+            
 
 #endregion
 
@@ -340,7 +315,24 @@ namespace Warlock_The_Soulbinder
                 SaveToDB();
             }
 
-#endregion
+            #endregion
+
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
+            {
+                if (GameState == "Overworld")
+                {
+                    GeneralMenu.Instance.SelectedInt = 0;
+                    GeneralMenu.Instance.InventoryState = "GeneralMenu";
+                    GameState = "GeneralMenu";
+                }
+
+                else if (GameState == "GeneralMenu")
+                {
+                    GameState = "Overworld";
+                }
+
+                delay = 0;
+            }
 
             CurrentZone().Update(gameTime);
 
