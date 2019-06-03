@@ -70,7 +70,6 @@
     <Compile Include="MainMenu.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Model.cs" />
-    <Compile Include="ModelConsumable.cs" />
     <Compile Include="ModelEnemy.cs" />
     <Compile Include="ModelNPC.cs" />
     <Compile Include="ModelPlayer.cs" />

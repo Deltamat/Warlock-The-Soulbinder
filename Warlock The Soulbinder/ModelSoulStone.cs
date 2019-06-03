@@ -50,7 +50,7 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                FilledStone stone = new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4));
+                FilledStone stone = new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetInt32(7));
                 
                 if (reader.GetString(3) == "Weapon")
                 {

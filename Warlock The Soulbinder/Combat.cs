@@ -454,7 +454,7 @@ namespace Warlock_The_Soulbinder
                 float damageMod = 1f;
                 playerSpeedMod = 1f;
 
-                if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
+                if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, Equipment.Instance.Weapon.WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
                 {
                     playerAttackAmount++;
                 }
@@ -465,7 +465,7 @@ namespace Warlock_The_Soulbinder
                     if (effect.EffectLength > 0)
                     {
                         Player.Instance.CurrentHealth -= effect.Damage; //applies damage
-                        Player.Instance.CurrentHealth += effect.Heal; //applies healing
+                        PlayerScrolling($"HP -{effect.Damage}", Color.Red); //adds damage to PlayerScrolling
                         confused = effect.Confuse; //applies confuse
                         stunned = effect.Stun; //applies stun
                         if (effect.AccuracyMod != 1f && effect.AccuracyMod < accuracyMod) //effects has a base AccuracyMod of 1, only overrides if the AccuracyMod is more effective
@@ -569,17 +569,35 @@ namespace Warlock_The_Soulbinder
                         else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
                         {
                             target.CurrentHealth -= totalDamageToDeal;
+
+                            //armor effects of target
+                            if (target.EnemyStone.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
+                            {
+                                enemyEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                            }
+                            else if (target.EnemyStone.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the player
+                            {
+                                playerEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                            }
+                            else if (target.EnemyStone.ArmorEffect.TargetsBoth && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to damage player and heal target
+                            {
+                                Effect tempEffect = new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, 0);
+                                Player.Instance.CurrentHealth -= tempEffect.Damage; //damages player
+                                PlayerScrolling($"HP -{tempEffect.Damage}", Color.Red); //adds damage to PlayerScrolling
+                                target.CurrentHealth += tempEffect.Heal; //heals target
+                                EnemyScrolling($"HP +{tempEffect.Heal}", Color.Green); //adds heal to EnemyScrolling
+                            }
                         }
 
-                        if (Equipment.Instance.EquippedEquipment[0] != null)
+                        if (Equipment.Instance.Weapon != null)
                         {
-                            if (!Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the enemy
+                            if (!Equipment.Instance.Weapon.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Weapon.WeaponEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the enemy
                             {
-                                enemyEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, Player.Instance, totalDamageToDeal));
+                                enemyEffects.Add(new Effect(Equipment.Instance.Weapon.WeaponEffect.Index, Equipment.Instance.Weapon.WeaponEffect.Type, Equipment.Instance.Weapon, Player.Instance, totalDamageToDeal));
                             }
-                            else if (Equipment.Instance.EquippedEquipment[0].WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.EquippedEquipment[0].WeaponEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the player
+                            else if (Equipment.Instance.Weapon.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Weapon.WeaponEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the player
                             {
-                                playerEffects.Add(new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, Player.Instance, totalDamageToDeal));
+                                playerEffects.Add(new Effect(Equipment.Instance.Weapon.WeaponEffect.Index, Equipment.Instance.Weapon.WeaponEffect.Type, Equipment.Instance.Weapon, Player.Instance, totalDamageToDeal));
                             }
                         }
 
@@ -620,6 +638,7 @@ namespace Warlock_The_Soulbinder
                 if (effect.EffectLength > 0)
                 {
                     target.CurrentHealth -= effect.Damage; //applies damage
+                    EnemyScrolling($"HP -{effect.Damage}", Color.Red); //adds damage to EnemyScrolling
                     confused = effect.Confuse; //applies confuse
                     stunned = effect.Stun; //applies stun
                     if (effect.AccuracyMod != 1f && effect.AccuracyMod < accuracyMod) //effects has a base AccuracyMod of 1, only overrides if the AccuracyMod is more effective
@@ -630,7 +649,7 @@ namespace Warlock_The_Soulbinder
                     {
                         damageMod *= effect.DamageMod;
                     }
-                    if (effect.SpeedMod != 1f)
+                    if (effect.SpeedMod != 1f) //effects has a base SpeedMod of 1
                     {
                         enemySpeedMod *= effect.SpeedMod;
                     }
@@ -691,15 +710,33 @@ namespace Warlock_The_Soulbinder
                     else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
                     {
                         Player.Instance.CurrentHealth -= totalDamageToDeal;
+
+                        //armor effects of target
+                        if (Equipment.Instance.Armor.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
+                        {
+                            playerEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
+                        }
+                        else if (Equipment.Instance.Armor.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the player
+                        {
+                            enemyEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
+                        }
+                        else if (Equipment.Instance.Armor.ArmorEffect.TargetsBoth && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to damage player and heal target
+                        {
+                            Effect tempEffect = new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, 0);
+                            target.CurrentHealth -= tempEffect.Damage; //damages enemy
+                            EnemyScrolling($"HP -{tempEffect.Damage}", Color.Red); //adds damage to EnemyScrolling
+                            Player.Instance.CurrentHealth += tempEffect.Heal; //heals player
+                            PlayerScrolling($"HP +{tempEffect.Heal}", Color.Green); //adds heal to PlayerScrolling
+                        }
                     }
 
                     if (!target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0) //has a chance to add negative effects to the player
                     {
-                        playerEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone.WeaponEffect.Stone, target, totalDamageToDeal));
+                        playerEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
                     }
                     else if (target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
                     {
-                        enemyEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone.WeaponEffect.Stone, target, totalDamageToDeal));
+                        enemyEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
                     }
 
                     //applies healing

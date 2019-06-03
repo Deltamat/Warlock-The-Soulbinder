@@ -199,30 +199,32 @@ namespace Warlock_The_Soulbinder
 
             //adds one of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
-            //FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
+            if (FilledStone.StoneList.Count == 0)
+            {
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
+            }
             #endregion
-
-         
+            
             //LogLoad
             Log.Instance.GenerateLogList();
             Log.Instance.FullScans();
@@ -295,7 +297,7 @@ namespace Warlock_The_Soulbinder
             #region TEMP
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
@@ -438,8 +440,6 @@ namespace Warlock_The_Soulbinder
                 }
                 SpriteBatch.End();
             }
-            
-
         }
 
         /// <summary>
@@ -528,8 +528,7 @@ namespace Warlock_The_Soulbinder
         public void SaveToDB()
         {
             Controller.Instance.OpenTheGates();
-
-            Controller.Instance.DeleteConsumableDB();
+            
             Controller.Instance.DeleteEnemyDB();
             Controller.Instance.DeletePlayerDB();
             Controller.Instance.DeleteQuestDB();

@@ -204,7 +204,7 @@ namespace Warlock_The_Soulbinder
                         case 3: //plant eater
                             EffectString = "Has a chance to retaliate \nwhen attacked, dealing damage\nand healing you";
                             UpperChanceBounds = 7;
-                            TargetBoth = true;
+                            TargetsBoth = true;
                             if (characterCombat != null)
                             {
                                 int localDamage;
@@ -246,7 +246,7 @@ namespace Warlock_The_Soulbinder
                         case 9: //mummy
                             EffectString = "Gives you immunity to curses";
                             TargetsSelf = true;
-                            AccuracyMod = 2;
+                            AccuracyMod = 1000000;
                             EffectLength = 999;
                             break;
                         case 10: //vampire
@@ -342,7 +342,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 3: //plant eater
                             EffectString = "Steal health from the enemy";
-                            TargetBoth = true;
+                            TargetsBoth = true;
                             if (characterCombat != null)
                             {
                                 int localDamage;
@@ -405,7 +405,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 12: //bucket man
                             EffectString = "A powerful attack that \nis difficult to land";
-                            TargetBoth = true;
+                            TargetsBoth = true;
                             AccuracyMod = 0.1f;
                             if (characterCombat != null)
                             {
@@ -467,7 +467,7 @@ namespace Warlock_The_Soulbinder
         }
 
         public bool TargetsSelf { get => targetsSelf; set => targetsSelf = value; }
-        public bool TargetBoth { get => targetBoth; set => targetBoth = value; }
+        public bool TargetsBoth { get => targetBoth; set => targetBoth = value; }
         public int Cooldown { get => cooldown; set => cooldown = value; }
         public int Damage { get => damage; set => damage = value; }
         public int Heal { get => heal; set => heal = value; }
