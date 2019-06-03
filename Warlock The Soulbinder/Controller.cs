@@ -8,7 +8,6 @@ namespace Warlock_The_Soulbinder
 {
     class Controller
     {
-        ModelConsumable consumable;
         ModelSoulStone filledStone;
         ModelEnemy enemy;
         ModelQuest quest;
@@ -36,16 +35,13 @@ namespace Warlock_The_Soulbinder
         public Controller()
         {
             model = new Model();
-            consumable = new ModelConsumable();
             filledStone = new ModelSoulStone();
             enemy = new ModelEnemy();
             player = new ModelPlayer();
             statistic = new ModelStatistic();
             quest = new ModelQuest();
         }
-
-       
-
+        
         #region Model
         public void OpenTheGates()
         {
@@ -75,26 +71,7 @@ namespace Warlock_The_Soulbinder
             return filledStone.LoadSoulStone();
         }
         #endregion
-
-
-        #region Consumable
-        //public void DeleteConsumableDB()
-        //{
-        //    consumable.ClearDB();
-        //}
-
-        //public void SaveToConsumableDB(string name, int amount)
-        //{
-        //    consumable.SaveConsumable(name, amount);
-        //}
-
-        //public Dictionary<int, Consumable> LoadFromConsumableDB()
-        //{
-        //    return consumable.LoadConsumable();
-        //}
-        #endregion
-
-
+        
         #region Statistic
         public void DeleteStatisticDB()
         {
@@ -112,8 +89,7 @@ namespace Warlock_The_Soulbinder
         }
 
         #endregion
-
-
+        
         #region Quest
         public void DeleteQuestDB()
         {
@@ -131,8 +107,7 @@ namespace Warlock_The_Soulbinder
         }
 
         #endregion
-
-
+        
         #region Player
         public void DeletePlayerDB()
         {

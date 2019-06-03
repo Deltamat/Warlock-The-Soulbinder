@@ -353,7 +353,7 @@ namespace Warlock_The_Soulbinder
                     AttackSpeed += stone.AttackSpeed; //adds attack speed to the player
                     MaxHealth += stone.MaxHealth; //adds max health to the player
 
-                    if (Equipment.Instance.EquippedEquipment[0] != null &&stone == Equipment.Instance.EquippedEquipment[0])
+                    if (Equipment.Instance.EquippedEquipment[0] != null && stone == Equipment.Instance.EquippedEquipment[0])
                     {
                         for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
                         {
@@ -374,7 +374,7 @@ namespace Warlock_The_Soulbinder
                         Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this, 0);
                     }
                     
-                    if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                    if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
                     {
                         Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this, 0);
                     }
@@ -387,18 +387,17 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void BaseStats()
         {
- 
             Damage = 10;
-            Defense = 2;
+            Defense = 0;
             AttackSpeed = 15;
             MaxHealth = 100;
-//#if DEBUG
-//            int over9000 = 9001;
-//            Damage = 10 + over9000;
-//            Defense = 2 + over9000;
-//            AttackSpeed = 15 + over9000;
-//            MaxHealth = 100 + over9000;
-//#endif
+#if DEBUG
+            //int over9000 = 9001;
+            //Damage = 10 + over9000;
+            //Defense = 2 + over9000;
+            //AttackSpeed = 15 + over9000;
+            //MaxHealth = 100 + over9000;
+#endif
             for (int i = 0; i < DamageTypes.Count; i++)
             {
                 DamageTypes[i] = 0;

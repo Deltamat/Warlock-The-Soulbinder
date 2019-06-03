@@ -160,23 +160,31 @@ namespace Warlock_The_Soulbinder
             foreach (Enemy enemy in Enemies)
             {
                 enemy.Draw(spriteBatch);
+#if DEBUG
                 GameWorld.Instance.DrawRectangle(enemy.CollisionBox);
+#endif
             }
 
             foreach (Rectangle item in CollisionRects)
             {
+#if DEBUG
                 GameWorld.Instance.DrawRectangle(item);
+#endif
             }
 
             foreach (Trigger item in Triggers)
             {
+#if DEBUG
                 GameWorld.Instance.DrawRectangle(item.CollisionBox);
+#endif
             }
 
             foreach (var npc in NPCs)
             {
                 npc.Draw(spriteBatch);
+#if DEBUG
                 GameWorld.Instance.DrawRectangle(npc.CollisionBox);
+#endif
             }
 
             //MapRenderer.Draw(Map, GameWorld.Instance.camera.viewMatrix);
