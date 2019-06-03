@@ -387,8 +387,9 @@ namespace Warlock_The_Soulbinder
                         CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
                     }
                 }
-
+#if DEBUG
                 SpriteBatch.DrawString(font, $"{Player.Instance.Position}", Player.Instance.Position, Color.Red); // for npc placement
+#endif
 
                 Player.Instance.Draw(SpriteBatch);
 
