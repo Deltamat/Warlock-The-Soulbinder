@@ -15,7 +15,7 @@ namespace Warlock_The_Soulbinder
         private string element;
         private int level;
         private int experience = 0;
-        private int experienceRequired = 23;
+        private int experienceRequired = 13;
         private bool equipped;
         private string equipmentSlot;
         private static int stoneListPages = 0;
@@ -116,8 +116,8 @@ namespace Warlock_The_Soulbinder
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
 
             Damage = damage;
-            this.maxHealth = maxHealth;
-            this.attackSpeed = attackSpeed;
+            MaxHealth = maxHealth;
+            AttackSpeed = attackSpeed;
 
             //switch case to determine the element, and name of abilities, based on the monster type
             switch (Monster)
@@ -340,11 +340,13 @@ namespace Warlock_The_Soulbinder
                 sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             }
 
+            float modifier = 0.5f;
+
             //base stats
-            Damage = (int)(enemy.Damage * 0.15);
-            maxHealth = (int)(enemy.MaxHealth * 0.15);
-            attackSpeed = (int)(enemy.AttackSpeed * 0.15f);
-            Defense = (int)(enemy.Defense * 0.15f);
+            Damage = (int)(enemy.Damage * modifier);
+            maxHealth = (int)(enemy.MaxHealth * modifier);
+            attackSpeed = (int)(enemy.AttackSpeed * modifier);
+            Defense = (int)(enemy.Defense * modifier);
 
             //switch case to determine the element, and name of abilities, based on the monster type
             switch (Monster)
@@ -501,8 +503,8 @@ namespace Warlock_The_Soulbinder
             //adds damage and resistances to lists for ease of use
             for (int i = 0; i < enemy.ResistanceTypes.Count; i++)
             {
-                ResistanceTypes.Add(enemy.ResistanceTypes[i] * 0.15f);
-                DamageTypes.Add((int)(enemy.DamageTypes[i] * 0.15f));
+                ResistanceTypes.Add(enemy.ResistanceTypes[i] * modifier);
+                DamageTypes.Add((int)(enemy.DamageTypes[i] * modifier));
             }
 
             WeaponSkill();
