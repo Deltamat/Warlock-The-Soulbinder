@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 
 
@@ -31,7 +32,7 @@ namespace Warlock_The_Soulbinder
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
         private Random rng = new Random();
-
+        public NumberFormatInfo replaceComma = new NumberFormatInfo();
         //private bool loading = false; // temporary
         Song overworldMusic;
         Song combatMusic;
@@ -165,6 +166,8 @@ namespace Warlock_The_Soulbinder
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
             SmallFont = Content.Load<SpriteFont>("smallFont");
             fullScreen = Content.Load<Texture2D>("fullScreen");
+            
+            replaceComma.NumberDecimalSeparator = ".";
 
             // zoner laves med navn og antal af fjender.
             town = new Zone("Town", 0);
