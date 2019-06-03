@@ -31,6 +31,7 @@ namespace Warlock_The_Soulbinder
         private int equippingTo;
         private float delay = 0;
         private int currentPage = 0;
+        private int helpPage = 0;
         private bool changingKey = false;
 
         public static GeneralMenu Instance
@@ -48,6 +49,7 @@ namespace Warlock_The_Soulbinder
         public int CurrentPage { get => currentPage; set => currentPage = value; }
         public int EquippingTo { get => equippingTo; set => equippingTo = value; }
         public bool Equipping { get => equipping; set => equipping = value; }
+        public string InventoryState { get => inventoryState; set => inventoryState = value; }
 
         private GeneralMenu()
         {
@@ -71,7 +73,7 @@ namespace Warlock_The_Soulbinder
         {
             delay += gameTime.ElapsedGameTime.Milliseconds;
 
-            switch (inventoryState)
+            switch (InventoryState)
             {
                 case "GeneralMenu":
                     ChangeSelected(7);
@@ -213,6 +215,23 @@ namespace Warlock_The_Soulbinder
                         delay = 0;
                     }
                     break;
+
+                case "Help":
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && helpPage < 2)
+                    {
+                        helpPage+=2;
+                        delay = 0;
+                        selectedInt = 0;
+                    }
+
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && helpPage > 0)
+                    {
+                        helpPage-=2;
+                        delay = 0;
+                        selectedInt = 0;
+                    }
+                    break;
+
             }   
             
             //Key to execute code dependent on the inventory state
@@ -226,50 +245,54 @@ namespace Warlock_The_Soulbinder
             //Key for going back in menus
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 150)
             {
-                switch (inventoryState)
+                switch (InventoryState)
                 {
                     case "Equipment":
-                        inventoryState = "GeneralMenu";
+                        InventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
                     case "Save":
-                        inventoryState = "GeneralMenu";
+                        InventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
                     case "FilledStones":
                         if (equipping == false)
                         {
-                            inventoryState = "GeneralMenu";
+                            InventoryState = "GeneralMenu";
                             selectedInt = 0;
                             break;
                         }
 
                         if (equipping == true)
                         {
-                            inventoryState = "Equipment";
+                            InventoryState = "Equipment";
                             equipping = false;
                             selectedInt = 0;
                             break;
                         }
                         break;
                     case "Consumables":
-                        inventoryState = "Inventory";
+                        InventoryState = "Inventory";
                         selectedInt = 0;
                         break;
                     case "Options":
-                        inventoryState = "GeneralMenu";
+                        InventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
                     case "Keybinds":
-                        inventoryState = "Options";
+                        InventoryState = "Options";
                         selectedInt = 0;
                         break;
                     case "Character":
-                        inventoryState = "GeneralMenu";
+                        InventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
                     case "Log":
-                        inventoryState = "GeneralMenu";
+                        InventoryState = "GeneralMenu";
+                        selectedInt = 0;
+                        break;
+                    case "Help":
+                        InventoryState = "GeneralMenu";
                         selectedInt = 0;
                         break;
                 }
@@ -290,12 +313,12 @@ namespace Warlock_The_Soulbinder
         {
             spriteBatch.Draw(book, new Vector2(50, 20), Color.White);
 
-            if (inventoryState == "GeneralMenu")
+            if (InventoryState == "GeneralMenu")
             { 
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Character", new Vector2(200, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(200, 200), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(200, 280), Color.White);
-                spriteBatch.DrawString(Combat.Instance.CombatFont, "Quests", new Vector2(200, 360), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Help", new Vector2(200, 360), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Log", new Vector2(200, 440), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Save", new Vector2(200, 520), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Options", new Vector2(200, 600), Color.White);
@@ -304,6 +327,68 @@ namespace Warlock_The_Soulbinder
                 switch (selectedInt)
                 {
 
+                    case 0:
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Health: {Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth} ", new Vector2(1100, 120), Color.White);
+                        if (Equipment.Instance.Weapon != null)
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Damage: {Player.Instance.Damage} {Equipment.Instance.Weapon.Element}", new Vector2(1100, 200), Color.White);
+                        }
+                        
+                        else
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Damage: {Player.Instance.Damage} neutral", new Vector2(1100, 200), Color.White);
+                        }
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Resistance:", new Vector2(1100, 320), Color.White);
+
+                        if (Equipment.Instance.Armor != null)
+                        {
+                            switch (Equipment.Instance.Armor.Element)
+                            {
+                                case "neutral":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% all", new Vector2(1450, 320), Color.White);
+                                    break;
+
+                                case "earth":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% earth", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.DarkResistance}% dark", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "air":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.AirResistance}% air", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% earth", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "water":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.WaterResistance}% water", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.AirResistance}% air", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "fire":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.FireResistance}% fire", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.WaterResistance}% Water", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "metal":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.MetalResistance}% metal", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.FireResistance}% fire", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "dark":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.DarkResistance}% dark", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.MetalResistance}% metal", new Vector2(1450, 360), Color.White);
+                                    break;
+
+
+                            }
+                        }
+
+                        else
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"none", new Vector2(1450, 280), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"none", new Vector2(1450, 360), Color.White);
+                        }
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Defense: {Player.Instance.Defense}", new Vector2(1100, 440), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Attack Speed: {Player.Instance.AttackSpeed}", new Vector2(1100, 520), Color.White);
+                        break;
+                        
+                        
                     case 1:
                         if (Equipment.Instance.Weapon != null)
                         {
@@ -436,24 +521,42 @@ namespace Warlock_The_Soulbinder
                             }
                         }
 
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1) + " / " + (FilledStone.StoneListPages + 1), new Vector2(1300, 870), Color.White);
+                        if (FilledStone.StoneList.Count > 0)
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1) + " / " + (FilledStone.StoneListPages + 1), new Vector2(1300, 870), Color.White);
+                        }
+                       
+                        else
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, "Capture monsters to \nsee them here", new Vector2(1050, 150), Color.White);
+                        }
                         break;
 
 
                     case 4:
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete Scans: {Log.Instance.FullScans()} / 21", new Vector2(1050, 120), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Neutral: {Log.Instance.NeutralBonus * 100}%", new Vector2(1050, 200), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Earth: {Log.Instance.EarthBonus * 100}%", new Vector2(1050, 280), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Water: {Log.Instance.WaterBonus * 100}%", new Vector2(1050, 360), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Dark: {Log.Instance.DarkBonus * 100}%", new Vector2(1050, 440), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Metal: {Log.Instance.MetalBonus * 100}%", new Vector2(1050, 520), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Fire: {Log.Instance.FireBonus * 100}%", new Vector2(1050, 600), Color.White);
-                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Air: {Log.Instance.AirBonus * 100}%", new Vector2(1050, 680), Color.White);
+                        if (Log.Instance.LogBegun == true)
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Complete Scans: {Log.Instance.FullScans()} / 21", new Vector2(1050, 120), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Neutral: {Log.Instance.NeutralBonus * 100}%", new Vector2(1050, 200), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Earth: {Log.Instance.EarthBonus * 100}%", new Vector2(1050, 280), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Water: {Log.Instance.WaterBonus * 100}%", new Vector2(1050, 360), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Dark: {Log.Instance.DarkBonus * 100}%", new Vector2(1050, 440), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Metal: {Log.Instance.MetalBonus * 100}%", new Vector2(1050, 520), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Fire: {Log.Instance.FireBonus * 100}%", new Vector2(1050, 600), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Bonus VS Air: {Log.Instance.AirBonus * 100}%", new Vector2(1050, 680), Color.White);
+                        }
+                                
+                        else
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Capture sentry to \nstart scanning enemies\nfor bonuses", new Vector2(1050, 150), Color.White);
+                        }
+                       
+
                         break;
                 }
             }
 
-            if (inventoryState == "Equipment")
+            if (InventoryState == "Equipment")
             {
                 //SkillPlanks
                 for (int i = 0; i < 5; i++)
@@ -631,13 +734,13 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Draw(emptyRing, new Vector2(150, 120 + selectedInt * 160), null, Color.Gold, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
             }
 
-            if (inventoryState == "Log")
+            if (InventoryState == "Log")
             {
                 Log.Instance.Draw(spriteBatch, logPage);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, $"{logPage +1}", new Vector2(125, 885), Color.White);
             }
 
-            if (inventoryState == "FilledStones")
+            if (InventoryState == "FilledStones")
             {
                 if (CurrentPage < FilledStone.StoneListPages)
                 {
@@ -690,7 +793,7 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1 ) + " / " + (FilledStone.StoneListPages + 1), new Vector2(400, 900), Color.White);
             }
 
-            if (inventoryState == "Options")
+            if (InventoryState == "Options")
             {
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Sound:", new Vector2(200, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Music:", new Vector2(200, 200), Color.White);
@@ -700,7 +803,7 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)(GameWorld.Instance.MusicVolume * 100)}%", new Vector2(500, 200), Color.White);
             }
 
-            if (inventoryState == "Keybinds")
+            if (InventoryState == "Keybinds")
             {
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Up", new Vector2(200, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Down", new Vector2(200, 200), Color.White);
@@ -721,8 +824,47 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, Convert.ToString(InputHandler.Instance.KeyMenu), new Vector2(600, 680), Color.White);
             }
 
-            //Draws a selection arrow to see what you are hovering over
-            if (inventoryState != "Equipment" && inventoryState != "Log")
+
+            if (InventoryState == "Help")
+            {
+                switch (helpPage)
+                {
+                    case 0:
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Introduction", new Vector2(545-(Combat.Instance.CombatFont.MeasureString("Introduction").X/2), 120), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Welcome to the path of the warlock, this book shall \nbe your guide on the path to becoming a true warlock.", new Vector2(130, 200), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Right now you are only a novice, to become a true \nwarlock you must slay the seven dragon aspects  \nat the dragon shrine, however these dragons are \nfearsome elemental forces that will kill anyone \nwho challenges them unprepared. ", new Vector2(130, 300), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "But fear not! For even a novice warlock has power \nabove normal humans, you have the power to control \nsouls, allowing you to capture the souls of monsters \nto do your bidding, and even makes you unable \nto truly die forever! \n\nRead on to figure out just how \nyou can use this to your advantage.", new Vector2(130, 520), Color.White);
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Elements", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Elements").X / 2), 120), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Each monster in the world is created with an element \nthese elements affects their attacks and defense. \nAll monsters except neutral has protections against \ntheir own element and are strong against another one", new Vector2(990, 200), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "The elemental ecosystem is: earth -> air -> water -> \nfire -> metal -> dark -> earth. Remembering this will \nbe crucial for succeeding.", new Vector2(990, 400), Color.White);
+                        break;
+                    case 1:
+                        
+                        break;
+                    case 2:
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Capturing", new Vector2(545 - (Combat.Instance.CombatFont.MeasureString("Capturing").X / 2), 120), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Due to your powers you are able to capture monsters \nfor personal use, however since you are only a novice \nthey need to be weakened in combat first the weaker  \nthey are, the easier it is to capture.", new Vector2(130, 200), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "When you capture a monster you convert their soul \ninto a stone which inherits the strengths, weaknesses \nand skills of each monster. Each monster shares the \nsame unique skills, but has different strengths and \nweaknesses, so make sure to capture plenty to find \nthe strongest monster, when you have \nyou are now ready to use it, and make it stronger.", new Vector2(130, 400), Color.White);
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Equipment").X / 2), 120), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto infuse them into your equipment to use power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determins its protection. So make sure \nto take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped monster stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
+                        break;
+
+                    case 4:
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Ending", new Vector2(545 - (Combat.Instance.CombatFont.MeasureString("Introduction").X / 2), 120), Color.White);
+                        break;
+
+                }
+
+                spriteBatch.DrawString(Combat.Instance.CombatFont, $"{helpPage + 1}", new Vector2(125, 885), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, $"{helpPage + 2}", new Vector2(1730, 885), Color.White);
+
+            }
+
+                //Draws a selection arrow to see what you are hovering over
+                if (InventoryState != "Equipment" && InventoryState != "Log" && InventoryState != "Help")
             {
                 spriteBatch.Draw(arrow, new Vector2(155, 120 + 80 * selectedInt), Color.White);
             }
@@ -730,36 +872,41 @@ namespace Warlock_The_Soulbinder
 
         public void ChangeState()
         {
-            if (inventoryState == "GeneralMenu")
+            if (InventoryState == "GeneralMenu")
             {
                 switch (selectedInt)
                 {
                     case 1:
-                        inventoryState = "Equipment";
+                        InventoryState = "Equipment";
                         break;
                     case 2:
-                        inventoryState = "FilledStones";
+                        InventoryState = "FilledStones";
                         break;
                     case 3:
-                        inventoryState = "Options";
+                        InventoryState = "Help";
                         break;
                     case 4:
-                        inventoryState = "Log";
+
+                        if (Log.Instance.LogBegun == true)
+                        {
+                            InventoryState = "Log";
+                        }
+
                         break;
                     case 5:
                         //inventoryState = "Save";
                         GameWorld.Instance.SaveToDB();
                         break;
                     case 6:
-                        inventoryState = "Options";
+                        InventoryState = "Options";
                         break;
                     case 7:
-                        inventoryState = "Quit";
+                        GameWorld.Instance.Exit();
                         break;
                 }
             }
 
-            else if (inventoryState == "FilledStones")
+            else if (InventoryState == "FilledStones")
             {
                 if (equipping == true)
                 {
@@ -835,24 +982,24 @@ namespace Warlock_The_Soulbinder
                         Equipment.Instance.EquipStone(EquippingTo, FilledStone.StoneList[selectedInt + currentPage * 9]);
                         FilledStone.StoneList[selectedInt + currentPage * 9].Equipped = true;
                         EquippingTo = 0;
-                        inventoryState = "Equipment";
+                        InventoryState = "Equipment";
                     }
                 }
             }
-            else if (inventoryState == "Equipment")
+            else if (InventoryState == "Equipment")
             {
                 Equipping = true;
                 EquippingTo = selectedInt;
-                inventoryState = "FilledStones";
+                InventoryState = "FilledStones";
             }
-            else if (inventoryState == "Options")
+            else if (InventoryState == "Options")
             {
                 if (selectedInt == 2)
                 {
-                    inventoryState = "Keybinds";
+                    InventoryState = "Keybinds";
                 }
             }
-            else if (inventoryState == "Keybinds")
+            else if (InventoryState == "Keybinds")
             {
                 if (delay > 200)
                 {

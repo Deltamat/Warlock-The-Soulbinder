@@ -14,15 +14,15 @@ namespace Warlock_The_Soulbinder
         private List<int> logList = new List<int>();
         private int sheepLog = 0;
         private int wolfLog = 0;
-        private int bearLog = 1;
-        private int plantEaterLog = 2;
+        private int bearLog = 0;
+        private int plantEaterLog = 0;
         private int insectSoldierLog = 0;
         private int slimeSnakeLog = 0;
         private int tentacleLog = 0;
-        private int frogLog = 10;
+        private int frogLog = 0;
         private int fishLog = 0;
-        private int mummyLog = 3;
-        private int vampireLog = 4;
+        private int mummyLog = 0;
+        private int vampireLog = 0;
         private int bansheeLog = 0;
         private int bucketManLog = 0;
         private int defenderLog = 0;
@@ -31,7 +31,7 @@ namespace Warlock_The_Soulbinder
         private int infernalDemonLog = 0;
         private int ashZombieLog = 0;
         private int falconLog = 0;
-        private int batLog = 8;
+        private int batLog = 0;
         private int ravenLog = 0;
         private float neutralBonus = 0;
         private float earthBonus = 0;
@@ -40,6 +40,7 @@ namespace Warlock_The_Soulbinder
         private float metalBonus = 0;
         private float fireBonus = 0;
         private float airBonus = 0;
+        private bool logBegun = false;
 
         public static Log Instance
         {
@@ -82,6 +83,7 @@ namespace Warlock_The_Soulbinder
         public float MetalBonus { get => metalBonus; set => metalBonus = value; }
         public float FireBonus { get => fireBonus; set => fireBonus = value; }
         public float AirBonus { get => airBonus; set => airBonus = value; }
+        public bool LogBegun { get => logBegun; set => logBegun = value; }
 
         private Log()
         {
@@ -115,7 +117,6 @@ namespace Warlock_The_Soulbinder
 
         public void Draw(SpriteBatch spriteBatch, int monsterIndex)
         {
-
             DrawLog(spriteBatch, monsterIndex);
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 1:", new Vector2(175, 310), Color.White);
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 2:", new Vector2(175, 390), Color.White);
@@ -127,8 +128,6 @@ namespace Warlock_The_Soulbinder
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 8:", new Vector2(1050, 150), Color.White);
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 9:", new Vector2(1050, 230), Color.White);
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 10:", new Vector2(1050, 310), Color.White);
-
-
         }
 
         public int FullScans()
@@ -154,8 +153,24 @@ namespace Warlock_The_Soulbinder
             FireBonus = ((float)(ashZombieLog + infernalDemonLog + fireGolemLog) / 100);
             MetalBonus = ((float)(defenderLog + sentryLog + bucketManLog) / 100);
             AirBonus = ((float)(ravenLog + falconLog + batLog) / 100);
+
+            foreach (int item in LogList)
+            {
+                if (item > 0)
+                {
+                    LogBegun = true;
+                }
+            }
         }
 
+        public void ScanEnemy(string monster)
+        {
+            int index = Enemy.ReturnMonsterIndex(monster);
+            switch (index)
+            {
+                
+            }
+        }
         public void DrawLog(SpriteBatch spriteBatch, int monsterIndex)
         {
             int monsterLog = 0;
@@ -382,5 +397,6 @@ namespace Warlock_The_Soulbinder
                     }
 
             }
+
     }
 }
