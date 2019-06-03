@@ -217,7 +217,7 @@ namespace Warlock_The_Soulbinder
                     break;
 
                 case "Help":
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && helpPage < 3)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && helpPage < 2)
                     {
                         helpPage+=2;
                         delay = 0;
@@ -327,6 +327,68 @@ namespace Warlock_The_Soulbinder
                 switch (selectedInt)
                 {
 
+                    case 0:
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Health: {Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth} ", new Vector2(1100, 120), Color.White);
+                        if (Equipment.Instance.Weapon != null)
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Damage: {Player.Instance.Damage} {Equipment.Instance.Weapon.Element}", new Vector2(1100, 200), Color.White);
+                        }
+                        
+                        else
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Damage: {Player.Instance.Damage} neutral", new Vector2(1100, 200), Color.White);
+                        }
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Resistance:", new Vector2(1100, 320), Color.White);
+
+                        if (Equipment.Instance.Armor != null)
+                        {
+                            switch (Equipment.Instance.Armor.Element)
+                            {
+                                case "neutral":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% all", new Vector2(1450, 320), Color.White);
+                                    break;
+
+                                case "earth":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% earth", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.DarkResistance}% dark", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "air":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.AirResistance}% air", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% earth", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "water":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.WaterResistance}% water", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.AirResistance}% air", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "fire":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.FireResistance}% fire", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.WaterResistance}% Water", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "metal":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.MetalResistance}% metal", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.FireResistance}% fire", new Vector2(1450, 360), Color.White);
+                                    break;
+                                case "dark":
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.DarkResistance}% dark", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.MetalResistance}% metal", new Vector2(1450, 360), Color.White);
+                                    break;
+
+
+                            }
+                        }
+
+                        else
+                        {
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"none", new Vector2(1450, 280), Color.White);
+                            spriteBatch.DrawString(Combat.Instance.CombatFont, $"none", new Vector2(1450, 360), Color.White);
+                        }
+
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Defense: {Player.Instance.Defense}", new Vector2(1100, 440), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, $"Attack Speed: {Player.Instance.AttackSpeed}", new Vector2(1100, 520), Color.White);
+                        break;
+                        
+                        
                     case 1:
                         if (Equipment.Instance.Weapon != null)
                         {
@@ -783,7 +845,7 @@ namespace Warlock_The_Soulbinder
                     case 2:
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Capturing", new Vector2(545 - (Combat.Instance.CombatFont.MeasureString("Capturing").X / 2), 120), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Due to your powers you are able to capture monsters \nfor personal use, however since you are only a novice \nthey need to be weakened in combat first the weaker  \nthey are, the easier it is to capture.", new Vector2(130, 200), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "When you capture a monster you convert their soul \ninto a stone which inherits the strengths, weaknesses \nand skills of each monster. Each monster shares the \nsame unique, but has different strengths and \nweaknesses, so make sure to capture plenty to find \nthe strongest monster, when you have \nyou are now ready to use it, and make it stronger.", new Vector2(130, 400), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "When you capture a monster you convert their soul \ninto a stone which inherits the strengths, weaknesses \nand skills of each monster. Each monster shares the \nsame unique skills, but has different strengths and \nweaknesses, so make sure to capture plenty to find \nthe strongest monster, when you have \nyou are now ready to use it, and make it stronger.", new Vector2(130, 400), Color.White);
 
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Equipment").X / 2), 120), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto infuse them into your equipment to use power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determins its protection. So make sure \nto take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);

@@ -117,17 +117,17 @@ namespace Warlock_The_Soulbinder
 
         public void Draw(SpriteBatch spriteBatch, int monsterIndex)
         {
-                    DrawLog(spriteBatch, monsterIndex);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 1:", new Vector2(175, 310), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 2:", new Vector2(175, 390), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 3:", new Vector2(175, 470), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 4:", new Vector2(175, 550), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 5:", new Vector2(175, 630), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 6:", new Vector2(175, 710), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 7:", new Vector2(175, 790), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 8:", new Vector2(1050, 150), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 9:", new Vector2(1050, 230), Color.White);
-                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 10:", new Vector2(1050, 310), Color.White);
+            DrawLog(spriteBatch, monsterIndex);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 1:", new Vector2(175, 310), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 2:", new Vector2(175, 390), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 3:", new Vector2(175, 470), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 4:", new Vector2(175, 550), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 5:", new Vector2(175, 630), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 6:", new Vector2(175, 710), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 7:", new Vector2(175, 790), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 8:", new Vector2(1050, 150), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 9:", new Vector2(1050, 230), Color.White);
+            spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 10:", new Vector2(1050, 310), Color.White);
         }
 
         public int FullScans()
@@ -163,6 +163,14 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public void ScanEnemy(string monster)
+        {
+            int index = Enemy.ReturnMonsterIndex(monster);
+            switch (index)
+            {
+                
+            }
+        }
         public void DrawLog(SpriteBatch spriteBatch, int monsterIndex)
         {
             int monsterLog = 0;
@@ -389,5 +397,6 @@ namespace Warlock_The_Soulbinder
                     }
 
             }
+
     }
 }

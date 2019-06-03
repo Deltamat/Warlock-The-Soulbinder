@@ -107,6 +107,8 @@ namespace Warlock_The_Soulbinder
                 playerAttackTimer += Player.Instance.AttackSpeed * playerSpeedMod;
                 enemyAttackTimer += Target.AttackSpeed * enemySpeedMod;
             }
+
+
             else if (playerAttackTimer >= turnTimer)
             {
                 buttonColor = Color.White;
