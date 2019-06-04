@@ -515,8 +515,6 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.LoadFromPlayerDB();
             CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
-            //dictionary? = Controller.Instance.LoadFromConsumableDB();
-            //list? = Controller.Instance.LoadFromQuestDB();
 
             Equipment.Instance.LoadEquipment();
             Equipment.Instance.UpdateExperienceRequired();
@@ -534,26 +532,22 @@ namespace Warlock_The_Soulbinder
             
             Controller.Instance.DeleteEnemyDB();
             Controller.Instance.DeletePlayerDB();
-            Controller.Instance.DeleteQuestDB();
+           
             Controller.Instance.DeleteSoulStoneDB();
             Controller.Instance.DeleteStatisticDB();
 
-            //for (int i = 0; i < Consumable.ConsumableList.Count; i++)
-            //{
-            //    Controller.Instance.SaveToConsumableDB(Consumable.ConsumableList[i].Name, Consumable.ConsumableList[i].Amount);
-            //}
+           
             for (int i = 0; i < CurrentZone().Enemies.Count; i++)
             {
                 Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
             }
+            //Filled soul stones
             for (int i = 0; i < FilledStone.StoneList.Count; i++)
             {
                 Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
-            //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
-            //{
-            //    Controller.Instance.SaveToQuestDB(Quest.Instance.Quests[i],); // mangler en bedre måde at gemme quests
-            //}
+            
+            //Player
             int weapon, armour, skill1, skill2, skill3;
             try
             {
@@ -595,9 +589,9 @@ namespace Warlock_The_Soulbinder
             {
                 skill3 = -1;
             }
-
             Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
-
+            
+            //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.earthDragonDead, Combat.Instance.fireDragonDead, Combat.Instance.darkDragonDead, Combat.Instance.metalDragonDead, Combat.Instance.waterDragonDead, Combat.Instance.airDragonDead, Combat.Instance.neutralDragonDead);
 
             Controller.Instance.CloseTheGates();
