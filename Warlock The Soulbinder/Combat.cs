@@ -164,6 +164,10 @@ namespace Warlock_The_Soulbinder
                                 darkDragonDead = true;
                                 break;
                         }
+                        GameWorld.Instance.currentZone = "Dragon";
+                        GameWorld.Instance.CurrentZone().ChangeDragonPillarSprite();
+                        GameWorld.Instance.currentZone = "DragonRealm";
+
                     }
 
                     Target.Alive = false;
