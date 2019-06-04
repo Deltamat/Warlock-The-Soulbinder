@@ -12,8 +12,8 @@ namespace Warlock_The_Soulbinder
     {
         public ModelPlayer()
         {
-            string sqlexp = "CREATE TABLE IF NOT EXISTS Player (X string primary key, " +
-                "Y string, " +
+            string sqlexp = "CREATE TABLE IF NOT EXISTS Player (X float primary key, " +
+                "Y float, " +
                 "zone string, " +
                 "soulWeapon integer," +
                 "soulArmour integer," +
@@ -41,8 +41,7 @@ namespace Warlock_The_Soulbinder
 
         public void SavePlayer(float X, float Y, string zone, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
         {
-            cmd.CommandText = $"INSERT INTO Player (X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ('{Math.Floor(X) + 0.1f}', '{Math.Floor(Y) + 0.1f}', '{zone}', {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
-            //cmd.CommandText = $"INSERT INTO Player (X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ({X}, {Y}, '{zone}', {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
+            cmd.CommandText = $"INSERT INTO Player (X, Y, zone, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ({X.ToString(GameWorld.Instance.replaceComma)}, {Y.ToString(GameWorld.Instance.replaceComma)}, '{zone}', {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
             cmd.ExecuteNonQuery();
         }
 
@@ -96,8 +95,7 @@ namespace Warlock_The_Soulbinder
                 }
                 #endregion
 
-                Player.Instance.Position = new Vector2((float)Convert.ToDouble(reader.GetString(0)) - 0.1f, (float)Convert.ToDouble(reader.GetString(1)) - 0.1f);
-                //Player.Instance.Position = new Vector2((float)Convert.ToDouble(reader.GetString(0)) - 0.1f, (float)Convert.ToDouble(reader.GetString(1)) - 0.1f);
+                Player.Instance.Position = new Vector2(reader.GetFloat(0), reader.GetFloat(1));
                 GameWorld.Instance.currentZone = $"{reader.GetString(2)}";
             }
             reader.Close();
