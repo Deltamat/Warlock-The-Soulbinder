@@ -38,7 +38,7 @@ namespace Warlock_The_Soulbinder
         private int id;
 
         private int maxHealth;
-        protected int attackSpeed;
+        protected float attackSpeed;
         protected int damage;
         protected int waterDamage;
         protected int darkDamage;
@@ -66,7 +66,7 @@ namespace Warlock_The_Soulbinder
         public Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
         public int Damage { get => damage; set => damage = value; }
         public int Defense { get => defense; set => defense = value; }
-        public int AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+        public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
@@ -108,7 +108,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="monster"></param>
         /// <param name="experience"></param>
         /// <param name="level"></param>
-        public FilledStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, int attackSpeed)
+        public FilledStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, float attackSpeed)
         {
             EquipmentSlot = equipmentSlot;
             
@@ -348,7 +348,7 @@ namespace Warlock_The_Soulbinder
             //base stats
             Damage = (int)(enemy.Damage * modifier);
             maxHealth = (int)(enemy.MaxHealth * modifier);
-            attackSpeed = (int)(enemy.AttackSpeed * modifier);
+            attackSpeed = (enemy.AttackSpeed * modifier);
             Defense = (int)(enemy.Defense * modifier);
 
             //switch case to determine the element, and name of abilities, based on the monster type

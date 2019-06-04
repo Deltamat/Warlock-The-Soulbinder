@@ -88,7 +88,7 @@ namespace Warlock_The_Soulbinder
             Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
             maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
             currentHealth = 0 + maxHealth;
-            attackSpeed = (int)(5 * (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3));
+            attackSpeed = (5 * (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3));
             MetalResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             EarthResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             AirResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
@@ -196,7 +196,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="waterResistance"></param>
         /// <param name="monster"></param>
         public Enemy(int level, Vector2 startPos, int defense, int damage, int maxHealth, 
-        int attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, 
+        float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, 
         float waterResistance, string monster)
         {
             Monster = monster;
