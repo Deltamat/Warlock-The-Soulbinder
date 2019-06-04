@@ -395,7 +395,14 @@ namespace Warlock_The_Soulbinder
                         if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.InternalCooldown == 0)
                         {
                             CountCooldown();
-                            if (Equipment.Instance.Skill1.SkillEffect.TargetsSelf)
+
+                            if (Equipment.Instance.Skill1.Monster == "sentry")
+                            {
+                                Log.Instance.ScanCreature(target);
+                                Equipment.Instance.Skill1.InternalCooldown = 99;
+                            }
+
+                            else if (Equipment.Instance.Skill1.SkillEffect.TargetsSelf)
                             {
                                 playerEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, Player.Instance, 0));
                                 playerDamageReduction *= playerEffects[playerEffects.Count - 1].DamageReduction; //immediately applies damageReduction
@@ -436,6 +443,13 @@ namespace Warlock_The_Soulbinder
                         if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.InternalCooldown == 0)
                         {
                             CountCooldown();
+
+                            if (Equipment.Instance.Skill2.Monster == "sentry")
+                            {
+                                Log.Instance.ScanCreature(target);
+                                Equipment.Instance.Skill2.InternalCooldown = 99;
+                            }
+
                             if (Equipment.Instance.Skill2.SkillEffect.TargetsSelf)
                             {
                                 playerEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, Player.Instance, 0));
@@ -477,6 +491,12 @@ namespace Warlock_The_Soulbinder
                         if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.InternalCooldown == 0)
                         {
                             CountCooldown();
+                            if (Equipment.Instance.Skill3.Monster == "sentry")
+                            {
+                                Log.Instance.ScanCreature(target);
+                                Equipment.Instance.Skill3.InternalCooldown = 99;
+                            }
+
                             if (Equipment.Instance.Skill3.SkillEffect.TargetsSelf)
                             {
                                 playerEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, Player.Instance, 0));
@@ -1079,6 +1099,7 @@ namespace Warlock_The_Soulbinder
             enemyAttackTimer = 0;
             buttonType = "Normal";
             Target = null;
+            Log.Instance.CalculateBonus();
             Player.Instance.GracePeriod = 0;
             Player.Instance.GraceStart = false;
             Player.Instance.Attacking = false;

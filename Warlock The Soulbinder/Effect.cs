@@ -425,7 +425,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Scans your enemy, adding \ntheir info to your Log";
-                            //scancode
+
                             Cooldown = 99;
                             break;
                         case 15: //fire golem

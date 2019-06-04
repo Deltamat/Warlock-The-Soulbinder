@@ -22,6 +22,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D skillPlank;
         private Texture2D levelCircle;
         private Texture2D expFull;
+        private bool fullscreenState = false;
         private GameTime tempTime;
         private int logPage = 0;
         private List<String> menuList = new List<string>();
@@ -50,6 +51,7 @@ namespace Warlock_The_Soulbinder
         public int EquippingTo { get => equippingTo; set => equippingTo = value; }
         public bool Equipping { get => equipping; set => equipping = value; }
         public string InventoryState { get => inventoryState; set => inventoryState = value; }
+        public bool FullscreenState { get => fullscreenState; set => fullscreenState = value; }
 
         private GeneralMenu()
         {
@@ -73,6 +75,7 @@ namespace Warlock_The_Soulbinder
         {
             delay += gameTime.ElapsedGameTime.Milliseconds;
 
+            //Code update depending on inventory state
             switch (InventoryState)
             {
                 case "GeneralMenu":
@@ -129,6 +132,8 @@ namespace Warlock_The_Soulbinder
                     }
                     break;
                 case "FilledStones":
+
+                    //Sets selectedInt depending on the amount of monsters captured
                     if (CurrentPage < FilledStone.StoneListPages)
                     {
                         ChangeSelected(8);
@@ -138,6 +143,7 @@ namespace Warlock_The_Soulbinder
                         ChangeSelected(FilledStone.StoneList.Count - (FilledStone.StoneListPages * 9) - 1);
                     }
 
+                    //Goes to next page in case it has one
                     if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && currentPage < FilledStone.StoneListPages)
                     {
                         currentPage++;
@@ -145,6 +151,7 @@ namespace Warlock_The_Soulbinder
                         selectedInt = 0;
                     }
 
+                    //Goes to last page unless you are on the first one
                     if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && currentPage > 0)
                     {
                         currentPage--;
@@ -153,8 +160,9 @@ namespace Warlock_The_Soulbinder
                     }
                     break;
                 case "Options":
-                    ChangeSelected(2);
+                    ChangeSelected(3);
 
+                    //Changes sound and music volume for the game
                     if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 30)
                     {
                         if (GameWorld.Instance.SoundEffectVolume < 1 && selectedInt == 0)
@@ -197,12 +205,15 @@ namespace Warlock_The_Soulbinder
                 case "Keybinds":
                     ChangeSelected(7);
 
+                    //Resets keybinds
                     if (InputHandler.Instance.KeyPressed(Keys.R))
                     {
                         InputHandler.Instance.ResetKeybinds();
                     }
                     break;
                 case "Log":
+
+                    //Changes pages in Log
                     if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && logPage < 20)
                     {
                         logPage++;
@@ -217,6 +228,8 @@ namespace Warlock_The_Soulbinder
                     break;
 
                 case "Help":
+
+                    //Changes pages
                     if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && helpPage < 2)
                     {
                         helpPage+=2;
@@ -235,7 +248,7 @@ namespace Warlock_The_Soulbinder
             }   
             
             //Key to execute code dependent on the inventory state
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && delay > 200)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.KeyPressed(Keys.E) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && delay > 200)
             {
                 ChangeState();
                 delay = 0;
@@ -243,8 +256,9 @@ namespace Warlock_The_Soulbinder
             }
 
             //Key for going back in menus
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 150)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.KeyPressed(Keys.R) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 150)
             {
+                //case = current menu, inventorystate = go back to this menu
                 switch (InventoryState)
                 {
                     case "Equipment":
@@ -327,7 +341,7 @@ namespace Warlock_The_Soulbinder
                 
                 switch (selectedInt)
                 {
-
+                    //Draws character stats
                     case 0:
                         spriteBatch.DrawString(Combat.Instance.CombatFont, $"Health: {Player.Instance.CurrentHealth} / {Player.Instance.MaxHealth} ", new Vector2(1100, 120), Color.White);
                         if (Equipment.Instance.Weapon != null)
@@ -388,8 +402,8 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.DrawString(Combat.Instance.CombatFont, $"Defense: {Player.Instance.Defense}", new Vector2(1100, 440), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, $"Attack Speed: {Player.Instance.AttackSpeed}", new Vector2(1100, 520), Color.White);
                         break;
-                        
-                        
+
+                    //Draws Equipment stone if it is equipped, if not it draws an empty ring of a specific type
                     case 1:
                         if (Equipment.Instance.Weapon != null)
                         {
@@ -492,6 +506,8 @@ namespace Warlock_The_Soulbinder
                             spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(1200, 800), Color.White);
                         }
                         break;
+
+                        //Draws the soulstone monster pages
                     case 2:
                         if (CurrentPage < FilledStone.StoneListPages)
                         {
@@ -527,13 +543,14 @@ namespace Warlock_The_Soulbinder
                             spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1) + " / " + (FilledStone.StoneListPages + 1), new Vector2(1300, 870), Color.White);
                         }
                        
+                        //Says to  capture monsters if you have none.
                         else
                         {
                             spriteBatch.DrawString(Combat.Instance.CombatFont, "Capture monsters to \nsee them here", new Vector2(1050, 150), Color.White);
                         }
                         break;
 
-
+                    //Draws the log if any scans has been done, if not then it says to find a sentry
                     case 4:
                         if (Log.Instance.LogBegun == true)
                         {
@@ -565,6 +582,7 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.Draw(skillPlank, new Vector2(320, 120 + 160 * i), Color.White);
                 }
 
+                //Draws everything for the weapon, sprite, level, EXP, last EXP, and effect
                 if (Equipment.Instance.Weapon != null)
                 {
                     spriteBatch.Draw(Equipment.Instance.Weapon.Sprite, new Vector2(135, 120), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
@@ -591,6 +609,7 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Weapon.WeaponName, new Vector2(350, 160), Color.White);
                 }
 
+                //Draws everything for the armor, sprite, level, EXP, last EXP, and effect
                 if (Equipment.Instance.Armor != null)
                 {
                     spriteBatch.Draw(Equipment.Instance.Armor.Sprite, new Vector2(135, 280), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
@@ -616,6 +635,7 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Armor.ArmorName, new Vector2(350, 320), Color.White);
                 }
 
+                //Draws everything for the skill, sprite, level, EXP, last EXP, and effect
                 if (Equipment.Instance.Skill1 != null)
                 {
                     spriteBatch.Draw(Equipment.Instance.Skill1.Sprite, new Vector2(135, 440), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
@@ -641,6 +661,7 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill1.SkillName, new Vector2(350, 480), Color.White);
                 }
 
+                //Draws everything for the skill, sprite, level, EXP, last EXP, and effect
                 if (Equipment.Instance.Skill2 != null)
                 {
                     spriteBatch.Draw(Equipment.Instance.Skill2.Sprite, new Vector2(135, 600), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
@@ -667,6 +688,7 @@ namespace Warlock_The_Soulbinder
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill2.SkillName, new Vector2(350, 640), Color.White);
                 }
 
+                //Draws everything for the skill, sprite, level, EXP, last EXP, and effect
                 if (Equipment.Instance.Skill3 != null)
                 {
                     spriteBatch.Draw(Equipment.Instance.Skill3.Sprite, new Vector2(135, 760), null, Color.White, 0f, Vector2.Zero, 0.70f, new SpriteEffects(), 1);
@@ -740,12 +762,15 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Draw(emptyRing, new Vector2(150, 120 + selectedInt * 160), null, Color.Gold, 0f, Vector2.Zero, 0.6f, new SpriteEffects(), 1);
             }
 
+            //Draws the appropiate log page
             if (InventoryState == "Log")
             {
                 Log.Instance.Draw(spriteBatch, logPage);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, $"{logPage +1}", new Vector2(125, 885), Color.White);
             }
 
+
+            //Draws the monster stone pages
             if (InventoryState == "FilledStones")
             {
                 if (CurrentPage < FilledStone.StoneListPages)
@@ -776,6 +801,7 @@ namespace Warlock_The_Soulbinder
                     }
                 }
 
+                //Draws all of the skills that the stone has alongside slot and skillplank
                 if (FilledStone.StoneList.Count != 0)
                 {
                     spriteBatch.Draw(FilledStone.StoneList[selectedInt + CurrentPage * 9].Sprite, new Vector2(1000, 100), Color.White);
@@ -799,16 +825,19 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, (currentPage + 1 ) + " / " + (FilledStone.StoneListPages + 1), new Vector2(400, 900), Color.White);
             }
 
+            //Draws options
             if (InventoryState == "Options")
             {
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Sound:", new Vector2(200, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Music:", new Vector2(200, 200), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Keybinds", new Vector2(200, 280), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, $"Fullscreen: {fullscreenState}", new Vector2(200, 360), Color.White);
 
                 spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)(GameWorld.Instance.SoundEffectVolume * 100)}%", new Vector2(500, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)(GameWorld.Instance.MusicVolume * 100)}%", new Vector2(500, 200), Color.White);
             }
 
+            //Draws keybinds
             if (InventoryState == "Keybinds")
             {
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Up", new Vector2(200, 120), Color.White);
@@ -876,6 +905,7 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        //What happens when you press enter in various states
         public void ChangeState()
         {
             if (InventoryState == "GeneralMenu")
@@ -1003,6 +1033,21 @@ namespace Warlock_The_Soulbinder
                 if (selectedInt == 2)
                 {
                     InventoryState = "Keybinds";
+                }
+
+                if (selectedInt == 3)
+                {
+                    if (fullscreenState == true)
+                    {
+                        fullscreenState = false;
+                        GameWorld.Instance.Graphics.IsFullScreen = false;
+                    }
+
+                    if (fullscreenState == false)
+                    {
+                        fullscreenState = true;
+                        GameWorld.Instance.Graphics.IsFullScreen = true;
+                    }
                 }
             }
             else if (InventoryState == "Keybinds")

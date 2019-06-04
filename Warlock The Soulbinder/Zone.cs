@@ -13,6 +13,7 @@ namespace Warlock_The_Soulbinder
         int enemiesInZone;
         List<NPC> pillars = new List<NPC>();
 
+        public int dragonsDead = 0;
         public TiledMapRenderer MapRenderer { get; set; }
         public List<Enemy> Enemies { get; set; } = new List<Enemy>();
         public string Name { get; private set; }
@@ -74,46 +75,46 @@ namespace Warlock_The_Soulbinder
                 //NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
                 NPCs.Add(new NPC("npc/npc_knight", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake."));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 0, "")); // healer
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "I just pooped my pants :O"));
+                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "Cant a man get some privacy!"));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 0, "Garithos did nothing wrong!"));
             }
             if (Name == "Dragon")
             {
-                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(2200, 1250), false, false, false, true, 0, "");
+                NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(1870, 1175), false, false, false, true, 0, "");
                 fireDragonShrine.DragonElement = "Fire";
                 NPCs.Add(fireDragonShrine);
 
-                NPC waterDragonShrine = new NPC("npc/waterDragonShrine", new Vector2(2400, 1250), false, false, false, true, 0, "");
+                NPC waterDragonShrine = new NPC("npc/waterDragonShrine", new Vector2(2170, 1175), false, false, false, true, 0, "");
                 waterDragonShrine.DragonElement = "Water";
                 NPCs.Add(waterDragonShrine);
 
-                NPC metalDragonShrine = new NPC("npc/metalDragonShrine", new Vector2(2200, 720), false, false, false, true, 0, "");
+                NPC metalDragonShrine = new NPC("npc/metalDragonShrine", new Vector2(2470, 1175), false, false, false, true, 0, "");
                 metalDragonShrine.DragonElement = "Metal";
                 NPCs.Add(metalDragonShrine);
 
-                NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(2400, 720), false, false, false, true, 0, "");
+                NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(2675, 900), false, false, false, true, 0, "");
                 earthDragonShrine.DragonElement = "Grass";
                 NPCs.Add(earthDragonShrine);
 
-                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(2600, 800), false, false, false, true, 0, "");
+                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(2470, 675), false, false, false, true, 0, "");
                 undeadDragonShrine.DragonElement = "Undead";
                 NPCs.Add(undeadDragonShrine);
 
-                NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(2600, 1190), false, false, false, true, 0, "");
+                NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(2170, 675), false, false, false, true, 0, "");
                 airDragonShrine.DragonElement = "Wind";
                 NPCs.Add(airDragonShrine);
 
-                NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(2800, 1000), false, false, false, true, 0, "");
+                NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(1870, 675), false, false, false, true, 0, "");
                 neutralDragonShrine.DragonElement = "Beast";
                 NPCs.Add(neutralDragonShrine);
 
-                NPC firePillar = new NPC("pillars/BlankPillar", new Vector2(2222, 1150), false, false, false, false, 0, "");
-                NPC waterPillar = new NPC("pillars/BlankPillar", new Vector2(2422, 1150), false, false, false, false, 0, "");
-                NPC metalPillar = new NPC("pillars/BlankPillar", new Vector2(2222, 825), false, false, false, false, 0, "");
-                NPC earthPillar = new NPC("pillars/BlankPillar", new Vector2(2422, 825), false, false, false, false, 0, "");
-                NPC undeadPillar = new NPC("pillars/BlankPillar", new Vector2(2600, 875), false, false, false, false, 0, "");
-                NPC airPillar = new NPC("pillars/BlankPillar", new Vector2(2600, 1100), false, false, false, false, 0, "");
-                NPC neutralPillar = new NPC("pillars/BlankPillar", new Vector2(2700, 1000), false, false, false, false, 0, "");
+                NPC firePillar = new NPC("pillars/BlankPillar", new Vector2(1770, 1175), true, false, false, false, 0, "");
+                NPC waterPillar = new NPC("pillars/BlankPillar", new Vector2(2070, 1175), true, false, false, false, 0, "");
+                NPC metalPillar = new NPC("pillars/BlankPillar", new Vector2(2370, 1175), true, false, false, false, 0, "");
+                NPC earthPillar = new NPC("pillars/BlankPillar", new Vector2(2575, 900), true, false, false, false, 0, "");
+                NPC undeadPillar = new NPC("pillars/BlankPillar", new Vector2(2370, 675), true, false, false, false, 0, "");
+                NPC airPillar = new NPC("pillars/BlankPillar", new Vector2(2070, 675), true, false, false, false, 0, "");
+                NPC neutralPillar = new NPC("pillars/BlankPillar", new Vector2(1770, 675), true, false, false, false, 0, "");
                 pillars.Add(firePillar);
                 pillars.Add(waterPillar);
                 pillars.Add(metalPillar);
@@ -361,7 +362,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ChangeDragonPillarSprite()
         {
-            int dragonsDead = 0;
+            dragonsDead = 0;
             if (Combat.Instance.fireDragonDead)
             {
                 pillars[0].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/FirePillar");
@@ -400,7 +401,10 @@ namespace Warlock_The_Soulbinder
 
             if (dragonsDead == 7)
             {
-                // lav portal
+                
+                NPC wizard = new NPC("npc/npc_Wizard", new Vector2(2375, 900), false, false, false, false, 0, "Congratulations. You have beaten the Game!");
+                NPCs.Add(wizard);
+                CollisionRects.Add(wizard.CollisionBox);
             }
         }
     }
