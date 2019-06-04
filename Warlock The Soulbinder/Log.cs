@@ -142,10 +142,12 @@ namespace Warlock_The_Soulbinder
             }
 
             return fullScans;
+
         }
 
         public void CalculateBonus()
         {
+            GenerateLogList();
             NeutralBonus = ((float)(sheepLog + wolfLog + bearLog) / 100);
             EarthBonus = ((float)(insectSoldierLog + plantEaterLog + slimeSnakeLog) / 100);
             WaterBonus = ((float)(fishLog + frogLog + tentacleLog) / 100);
@@ -163,14 +165,6 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public void ScanEnemy(string monster)
-        {
-            int index = Enemy.ReturnMonsterIndex(monster);
-            switch (index)
-            {
-                
-            }
-        }
         public void DrawLog(SpriteBatch spriteBatch, int monsterIndex)
         {
             int monsterLog = 0;
@@ -397,6 +391,184 @@ namespace Warlock_The_Soulbinder
                     }
 
             }
+
+        public void ScanCreature(Enemy target)
+        {
+            switch (target.Monster)
+            {
+                case "sheep":
+                    if (sheepLog < 10)
+                    {
+                        sheepLog++;
+                    }
+
+                break;
+
+                case "wolf":
+                    if (wolfLog < 10)
+                    {
+                        wolfLog++;
+                    }
+
+                    break;
+
+                case "bear":
+                    if (bearLog < 10)
+                    {
+                        bearLog++;
+                    }
+
+                    break;
+
+                case "plantEater":
+                    if (plantEaterLog < 10)
+                    {
+                        plantEaterLog++;
+                    }
+
+                    break;
+
+                case "insectSoldier":
+                    if (insectSoldierLog < 10)
+                    {
+                        insectSoldierLog++;
+                    }
+
+                    break;
+
+                case "slimeSnake":
+                    if (slimeSnakeLog < 10)
+                    {
+                        slimeSnakeLog++;
+                    }
+
+                    break;
+
+                case "fish":
+                    if (fishLog < 10)
+                    {
+                        fishLog++;
+                    }
+
+                    break;
+
+                case "tentacle":
+                    if (tentacleLog < 10)
+                    {
+                        tentacleLog++;
+                    }
+
+                    break;
+
+                case "frog":
+                    if (frogLog < 10)
+                    {
+                        frogLog++;
+                    }
+
+                    break;
+
+                case "mummy":
+                    if (mummyLog < 10)
+                    {
+                        mummyLog++;
+                    }
+
+                    break;
+
+                case "banshee":
+                    if (bansheeLog < 10)
+                    {
+                        bansheeLog++;
+                    }
+
+                    break;
+
+                case "vampire":
+                    if (sheepLog < 10)
+                    {
+                        sheepLog++;
+                    }
+
+                    break;
+
+                case "bucketMan":
+                    if (bucketManLog < 10)
+                    {
+                        bucketManLog++;
+                    }
+                    break;
+
+
+                case "defender":
+                    if (defenderLog < 10)
+                    {
+                        defenderLog++;
+                    }
+
+                    break;
+
+                case "sentry":
+                    if (sentryLog < 10)
+                    {
+                        sentryLog++;
+                    }
+
+                    break;
+
+                case "fireGolem":
+                    if (fireGolemLog < 10)
+                    {
+                        fireGolemLog++;
+                    }
+
+                    break;
+
+                case "infernalDemon":
+                    if (infernalDemonLog < 10)
+                    {
+                        infernalDemonLog++;
+                    }
+
+                    break;
+
+                case "AshZombie":
+                    if (ashZombieLog < 10)
+                    {
+                        ashZombieLog++;
+                    }
+
+                    break;
+
+
+                case "falcon":
+                    if (falconLog < 10)
+                    {
+                        falconLog++;
+                    }
+
+                    break;
+
+                case "bat":
+                    if (batLog < 10)
+                    {
+                        batLog++;
+                    }
+
+                    break;
+
+                case "raven":
+                    if (ravenLog < 10)
+                    {
+                        ravenLog++;
+                    }
+
+                    break;
+
+            }
+
+            
+        }
 
     }
 }

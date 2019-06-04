@@ -85,7 +85,7 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return graphics.GraphicsDevice.Viewport.Bounds;
+                return Graphics.GraphicsDevice.Viewport.Bounds;
             }
         }
 
@@ -108,15 +108,15 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
-                {
-                    MediaPlayer.Play(overworldMusic, songPosition);
-                }
-                else if (value == "Combat")
-                {
-                    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-                    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
-                }
+                //if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
+                //{
+                //    MediaPlayer.Play(overworldMusic, songPosition);
+                //}
+                //else if (value == "Combat")
+                //{
+                //    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                //    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
+                //}
 
                 gameState = value;
             }
@@ -137,19 +137,20 @@ namespace Warlock_The_Soulbinder
         public float SoundEffectVolume { get; set; } = 0.3f;
         public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
         public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
+        public GraphicsDeviceManager Graphics { get => graphics; set => graphics = value; }
 
         public GameWorld()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             content = Content;
             //Sets the window size
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1020;
+            Graphics.PreferredBackBufferWidth = 1920;
+            Graphics.PreferredBackBufferHeight = 1020;
 #if !DEBUG
-            graphics.IsFullScreen = false;
+            Graphics.IsFullScreen = false;
 #endif
-            graphics.ApplyChanges();
+            Graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -180,6 +181,7 @@ namespace Warlock_The_Soulbinder
             undead = new Zone("Undead", 3);
             metal = new Zone("Metal", 3);
             dragonRealm = new Zone("DragonRealm", 8);
+            
             zones.Add(town);
             zones.Add(beast);
             zones.Add(grass);
@@ -200,6 +202,7 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
 
+#if DEBUG
             //adds five of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
             if (FilledStone.StoneList.Count == 0)
@@ -230,7 +233,8 @@ namespace Warlock_The_Soulbinder
                 }
             }
             #endregion
-            
+#endif
+
             //LogLoad
             Log.Instance.GenerateLogList();
             Log.Instance.FullScans();
@@ -239,9 +243,9 @@ namespace Warlock_The_Soulbinder
             MusicVolume = 0f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
-            combatMusic = Content.Load<Song>("sound/combatMusicV2");
-            overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            MediaPlayer.Play(overworldMusic);
+            //combatMusic = Content.Load<Song>("sound/combatMusicV2");
+            //overworldMusic = Content.Load<Song>("sound/overworldMusic");
+            //MediaPlayer.Play(overworldMusic);
 
             Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();
@@ -515,8 +519,6 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.LoadFromPlayerDB();
             CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
-            //dictionary? = Controller.Instance.LoadFromConsumableDB();
-            //list? = Controller.Instance.LoadFromQuestDB();
 
             Equipment.Instance.LoadEquipment();
             Equipment.Instance.UpdateExperienceRequired();
@@ -534,26 +536,22 @@ namespace Warlock_The_Soulbinder
             
             Controller.Instance.DeleteEnemyDB();
             Controller.Instance.DeletePlayerDB();
-            Controller.Instance.DeleteQuestDB();
+           
             Controller.Instance.DeleteSoulStoneDB();
             Controller.Instance.DeleteStatisticDB();
 
-            //for (int i = 0; i < Consumable.ConsumableList.Count; i++)
-            //{
-            //    Controller.Instance.SaveToConsumableDB(Consumable.ConsumableList[i].Name, Consumable.ConsumableList[i].Amount);
-            //}
+           
             for (int i = 0; i < CurrentZone().Enemies.Count; i++)
             {
                 Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
             }
+            //Filled soul stones
             for (int i = 0; i < FilledStone.StoneList.Count; i++)
             {
                 Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
-            //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
-            //{
-            //    Controller.Instance.SaveToQuestDB(Quest.Instance.Quests[i],); // mangler en bedre måde at gemme quests
-            //}
+            
+            //Player
             int weapon, armour, skill1, skill2, skill3;
             try
             {
@@ -595,9 +593,9 @@ namespace Warlock_The_Soulbinder
             {
                 skill3 = -1;
             }
-
             Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
-
+            
+            //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.earthDragonDead, Combat.Instance.fireDragonDead, Combat.Instance.darkDragonDead, Combat.Instance.metalDragonDead, Combat.Instance.waterDragonDead, Combat.Instance.airDragonDead, Combat.Instance.neutralDragonDead);
 
             Controller.Instance.CloseTheGates();

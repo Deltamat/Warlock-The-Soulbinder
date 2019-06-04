@@ -126,6 +126,7 @@ namespace Warlock_The_Soulbinder
                 for (int i = 0; i < tempList.Count; i++)
                 {
                     tempList[i].Experience += (experience / stoneShare);
+                    tempList[i].ExperienceLastEncounter = (experience / stoneShare);
 
                     for (int t = 0; t < 20; t++)
                     {

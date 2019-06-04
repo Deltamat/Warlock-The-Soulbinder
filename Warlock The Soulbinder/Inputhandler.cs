@@ -76,7 +76,7 @@ namespace Warlock_The_Soulbinder
 
             keybinds.Add(Keys.Up, new MultiCommand(new Vector2(0, -1), -1));
             keybinds.Add(Keys.Down, new MultiCommand(new Vector2(0, 1), 1));
-
+           
             keybinds.Add(Keys.E, new UseCommand());
             keybinds.Add(Keys.Enter, new UseCommand());
 
@@ -152,24 +152,24 @@ namespace Warlock_The_Soulbinder
 
         public void ResetKeybinds()
         {
-        keyDown = Keys.Down;
-        keyUp = Keys.Up;
-        keyRight = Keys.Right;
-        keyLeft = Keys.Left;
-        keySelect = Keys.Enter;
-        keyCancel = Keys.RightShift;
-        keyReturn = Keys.Back;
-        keyMenu = Keys.D3;
+            keyDown = Keys.Down;
+            keyUp = Keys.Up;
+            keyRight = Keys.Right;
+            keyLeft = Keys.Left;
+            keySelect = Keys.Enter;
+            keyCancel = Keys.RightShift;
+            keyReturn = Keys.Back;
+            keyMenu = Keys.D3;
 
-        buttonDown = Buttons.DPadDown;
-        buttonUp = Buttons.DPadUp;
-        buttonRight = Buttons.DPadRight;
-        buttonLeft = Buttons.DPadLeft;
-        buttonSelect = Buttons.A;
-        buttonCancel = Buttons.B;
-        buttonReturn = Buttons.Y;
-         buttonMenu = Buttons.Start;
-    }
+            buttonDown = Buttons.DPadDown;
+            buttonUp = Buttons.DPadUp;
+            buttonRight = Buttons.DPadRight;
+            buttonLeft = Buttons.DPadLeft;
+            buttonSelect = Buttons.A;
+            buttonCancel = Buttons.B;
+            buttonReturn = Buttons.Y;
+            buttonMenu = Buttons.Start;
+        }
 
     }
 }
