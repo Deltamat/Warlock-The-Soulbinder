@@ -869,8 +869,8 @@ namespace Warlock_The_Soulbinder
 
             }
 
-                //Draws a selection arrow to see what you are hovering over
-                if (InventoryState != "Equipment" && InventoryState != "Log" && InventoryState != "Help")
+            //Draws a selection arrow to see what you are hovering over
+            if (InventoryState != "Equipment" && InventoryState != "Log" && InventoryState != "Help")
             {
                 spriteBatch.Draw(arrow, new Vector2(155, 120 + 80 * selectedInt), Color.White);
             }
