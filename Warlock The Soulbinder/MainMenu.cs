@@ -42,6 +42,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        public string MainMenuState { get => mainMenuState; set => mainMenuState = value; }
+        public float Delay { get => delay; set => delay = value; }
+
         private MainMenu()
         {
             background = GameWorld.ContentManager.Load<Texture2D>("mainMenuBackground");
@@ -74,9 +77,9 @@ namespace Warlock_The_Soulbinder
 
         public override void Update(GameTime gameTime)
         {
-            delay += gameTime.ElapsedGameTime.Milliseconds;
+            Delay += gameTime.ElapsedGameTime.Milliseconds;
             
-            if (mainMenuState == "Main")
+            if (MainMenuState == "Main")
             {
                 //for mouse
                 foreach (var item in mainMenuButtons)
@@ -106,7 +109,7 @@ namespace Warlock_The_Soulbinder
             spriteBatch.DrawString(GameWorld.Instance.copperFont, "Warlock: The Soulbinder", new Vector2(GameWorld.Instance.ScreenSize.Width * 0.5f - 300 , 160), Color.Red);
 
             //Draws a selection arrow to see what you are hovering over
-            if (mainMenuState == "Main")
+            if (MainMenuState == "Main")
             {
                 spriteBatch.Draw(arrow, new Vector2(cX2, 320 + 100 * selectedIndex), Color.White);
             }
@@ -115,7 +118,7 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.Draw(arrow, new Vector2(cX2, 520 + 100 * selectedIndex), Color.White);
             }
 
-            if (mainMenuState == "Main")
+            if (MainMenuState == "Main")
             {
                 foreach (var item in mainMenuButtons)
                 {
@@ -133,19 +136,19 @@ namespace Warlock_The_Soulbinder
 
         private void NewGame(object sender, EventArgs e)
         {
-            mainMenuState = "New Game";
+            MainMenuState = "New Game";
         }
 
         private void LoadGame(object sender, EventArgs e)
         {
-            mainMenuState = "Load Game";
+            MainMenuState = "Load Game";
         }
 
         private void SaveSlot1(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "1";
 
-            if (mainMenuState == "New Game")
+            if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
             }
@@ -159,7 +162,7 @@ namespace Warlock_The_Soulbinder
         {
             GameWorld.Instance.CurrentSaveFile = "2";
 
-            if (mainMenuState == "New Game")
+            if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
             }
@@ -173,7 +176,7 @@ namespace Warlock_The_Soulbinder
         {
             GameWorld.Instance.CurrentSaveFile = "3";
 
-            if (mainMenuState == "New Game")
+            if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
             }
@@ -184,26 +187,26 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public void ChangeMainMenuState()
+        private void ChangeMainMenuState()
         {
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && delay > 200)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
             {
                 switch (selectedIndex)
                 {
                     case 0:
-                        mainMenuState = "New Game";
+                        MainMenuState = "New Game";
                         break;
                     case 1:
-                        mainMenuState = "Load Game";
+                        MainMenuState = "Load Game";
                         break;
                 }
-                delay = 0;
+                Delay = 0;
                 selectedIndex = 0;
             }
         }
-        public void ChooseSaveGame()
+        private void ChooseSaveGame()
         {
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && delay > 200)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
             {
                 switch (selectedIndex)
                 {
@@ -225,16 +228,16 @@ namespace Warlock_The_Soulbinder
 
         private void ChangeSelectedIndex(int maxIndex)
         {
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && delay > 150 && selectedIndex > 0)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && Delay > 150 && selectedIndex > 0)
             {
                 selectedIndex--;
-                delay = 0;
+                Delay = 0;
             }
 
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonDown)) && delay > 150 && selectedIndex < maxIndex)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonDown)) && Delay > 150 && selectedIndex < maxIndex)
             {
                 selectedIndex++;
-                delay = 0;
+                Delay = 0;
             }
         }
     }
