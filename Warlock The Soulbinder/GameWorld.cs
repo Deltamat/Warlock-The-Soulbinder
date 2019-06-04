@@ -501,7 +501,7 @@ namespace Warlock_The_Soulbinder
                     return zone;
                 }
             }
-            return null;
+            return zones[0];
         }
 
         /// <summary>

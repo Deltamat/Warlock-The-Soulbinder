@@ -164,7 +164,7 @@ namespace Warlock_The_Soulbinder
                 {
                     KillEnemiesInZone();
                     GameWorld.Instance.currentZone = trigger.TargetZone;
-                    GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies/npcs
+                    GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies
                     Player.Instance.Position = new Vector2(trigger.TargetPos.X - 19, trigger.TargetPos.Y - 6);
                 }
             }
@@ -243,12 +243,13 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void Setup()
         {
-            foreach (Trigger trigger in Triggers)
+            foreach (Trigger trigger in Triggers) // goes through all triggers in the list
             {
-                foreach (Zone zone in GameWorld.Instance.zones)
+                foreach (Zone zone in GameWorld.Instance.zones) // then for each zone
                 {
-                    foreach (Trigger otherTrigger in zone.Triggers)
+                    foreach (Trigger otherTrigger in zone.Triggers) // go through all triggers in that zone
                     {
+                        // if the entrytriggers targetName = the other exittriggers name
                         if (trigger.IsEntryTrigger == true && otherTrigger.IsEntryTrigger == false && trigger.TargetName == otherTrigger.Name)
                         {
                             trigger.TargetPos = otherTrigger.Position;

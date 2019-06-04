@@ -12,7 +12,6 @@ namespace Warlock_The_Soulbinder
     {
         bool hasQuest;
         bool hasShop;
-        
         int questID;
         Texture2D interact;
         float interactScale;
@@ -46,6 +45,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="position">The position of the NPC</param>
         /// <param name="hasQuest">Does the NPC have a quest</param>
         /// <param name="hasShop">Does the NPC have a shop</param>
+        /// <param name="isShrine">Is the npc a dragon shrine</param>
         /// <param name="questID">The id of the quest this NPC has</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
         public NPC(string spriteName, Vector2 position, bool hasQuest, bool hasShop, bool hasHeal, bool isShrine, int questID, string dialogue)
