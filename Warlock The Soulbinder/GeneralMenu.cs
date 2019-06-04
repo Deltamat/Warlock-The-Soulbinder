@@ -76,7 +76,7 @@ namespace Warlock_The_Soulbinder
             switch (InventoryState)
             {
                 case "GeneralMenu":
-                    ChangeSelected(7);
+                    ChangeSelected(8);
                     break;
                 case "Equipment":
                     ChangeSelected(4);
@@ -323,7 +323,8 @@ namespace Warlock_The_Soulbinder
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Log", new Vector2(200, 440), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Save", new Vector2(200, 520), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Options", new Vector2(200, 600), Color.White);
-                spriteBatch.DrawString(Combat.Instance.CombatFont, "Quit", new Vector2(200, 680), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Quit to Desktop", new Vector2(200, 680), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Quit to Main Menu", new Vector2(200, 760), Color.White);
                 
                 switch (selectedInt)
                 {
@@ -908,6 +909,11 @@ namespace Warlock_The_Soulbinder
                         break;
                     case 7:
                         GameWorld.Instance.Exit();
+                        break;
+                    case 8:
+                        MainMenu.Instance.MainMenuState = "Main";
+                        GameWorld.Instance.GameState = "MainMenu";
+                        MainMenu.Instance.Delay = 0;
                         break;
                 }
             }
