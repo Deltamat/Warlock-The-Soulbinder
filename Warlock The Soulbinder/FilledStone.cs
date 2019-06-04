@@ -23,6 +23,7 @@ namespace Warlock_The_Soulbinder
         private string armorName;
         private string skillName;
         private int internalCooldown;
+        private int experienceLastEncounter = 0;
         private Effect weaponEffect;
         private Effect armorEffect;
         private Effect skillEffect;
@@ -79,7 +80,7 @@ namespace Warlock_The_Soulbinder
             {
                 //Code to make pages for the filled stones
                 StoneListPages = 0;
-                int tempStoneList = stoneList.Count + 1;
+                int tempStoneList = stoneList.Count;
                 for (int i = 0; i < 99; i++)
                 {
                     if (tempStoneList - 9 > 0)
@@ -96,6 +97,8 @@ namespace Warlock_The_Soulbinder
                 
             }
         }
+
+        public int ExperienceLastEncounter { get => experienceLastEncounter; set => experienceLastEncounter = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 

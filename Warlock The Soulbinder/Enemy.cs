@@ -16,6 +16,7 @@ namespace Warlock_The_Soulbinder
         private float moveCDTimer;
         private float movingTimer;
         private FilledStone enemyStone;
+        private bool dragon = false;
         
         private Thread thread;
 
@@ -46,6 +47,7 @@ namespace Warlock_The_Soulbinder
         }
 
         internal FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
+        public bool Dragon { get => dragon; set => dragon = value; }
 
         public Enemy(int index, Vector2 startPos)
         {
@@ -68,6 +70,7 @@ namespace Warlock_The_Soulbinder
             //if the enemy is a dragon, sets their level to 25, else their level is based on their index +/- 1
             if (index >= 21)
             {
+                dragon = true;
                 Level = 25;
             }
             else

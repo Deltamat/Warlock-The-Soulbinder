@@ -107,15 +107,15 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
-                {
-                    MediaPlayer.Play(overworldMusic, songPosition);
-                }
-                else if (value == "Combat")
-                {
-                    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-                    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
-                }
+                //if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
+                //{
+                //    MediaPlayer.Play(overworldMusic, songPosition);
+                //}
+                //else if (value == "Combat")
+                //{
+                //    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                //    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
+                //}
 
                 gameState = value;
             }
@@ -199,33 +199,33 @@ namespace Warlock_The_Soulbinder
 
             //adds five of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
-            if (FilledStone.StoneList.Count == 0)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
-                }
-            }
+            //if (FilledStone.StoneList.Count == 0)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
+            //    }
+            //}
             #endregion
             
             //LogLoad
@@ -236,9 +236,9 @@ namespace Warlock_The_Soulbinder
             MusicVolume = 0f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
-            combatMusic = Content.Load<Song>("sound/combatMusicV2");
-            overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            MediaPlayer.Play(overworldMusic);
+            //combatMusic = Content.Load<Song>("sound/combatMusicV2");
+            //overworldMusic = Content.Load<Song>("sound/overworldMusic");
+            //MediaPlayer.Play(overworldMusic);
 
             Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();
@@ -280,8 +280,6 @@ namespace Warlock_The_Soulbinder
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -305,30 +303,7 @@ namespace Warlock_The_Soulbinder
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
-            {
-                GameState = "Overworld";
-                delay = 0;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
-            {
-                GameState = "Combat";
-                delay = 0;
-            }
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
-            {
-                if (GameState == "Overworld")
-                {
-                    GameState = "GeneralMenu";
-                }
-                
-                else if (GameState == "GeneralMenu")
-                {
-                    GameState = "Overworld";
-                }
-
-                delay = 0;
-            }
+            
 
 #endregion
 
@@ -342,7 +317,24 @@ namespace Warlock_The_Soulbinder
                 SaveToDB();
             }
 
-#endregion
+            #endregion
+
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
+            {
+                if (GameState == "Overworld")
+                {
+                    GeneralMenu.Instance.SelectedInt = 0;
+                    GeneralMenu.Instance.InventoryState = "GeneralMenu";
+                    GameState = "GeneralMenu";
+                }
+
+                else if (GameState == "GeneralMenu")
+                {
+                    GameState = "Overworld";
+                }
+
+                delay = 0;
+            }
 
             CurrentZone().Update(gameTime);
 
