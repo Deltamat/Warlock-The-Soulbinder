@@ -8,9 +8,9 @@ namespace Warlock_The_Soulbinder
 {
     class Effect
     {
-        private bool targetsSelf = false;
-        private bool targetBoth = false;
-        private bool statBuff = false;
+        private bool targetsSelf;
+        private bool targetBoth;
+        private bool statBuff;
         private int cooldown = 1;
         private int damage;
         private int heal;
@@ -21,11 +21,11 @@ namespace Warlock_The_Soulbinder
         private float accuracyMod = 1;
         private float damageMod = 1;
         private int shield;
-        private bool stun = false;
-        private bool confuse = false;
-        private bool doubleAttack = false;
-        private bool retaliate = false;
-        private bool stunImmunity = false;
+        private bool stun;
+        private bool confuse;
+        private bool doubleAttack;
+        private bool retaliate;
+        private bool stunImmunity;
         private string effectString;
         private int upperChanceBounds = 1;
 
@@ -53,7 +53,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                Combat.Instance.WolfBuff = 0.2f;
+                                characterCombat.Damage = (int)Math.Round(characterCombat.Damage * 1.2f);
                             }
                             break;
                         case 2: //bear
@@ -128,7 +128,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase\nyour hit rating";
-                            //UpperChanceBounds = 3;
+                            UpperChanceBounds = 3;
                             TargetsSelf = true;
                             AccuracyMod = 1.25f;
                             EffectLength = 3;
@@ -139,7 +139,7 @@ namespace Warlock_The_Soulbinder
                             if (characterCombat != null)
                             {
                                 characterCombat.Damage = (int)(characterCombat.Damage * 1.5f);
-                                characterCombat.AttackSpeed *= (int)0.8f;
+                                characterCombat.AttackSpeed = (int)Math.Round(characterCombat.AttackSpeed * 0.8f);
                             }
                             break;
                         case 16: //infernal golem
@@ -164,7 +164,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse\nyour enemy";
-                            UpperChanceBounds = 15;
+                            UpperChanceBounds = 12;
                             Confuse = true;
                             EffectLength = 2;
                             break;
@@ -184,7 +184,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.Defense += (int)(1.5f * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
+                                characterCombat.Defense += (int)(1.5f * (stone.Level + 3));
                             }
                             break;
                         case 1: //wolf
@@ -199,7 +199,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.MaxHealth += (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.1f));
+                                characterCombat.MaxHealth += (int)(3 * ((stone.Level + 4) * 0.1f));
                             }
                             break;
                         case 3: //plant eater
@@ -248,7 +248,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Gives you immunity to curses";
                             TargetsSelf = true;
                             AccuracyMod = 1000000;
-                            EffectLength = 999;
+                            EffectLength = 5;
                             break;
                         case 10: //vampire
                             EffectString = "Has a chance to block the \nnext hit after being attacked";
@@ -275,34 +275,34 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase your \ndodge rating after being hit";
-                            //UpperChanceBounds = 7;
+                            UpperChanceBounds = 7;
                             AccuracyMod = 0.6f;
                             EffectLength = 3;
                             break;
                         case 15: //fire golem
-                            EffectString = "Passively reduces damage taken";
+                            EffectString = "Reduces damage taken after being hit";
                             TargetsSelf = true;
                             DamageReduction = 0.8f;
-                            EffectLength = 999;
+                            EffectLength = 2;
                             break;
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your enemy \non fire when attacked";
                             UpperChanceBounds = 6;
                             Damage = (int)(3.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.25f));
-                            EffectLength = 2;
+                            EffectLength = 1;
                             break;
                         case 17: //ash zombie
                             EffectString = "Passively increases your attack speed";
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.AttackSpeed *= (int)1.25f;
+                                characterCombat.AttackSpeed = (int)Math.Round(characterCombat.AttackSpeed * 1.25f);
                             }
                             break;
                         case 18: //falcon
                             EffectString = "Passively increases your\ndodge chance";
                             AccuracyMod = 0.7f;
-                            EffectLength = 999;
+                            EffectLength = 1;
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse \nyour enemy when attacked";
@@ -409,6 +409,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "A powerful attack that \nis difficult to land";
                             TargetsBoth = true;
                             UpperChanceBounds = 10;
+                            Damage = 1;
                             if (characterCombat != null)
                             {
                                 Damage = (characterCombat.Damage + characterCombat.DamageTypes[3]) * 15;
@@ -425,11 +426,21 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Scans your enemy, adding \ntheir info to your Log";
-                            //scan code goes here!
+
+                            Cooldown = 99;
                             break;
                         case 15: //fire golem
                             EffectString = "Attacks your enemy with \na critical attack";
-                            Damage = damageDealt * 2;
+                            Damage = 1;
+                            if (characterCombat != null)
+                            {
+                                int tempTotalDamage = characterCombat.Damage;                                
+                                for (int i = 0; i < characterCombat.DamageTypes.Count; i++)
+                                {
+                                    tempTotalDamage += characterCombat.DamageTypes[i];
+                                }
+                                Damage = tempTotalDamage * 2;
+                            }
                             Cooldown = 4;
                             break;
                         case 16: //infernal golem

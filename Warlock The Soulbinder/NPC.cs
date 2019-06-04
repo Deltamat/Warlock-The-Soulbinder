@@ -12,11 +12,11 @@ namespace Warlock_The_Soulbinder
     {
         bool hasQuest;
         bool hasShop;
-        
         int questID;
         Texture2D interact;
         float interactScale;
         float interactDistance = 100;
+        private bool dragonShrine;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
 
         public string DragonElement { get; set; }
@@ -46,25 +46,35 @@ namespace Warlock_The_Soulbinder
         /// <param name="position">The position of the NPC</param>
         /// <param name="hasQuest">Does the NPC have a quest</param>
         /// <param name="hasShop">Does the NPC have a shop</param>
+        /// <param name="isShrine">Is the npc a dragon shrine</param>
         /// <param name="questID">The id of the quest this NPC has</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
-        public NPC(string spriteName, Vector2 position, bool hasQuest, bool hasShop, bool hasHeal, bool isShrine, int questID, string dialogue)
+        public NPC(string spriteName, Vector2 position, bool isPillar, bool hasShop, bool hasHeal, bool isShrine, int questID, string dialogue)
         {
-            this.hasQuest = hasQuest;
+
             this.hasShop = hasShop;
             this.questID = questID;
             IsShrine = isShrine;
+            dragonShrine = isShrine;
             HasHeal = hasHeal;
             Position = position;
             Sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             if (IsShrine)
             {
-                scale = 0.3f;
+                scale = 0.7f;
             }
+
+            else if(isPillar)
+            {
+                scale = 0.35f;
+            }
+
             else
             {
                 scale = 0.135f;
             }
+
+            
             interact = GameWorld.ContentManager.Load<Texture2D>("interact");
             interactScale = 0.3f;
 
@@ -75,6 +85,11 @@ namespace Warlock_The_Soulbinder
         public override void Update(GameTime gameTime)
         {
             if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2()) < interactDistance)
+            {
+                DrawInteract = true;
+            }
+
+            else if (dragonShrine == true && Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2()) < (interactDistance * (8/3)))
             {
                 DrawInteract = true;
             }

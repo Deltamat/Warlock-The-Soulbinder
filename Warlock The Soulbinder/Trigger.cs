@@ -17,21 +17,14 @@ namespace Warlock_The_Soulbinder
         public Vector2 TargetPos { get; set; }
         public string TargetZone { get; set; }
 
-        private Trigger()
-        {
-
-        }
-
         /// <summary>
         /// EntryTrigger constructor
         /// </summary>
         /// <param name="position">The position of the trigger</param>
         /// <param name="collisionBox">The Rectangle collisionBox</param>
-        /// <param name="targetZone">The name of the zone in which the targetTrigger is located</param>
         /// <param name="targetName">The name of the targetTrigger</param>
         public Trigger(Vector2 position, Rectangle collisionBox, string targetName)
         {
-            Trigger trigger = new Trigger();
             TargetName = targetName;
             Position = position;
             CollisionBox = collisionBox;
