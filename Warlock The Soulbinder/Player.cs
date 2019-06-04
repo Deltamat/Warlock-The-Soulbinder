@@ -100,7 +100,7 @@ namespace Warlock_The_Soulbinder
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
             scale = 0.25f;
-            movementSpeed = 350;
+            movementSpeed = 500;
 #if DEBUG
             movementSpeed = 1000;
 #endif
@@ -407,11 +407,11 @@ namespace Warlock_The_Soulbinder
             AttackSpeed = 15;
             MaxHealth = 1000;
 #if DEBUG
-            //int over9000 = 9001;
+            int over9000 = 9001;
             //Damage = 10 + over9000;
-            //Defense = 2 + over9000;
+            Defense = 2 + over9000;
             //AttackSpeed = 15 + over9000;
-            //MaxHealth = 100 + over9000;
+            MaxHealth = 100 + over9000;
 #endif
             for (int i = 0; i < DamageTypes.Count; i++)
             {

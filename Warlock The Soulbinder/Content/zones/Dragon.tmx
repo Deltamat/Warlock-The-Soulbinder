@@ -13,7 +13,7 @@
  </layer>
  <layer id="13" name="Ground" width="50" height="32">
   <data encoding="base64" compression="zlib">
-   eJzVmDtKBEEQhntFLyB4Er2BGm6grGYLKmq2rAoamriZb8Vn5AOfVxB1c9HbmPsL01AU7U5vV005E3wMHUxNfdTf08M0nHONRC7AJdgGu2APnIFzQc1UFgU8gWfm8QAehXVTGFbg12Mn89Col4JkljNgls1jCkwL61rnagksM495sCCsa52rdbDBPFbBmrCuRa58lmI8LDLm+0nNUoyHRcZoP5Rvtu6wte89xsMiY7SfEFsR91XB4y8vicdBzXXbNeekoM5cjAfPktY8NtHDuwKo043x6LVHyurRJqzkZKtTYo8BMJhdOUMVytVogLHsOtLDo57jUTf2mCCMs/Uk6YG/r5o5Hs0S7w96XyvHo2XsITl3yrQ/+jk7quRB90KVzg/u4AqcB74nrvbRhxTUCfYTgudL4/uqCP5jnxfpcdwnJ+A00uMQHCU8I6Wf2z65A/cBD//fh3pcg5uEZ6T2I51pGf4zaMyUelhkKYTGTKmHRZZCaMyUeljnSSNXnhfwCt6U6lnnyvMBPsGXUr0UfgCE2Wqa
+   eJzVmLtKxEAUhmdFX0DwSdbeQi23UFa7BRW1W1YFLW3czrvitfKC11cQdXvRt7H3X8jAcBiTyZyTs0nxEabIyfk4/2RCmsaYZiRX4Brsgn1wAC7AJaNmLMsMXsAr8XgCz8y6MYwK0PfYSzwk6sXAmeUcmCfzmAGzzLrauVoBq8RjESwx62rnahNsEY91sMGsq5Erm6UQD42M2X5isxTioZExtx+XX7LukrXtPcRDI2NuPz52Au6rgsd/XhyPo5rpdWrGcEGdhRAPmiWpeWyjh08BUKcX4pG2R8rq0XFYAxMps+iW2GMIDCdXykiFclX3MJ5cx1I8GhkeDWWPKYdJsp52eqDvq1aGR2vA+yP0fd3O8Ggre3DOnTLtjzxnR5U83L1QpfODOpgC54HviZtD9MEFdbz9+KD5kvi+KoJB7PMiPU5zcgbOAz2OwUnEM2L6uc/JA3j0eNj/Pq7HLbiLeEZsP9yZluE/g8RMXQ+NLPmQmKnroZElHxIzdT208ySRK8sbeAcfQvW0c2X5At/gR6heDH8eLmrH
   </data>
  </layer>
  <layer id="14" name="pæle" width="50" height="32">
@@ -28,7 +28,7 @@
  </layer>
  <layer id="16" name="Top" width="50" height="32">
   <data encoding="base64" compression="zlib">
-   eJztmMsNwjAMhjsEVy4wCKuwAyOQQViB1wC8JODGSwLu7MFfcQkmSlLXSkKbT/oPSRPHqZ0+XBSZlOlYro09x/nas8yZ0L7X75ihYthuC93YDjgo42drc9BzpMw79d022ldCa7tIPR5cQtw7nSk0g+bQAlqGXFyQFbSGNtAW2sV1h80JOkMX6ArdPOe58qZXzy0We+gAHWvYSOGc36EH9IztiCCD2A5kMhlxRrEdEERiL/T90RewWZUmxERqDzQeob93ufsI7aeLJuRU5n+w5T/nbND6UxXbtE+vS/jabRsp/EeZoDVHTi6Z5vjUqkpM+WKqg6b2/M98eAOGwiWI
+   eJztmEsOwiAQhnsIt270Yt7BI8hBvIKvA/hK1J2vRN33Hv6NG0QCdDoBbOdL/gUUhqEz9DFFIeRMz3FtEjgu1J5jztTsK3/HjBTBdlfop3bAQxU/V5uCniNV3qnvttW+YlrbR+7xoBLj3unMoDm0gJbQKubijKyhDbSFdtA+rTtkztAFukI36B44z5c3g2ZukThAR+jUwEYO5/wBPaFXakcEQRAcjFM7wAjHXsz3x5DBZl3aEBOuPZjxiP29S91HbD99tCGnhP/Blf+Us2HWn+rYNvv0ukSo3a6Rw3+UDbPmSMkl25yQWlWFLV9sddDcnv/ChzfjTiVJ
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
@@ -43,7 +43,7 @@
     <property name="zone" value="Dragon"/>
    </properties>
   </object>
-  <object id="8" type="ExitTrigger" x="512" y="1024" width="64" height="64">
+  <object id="8" type="ExitTrigger" x="1792" y="960" width="64" height="64">
    <properties>
     <property name="name" value="dragonFire"/>
     <property name="zone" value="dragon"/>

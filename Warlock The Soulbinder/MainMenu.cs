@@ -12,13 +12,17 @@ namespace Warlock_The_Soulbinder
     {
         private Texture2D background;
         private Texture2D arrow;
+        private Texture2D emptyButton;
         private Button loadGameButton;
         private Button newGameButton;
         private Button loadSlot1;
         private Button loadSlot2;
         private Button loadSlot3;
         List<Button> loadSlots = new List<Button>();
+        //List<Button> mainMenuButtons = new List<Button>();
         string mainMenuState = "Main";
+        private float cX;
+        //private float cY;
         
 
 
@@ -39,19 +43,21 @@ namespace Warlock_The_Soulbinder
         {
             background = GameWorld.ContentManager.Load<Texture2D>("mainMenuBackground");
             arrow = GameWorld.ContentManager.Load<Texture2D>("Arrow");
-            loadGameButton = new Button(GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton"), GameWorld.Instance.copperFont, new Vector2(1), GameWorld.ContentManager);
+            emptyButton = GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton");
+            cX = GameWorld.Instance.ScreenSize.Width * 0.5f - emptyButton.Width * 0.5f;
+            loadGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 400), GameWorld.ContentManager);
             loadGameButton.TextForButton = "Load";
-            newGameButton = new Button(GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton"), GameWorld.Instance.copperFont, new Vector2(500), GameWorld.ContentManager);
+            newGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 300), GameWorld.ContentManager);
             newGameButton.TextForButton = "New game";
 
             loadGameButton.Click += LoadGame;
             newGameButton.Click += NewGame;
 
-            loadSlot1 = new Button(GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton"), GameWorld.Instance.copperFont, new Vector2(500), GameWorld.ContentManager);
+            loadSlot1 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 500), GameWorld.ContentManager);
             loadSlot1.TextForButton = "Save slot 1";
-            loadSlot2 = new Button(GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton"), GameWorld.Instance.copperFont, new Vector2(700), GameWorld.ContentManager);
+            loadSlot2 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 600), GameWorld.ContentManager);
             loadSlot2.TextForButton = "Save slot 2";
-            loadSlot3 = new Button(GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton"), GameWorld.Instance.copperFont, new Vector2(900), GameWorld.ContentManager);
+            loadSlot3 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 700), GameWorld.ContentManager);
             loadSlot3.TextForButton = "Save slot 3";
             loadSlot1.Click += SaveSlot1;
             loadSlot2.Click += SaveSlot2;
@@ -59,12 +65,18 @@ namespace Warlock_The_Soulbinder
             loadSlots.Add(loadSlot1);
             loadSlots.Add(loadSlot2);
             loadSlots.Add(loadSlot3);
+            //mainMenuButtons.Add(loadGameButton);
+            //mainMenuButtons.Add(newGameButton);
         }
 
         public override void Update(GameTime gameTime)
         {
             if (mainMenuState == "Main")
             {
+                //foreach (var item in mainMenuButtons)
+                //{
+                //    item.Update(gameTime);
+                //}
                 newGameButton.Update(gameTime);
                 loadGameButton.Update(gameTime);
             }
@@ -82,7 +94,7 @@ namespace Warlock_The_Soulbinder
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(background, Vector2.Zero, Color.White);
-            spriteBatch.DrawString(GameWorld.Instance.copperFont, "Warlock: The Soulbinder", new Vector2(GameWorld.Instance.ScreenSize.Width * 0.5f - 300 , 0), Color.Red);
+            spriteBatch.DrawString(GameWorld.Instance.copperFont, "Warlock: The Soulbinder", new Vector2(GameWorld.Instance.ScreenSize.Width * 0.5f - 300 , 160), Color.Red);
 
             if (mainMenuState == "Main")
             {

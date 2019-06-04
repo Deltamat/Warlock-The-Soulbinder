@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading;
 
 
@@ -31,7 +32,7 @@ namespace Warlock_The_Soulbinder
         private string currentSaveFile = "1";
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
         private Random rng = new Random();
-
+        public NumberFormatInfo replaceComma = new NumberFormatInfo();
         //private bool loading = false; // temporary
         Song overworldMusic;
         Song combatMusic;
@@ -107,15 +108,15 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
-                {
-                    MediaPlayer.Play(overworldMusic, songPosition);
-                }
-                else if (value == "Combat")
-                {
-                    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-                    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
-                }
+                //if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
+                //{
+                //    MediaPlayer.Play(overworldMusic, songPosition);
+                //}
+                //else if (value == "Combat")
+                //{
+                //    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                //    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
+                //}
 
                 gameState = value;
             }
@@ -165,6 +166,8 @@ namespace Warlock_The_Soulbinder
             Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
             SmallFont = Content.Load<SpriteFont>("smallFont");
             fullScreen = Content.Load<Texture2D>("fullScreen");
+            
+            replaceComma.NumberDecimalSeparator = ".";
 
             // zoner laves med navn og antal af fjender.
             town = new Zone("Town", 0);
@@ -200,33 +203,33 @@ namespace Warlock_The_Soulbinder
 #if DEBUG
             //adds five of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
-            if (FilledStone.StoneList.Count == 0)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
-                }
-            }
+            //if (FilledStone.StoneList.Count == 0)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
+            //    }
+            //}
             #endregion
 #endif
 
@@ -238,9 +241,9 @@ namespace Warlock_The_Soulbinder
             MusicVolume = 0f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
-            combatMusic = Content.Load<Song>("sound/combatMusicV2");
-            overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            MediaPlayer.Play(overworldMusic);
+            //combatMusic = Content.Load<Song>("sound/combatMusicV2");
+            //overworldMusic = Content.Load<Song>("sound/overworldMusic");
+            //MediaPlayer.Play(overworldMusic);
 
             Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();
@@ -282,8 +285,6 @@ namespace Warlock_The_Soulbinder
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
             deltaTimeSecond = gameTime.ElapsedGameTime.TotalSeconds;
             deltaTimeMilli = gameTime.ElapsedGameTime.Milliseconds;
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -307,30 +308,7 @@ namespace Warlock_The_Soulbinder
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D1) && delay > 100)
-            {
-                GameState = "Overworld";
-                delay = 0;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D2) && delay > 100)
-            {
-                GameState = "Combat";
-                delay = 0;
-            }
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
-            {
-                if (GameState == "Overworld")
-                {
-                    GameState = "GeneralMenu";
-                }
-                
-                else if (GameState == "GeneralMenu")
-                {
-                    GameState = "Overworld";
-                }
-
-                delay = 0;
-            }
+            
 
 #endregion
 
@@ -344,7 +322,24 @@ namespace Warlock_The_Soulbinder
                 SaveToDB();
             }
 
-#endregion
+            #endregion
+
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
+            {
+                if (GameState == "Overworld")
+                {
+                    GeneralMenu.Instance.SelectedInt = 0;
+                    GeneralMenu.Instance.InventoryState = "GeneralMenu";
+                    GameState = "GeneralMenu";
+                }
+
+                else if (GameState == "GeneralMenu")
+                {
+                    GameState = "Overworld";
+                }
+
+                delay = 0;
+            }
 
             CurrentZone().Update(gameTime);
 
@@ -522,8 +517,6 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.LoadFromPlayerDB();
             CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
-            //dictionary? = Controller.Instance.LoadFromConsumableDB();
-            //list? = Controller.Instance.LoadFromQuestDB();
 
             Equipment.Instance.LoadEquipment();
             Equipment.Instance.UpdateExperienceRequired();
@@ -541,26 +534,22 @@ namespace Warlock_The_Soulbinder
             
             Controller.Instance.DeleteEnemyDB();
             Controller.Instance.DeletePlayerDB();
-            Controller.Instance.DeleteQuestDB();
+           
             Controller.Instance.DeleteSoulStoneDB();
             Controller.Instance.DeleteStatisticDB();
 
-            //for (int i = 0; i < Consumable.ConsumableList.Count; i++)
-            //{
-            //    Controller.Instance.SaveToConsumableDB(Consumable.ConsumableList[i].Name, Consumable.ConsumableList[i].Amount);
-            //}
+           
             for (int i = 0; i < CurrentZone().Enemies.Count; i++)
             {
                 Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
             }
+            //Filled soul stones
             for (int i = 0; i < FilledStone.StoneList.Count; i++)
             {
                 Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
-            //for (int i = 0; i < Quest.Instance.Quests.Count; i++)
-            //{
-            //    Controller.Instance.SaveToQuestDB(Quest.Instance.Quests[i],); // mangler en bedre måde at gemme quests
-            //}
+            
+            //Player
             int weapon, armour, skill1, skill2, skill3;
             try
             {
@@ -602,9 +591,9 @@ namespace Warlock_The_Soulbinder
             {
                 skill3 = -1;
             }
-
             Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
-
+            
+            //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.earthDragonDead, Combat.Instance.fireDragonDead, Combat.Instance.darkDragonDead, Combat.Instance.metalDragonDead, Combat.Instance.waterDragonDead, Combat.Instance.airDragonDead, Combat.Instance.neutralDragonDead);
 
             Controller.Instance.CloseTheGates();

@@ -30,7 +30,11 @@ namespace Warlock_The_Soulbinder
                     // if close to an npc enter dialogue
                     if (npc.DrawInteract == true)
                     {
-                        npcTalk.Play();
+                        if (npc.DragonElement == null) // if not a shrine play sound effect
+                        {
+                            npcTalk.Play();
+                        }
+                        
                         npc.EnterDialogue();
                         if (npc.HasHeal)
                         {

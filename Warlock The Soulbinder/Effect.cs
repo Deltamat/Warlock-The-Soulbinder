@@ -184,7 +184,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.Defense += (int)(1.5f * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
+                                Combat.Instance.SheepBuff = (int)(1.5f * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
                             }
                             break;
                         case 1: //wolf
@@ -426,7 +426,8 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Scans your enemy, adding \ntheir info to your Log";
-                            //scan code goes here!
+                            //scancode
+                            Cooldown = 99;
                             break;
                         case 15: //fire golem
                             EffectString = "Attacks your enemy with \na critical attack";
