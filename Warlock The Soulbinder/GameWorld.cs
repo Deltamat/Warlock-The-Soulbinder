@@ -202,6 +202,7 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
 
+#if DEBUG
             //adds five of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
             if (FilledStone.StoneList.Count == 0)
@@ -232,6 +233,7 @@ namespace Warlock_The_Soulbinder
                 }
             }
             #endregion
+#endif
 
             //LogLoad
             Log.Instance.GenerateLogList();

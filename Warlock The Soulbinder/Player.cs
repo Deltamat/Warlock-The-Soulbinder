@@ -24,7 +24,7 @@ namespace Warlock_The_Soulbinder
         private bool hurt;
         private bool hurtStart;
         private bool blinking;
-
+        
         private Sound step = new Sound("playerStep");
         private double stepTimer;
 
@@ -49,6 +49,19 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
+                if (GameWorld.Instance.GameState == "Combat")
+                {
+                    if (value < base.CurrentHealth)
+                    {
+                        HurtStart = true; //starts player's hurt animation
+                        Combat.Instance.PlayerScrolling($"HP -{base.CurrentHealth - value}", Color.Red);
+                    }
+                    else if (value > base.CurrentHealth)
+                    {
+                        Combat.Instance.PlayerScrolling($"HP +{value - base.CurrentHealth}", Color.Green);
+                    }
+                }
+                
                 currentHealth = value;
                 if (currentHealth <= 0) // if the player is dead, teleport back to the town
                 {
@@ -361,6 +374,27 @@ namespace Warlock_The_Soulbinder
                         for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
                         {
                             DamageTypes[i] += stone.DamageTypes[i];
+                            switch (i)
+                            {
+                                case 0:
+                                    earthDamage = DamageTypes[i];
+                                    break;
+                                case 1:
+                                    waterDamage = DamageTypes[i];
+                                    break;
+                                case 2:
+                                    darkDamage = DamageTypes[i];
+                                    break;
+                                case 3:
+                                    metalDamage = DamageTypes[i];
+                                    break;
+                                case 4:
+                                    fireDamage = DamageTypes[i];
+                                    break;
+                                case 5:
+                                    airDamage = DamageTypes[i];
+                                    break;
+                            }
                         }
                     }
 
@@ -369,18 +403,39 @@ namespace Warlock_The_Soulbinder
                         for (int i = 0; i < stone.ResistanceTypes.Count; i++) //adds resistance types to the player
                         {
                             ResistanceTypes[i] += stone.ResistanceTypes[i];
+                            switch (i)
+                            {
+                                case 0:
+                                    EarthResistance = ResistanceTypes[i];
+                                    break;
+                                case 1:
+                                    WaterResistance = ResistanceTypes[i];
+                                    break;
+                                case 2:
+                                    DarkResistance = ResistanceTypes[i];
+                                    break;
+                                case 3:
+                                    MetalResistance = ResistanceTypes[i];
+                                    break;
+                                case 4:
+                                    FireResistance = ResistanceTypes[i];
+                                    break;
+                                case 5:
+                                    AirResistance = ResistanceTypes[i];
+                                    break;
+                            }
                         }
                     }
-                    
+
                     if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
                     {
                         Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this, 0);
                     }
                     
-                    //if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
-                    //{
-                    //    Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this, 0);
-                    //}
+                    if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+                    {
+                        Effect effect = new Effect(Equipment.Instance.EquippedEquipment[1].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[1].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[1].ArmorEffect.Stone, this, 0);
+                    }
                 }
             }
         }
