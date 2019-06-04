@@ -688,29 +688,30 @@ namespace Warlock_The_Soulbinder
                             totalDamageToDeal += damageToDeal[i];
                         }
 
+                        //adds damage bonus from log
                         if (target.Dragon)
                         {
                             switch (target.DragonStone.Element)
                             {
-                                case "Neutral":
+                                case "neutral":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.NeutralBonus));
                                     break;
-                                case "Earth":
+                                case "earth":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.EarthBonus));
                                     break;
-                                case "Water":
+                                case "water":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.WaterBonus));
                                     break;
-                                case "Metal":
+                                case "metal":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.MetalBonus));
                                     break;
-                                case "Air":
+                                case "air":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.AirBonus));
                                     break;
-                                case "Dark":
+                                case "dark":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.DarkBonus));
                                     break;
-                                case "Fire":
+                                case "fire":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.FireBonus));
                                     break;
                             }
@@ -719,25 +720,25 @@ namespace Warlock_The_Soulbinder
                         {
                             switch (target.EnemyStone.Element)
                             {
-                                case "Neutral":
+                                case "neutral":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.NeutralBonus));
                                     break;
-                                case "Earth":
+                                case "earth":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.EarthBonus));
                                     break;
-                                case "Water":
+                                case "water":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.WaterBonus));
                                     break;
-                                case "Metal":
+                                case "metal":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.MetalBonus));
                                     break;
-                                case "Air":
+                                case "air":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.AirBonus));
                                     break;
-                                case "Dark":
+                                case "dark":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.DarkBonus));
                                     break;
-                                case "Fire":
+                                case "fire":
                                     totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.FireBonus));
                                     break;
                             }
