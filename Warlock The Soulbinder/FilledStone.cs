@@ -25,7 +25,15 @@ namespace Warlock_The_Soulbinder
         private int internalCooldown;
         private int experienceLastEncounter = 0;
         private Effect weaponEffect;
+        private Effect dragonWeaponEffect1;
+        private Effect dragonWeaponEffect2;
+        private Effect dragonWeaponEffect3;
+        private List<Effect> dragonWeaponEffects = new List<Effect>();
         private Effect armorEffect;
+        private Effect dragonArmorEffect1;
+        private Effect dragonArmorEffect2;
+        private Effect dragonArmorEffect3;
+        private List<Effect> dragonArmorEffects = new List<Effect>();
         private Effect skillEffect;
         public string SpriteName { get => spriteName; set => spriteName = value; }
         public string Monster { get => monster; set => monster = value; }
@@ -72,8 +80,6 @@ namespace Warlock_The_Soulbinder
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
         public int InternalCooldown { get => internalCooldown; set => internalCooldown = value; }
 
-        //public string Name { get => name; set => name = value; }
-
         public static List<FilledStone> StoneList
         {
             get
@@ -99,6 +105,14 @@ namespace Warlock_The_Soulbinder
         }
 
         public int ExperienceLastEncounter { get => experienceLastEncounter; set => experienceLastEncounter = value; }
+        internal Effect DragonWeaponEffect1 { get => dragonWeaponEffect1; set => dragonWeaponEffect1 = value; }
+        internal Effect DragonWeaponEffect2 { get => dragonWeaponEffect2; set => dragonWeaponEffect2 = value; }
+        internal Effect DragonWeaponEffect3 { get => dragonWeaponEffect3; set => dragonWeaponEffect3 = value; }
+        internal Effect DragonArmorEffect1 { get => dragonArmorEffect1; set => dragonArmorEffect1 = value; }
+        internal Effect DragonArmorEffect2 { get => dragonArmorEffect2; set => dragonArmorEffect2 = value; }
+        internal Effect DragonArmorEffect3 { get => dragonArmorEffect3; set => dragonArmorEffect3 = value; }
+        internal List<Effect> DragonWeaponEffects { get => dragonWeaponEffects; set => dragonWeaponEffects = value; }
+        internal List<Effect> DragonArmorEffects { get => dragonArmorEffects; set => dragonArmorEffects = value; }
 
         private static List<FilledStone> stoneList = new List<FilledStone>();
 
@@ -337,7 +351,15 @@ namespace Warlock_The_Soulbinder
         {
             Monster = enemy.Monster;
             Level = enemy.Level;
-            spriteName = $"monsters/Orbs/{Monster}";
+            try
+            {
+                spriteName = $"monsters/Orbs/{Monster}";
+            }
+            catch
+            {
+                spriteName = "items/blankSoulGem";
+            }
+            
             if (Enemy.ReturnMonsterIndex(enemy.Monster) <= 20)
             {
                 sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
@@ -351,7 +373,7 @@ namespace Warlock_The_Soulbinder
             attackSpeed = (enemy.AttackSpeed * modifier);
             Defense = (int)(enemy.Defense * modifier);
 
-            //switch case to determine the element, and name of abilities, based on the monster type
+            //switch case to determine the element, and name of abilities, based on the monster type, directly add effects to dragons
             switch (Monster)
             {
                 case "sheep":
@@ -501,18 +523,127 @@ namespace Warlock_The_Soulbinder
                     armorName = "Retaliative Amaurotic";
                     skillName = "Blind";
                     break;
+                //dragons
+                case "neutralDragon":
+                    Element = "neutral";
+                    dragonWeaponEffect1 = new Effect(0, "Weapon", this, null, 0);
+                    dragonWeaponEffect2 = new Effect(1, "Weapon", this, null, 0);
+                    dragonWeaponEffect3 = new Effect(2, "Weapon", this, null, 0);
+                    dragonArmorEffect1 = new Effect(0, "Armor", this, null, 0);
+                    dragonArmorEffect2 = new Effect(1, "Armor", this, null, 0);
+                    dragonArmorEffect3 = new Effect(2, "Armor", this, null, 0);
+                    dragonWeaponEffects.Add(DragonWeaponEffect1);
+                    dragonWeaponEffects.Add(DragonWeaponEffect2);
+                    dragonWeaponEffects.Add(DragonWeaponEffect3);
+                    dragonArmorEffects.Add(DragonArmorEffect1);
+                    dragonArmorEffects.Add(DragonArmorEffect2);
+                    dragonArmorEffects.Add(DragonArmorEffect3);
+                    break;
+                case "earthDragon":
+                    Element = "earth";
+                    dragonWeaponEffect1 = new Effect(3, "Weapon", this, null, 0);
+                    dragonWeaponEffect2 = new Effect(4, "Weapon", this, null, 0);
+                    dragonWeaponEffect3 = new Effect(5, "Weapon", this, null, 0);
+                    dragonArmorEffect1 = new Effect(3, "Armor", this, null, 0);
+                    dragonArmorEffect2 = new Effect(4, "Armor", this, null, 0);
+                    dragonArmorEffect3 = new Effect(5, "Armor", this, null, 0);
+                    dragonWeaponEffects.Add(DragonWeaponEffect1);
+                    dragonWeaponEffects.Add(DragonWeaponEffect2);
+                    dragonWeaponEffects.Add(DragonWeaponEffect3);
+                    dragonArmorEffects.Add(DragonArmorEffect1);
+                    dragonArmorEffects.Add(DragonArmorEffect2);
+                    dragonArmorEffects.Add(DragonArmorEffect3);
+                    break;
+                case "waterDragon":
+                    Element = "water";
+                    dragonWeaponEffect1 = new Effect(6, "Weapon", this, null, 0);
+                    dragonWeaponEffect2 = new Effect(7, "Weapon", this, null, 0);
+                    dragonWeaponEffect3 = new Effect(8, "Weapon", this, null, 0);
+                    dragonArmorEffect1 = new Effect(6, "Armor", this, null, 0);
+                    dragonArmorEffect2 = new Effect(7, "Armor", this, null, 0);
+                    dragonArmorEffect3 = new Effect(8, "Armor", this, null, 0);
+                    dragonWeaponEffects.Add(DragonWeaponEffect1);
+                    dragonWeaponEffects.Add(DragonWeaponEffect2);
+                    dragonWeaponEffects.Add(DragonWeaponEffect3);
+                    dragonArmorEffects.Add(DragonArmorEffect1);
+                    dragonArmorEffects.Add(DragonArmorEffect2);
+                    dragonArmorEffects.Add(DragonArmorEffect3);
+                    break;
+                case "darkDragon":
+                    Element = "dark";
+                    dragonWeaponEffect1 = new Effect(9, "Weapon", this, null, 0);
+                    dragonWeaponEffect2 = new Effect(10, "Weapon", this, null, 0);
+                    dragonWeaponEffect3 = new Effect(11, "Weapon", this, null, 0);
+                    dragonArmorEffect1 = new Effect(9, "Armor", this, null, 0);
+                    dragonArmorEffect2 = new Effect(10, "Armor", this, null, 0);
+                    dragonArmorEffect3 = new Effect(11, "Armor", this, null, 0);
+                    dragonWeaponEffects.Add(DragonWeaponEffect1);
+                    dragonWeaponEffects.Add(DragonWeaponEffect2);
+                    dragonWeaponEffects.Add(DragonWeaponEffect3);
+                    dragonArmorEffects.Add(DragonArmorEffect1);
+                    dragonArmorEffects.Add(DragonArmorEffect2);
+                    dragonArmorEffects.Add(DragonArmorEffect3);
+                    break;
+                case "metalDragon":
+                    Element = "metal";
+                    dragonWeaponEffect1 = new Effect(12, "Weapon", this, null, 0);
+                    dragonWeaponEffect2 = new Effect(13, "Weapon", this, null, 0);
+                    dragonWeaponEffect3 = new Effect(14, "Weapon", this, null, 0);
+                    dragonArmorEffect1 = new Effect(12, "Armor", this, null, 0);
+                    dragonArmorEffect2 = new Effect(13, "Armor", this, null, 0);
+                    dragonArmorEffect3 = new Effect(14, "Armor", this, null, 0);
+                    dragonWeaponEffects.Add(DragonWeaponEffect1);
+                    dragonWeaponEffects.Add(DragonWeaponEffect2);
+                    dragonWeaponEffects.Add(DragonWeaponEffect3);
+                    dragonArmorEffects.Add(DragonArmorEffect1);
+                    dragonArmorEffects.Add(DragonArmorEffect2);
+                    dragonArmorEffects.Add(DragonArmorEffect3);
+                    break;
+                case "fireDragon":
+                    Element = "fire";
+                    dragonWeaponEffect1 = new Effect(15, "Weapon", this, null, 0);
+                    dragonWeaponEffect2 = new Effect(16, "Weapon", this, null, 0);
+                    dragonWeaponEffect3 = new Effect(17, "Weapon", this, null, 0);
+                    dragonArmorEffect1 = new Effect(15, "Armor", this, null, 0);
+                    dragonArmorEffect2 = new Effect(16, "Armor", this, null, 0);
+                    dragonArmorEffect3 = new Effect(17, "Armor", this, null, 0);
+                    dragonWeaponEffects.Add(DragonWeaponEffect1);
+                    dragonWeaponEffects.Add(DragonWeaponEffect2);
+                    dragonWeaponEffects.Add(DragonWeaponEffect3);
+                    dragonArmorEffects.Add(DragonArmorEffect1);
+                    dragonArmorEffects.Add(DragonArmorEffect2);
+                    dragonArmorEffects.Add(DragonArmorEffect3);
+                    break;
+                case "airDragon":
+                    Element = "air";
+                    dragonWeaponEffect1 = new Effect(18, "Weapon", this, null, 0);
+                    dragonWeaponEffect2 = new Effect(19, "Weapon", this, null, 0);
+                    dragonWeaponEffect3 = new Effect(20, "Weapon", this, null, 0);
+                    dragonArmorEffect1 = new Effect(18, "Armor", this, null, 0);
+                    dragonArmorEffect2 = new Effect(19, "Armor", this, null, 0);
+                    dragonArmorEffect3 = new Effect(20, "Armor", this, null, 0);
+                    dragonWeaponEffects.Add(DragonWeaponEffect1);
+                    dragonWeaponEffects.Add(DragonWeaponEffect2);
+                    dragonWeaponEffects.Add(DragonWeaponEffect3);
+                    dragonArmorEffects.Add(DragonArmorEffect1);
+                    dragonArmorEffects.Add(DragonArmorEffect2);
+                    dragonArmorEffects.Add(DragonArmorEffect3);
+                    break;
             }
 
             //adds damage and resistances to lists for ease of use
             for (int i = 0; i < enemy.ResistanceTypes.Count; i++)
             {
-                ResistanceTypes.Add(enemy.ResistanceTypes[i] * modifier);
-                DamageTypes.Add((int)(enemy.DamageTypes[i] * modifier));
+                ResistanceTypes.Add(enemy.ResistanceTypes[i] * modifier * 2);
+                DamageTypes.Add((int)(enemy.DamageTypes[i] * modifier * 2));
             }
 
-            WeaponSkill();
-            ArmorSkill();
-            Skill();
+            if (!enemy.Dragon)
+            {
+                WeaponSkill();
+                ArmorSkill();
+                Skill();
+            }
         }
 
         public void WeaponSkill()
