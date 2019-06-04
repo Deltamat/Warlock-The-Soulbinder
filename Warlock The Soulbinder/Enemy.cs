@@ -16,7 +16,23 @@ namespace Warlock_The_Soulbinder
         private float moveCDTimer;
         private float movingTimer;
         private FilledStone enemyStone;
-        
+        public override int CurrentHealth
+        {
+            get => base.CurrentHealth;
+            set
+            {
+                if (value < base.CurrentHealth)
+                {
+                    Combat.Instance.EnemyScrolling($"HP -{base.CurrentHealth - value}", Color.Red);
+                }
+                else if (value > base.CurrentHealth)
+                {
+                    Combat.Instance.EnemyScrolling($"HP +{value - base.CurrentHealth}", Color.Green);
+                }
+                base.CurrentHealth = value;
+            }            
+        }
+
         private Thread thread;
 
         enum EMonster
@@ -105,14 +121,16 @@ namespace Warlock_The_Soulbinder
                 case "plantEater":
                 case "insectSoldier":
                 case "slimeSnake":
+                case "earthDragon":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
-                    damage = (int)(damage * 0.2f);
+                    earthDamage = (int)(damage * 0.75f);
+                    damage = (int)(damage * 0.25f);
                     break;
                 case "tentacle":
                 case "frog":
                 case "fish":
+                case "waterDragon":
                     WaterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     AirResistance = (float)(AirResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     waterDamage = (int)(damage * 0.8f);
@@ -121,6 +139,7 @@ namespace Warlock_The_Soulbinder
                 case "mummy":
                 case "vampire":
                 case "banshee":
+                case "darkDragon":
                     DarkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     MetalResistance = (float)(MetalResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     darkDamage = (int)(damage * 0.8f);
@@ -129,6 +148,7 @@ namespace Warlock_The_Soulbinder
                 case "bucketMan":
                 case "defender":
                 case "sentry":
+                case "metalDragon":
                     MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     earthDamage = (int)(damage * 0.8f);
@@ -137,6 +157,7 @@ namespace Warlock_The_Soulbinder
                 case "fireGolem":
                 case "infernalDemon":
                 case "ashZombie":
+                case "fireDragon":
                     FireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     WaterResistance = (float)(WaterResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     fireDamage = (int)(damage * 0.8f);
@@ -145,6 +166,7 @@ namespace Warlock_The_Soulbinder
                 case "falcon":
                 case "bat":
                 case "raven":
+                case "airDragon":
                     AirResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     EarthResistance = (float)(EarthResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     airDamage = (int)(damage * 0.8f);

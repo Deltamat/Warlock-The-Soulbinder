@@ -24,7 +24,7 @@ namespace Warlock_The_Soulbinder
         private bool hurt;
         private bool hurtStart;
         private bool blinking;
-
+        
         private Sound step = new Sound("playerStep");
         private double stepTimer;
 
@@ -49,6 +49,18 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
+                if (GameWorld.Instance.GameState == "Combat")
+                {
+                    if (value < base.CurrentHealth)
+                    {
+                        Combat.Instance.PlayerScrolling($"HP -{base.CurrentHealth - value}", Color.Red);
+                    }
+                    else if (value > base.CurrentHealth)
+                    {
+                        Combat.Instance.PlayerScrolling($"HP +{value - base.CurrentHealth}", Color.Green);
+                    }
+                }
+                
                 currentHealth = value;
                 if (currentHealth <= 0) // if the player is dead, teleport back to the town
                 {
@@ -379,7 +391,7 @@ namespace Warlock_The_Soulbinder
                     
                     if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
                     {
-                        Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[0].ArmorEffect.Stone, this, 0);
+                        Effect effect = new Effect(Equipment.Instance.EquippedEquipment[1].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[1].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[1].ArmorEffect.Stone, this, 0);
                     }
                 }
             }
@@ -393,7 +405,7 @@ namespace Warlock_The_Soulbinder
             Damage = 10;
             Defense = 0;
             AttackSpeed = 15;
-            MaxHealth = 100;
+            MaxHealth = 1000;
 #if DEBUG
             //int over9000 = 9001;
             //Damage = 10 + over9000;
