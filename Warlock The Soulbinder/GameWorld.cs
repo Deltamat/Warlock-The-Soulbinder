@@ -108,15 +108,15 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
-                {
-                    MediaPlayer.Play(overworldMusic, songPosition);
-                }
-                else if (value == "Combat")
-                {
-                    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-                    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
-                }
+                //if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
+                //{
+                //    MediaPlayer.Play(overworldMusic, songPosition);
+                //}
+                //else if (value == "Combat")
+                //{
+                //    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                //    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
+                //}
 
                 gameState = value;
             }
@@ -200,6 +200,7 @@ namespace Warlock_The_Soulbinder
 
             IsMouseVisible = true;
 
+#if DEBUG
             //adds five of all enemy types as stones to the player's inventory - TEMP
             #region tempStonesAdd
             if (FilledStone.StoneList.Count == 0)
@@ -230,7 +231,8 @@ namespace Warlock_The_Soulbinder
                 }
             }
             #endregion
-            
+#endif
+
             //LogLoad
             Log.Instance.GenerateLogList();
             Log.Instance.FullScans();
@@ -239,9 +241,9 @@ namespace Warlock_The_Soulbinder
             MusicVolume = 0f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
-            combatMusic = Content.Load<Song>("sound/combatMusicV2");
-            overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            MediaPlayer.Play(overworldMusic);
+            //combatMusic = Content.Load<Song>("sound/combatMusicV2");
+            //overworldMusic = Content.Load<Song>("sound/overworldMusic");
+            //MediaPlayer.Play(overworldMusic);
 
             Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();

@@ -275,6 +275,7 @@ namespace Warlock_The_Soulbinder
                         InventoryState = "Inventory";
                         selectedInt = 0;
                         break;
+
                     case "Options":
                         InventoryState = "GeneralMenu";
                         selectedInt = 0;
@@ -583,6 +584,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(Combat.Instance.HealthEmpty, new Vector2(1075, 355), Color.White);
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Weapon.Experience, Equipment.Instance.Weapon.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Weapon.ExperienceRequired - Equipment.Instance.Weapon.Experience}", new Vector2(1200, 425), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp last fight:" + $"{Equipment.Instance.Weapon.ExperienceLastEncounter}", new Vector2(1200, 500), Color.Gold);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont,$"{Equipment.Instance.Weapon.WeaponEffect.EffectString}", new Vector2(1100, 625), Color.White);
                     }
 
@@ -609,6 +611,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Armor.Experience, Equipment.Instance.Armor.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Armor.ExperienceRequired - Equipment.Instance.Armor.Experience}", new Vector2(1200, 425), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Armor.ArmorEffect.EffectString}", new Vector2(1100, 625), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp last fight:" + $"{Equipment.Instance.Armor.ExperienceLastEncounter}", new Vector2(1200, 500), Color.Gold);
                     }
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Armor.ArmorName, new Vector2(350, 320), Color.White);
                 }
@@ -632,6 +635,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Skill1.Experience, Equipment.Instance.Skill1.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill1.ExperienceRequired - Equipment.Instance.Skill1.Experience}", new Vector2(1200, 425), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Skill1.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp last fight:" + $"{Equipment.Instance.Skill1.ExperienceLastEncounter}", new Vector2(1200, 500), Color.Gold);
                     }
 
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill1.SkillName, new Vector2(350, 480), Color.White);
@@ -657,6 +661,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Skill2.Experience, Equipment.Instance.Skill2.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill2.ExperienceRequired - Equipment.Instance.Skill2.Experience}", new Vector2(1200, 425), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Skill2.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp last fight:" + $"{Equipment.Instance.Skill2.ExperienceLastEncounter}", new Vector2(1200, 500), Color.Gold);
                     }
 
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill2.SkillName, new Vector2(350, 640), Color.White);
@@ -680,6 +685,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.Draw(expFull, new Vector2(1077, 357), new Rectangle(0, 0, Convert.ToInt32(Combat.Instance.PercentStat(Equipment.Instance.Skill3.Experience, Equipment.Instance.Skill3.ExperienceRequired) * 5.9), 70), Color.White);
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp left: " + $"{Equipment.Instance.Skill3.ExperienceRequired - Equipment.Instance.Skill3.Experience}", new Vector2(1200, 425), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, $"{Equipment.Instance.Skill3.SkillEffect.EffectString}", new Vector2(1100, 625), Color.White);
+                        spriteBatch.DrawString(Combat.Instance.CombatFont, "Exp last fight:" + $"{Equipment.Instance.Skill3.ExperienceLastEncounter}", new Vector2(1200, 500), Color.Gold);
                     }
                     spriteBatch.DrawString(Combat.Instance.CombatFont, Equipment.Instance.Skill3.SkillName, new Vector2(350, 800), Color.White);
                 }
@@ -848,7 +854,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "When you capture a monster you convert their soul \ninto a stone which inherits the strengths, weaknesses \nand skills of each monster. Each monster shares the \nsame unique skills, but has different strengths and \nweaknesses, so make sure to capture plenty to find \nthe strongest monster, when you have \nyou are now ready to use it, and make it stronger.", new Vector2(130, 400), Color.White);
 
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Equipment").X / 2), 120), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto infuse them into your equipment to use power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determins its protection. So make sure \nto take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto equip them upon yourself to use power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determins its protection. So make sure \nto take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped monster stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
                         break;
 
