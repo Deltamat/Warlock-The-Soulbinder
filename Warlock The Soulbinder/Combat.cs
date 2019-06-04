@@ -80,7 +80,6 @@ namespace Warlock_The_Soulbinder
         public List<GameObject> PlayerText { get => playerText; set => playerText = value; }
         public List<GameObject> EnemyText { get => enemyText; set => enemyText = value; }
         public Enemy Target { get => target; set => target = value; }
-        public float SheepBuff { get => sheepBuff; set => sheepBuff = value; }
 
         private Combat()
         {
@@ -993,7 +992,7 @@ namespace Warlock_The_Soulbinder
                 for (int j = 0; j < enemyAttackAmount; j++) //foreach time the enemy should attack
                 {
                     //adds the damage to be dealt
-                    if (Target.Damage - (Player.Instance.Defense + sheepBuff) > 0)
+                    if (Target.Damage - Player.Instance.Defense > 0)
                     {
                         damageToDeal.Add((int)Math.Round(((target.Damage * damageMod) - Player.Instance.Defense) * playerDamageReduction - (playerDamageAbs * 0.2)));
                     }
