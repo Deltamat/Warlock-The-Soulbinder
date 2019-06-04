@@ -16,6 +16,7 @@ namespace Warlock_The_Soulbinder
         private float moveCDTimer;
         private float movingTimer;
         private FilledStone enemyStone;
+        private FilledStone dragonStone;
         public override int CurrentHealth
         {
             get => base.CurrentHealth;
@@ -65,6 +66,7 @@ namespace Warlock_The_Soulbinder
 
         internal FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
         public bool Dragon { get => dragon; set => dragon = value; }
+        internal FilledStone DragonStone { get => dragonStone; set => dragonStone = value; }
 
         public Enemy(int index, Vector2 startPos)
         {
@@ -90,6 +92,10 @@ namespace Warlock_The_Soulbinder
                 dragon = true;
                 Level = 25;
             }
+            else if (GameWorld.Instance.currentZone == "DragonRealm")
+            {
+                Level = 20;
+            }
             else
             {
                 Level = index + GameWorld.Instance.RandomInt(-1, 2);
@@ -104,7 +110,6 @@ namespace Warlock_The_Soulbinder
             Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
             Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
             maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
-            currentHealth = 0 + maxHealth;
             attackSpeed = (5 * (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3));
             MetalResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             EarthResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
@@ -114,19 +119,24 @@ namespace Warlock_The_Soulbinder
             WaterResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
             #endregion
 
+            if (dragon)
+            {
+                Damage *= 2;
+                maxHealth *= 5;
+            }
+            currentHealth = 0 + maxHealth;
+
             //switch case to determine special properties based on the monster's element (logistic function)
             switch (Monster)
             {
                 case "bear":
                 case "sheep":
                 case "wolf":
-                case "neutralDragon":
                     Defense = (int)(Defense * (Level * 0.75f));
                     break;
                 case "plantEater":
                 case "insectSoldier":
                 case "slimeSnake":
-                case "earthDragon":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     earthDamage = (int)(damage * 0.75f);
@@ -135,7 +145,6 @@ namespace Warlock_The_Soulbinder
                 case "tentacle":
                 case "frog":
                 case "fish":
-                case "waterDragon":
                     WaterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     AirResistance = (float)(AirResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     waterDamage = (int)(damage * 0.8f);
@@ -144,7 +153,6 @@ namespace Warlock_The_Soulbinder
                 case "mummy":
                 case "vampire":
                 case "banshee":
-                case "darkDragon":
                     DarkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     MetalResistance = (float)(MetalResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     darkDamage = (int)(damage * 0.8f);
@@ -153,7 +161,6 @@ namespace Warlock_The_Soulbinder
                 case "bucketMan":
                 case "defender":
                 case "sentry":
-                case "metalDragon":
                     MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     earthDamage = (int)(damage * 0.8f);
@@ -162,7 +169,6 @@ namespace Warlock_The_Soulbinder
                 case "fireGolem":
                 case "infernalDemon":
                 case "ashZombie":
-                case "fireDragon":
                     FireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     WaterResistance = (float)(WaterResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     fireDamage = (int)(damage * 0.8f);
@@ -171,11 +177,51 @@ namespace Warlock_The_Soulbinder
                 case "falcon":
                 case "bat":
                 case "raven":
-                case "airDragon":
                     AirResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     EarthResistance = (float)(EarthResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
                     airDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
+                    break;
+                    //dragons
+                case "neutralDragon":
+                    Defense = (int)(Defense * (Level * 1.75f));
+                    Damage = (int)Math.Round(Damage * 1.25f);
+                    break;
+                case "earthDragon":
+                    EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    earthDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "waterDragon":
+                    WaterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    AirResistance = (float)(AirResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    waterDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "darkDragon":
+                    DarkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    MetalResistance = (float)(MetalResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    darkDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "metalDragon":
+                    MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    earthDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "fireDragon":
+                    FireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    WaterResistance = (float)(WaterResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    fireDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "airDragon":
+                    AirResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    EarthResistance = (float)(EarthResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    airDamage = damage;
+                    damage = (int)(damage * 0.25f);
                     break;
             }
 
@@ -196,7 +242,14 @@ namespace Warlock_The_Soulbinder
             #endregion
 
             //gives the enemy a FilledStone with its effects
-            EnemyStone = new FilledStone(this);
+            if (dragon)
+            {
+                DragonStone = new FilledStone(this);
+            }
+            else
+            {
+                EnemyStone = new FilledStone(this);
+            }
 
             thread = new Thread(() => Update());
             thread.IsBackground = true;

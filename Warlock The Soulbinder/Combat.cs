@@ -127,7 +127,14 @@ namespace Warlock_The_Soulbinder
 
             if (enemyAttackTimer >= turnTimer)
             {
-                EnemyTurn();
+                if (target.Dragon)
+                {
+                    DragonTurn();
+                }
+                else
+                {
+                    EnemyTurn();
+                }
             }
 
             if (Target != null)
@@ -680,32 +687,62 @@ namespace Warlock_The_Soulbinder
                             }
                             totalDamageToDeal += damageToDeal[i];
                         }
-                        
-                        switch (target.EnemyStone.Element)
-                        {
-                            case "Neutral":
-                                totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.NeutralBonus));
-                                break;
-                            case "Earth":
-                                totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.EarthBonus));
-                                break;
-                            case "Water":
-                                totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.WaterBonus));
-                                break;
-                            case "Metal":
-                                totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.MetalBonus));
-                                break;
-                            case "Air":
-                                totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.AirBonus));
-                                break;
-                            case "Dark":
-                                totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.DarkBonus));
-                                break;
-                            case "Fire":
-                                totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.FireBonus));
-                                break;
-                        }
 
+                        if (target.Dragon)
+                        {
+                            switch (target.DragonStone.Element)
+                            {
+                                case "Neutral":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.NeutralBonus));
+                                    break;
+                                case "Earth":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.EarthBonus));
+                                    break;
+                                case "Water":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.WaterBonus));
+                                    break;
+                                case "Metal":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.MetalBonus));
+                                    break;
+                                case "Air":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.AirBonus));
+                                    break;
+                                case "Dark":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.DarkBonus));
+                                    break;
+                                case "Fire":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.FireBonus));
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            switch (target.EnemyStone.Element)
+                            {
+                                case "Neutral":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.NeutralBonus));
+                                    break;
+                                case "Earth":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.EarthBonus));
+                                    break;
+                                case "Water":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.WaterBonus));
+                                    break;
+                                case "Metal":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.MetalBonus));
+                                    break;
+                                case "Air":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.AirBonus));
+                                    break;
+                                case "Dark":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.DarkBonus));
+                                    break;
+                                case "Fire":
+                                    totalDamageToDeal = (int)Math.Round(totalDamageToDeal * (1 + Log.Instance.FireBonus));
+                                    break;
+                            }
+                        }
+                        
                         //shield
                         if (enemyShield - totalDamageToDeal <= 0)
                         {
@@ -730,38 +767,80 @@ namespace Warlock_The_Soulbinder
                         {
                             target.CurrentHealth -= totalDamageToDeal;
 
-                            //armor effects of target
-                            if (target.EnemyStone.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
+                            if (target.Dragon) //dragons
                             {
-                                enemyEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
-                            }
-                            else if ((target.EnemyStone.ArmorEffect.Shield != 0 || target.EnemyStone.ArmorEffect.DamageReduction != 1) && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0)
-                            {
-                                Effect tempEffect = new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal);
-                                enemyShield += tempEffect.Shield;
-                                if (tempEffect.Shield != 0)
+                                foreach (Effect itemEffect in target.DragonStone.DragonArmorEffects)
                                 {
-                                    EnemyScrolling($"Shield +{tempEffect.Shield}", Color.Gray);
+                                    //armor effects of target
+                                    if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
+                                    {
+                                        enemyEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
+                                    }
+                                    else if ((itemEffect.Shield != 0 || itemEffect.DamageReduction != 1) && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0)
+                                    {
+                                        Effect tempEffect = new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal);
+                                        enemyShield += tempEffect.Shield;
+                                        if (tempEffect.Shield != 0)
+                                        {
+                                            EnemyScrolling($"Shield +{tempEffect.Shield}", Color.Gray);
+                                        }
+                                        enemyDamageReduction *= tempEffect.DamageReduction;
+                                    }
+                                    else if (!itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add negative effects to the player
+                                    {
+                                        if (itemEffect.Retaliate)
+                                        {
+                                            Effect tempEffect = new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal);
+                                            Player.Instance.CurrentHealth -= tempEffect.Damage;
+                                        }
+                                        else
+                                        {
+                                            playerEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
+                                        }
+                                    }
+                                    else if (itemEffect.TargetsBoth && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0) //has a chance to damage player and heal target
+                                    {
+                                        Effect tempEffect = new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, 0);
+                                        Player.Instance.CurrentHealth -= tempEffect.Damage; //damages player
+                                        target.CurrentHealth += tempEffect.Heal; //heals target
+                                    }
                                 }
-                                enemyDamageReduction *= tempEffect.DamageReduction;
                             }
-                            else if (!target.EnemyStone.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0 && !target.EnemyStone.ArmorEffect.StatBuff) //has a chance to add negative effects to the player
+                            else //normal enemies
                             {
-                                if (target.EnemyStone.ArmorEffect.Retaliate)
+                                //armor effects of target
+                                if (target.EnemyStone.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
+                                {
+                                    enemyEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                                }
+                                else if ((target.EnemyStone.ArmorEffect.Shield != 0 || target.EnemyStone.ArmorEffect.DamageReduction != 1) && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0)
                                 {
                                     Effect tempEffect = new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal);
-                                    Player.Instance.CurrentHealth -= tempEffect.Damage;
+                                    enemyShield += tempEffect.Shield;
+                                    if (tempEffect.Shield != 0)
+                                    {
+                                        EnemyScrolling($"Shield +{tempEffect.Shield}", Color.Gray);
+                                    }
+                                    enemyDamageReduction *= tempEffect.DamageReduction;
                                 }
-                                else
+                                else if (!target.EnemyStone.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0 && !target.EnemyStone.ArmorEffect.StatBuff) //has a chance to add negative effects to the player
                                 {
-                                    playerEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                                    if (target.EnemyStone.ArmorEffect.Retaliate)
+                                    {
+                                        Effect tempEffect = new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal);
+                                        Player.Instance.CurrentHealth -= tempEffect.Damage;
+                                    }
+                                    else
+                                    {
+                                        playerEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                                    }
                                 }
-                            }
-                            else if (target.EnemyStone.ArmorEffect.TargetsBoth && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to damage player and heal target
-                            {
-                                Effect tempEffect = new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, 0);
-                                Player.Instance.CurrentHealth -= tempEffect.Damage; //damages player
-                                target.CurrentHealth += tempEffect.Heal; //heals target
+                                else if (target.EnemyStone.ArmorEffect.TargetsBoth && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to damage player and heal target
+                                {
+                                    Effect tempEffect = new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, 0);
+                                    Player.Instance.CurrentHealth -= tempEffect.Damage; //damages player
+                                    target.CurrentHealth += tempEffect.Heal; //heals target
+                                }
                             }
                             
                             //rolls chance for player weapon soul stone
@@ -822,7 +901,7 @@ namespace Warlock_The_Soulbinder
 
             if (target.EnemyStone.WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
             {
-                playerAttackAmount++;
+                enemyAttackAmount++;
             }
 
             //goes through all active effects on the enemy with an EffectLength greater than 0
@@ -877,7 +956,7 @@ namespace Warlock_The_Soulbinder
 
             toBeRemovedEffects.Clear();
 
-            if (target.EnemyStone.ArmorEffect.StunImmunity) //checks if the player is immune to stuns
+            if (target.EnemyStone.ArmorEffect.StunImmunity) //checks if the enemy is immune to stuns
             {
                 stunned = false;
             }
@@ -1006,7 +1085,215 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// 
+        /// Controls enemy's combat logic if they are a dragon
+        /// </summary>
+        private void DragonTurn()
+        {
+            //local values to apply effects
+            bool stunned = new bool();
+            bool confused = new bool();
+            float accuracyMod = 1f;
+            float damageMod = 1f;
+            enemySpeedMod = 1f;
+            enemyDamageReduction = 1;
+            enemyDamageAbs = 0;
+
+            foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
+            {
+                if (itemEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0) //checks for double attack 
+                {
+                    enemyAttackAmount++;
+                }
+            }
+
+            //goes through all active effects on the enemy with an EffectLength greater than 0
+            foreach (Effect effect in enemyEffects)
+            {
+                if (effect.EffectLength > 0)
+                {
+                    target.CurrentHealth -= effect.Damage; //applies damage
+                    enemyShield += effect.Shield;
+                    if (effect.Shield != 0)
+                    {
+                        EnemyScrolling($"Shield +{effect.Shield}", Color.Gray);
+                    }
+                    enemyDamageAbs += effect.DamageAbs;
+                    confused = effect.Confuse; //applies confuse
+                    stunned = effect.Stun; //applies stun
+                    if (effect.AccuracyMod != 1f) //effects has a base AccuracyMod of 1
+                    {
+                        accuracyMod *= effect.AccuracyMod;
+                    }
+                    if (effect.DamageMod != 1f) //effects has a base DamageMod of 1
+                    {
+                        damageMod *= effect.DamageMod;
+                    }
+                    if (effect.SpeedMod != 1f) //effects has a base SpeedMod of 1
+                    {
+                        enemySpeedMod *= effect.SpeedMod;
+                    }
+                    if (effect.DamageReduction != 1) //effects has a base DamageReduction of 1
+                    {
+                        enemyDamageReduction *= effect.DamageReduction;
+                    }
+                    if (effect.DoubleAttack) //checks for double attack
+                    {
+                        enemyAttackAmount++;
+                    }
+                }
+                effect.EffectLength--;
+
+                //adds any effects with an effectLength of 0 or less to a list so they can be removed
+                if (effect.EffectLength <= 0)
+                {
+                    toBeRemovedEffects.Add(effect);
+                }
+            }
+
+            //removes any effects in the toBeRemovedEffects list
+            foreach (Effect effect in toBeRemovedEffects)
+            {
+                enemyEffects.Remove(effect);
+            }
+
+            toBeRemovedEffects.Clear();
+
+            foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
+            {
+                if (itemEffect.StunImmunity) //checks if the enemy is immune to stuns
+                {
+                    stunned = false;
+                }
+            }
+                
+            enemyAttackTimer = 0;
+            if (!stunned)
+            {
+                List<int> damageToDeal = new List<int>();
+                int totalDamageToDeal = 0;
+
+                for (int j = 0; j < enemyAttackAmount; j++) //foreach time the enemy should attack
+                {
+                    //adds the damage to be dealt
+                    if (Target.Damage - Player.Instance.Defense > 0)
+                    {
+                        damageToDeal.Add((int)Math.Round(((target.Damage * damageMod) - Player.Instance.Defense) * playerDamageReduction - (playerDamageAbs * 0.2)));
+                    }
+
+                    //goes through all damage types and resistance types and calculates damage to be dealt
+                    for (int i = 0; i < Target.DamageTypes.Count; i++)
+                    {
+                        damageToDeal.Add((int)(((target.DamageTypes[i] * damageMod) - (target.DamageTypes[i] * damageMod * 0.01 * Player.Instance.ResistanceTypes[i])) * playerDamageReduction - (playerDamageAbs * 0.8)));
+                    }
+
+                    //adds all damage to a single variable
+                    for (int i = 0; i < damageToDeal.Count; i++)
+                    {
+                        if (damageToDeal[i] < 0)
+                        {
+                            damageToDeal[i] = 0;
+                        }
+                        totalDamageToDeal += damageToDeal[i];
+                    }
+
+                    //shield
+                    if (playerShield - totalDamageToDeal <= 0)
+                    {
+                        totalDamageToDeal -= playerShield;
+                        playerShield = 0;
+                    }
+                    else
+                    {
+                        playerShield -= totalDamageToDeal;
+                        totalDamageToDeal = 0;
+                    }
+
+                    if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
+                    {
+                        Target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
+                    }
+                    else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
+                    {
+                        //does nothing
+                    }
+                    else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
+                    {
+                        Player.Instance.CurrentHealth -= totalDamageToDeal;
+
+                        //armor effects of player
+                        if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0 && Equipment.Instance.Armor.ArmorEffect.Shield == 0) //has a chance to add positive effects to the enemy
+                        {
+                            playerEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
+                        }
+                        else if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.ArmorEffect.Shield != 0 && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0) //has a chance to immediately apply shield from armor
+                        {
+                            Effect tempEffect = new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal);
+                            playerShield += tempEffect.Shield;
+                            PlayerScrolling($"Shield +{tempEffect.Shield}", Color.Gray);
+
+                        }
+                        else if (Equipment.Instance.Armor != null && !Equipment.Instance.Armor.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0 && !Equipment.Instance.Armor.ArmorEffect.StatBuff) //has a chance to add negative effects to the player
+                        {
+                            if (Equipment.Instance.Armor.ArmorEffect.Retaliate)
+                            {
+                                Effect tempEffect = new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal);
+                                target.CurrentHealth -= tempEffect.Damage;
+                            }
+                            else
+                            {
+                                enemyEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
+                            }
+                        }
+                        else if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.ArmorEffect.TargetsBoth && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0) //has a chance to damage player and heal target
+                        {
+                            Effect tempEffect = new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, 0);
+                            target.CurrentHealth -= tempEffect.Damage; //damages enemy
+                            Player.Instance.CurrentHealth += tempEffect.Heal; //heals player
+                        }
+
+                        //rolls chance for target's weapon soul stone to apply effects
+                        foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
+                        {
+                            if (!itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add negative effects to the player
+                            {
+                                playerEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
+                            }
+                            else if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add positive effects to the enemy
+                            {
+                                enemyEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
+                            }
+                        }
+                        
+                        //applies healing
+                        foreach (Effect effect in enemyEffects)
+                        {
+                            if (effect.EffectLength > 0 && effect.Heal > 0)
+                            {
+                                target.CurrentHealth += effect.Heal;
+                                effect.EffectLength--;
+                                if (effect.Heal <= 0)
+                                {
+                                    EnemyScrolling("HP +0", Color.Green);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        EnemyScrolling("Miss", Color.White);
+                    }
+                }
+                if (totalDamageToDeal <= 0)
+                {
+                    PlayerScrolling($"HP -0", Color.Red);
+                }
+
+                enemyAttackAmount = 1;
+            }
+        }
+
+        /// <summary>
+        /// Reduces cooldown on all player skills
         /// </summary>
         private void CountCooldown()
         {
@@ -1027,7 +1314,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// 
+        /// Adds scrolling text to the player's side of the battlefield
         /// </summary>
         /// <param name="Text"></param>
         /// <param name="color"></param>
@@ -1037,7 +1324,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// 
+        /// Adds scrolling text to the enemy's side of the battlefield
         /// </summary>
         /// <param name="Text"></param>
         /// <param name="color"></param>

@@ -1056,11 +1056,7 @@ namespace Warlock_The_Soulbinder
 
                         changingKey = false;
                     }
-                    
-
-                    
                 }
-
             }
         }
 
