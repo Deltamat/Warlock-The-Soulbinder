@@ -53,6 +53,7 @@ namespace Warlock_The_Soulbinder
                 {
                     if (value < base.CurrentHealth)
                     {
+                        HurtStart = true; //starts player's hurt animation
                         Combat.Instance.PlayerScrolling($"HP -{base.CurrentHealth - value}", Color.Red);
                     }
                     else if (value > base.CurrentHealth)
@@ -405,11 +406,11 @@ namespace Warlock_The_Soulbinder
             Damage = 10;
             Defense = 0;
             AttackSpeed = 15;
-            MaxHealth = 1000;
+            MaxHealth = 100;
 #if DEBUG
             int over9000 = 9001;
             //Damage = 10 + over9000;
-            Defense = 2 + over9000;
+            //Defense = 2 + over9000;
             //AttackSpeed = 15 + over9000;
             MaxHealth = 100 + over9000;
 #endif

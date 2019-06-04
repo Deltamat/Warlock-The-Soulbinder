@@ -8,9 +8,9 @@ namespace Warlock_The_Soulbinder
 {
     class Effect
     {
-        private bool targetsSelf = false;
-        private bool targetBoth = false;
-        private bool statBuff = false;
+        private bool targetsSelf;
+        private bool targetBoth;
+        private bool statBuff;
         private int cooldown = 1;
         private int damage;
         private int heal;
@@ -21,11 +21,11 @@ namespace Warlock_The_Soulbinder
         private float accuracyMod = 1;
         private float damageMod = 1;
         private int shield;
-        private bool stun = false;
-        private bool confuse = false;
-        private bool doubleAttack = false;
-        private bool retaliate = false;
-        private bool stunImmunity = false;
+        private bool stun;
+        private bool confuse;
+        private bool doubleAttack;
+        private bool retaliate;
+        private bool stunImmunity;
         private string effectString;
         private int upperChanceBounds = 1;
 
@@ -164,7 +164,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse\nyour enemy";
-                            UpperChanceBounds = 15;
+                            UpperChanceBounds = 12;
                             Confuse = true;
                             EffectLength = 2;
                             break;
@@ -184,7 +184,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                Combat.Instance.SheepBuff = (int)(1.5f * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
+                                characterCombat.Defense += (int)(1.5f * (stone.Level + 3));
                             }
                             break;
                         case 1: //wolf
@@ -199,7 +199,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.MaxHealth += (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.1f));
+                                characterCombat.MaxHealth += (int)(3 * ((stone.Level + 4) * 0.1f));
                             }
                             break;
                         case 3: //plant eater
@@ -248,7 +248,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Gives you immunity to curses";
                             TargetsSelf = true;
                             AccuracyMod = 1000000;
-                            EffectLength = 999;
+                            EffectLength = 5;
                             break;
                         case 10: //vampire
                             EffectString = "Has a chance to block the \nnext hit after being attacked";
@@ -296,13 +296,13 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.AttackSpeed *= (int)1.25f;
+                                characterCombat.AttackSpeed = (int)Math.Round(characterCombat.AttackSpeed * 1.25f);
                             }
                             break;
                         case 18: //falcon
                             EffectString = "Passively increases your\ndodge chance";
                             AccuracyMod = 0.7f;
-                            EffectLength = 999;
+                            EffectLength = 1;
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse \nyour enemy when attacked";

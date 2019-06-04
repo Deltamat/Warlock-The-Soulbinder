@@ -120,6 +120,7 @@ namespace Warlock_The_Soulbinder
                 case "bear":
                 case "sheep":
                 case "wolf":
+                case "neutralDragon":
                     Defense = (int)(Defense * (Level * 0.75f));
                     break;
                 case "plantEater":
