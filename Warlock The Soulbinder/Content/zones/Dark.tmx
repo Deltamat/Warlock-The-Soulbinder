@@ -12,7 +12,7 @@
  <tileset firstgid="359" name="tilesetLava" tilewidth="64" tileheight="64" tilecount="36" columns="6">
   <image source="tilesetLava.png" width="384" height="384"/>
  </tileset>
- <layer id="8" name="Ground" width="60" height="60" visible="0">
+ <layer id="8" name="Ground" width="60" height="60">
   <data encoding="base64" compression="zlib">
    eJztw4EJAAAMAqB2e4/3x1Cwl1RVVVVVVVVVVVVVVVVVfXWnN0Cq
   </data>
