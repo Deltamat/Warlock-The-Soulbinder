@@ -93,6 +93,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Weapon.Equipped = false;
                                     Equipment.Instance.Weapon = null;
+                                    Equipment.Instance.EquippedEquipment[0] = null;
                                 }
                                 break;
 
@@ -101,6 +102,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Armor.Equipped = false;
                                     Equipment.Instance.Armor = null;
+                                    Equipment.Instance.EquippedEquipment[1] = null;
                                 }
                                 break;
 
@@ -109,6 +111,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Skill1.Equipped = false;
                                     Equipment.Instance.Skill1 = null;
+                                    Equipment.Instance.EquippedEquipment[2] = null;
                                 }
                                 break;
 
@@ -117,6 +120,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Skill2.Equipped = false;
                                     Equipment.Instance.Skill2 = null;
+                                    Equipment.Instance.EquippedEquipment[3] = null;
                                 }
                                 break;
 
@@ -125,9 +129,11 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Skill3.Equipped = false;
                                     Equipment.Instance.Skill3 = null;
+                                    Equipment.Instance.EquippedEquipment[4] = null;
                                 }
                                 break;
                         }
+                        Player.Instance.UpdateStats();
                     }
                     break;
                 case "FilledStones":
@@ -883,7 +889,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "When you capture a monster you convert their soul \ninto a stone which inherits the strengths, weaknesses \nand skills of each monster. Each monster shares the \nsame unique skills, but has different strengths and \nweaknesses, so make sure to capture plenty to find \nthe strongest monster, when you have \nyou are now ready to use it, and make it stronger.", new Vector2(130, 400), Color.White);
 
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Equipment").X / 2), 120), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto equip them upon yourself to use their power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determins its protection. So make sure \nto take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto equip them upon yourself to use their power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determines its protection. So make \nsure to take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped monster stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
                         break;
 

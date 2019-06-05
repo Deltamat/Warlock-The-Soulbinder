@@ -365,7 +365,7 @@ namespace Warlock_The_Soulbinder
                 sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             }
 
-            float modifier = 0.5f;
+            float modifier = 0.2f;
 
             //base stats
             Damage = (int)(enemy.Damage * modifier);

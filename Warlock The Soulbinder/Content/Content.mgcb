@@ -3150,16 +3150,6 @@
 /processorParam:Quality=Best
 /build:sound/testSound.wav
 
-#begin t.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:t.tmx
-
-#begin t2.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:t2.tmx
-
 #begin tempPlayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3171,11 +3161,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tempPlayer.png
-
-#begin test3.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:test3.tmx
 
 #begin tileset3.png
 /importer:TextureImporter
