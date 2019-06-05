@@ -42,7 +42,7 @@ namespace Warlock_The_Soulbinder
         private float musicVolume;
 
         //Tiled fields
-        private Zone town, beast, grass, water, dragon, metal, undead, fire, wind, dragonRealm;
+        private Zone town, neutral, earth, water, dragon, metal, dark, fire, air, dragonRealm;
         public string currentZone = "Town";
         public List<Zone> zones = new List<Zone>();
 
@@ -108,15 +108,6 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                //if (value == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
-                //{
-                //    MediaPlayer.Play(overworldMusic, songPosition);
-                //}
-                //else if (value == "Combat")
-                //{
-                //    songPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-                //    MediaPlayer.Play(combatMusic, TimeSpan.Zero);
-                //}
 
                 gameState = value;
             }
@@ -170,26 +161,26 @@ namespace Warlock_The_Soulbinder
             
             replaceComma.NumberDecimalSeparator = ".";
 
-            // zoner laves med navn og antal af fjender.
+            // zones are created with names and enemies
             town = new Zone("Town", 0);
-            beast = new Zone("Beast", 5);
-            grass = new Zone("Grass", 15);
+            neutral = new Zone("Neutral", 5);
+            earth = new Zone("Earth", 15);
             dragon = new Zone("Dragon", 3);
-            wind = new Zone("Wind", 8);
+            air = new Zone("Air", 8);
             fire = new Zone("Fire", 3);
             water = new Zone("Water", 3);
-            undead = new Zone("Undead", 3);
+            dark = new Zone("Dark", 3);
             metal = new Zone("Metal", 3);
             dragonRealm = new Zone("DragonRealm", 8);
             
             zones.Add(town);
-            zones.Add(beast);
-            zones.Add(grass);
+            zones.Add(neutral);
+            zones.Add(earth);
             zones.Add(dragon);
-            zones.Add(wind);
+            zones.Add(air);
             zones.Add(fire);
             zones.Add(water);
-            zones.Add(undead);
+            zones.Add(dark);
             zones.Add(metal);
             zones.Add(dragonRealm);
 
@@ -203,7 +194,7 @@ namespace Warlock_The_Soulbinder
             IsMouseVisible = true;
 
 #if DEBUG
-            //adds five of all enemy types as stones to the player's inventory - TEMP
+            //adds five of all enemy types as stones to the player's inventory - DEBUG ONLY
             #region tempStonesAdd
             //if (FilledStone.StoneList.Count == 0)
             //{
@@ -301,21 +292,18 @@ namespace Warlock_The_Soulbinder
             Player.Instance.Update(gameTime);
             Combat.Instance.Update(gameTime);
 
+#if DEBUG
             //TEMPORARY
-#region TEMP
+            #region TEMP
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
-                FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
-                FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
-                FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+                FilledStone.StoneList.Add(new FilledStone(new Enemy(RandomInt(0, 21), Vector2.Zero)));
             }
-            
-
-#endregion
+            #endregion
+#endif
 
             //temporary save
-#region save
+            #region save
             previousKeyH = currentKeyH;
             currentKeyH = Keyboard.GetState().IsKeyUp(Keys.H);
 
@@ -389,6 +377,7 @@ namespace Warlock_The_Soulbinder
                         CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
                     }
                 }
+
 #if DEBUG
                 SpriteBatch.DrawString(font, $"{Player.Instance.Position}", Player.Instance.Position, Color.Red); // for npc placement
 #endif
@@ -407,6 +396,7 @@ namespace Warlock_The_Soulbinder
 #if DEBUG
                 DrawCollisionBox(Player.Instance);
 #endif
+
                 if (GameState == "Dialogue")
                 {
                     Dialogue.Instance.Draw(SpriteBatch);
@@ -482,7 +472,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Returns a random int within x and y
+        /// Returns a random int within x and y, y excluded
         /// </summary>
         /// <param name="x">Lower bounds</param>
         /// <param name="y">Upper bounds</param>
@@ -524,7 +514,6 @@ namespace Warlock_The_Soulbinder
             Equipment.Instance.UpdateExperienceRequired();
 
             Controller.Instance.CloseTheGates();
-
         }
 
         /// <summary>
@@ -596,7 +585,7 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
             
             //Which dragons are dead
-            Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.earthDragonDead, Combat.Instance.fireDragonDead, Combat.Instance.darkDragonDead, Combat.Instance.metalDragonDead, Combat.Instance.waterDragonDead, Combat.Instance.airDragonDead, Combat.Instance.neutralDragonDead);
+            Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
 
             Controller.Instance.CloseTheGates();
         }

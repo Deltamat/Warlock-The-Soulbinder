@@ -23,7 +23,6 @@ namespace Warlock_The_Soulbinder
         private Texture2D levelCircle;
         private Texture2D expFull;
         private bool fullscreenState = false;
-        private GameTime tempTime;
         private int logPage = 0;
         private List<String> menuList = new List<string>();
         private Texture2D arrow;
@@ -941,13 +940,13 @@ namespace Warlock_The_Soulbinder
                         GameWorld.Instance.Exit();
                         break;
                     case 8:
-                        Combat.Instance.earthDragonDead = false;
-                        Combat.Instance.fireDragonDead = false;
-                        Combat.Instance.darkDragonDead = false;
-                        Combat.Instance.metalDragonDead = false;
-                        Combat.Instance.waterDragonDead = false;
-                        Combat.Instance.airDragonDead = false; 
-                        Combat.Instance.neutralDragonDead = false;
+                        Combat.Instance.EarthDragonDead = false;
+                        Combat.Instance.FireDragonDead = false;
+                        Combat.Instance.DarkDragonDead = false;
+                        Combat.Instance.MetalDragonDead = false;
+                        Combat.Instance.WaterDragonDead = false;
+                        Combat.Instance.AirDragonDead = false; 
+                        Combat.Instance.NeutralDragonDead = false;
                         FilledStone.StoneList.Clear();
                         Equipment.Instance.Weapon = null;
                         Equipment.Instance.Armor = null;

@@ -52,13 +52,13 @@ namespace Warlock_The_Soulbinder
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
 
-        public bool fireDragonDead { get; set; } = false;
-        public bool waterDragonDead { get; set; } = false;
-        public bool earthDragonDead { get; set; } = false;
-        public bool metalDragonDead { get; set; } = false;
-        public bool neutralDragonDead { get; set; } = false;
-        public bool airDragonDead { get; set; } = false;
-        public bool darkDragonDead { get; set; } = false;
+        public bool FireDragonDead { get; set; } = false;
+        public bool WaterDragonDead { get; set; } = false;
+        public bool EarthDragonDead { get; set; } = false;
+        public bool MetalDragonDead { get; set; } = false;
+        public bool NeutralDragonDead { get; set; } = false;
+        public bool AirDragonDead { get; set; } = false;
+        public bool DarkDragonDead { get; set; } = false;
 
         public SpriteFont CombatFont { get => combatFont; private set => combatFont = value; }
 
@@ -148,25 +148,25 @@ namespace Warlock_The_Soulbinder
                         switch (Target.Monster)
                         {
                             case "fireDragon":
-                                fireDragonDead = true;
+                                FireDragonDead = true;
                                 break;
                             case "waterDragon":
-                                waterDragonDead = true;
+                                WaterDragonDead = true;
                                 break;
                             case "metalDragon":
-                                metalDragonDead = true;
+                                MetalDragonDead = true;
                                 break;
                             case "earthDragon":
-                                earthDragonDead = true;
+                                EarthDragonDead = true;
                                 break;
                             case "airDragon":
-                                airDragonDead = true;
+                                AirDragonDead = true;
                                 break;
                             case "neutralDragon":
-                                neutralDragonDead = true;
+                                NeutralDragonDead = true;
                                 break;
                             case "darkDragon":
-                                darkDragonDead = true;
+                                DarkDragonDead = true;
                                 break;
                         }
                         GameWorld.Instance.currentZone = "Dragon";
@@ -865,7 +865,7 @@ namespace Warlock_The_Soulbinder
                                 }
                             }
                             
-                            //rolls chance for player weapon soul stone
+                            //rolls chance for player's weapon soul stone
                             if (Equipment.Instance.Weapon != null)
                             {
                                 if (!Equipment.Instance.Weapon.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Weapon.WeaponEffect.UpperChanceBounds) == 0 && !Equipment.Instance.Weapon.WeaponEffect.StatBuff) //has a chance to add negative effects to the enemy
