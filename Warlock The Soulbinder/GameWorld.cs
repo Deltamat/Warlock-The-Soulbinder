@@ -85,7 +85,7 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return graphics.GraphicsDevice.Viewport.Bounds;
+                return Graphics.GraphicsDevice.Viewport.Bounds;
             }
         }
 
@@ -137,19 +137,20 @@ namespace Warlock_The_Soulbinder
         public float SoundEffectVolume { get; set; } = 0.3f;
         public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
         public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
+        public GraphicsDeviceManager Graphics { get => graphics; set => graphics = value; }
 
         public GameWorld()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             content = Content;
             //Sets the window size
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1020;
+            Graphics.PreferredBackBufferWidth = 1920;
+            Graphics.PreferredBackBufferHeight = 1020;
 #if !DEBUG
-            graphics.IsFullScreen = false;
+            Graphics.IsFullScreen = false;
 #endif
-            graphics.ApplyChanges();
+            Graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -180,6 +181,7 @@ namespace Warlock_The_Soulbinder
             undead = new Zone("Undead", 3);
             metal = new Zone("Metal", 3);
             dragonRealm = new Zone("DragonRealm", 8);
+            
             zones.Add(town);
             zones.Add(beast);
             zones.Add(grass);
@@ -503,7 +505,7 @@ namespace Warlock_The_Soulbinder
                     return zone;
                 }
             }
-            return null;
+            return zones[0];
         }
 
         /// <summary>

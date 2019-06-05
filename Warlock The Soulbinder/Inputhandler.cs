@@ -78,6 +78,7 @@ namespace Warlock_The_Soulbinder
             keybinds.Add(Keys.Down, new MultiCommand(new Vector2(0, 1), 1));
            
             keybinds.Add(Keys.E, new UseCommand());
+            keybinds.Add(Keys.Enter, new UseCommand());
 
             buttonbinds.Add(ButtonUp, new MultiCommand(new Vector2(0, -1), -1));
             buttonbinds.Add(ButtonDown, new MultiCommand(new Vector2(0, 1), 1));
