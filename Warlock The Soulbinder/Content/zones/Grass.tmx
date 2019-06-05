@@ -1,73 +1,216 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="21">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="187">
  <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="tilesetGrassland.png" width="1024" height="1024"/>
  </tileset>
- <layer id="1" name="Ground" width="40" height="40">
+ <tileset firstgid="257" name="verticalTree" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+  <image source="verticalTree.png" width="512" height="512"/>
+ </tileset>
+ <layer id="4" name="Ground" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt0rENwCAQQ1ErIyAxCGKFDMqoUN4ATnDxi99aT6drkpqpcZrS6sZNZ/jw4cOH774FH760vvA9xqrPtTnDe43V+7k20/8PX0748OHDh+++BR++tPDhw/evbwPS5Z0o
+   eJzt201SwjAch+GKLhyXsOMA2mHn6ODaj/EcnARO4B16ATwDRzOlZSbGNp9tk9R38RugOtI+/BPTJCyLolgSQrLMsShOdfYJnEuO+WpzKIrdxRJPdz81wnAX+9xyCH744Zdv8MMPv3yDX1y/W5G1+N1LxOsq9jXF8js0bufsLRxquxeRTynidSV7hib1z8O3zXbZjZF1AkZj+InrOo1th188P7VfHqt/CGi/u4cJ/Ez9ad/1236+ofWt/P9wmsOaqgZ9fG375iH9XMcwKfjF6h/wa7IVuRvJr27PujY8B7/QGtT5mWoQP7OfrgbxM/vpahA//Kbw62vDpcgUY+jc/XQ1OAfDmH5zaMf44YdffAf8hsu2mZexyga/QWsKP/zG8lsZjl+JLNrctI/X0jH5+ELjJa9l1tGtZ+bit7J4/ijy1OZZet53zKfe6pTSvLm4/6hie6mp50U3hmvoqsVXkTeRDyXv7aP6M1+/FGvOtg1P0f/hhx9+YbHpA/EzG7rsV3L1nrufa1zbfNdYzzTew++3n6nW8DPW33nfi8t3tvD72/+51CF+YX5l815V7mtHsfzmWochfur+P5s+ET//eT/88MMPv5SCH34x47ofGr8wQ/y6Y9uOVS+XdUv83OsNvzC/Uvm+VIprvyn7zbXe8MMvpeCHH375Jie/++bvWu9X7suQazGp+emMQvZvyyk17+Ga0vI+wmP87HWOQxmlltD7t/8e/PDDL98clXwncE6EEDJFfgC7F3fz
   </data>
  </layer>
- <layer id="2" name="Top" width="40" height="40">
+ <layer id="7" name="bro" width="80" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2TEKADAIwEAf7f/pKh0bBy056CqB4mRGRDa9qmvmPXcS+xj7GPsY+xj7GPuYDX362+Q/3rAf9r2zj7GPsY+xj7GPsY+xj7GP2dI3+b5wAH3mQUE=
+   eJztzkEJACAUBUFraQOtY3/w+hs8lRnY+7YGAAAAAPyql0b45UWztMIvAAAAAAAAAAAAAAAAAAAAAAAAN9vpAYCwA1WsAn4=
+  </data>
+ </layer>
+ <layer id="5" name="Top" width="80" height="80">
+  <data encoding="base64" compression="zlib">
+   eJztXUtyFDEM7YEVsAqsgGIBrPhsgBVwJ+AgHCGXCARYh++a8NsDJwAOgLpSXeVyJFuyJMs9Na9KVc5MeiLL0rPkT+Z4mqYvIN9BfgS1j5HXv4J8m07wmfgdbx047Z8gv0B+Z++nr0e1U4ygD9b+A/IX5F/2fvp6VDvFCPpgbUrHHWjsbabpIsilzcnP+7HqrA6XwW5XQK5uojVZJ86B3c6DXEjsd23C2zucRh6/LTgAeQHyEuQQ5JWNaquARfwegbwFeQfyHuQD8XvbaGcsfmdI4jbNadNcNwdl5zXbNY1fDddRuW4Kys5c/x0RVvMvN1/E7Mz13xwj+K1F/EpA2ZnjvzlG8Nva/Nsrn26pd1r91hJrz59b/NYSVPzOeALyFOQZ87Mi+MizTuf0xyJ/XjACH1mC0x/L+B2BjyzB6Y9l/M6I5qMapBxT649l/M5o4aOevCnlmLQ/mJ5Y/Frlfly79ORNDcdgeubxa5k3c+3SmzdLMVkac0xP6/hNIbEL1ievuC5xTG3Mcz2982fufIL1KSIfqo15rqd3/avJb6PyIUkOwY3fqHV8bl8sY10y5pH1L6fP3L54xDpHv1L+7A3LPlOxrvFLjn6a+VcbM9b8hsW6Zow4+qXxS3Ec9bqF/1jWe1isa8co1Q/zF038lnTj+maPcyKaMUr1w/xFmz9TulnzuYYrrMYI8xdq/s1j9q5QN2tuG2VtMfeX62C3GyA3HeZfyjdrvoS9XxuPXms4ub/cArvdBrnDsJ80h6Z8s+ZL1PslHovyz3tgt/sgDzrmfzVfot4v8VhUrfcQ7PYI5DFhP6+6rTYntsyZI6x996pza3Niy5wZcWZ2A353BuSsQfyOcJ6iNyzrXwmHb4utLdefJRyumS9Hsn1p/aqFC7kcbr2PEwXr/SMJh7fOlyPt05fi97nz39bMlyPkKjOk6889uMdyXdob0vmX4p5Sn6U2H4nfapDOvy1nmKX24PKbRSxoP6Nl/0h6hrmF7zn8ZuGn2s9oyZ9bzjBL+Z7DbxbzsPYzLPPnUp81fF+KsdY1xhSauXwN559LMSZdY8TsqhnbyP1fro+0xFivuzrc+PXIpSV9sVoPtK5d8vjF6reWmo7jW5K+WK4HWtYuXvHL9S1tX1ryN8vapXX+renN9S1tX6Jrldb5l6N3jxo/el+zFr8U93H8C/MtTX+oZyP3NbH45c4Xve9MUs9G7mtq8merO5OeeeAMzzOsve//zsj7450Hep5hzePX2m6cesk7D+Sixb+9699eeaAVpHp417/eeSCHsyS8JtWDyp/Te/taHSVrTB5r/VJek+jAqX+1OkrWmDzW+qW8JtGBE78eOlLPeK31S3hNogO3/rXWsfSMx1q/lNe4OnDv/3roSD0zwt4uV4fI9edtABW/3mc3tgVr2D8aGfn9hd3/m5RBcn9hh9OIuL+wTUjvLyw1y2uQN0Ftjg5LPXUQqAPWXmqWjyCfgtocHZZ66ihQB6y91CyjfX9A3k6/S2DU7w8YuZ1iBH2WdlqzjNxOMYI+S/s/1zWhxA==
+  </data>
+ </layer>
+ <layer id="6" name="OverTop" width="80" height="80">
+  <data encoding="base64" compression="zlib">
+   eJzt1mFOAjEQhuFd+SXe/yAKHgCVAyh4AeAE6gH8EjFZmpnttDbKyvsk359myjSzzbJd92WlPCiPypOyPq7fKnfKQlkq95l1S6S25PfO0bPyomyUrfJ6XPfm6q1bIrWRmtoZ/+TZWHv7vuuulFl/WrtT9sphsObN1Vu3+nm1Q5Ga2hmP7cvN1tp7rbnNlZtkfm/Ku/KR/IY1V2/dO2taa53b6/OtdsZj+3LPJNIzx5urte71S2utc3t9hmpn7O2LzCfXs7VIv9rnWjvjsX2580Z6thTt1+q5pu+CXP/S+nPV6twl3wI19f9d6btgrN76X5v6t2lE6bvAq7fu5iXc19J3gVdv3c0W3zCXxLqbv/0NM2XW3ZzqfzQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwlz4BMKoKQQ==
   </data>
  </layer>
  <objectgroup id="3" name="Objects">
-  <object id="1" type="EntryTrigger" x="2496" y="960" width="64" height="192">
+  <object id="1" type="EntryTrigger" x="5056" y="2304" width="64" height="192">
    <properties>
     <property name="targetName" value="BeastW"/>
    </properties>
   </object>
-  <object id="2" type="ExitTrigger" x="2432" y="960" width="64" height="192">
+  <object id="2" type="ExitTrigger" x="4992" y="2304" width="64" height="192">
    <properties>
     <property name="name" value="GrassE"/>
     <property name="zone" value="Grass"/>
    </properties>
   </object>
-  <object id="4" type="EntryTrigger" x="1216" y="2496" width="192" height="64">
+  <object id="4" type="EntryTrigger" x="2688" y="5056" width="192" height="64">
    <properties>
     <property name="targetName" value="UndeadN"/>
    </properties>
   </object>
-  <object id="5" type="ExitTrigger" x="1216" y="2368" width="192" height="64">
+  <object id="5" type="ExitTrigger" x="2688" y="4928" width="192" height="64">
    <properties>
     <property name="name" value="GrassS"/>
     <property name="zone" value="Grass"/>
    </properties>
   </object>
-  <object id="6" type="EntryTrigger" x="1216" y="0" width="192" height="64">
+  <object id="6" type="EntryTrigger" x="2496" y="0" width="192" height="64">
    <properties>
     <property name="targetName" value="MetalS"/>
    </properties>
   </object>
-  <object id="7" type="ExitTrigger" x="1216" y="64" width="192" height="64">
+  <object id="7" type="ExitTrigger" x="2496" y="64" width="192" height="64">
    <properties>
     <property name="name" value="GrassN"/>
     <property name="zone" value="Grass"/>
    </properties>
   </object>
-  <object id="8" type="EntryTrigger" x="0" y="960" width="64" height="192">
+  <object id="8" type="EntryTrigger" x="0" y="1024" width="64" height="128">
    <properties>
     <property name="targetName" value="WaterE"/>
    </properties>
   </object>
-  <object id="9" type="ExitTrigger" x="64" y="960" width="64" height="192">
+  <object id="9" type="ExitTrigger" x="64" y="1024" width="64" height="128">
    <properties>
     <property name="name" value="GrassW"/>
     <property name="zone" value="Grass"/>
    </properties>
   </object>
-  <object id="10" x="0" y="0" width="64" height="960"/>
-  <object id="11" x="0" y="1152" width="64" height="1408"/>
-  <object id="12" x="64" y="2496" width="1152" height="64"/>
-  <object id="13" x="1408" y="2496" width="1152" height="64"/>
-  <object id="14" x="2496" y="1152" width="64" height="1344"/>
-  <object id="15" x="2496" y="0" width="64" height="960"/>
-  <object id="16" x="1408" y="0" width="1088" height="64"/>
-  <object id="17" x="64" y="0" width="1152" height="64"/>
-  <object id="18" type="Spawn" x="1728" y="576" width="128" height="128"/>
-  <object id="19" type="Spawn" x="1856" y="1472" width="128" height="128"/>
-  <object id="20" type="Spawn" x="448" y="1536" width="128" height="128"/>
+  <object id="20" type="Spawn" x="576" y="640" width="128" height="128"/>
+  <object id="21" x="0" y="0" width="384" height="256"/>
+  <object id="22" x="320" y="256" width="128" height="768"/>
+  <object id="24" x="0" y="896" width="320" height="128"/>
+  <object id="25" x="0" y="1152" width="448" height="128"/>
+  <object id="27" x="448" y="1216" width="64" height="192"/>
+  <object id="28" x="448" y="1408" width="128" height="128"/>
+  <object id="29" x="512" y="1536" width="128" height="128"/>
+  <object id="31" x="512" y="1664" width="128" height="128"/>
+  <object id="33" x="640" y="1728" width="64" height="704"/>
+  <object id="34" x="384" y="2368" width="256" height="64"/>
+  <object id="35" x="384" y="2432" width="64" height="512"/>
+  <object id="36" x="64" y="2880" width="320" height="64"/>
+  <object id="37" x="64" y="2944" width="64" height="128"/>
+  <object id="38" x="128" y="3008" width="128" height="64"/>
+  <object id="39" x="192" y="3072" width="64" height="256"/>
+  <object id="40" x="256" y="3264" width="320" height="64"/>
+  <object id="41" x="512" y="3328" width="64" height="576"/>
+  <object id="42" x="256" y="3840" width="256" height="64"/>
+  <object id="44" x="256" y="3904" width="64" height="1088"/>
+  <object id="45" x="256" y="4992" width="2432" height="128"/>
+  <object id="46" x="2880" y="4992" width="2240" height="128"/>
+  <object id="48" x="2688" y="0" width="2432" height="192"/>
+  <object id="49" x="384" y="0" width="2112" height="192"/>
+  <object id="50" x="576" y="192" width="192" height="128"/>
+  <object id="51" x="960" y="192" width="192" height="128"/>
+  <object id="52" x="1344" y="320" width="192" height="128"/>
+  <object id="53" x="1664" y="192" width="192" height="128"/>
+  <object id="54" x="1984" y="384" width="192" height="128"/>
+  <object id="55" x="2240" y="192" width="192" height="128"/>
+  <object id="56" x="2816" y="256" width="192" height="128"/>
+  <object id="57" x="3200" y="576" width="192" height="128"/>
+  <object id="58" x="3392" y="320" width="192" height="128"/>
+  <object id="59" x="3712" y="256" width="192" height="128"/>
+  <object id="60" x="4160" y="320" width="192" height="128"/>
+  <object id="61" x="3968" y="576" width="192" height="128"/>
+  <object id="62" x="4416" y="704" width="192" height="128"/>
+  <object id="64" x="4736" y="704" width="192" height="128"/>
+  <object id="65" x="4672" y="256" width="192" height="128"/>
+  <object id="69" x="4992" y="192" width="128" height="2112"/>
+  <object id="70" x="4992" y="2496" width="128" height="2496"/>
+  <object id="71" x="960" y="640" width="192" height="128"/>
+  <object id="72" x="1600" y="704" width="192" height="128"/>
+  <object id="73" x="1984" y="768" width="192" height="128"/>
+  <object id="74" x="2880" y="896" width="192" height="128"/>
+  <object id="75" x="3712" y="1344" width="192" height="128"/>
+  <object id="76" x="4416" y="1152" width="192" height="128"/>
+  <object id="77" x="4672" y="1408" width="192" height="128"/>
+  <object id="78" x="4224" y="1536" width="192" height="128"/>
+  <object id="79" x="4416" y="1856" width="192" height="128"/>
+  <object id="80" x="4672" y="2048" width="192" height="128"/>
+  <object id="81" x="3072" y="1792" width="192" height="128"/>
+  <object id="82" x="3456" y="1920" width="192" height="128"/>
+  <object id="83" x="3072" y="2304" width="192" height="128"/>
+  <object id="84" x="2560" y="2176" width="192" height="128"/>
+  <object id="86" x="2240" y="2304" width="192" height="128"/>
+  <object id="87" x="2368" y="1600" width="192" height="128"/>
+  <object id="88" x="1984" y="1408" width="192" height="128"/>
+  <object id="89" x="1856" y="1856" width="192" height="128"/>
+  <object id="90" x="1728" y="2304" width="192" height="128"/>
+  <object id="91" x="1280" y="2112" width="192" height="128"/>
+  <object id="93" x="1344" y="1472" width="192" height="128"/>
+  <object id="94" x="1088" y="1152" width="192" height="128"/>
+  <object id="95" x="832" y="1984" width="192" height="128"/>
+  <object id="97" x="1088" y="2624" width="192" height="128"/>
+  <object id="99" x="1792" y="2688" width="192" height="128"/>
+  <object id="100" x="2240" y="3008" width="192" height="128"/>
+  <object id="101" x="2752" y="2752" width="192" height="128"/>
+  <object id="103" x="2880" y="3136" width="192" height="128"/>
+  <object id="105" x="3328" y="3328" width="192" height="128"/>
+  <object id="107" x="3968" y="3136" width="192" height="128"/>
+  <object id="108" x="3712" y="3392" width="192" height="128"/>
+  <object id="109" x="4160" y="3968" width="192" height="128"/>
+  <object id="110" x="4288" y="4288" width="192" height="128"/>
+  <object id="111" x="3520" y="4224" width="192" height="128"/>
+  <object id="112" x="2944" y="4224" width="192" height="128"/>
+  <object id="113" x="3456" y="3776" width="192" height="128"/>
+  <object id="114" x="2944" y="3648" width="192" height="128"/>
+  <object id="115" x="2624" y="3840" width="192" height="128"/>
+  <object id="116" x="2496" y="3328" width="192" height="128"/>
+  <object id="117" x="1856" y="3456" width="192" height="128"/>
+  <object id="118" x="1472" y="3072" width="192" height="128"/>
+  <object id="121" x="1280" y="3584" width="192" height="128"/>
+  <object id="122" x="1664" y="3840" width="192" height="128"/>
+  <object id="123" x="1984" y="3968" width="192" height="128"/>
+  <object id="124" x="1856" y="4288" width="192" height="128"/>
+  <object id="125" x="2176" y="4288" width="192" height="128"/>
+  <object id="126" x="1408" y="4096" width="192" height="128"/>
+  <object id="127" x="1024" y="4288" width="192" height="128"/>
+  <object id="128" x="448" y="4288" width="192" height="128"/>
+  <object id="129" x="768" y="3712" width="192" height="128"/>
+  <object id="131" x="640" y="3008" width="192" height="128"/>
+  <object id="132" x="1024" y="3072" width="192" height="128"/>
+  <object id="134" type="Spawn" x="1216" y="640" width="128" height="128"/>
+  <object id="135" type="Spawn" x="2368" y="512" width="128" height="128"/>
+  <object id="136" type="Spawn" x="3520" y="768" width="128" height="128"/>
+  <object id="137" type="Spawn" x="3904" y="768" width="128" height="128"/>
+  <object id="138" type="Spawn" x="4160" y="1856" width="128" height="128"/>
+  <object id="139" type="Spawn" x="3776" y="1600" width="128" height="128"/>
+  <object id="140" type="Spawn" x="3392" y="1472" width="128" height="128"/>
+  <object id="141" type="Spawn" x="2880" y="1280" width="128" height="128"/>
+  <object id="142" type="Spawn" x="2368" y="1088" width="128" height="128"/>
+  <object id="143" type="Spawn" x="2368" y="1792" width="128" height="128"/>
+  <object id="144" type="Spawn" x="1600" y="1728" width="128" height="128"/>
+  <object id="145" type="Spawn" x="1472" y="2368" width="128" height="128"/>
+  <object id="146" type="Spawn" x="2112" y="2560" width="128" height="128"/>
+  <object id="147" type="Spawn" x="3072" y="2496" width="128" height="128"/>
+  <object id="148" type="Spawn" x="3264" y="2816" width="128" height="128"/>
+  <object id="149" type="Spawn" x="3008" y="3328" width="128" height="128"/>
+  <object id="150" type="Spawn" x="2432" y="3520" width="128" height="128"/>
+  <object id="151" type="Spawn" x="2176" y="3328" width="128" height="128"/>
+  <object id="152" type="Spawn" x="1856" y="3008" width="128" height="128"/>
+  <object id="153" type="Spawn" x="1600" y="3328" width="128" height="128"/>
+  <object id="154" type="Spawn" x="1152" y="3264" width="128" height="128"/>
+  <object id="155" type="Spawn" x="768" y="3264" width="128" height="128"/>
+  <object id="156" type="Spawn" x="1088" y="3840" width="128" height="128"/>
+  <object id="157" type="Spawn" x="768" y="4096" width="128" height="128"/>
+  <object id="158" type="Spawn" x="960" y="4544" width="128" height="128"/>
+  <object id="159" type="Spawn" x="1536" y="4544" width="128" height="128"/>
+  <object id="160" type="Spawn" x="2432" y="4480" width="128" height="128"/>
+  <object id="161" type="Spawn" x="2560" y="4160" width="128" height="128"/>
+  <object id="162" type="Spawn" x="3136" y="4352" width="128" height="128"/>
+  <object id="163" type="Spawn" x="3904" y="4544" width="128" height="128"/>
+  <object id="164" type="Spawn" x="3968" y="4160" width="128" height="128"/>
+  <object id="165" type="Spawn" x="3648" y="3776" width="128" height="128"/>
+  <object id="166" type="Spawn" x="4032" y="3520" width="128" height="128"/>
+  <object id="167" type="Spawn" x="4544" y="3392" width="128" height="128"/>
+  <object id="168" type="Spawn" x="4416" y="3072" width="128" height="128"/>
+  <object id="169" type="Spawn" x="3712" y="2624" width="128" height="128"/>
+  <object id="170" type="Spawn" x="2752" y="1792" width="128" height="128"/>
+  <object id="171" type="Spawn" x="2752" y="2368" width="128" height="128"/>
+  <object id="172" type="Spawn" x="2496" y="2560" width="128" height="128"/>
+  <object id="173" type="Spawn" x="1472" y="2688" width="128" height="128"/>
+  <object id="174" type="Spawn" x="2560" y="2944" width="128" height="128"/>
+  <object id="175" type="Spawn" x="1152" y="1664" width="128" height="128"/>
+  <object id="176" type="Spawn" x="1600" y="1216" width="128" height="128"/>
+  <object id="177" type="Spawn" x="1792" y="960" width="128" height="128"/>
+  <object id="178" type="Spawn" x="1408" y="960" width="128" height="128"/>
+  <object id="179" type="Spawn" x="3264" y="1088" width="128" height="128"/>
+  <object id="180" type="Spawn" x="2688" y="640" width="128" height="128"/>
+  <object id="181" type="Spawn" x="4032" y="1024" width="128" height="128"/>
  </objectgroup>
 </map>

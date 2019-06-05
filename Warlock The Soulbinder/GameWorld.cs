@@ -173,7 +173,7 @@ namespace Warlock_The_Soulbinder
             // zoner laves med navn og antal af fjender.
             town = new Zone("Town", 0);
             beast = new Zone("Beast", 5);
-            grass = new Zone("Grass", 3);
+            grass = new Zone("Grass", 15);
             dragon = new Zone("Dragon", 3);
             wind = new Zone("Wind", 8);
             fire = new Zone("Fire", 3);

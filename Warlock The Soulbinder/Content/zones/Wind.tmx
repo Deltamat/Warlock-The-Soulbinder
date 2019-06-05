@@ -18,7 +18,7 @@
    eJztWllOxDAM7SG4KXMxtgPAgAT8sUnA58AJCvOPKzUiipzW8ZI4ME+yEDTEje337Ol0OwzDNdjN8IvN/PMS7Apsi6yJ1+3APsA+B11Y7avp9wnsGewFufYA9riyZsII9gX2Hf1tk1lbAmzfGijxG+J8AnYKdgZ2DnYxX98R1vxnhDjnuDoS1hxA4yqVzxY4ruirBLFOUbiqoekUHehRKyhc1dB0ig70ohW5HFty1ZNWcOeEwI80xzk+a4Oyd6v5j4LAj6UcW85flL1bzX8UBH6Uzncac/FfwRS7kvmux55oiTH5fU2ze+mJ1liqI0yzA2dbzs+esFRHMZ+xOHvuibVArSMsziU9kaOXvWgspe9K+crRy140ltp3JXzlxL9HjV26Z+kMy4l/Txpr/QyeE3/PnztyiO/58BlDhl56oAdgMfLQA2vmkOtreiaOPbvy0ANr5pDra4pfLkate2DNHHJ8he9jcjHy0ANLcyjhfKmvED9KjFr149IcSjjPqRev3wlyUYPzaY1bo/YsZK3baY1LQIlN7VnIWrfTGpeAEhsJp7zO8Vo1To0N15+HOR6DZo1TYsP152GOx6DZd631pvUcn0Mvs4s0P141VAvW5/OqoVqwPp9EQ/fMa2vQrJkaPcKbhmrXjPX5PDwLiaFdM7nzedX++L64qMEJr9of3xcXNTjhYX7GOBDfl3ekdU6ZW0t649raHAduwe4K/GihVNModU7dk6OnOQ68gr0R/l8bFppG3ZP7fqin+UdD09JzYntivOS+H5pyQKP/SiDNJ3bOoEf3At+c9/paQNq7sXMGPXoHO5rXYXxc853moff+m0NcR1O8sHNy9C7Ow7CwR6v+q4W0jrBzarwPv9Z/fwD8m4X2
   </data>
  </layer>
- <objectgroup id="2" name="Objects" visible="0">
+ <objectgroup id="2" name="Objects">
   <object id="1" type="EntryTrigger" x="704" y="3136" width="192" height="64">
    <properties>
     <property name="targetName" value="TownN"/>
