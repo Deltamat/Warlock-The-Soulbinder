@@ -41,6 +41,7 @@ namespace Warlock_The_Soulbinder
         private bool previousKeyH = true; //temporary
         TimeSpan songPosition;
         private float musicVolume;
+        private Texture2D background;
 
         //Tiled fields
         private Zone town, neutral, earth, water, dragon, metal, dark, fire, air, dragonRealm;
@@ -133,6 +134,7 @@ namespace Warlock_The_Soulbinder
         public GraphicsDeviceManager Graphics { get => graphics; set => graphics = value; }
         public TimeSpan SongPosition { get => songPosition; set => songPosition = value; }
         public Song DragonMusic { get => dragonMusic; set => dragonMusic = value; }
+        public Texture2D Background { get => background; set => background = value; }
 
         public GameWorld()
         {
@@ -260,6 +262,7 @@ namespace Warlock_The_Soulbinder
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
+            Background = Content.Load<Texture2D>("forest_background");
             font = Content.Load<SpriteFont>("font");
             copperFont = Content.Load<SpriteFont>("fontCopperplate");
             
@@ -362,7 +365,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             if (GameState == "MainMenu")
             {

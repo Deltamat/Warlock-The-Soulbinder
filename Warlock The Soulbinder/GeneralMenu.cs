@@ -332,6 +332,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(GameWorld.Instance.Background, Vector2.Zero, Color.White);
             spriteBatch.Draw(book, new Vector2(50, 20), Color.White);
 
             if (InventoryState == "GeneralMenu")

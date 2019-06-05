@@ -218,6 +218,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(GameWorld.Instance.Background, Vector2.Zero, Color.White);
             spriteBatch.Draw(sheet, new Vector2(800, 300), Color.White);
 
             for (int i = 0; i < emptyButtonList.Count; i++)
