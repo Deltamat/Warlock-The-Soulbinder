@@ -450,9 +450,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void BaseStats()
         {
-            Damage = 10;
+            Damage = 35;
             Defense = 0;
-            AttackSpeed = 10;
+            AttackSpeed = 14;
             MaxHealth = 100;
 #if DEBUG
             int over9000 = 9001;
