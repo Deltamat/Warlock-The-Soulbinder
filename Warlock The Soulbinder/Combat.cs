@@ -41,6 +41,7 @@ namespace Warlock_The_Soulbinder
         private float enemySpeedMod = 1;
         private int playerShield;
         private int enemyShield;
+        private double victoryTimer;
 
         private Color buttonColor = Color.White;
         Sound victorySound = new Sound("battleVictory");
@@ -106,7 +107,7 @@ namespace Warlock_The_Soulbinder
         {
             combatDelay += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (Target != null && playerAttackTimer < turnTimer && enemyAttackTimer < turnTimer && !Player.Instance.Attacking && !Player.Instance.Hurt && !Player.Instance.AttackStart && !Player.Instance.HurtStart)
+            if (Target != null && playerAttackTimer < turnTimer && enemyAttackTimer < turnTimer && !Player.Instance.Attacking && !Player.Instance.Hurt && !Player.Instance.AttackStart && !Player.Instance.HurtStart && victoryTimer == 0)
             {
                 buttonColor = Color.Gray;
                 playerAttackTimer += Player.Instance.AttackSpeed * playerSpeedMod;
@@ -137,80 +138,81 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (Target != null)
+            if (target != null && target.CurrentHealth <= 0)
             {
-                if (Target.CurrentHealth <= 0) //if the target dies, remove target
-                {
-                    Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, Target.Level)));
+                victoryTimer += gameTime.ElapsedGameTime.Milliseconds;
+            }
 
-                    if (Target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
+            if (Target != null && victoryTimer > 2000)
+            {
+                Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, Target.Level)));
+
+                if (Target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
+                {
+                    switch (Target.Monster)
                     {
-                        switch (Target.Monster)
-                        {
-                            case "fireDragon":
-                                FireDragonDead = true;
-                                break;
-                            case "waterDragon":
-                                WaterDragonDead = true;
-                                break;
-                            case "metalDragon":
-                                MetalDragonDead = true;
-                                break;
-                            case "earthDragon":
-                                EarthDragonDead = true;
-                                break;
-                            case "airDragon":
-                                AirDragonDead = true;
-                                break;
-                            case "neutralDragon":
-                                NeutralDragonDead = true;
-                                break;
-                            case "darkDragon":
-                                DarkDragonDead = true;
-                                break;
-                        }
-                        GameWorld.Instance.currentZone = "Dragon";
-                        GameWorld.Instance.CurrentZone().ChangeDragonPillarSprite();
-                        GameWorld.Instance.currentZone = "DragonRealm";
-
+                        case "fireDragon":
+                            FireDragonDead = true;
+                            break;
+                        case "waterDragon":
+                            WaterDragonDead = true;
+                            break;
+                        case "metalDragon":
+                            MetalDragonDead = true;
+                            break;
+                        case "earthDragon":
+                            EarthDragonDead = true;
+                            break;
+                        case "airDragon":
+                            AirDragonDead = true;
+                            break;
+                        case "neutralDragon":
+                            NeutralDragonDead = true;
+                            break;
+                        case "darkDragon":
+                            DarkDragonDead = true;
+                            break;
                     }
-
-                    Target.Alive = false;
-                    GameWorld.Instance.CurrentZone().Enemies.Remove(Target);
-                    ExitCombat();
+                    GameWorld.Instance.currentZone = "Dragon";
+                    GameWorld.Instance.CurrentZone().ChangeDragonPillarSprite();
+                    GameWorld.Instance.currentZone = "DragonRealm";
                 }
 
-                //Scrolls playerText
-                foreach (GameObject stringObject in  playerText)
+                Target.Alive = false;
+                GameWorld.Instance.CurrentZone().Enemies.Remove(Target);
+                ExitCombat();
+            }
+
+            //Scrolls playerText
+            foreach (GameObject stringObject in playerText)
+            {
+                stringObject.StringPosition += new Vector2(0, -1);
+
+                if (stringObject.Position.X < 0)
                 {
-                    stringObject.StringPosition += new Vector2(0, -1);
-
-                    if (stringObject.Position.X < 0)
-                    {
-                        toBeRemovedPlayerText.Add(stringObject);
-                    }
+                    toBeRemovedPlayerText.Add(stringObject);
                 }
+            }
 
-                //Scrolls enemyText
-                foreach (GameObject stringObject in enemyText)
+            //Scrolls enemyText
+            foreach (GameObject stringObject in enemyText)
+            {
+                stringObject.StringPosition += new Vector2(0, -1);
+
+                if (stringObject.Position.X < 0)
                 {
-                    stringObject.StringPosition += new Vector2(0, -1);
-
-                    if (stringObject.Position.X < 0)
-                    {
-                        toBeRemovedEnemyText.Add(stringObject);
-                    }
+                    toBeRemovedEnemyText.Add(stringObject);
                 }
+            }
 
-                foreach (GameObject stringObject in toBeRemovedPlayerText)
-                {
-                    PlayerText.Remove(stringObject);
-                }
+            foreach (GameObject stringObject in toBeRemovedPlayerText)
+            {
+                PlayerText.Remove(stringObject);
+            }
 
-                foreach (GameObject stringObject in toBeRemovedEnemyText)
-                {
-                    EnemyText.Remove(stringObject);
-                }
+            foreach (GameObject stringObject in toBeRemovedEnemyText)
+            {
+                EnemyText.Remove(stringObject);
             }
         }
 
@@ -471,7 +473,7 @@ namespace Warlock_The_Soulbinder
                                     playerEffects[playerEffects.Count - 1].EffectLength--;
                                 }
                             }
-                            else if (!Equipment.Instance.Skill2.SkillEffect.TargetsSelf && !Equipment.Instance.Skill1.SkillEffect.TargetsBoth)
+                            else if (!Equipment.Instance.Skill2.SkillEffect.TargetsSelf && !Equipment.Instance.Skill2.SkillEffect.TargetsBoth)
                             {
                                 if (Equipment.Instance.Skill2.SkillEffect.EffectLength == 1 && Equipment.Instance.Skill2.SkillEffect.Damage > 0 && GameWorld.Instance.RandomInt(0, Equipment.Instance.Skill2.SkillEffect.UpperChanceBounds) == 0)
                                 {                                    
@@ -523,7 +525,7 @@ namespace Warlock_The_Soulbinder
                                     playerEffects[playerEffects.Count - 1].EffectLength--;
                                 }
                             }
-                            else if (!Equipment.Instance.Skill3.SkillEffect.TargetsSelf && !Equipment.Instance.Skill1.SkillEffect.TargetsBoth)
+                            else if (!Equipment.Instance.Skill3.SkillEffect.TargetsSelf && !Equipment.Instance.Skill3.SkillEffect.TargetsBoth)
                             {
                                 if (Equipment.Instance.Skill3.SkillEffect.EffectLength == 1 && Equipment.Instance.Skill3.SkillEffect.Damage > 0 && GameWorld.Instance.RandomInt(0, Equipment.Instance.Skill3.SkillEffect.UpperChanceBounds) == 0)
                                 {
@@ -1391,6 +1393,7 @@ namespace Warlock_The_Soulbinder
             selectedInt = 0;
             playerAttackTimer = 0;
             enemyAttackTimer = 0;
+            victoryTimer = 0;
             buttonType = "Normal";
             Target = null;
             Log.Instance.CalculateBonus();
