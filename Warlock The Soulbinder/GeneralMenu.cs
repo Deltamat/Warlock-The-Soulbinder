@@ -1047,12 +1047,14 @@ namespace Warlock_The_Soulbinder
                     {
                         fullscreenState = false;
                         GameWorld.Instance.Graphics.IsFullScreen = false;
+                        GameWorld.Instance.Graphics.ApplyChanges();
                     }
 
-                    if (fullscreenState == false)
+                    else if (fullscreenState == false)
                     {
                         fullscreenState = true;
                         GameWorld.Instance.Graphics.IsFullScreen = true;
+                        GameWorld.Instance.Graphics.ApplyChanges();
                     }
                 }
             }
