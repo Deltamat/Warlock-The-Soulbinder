@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace Warlock_The_Soulbinder
@@ -80,6 +82,7 @@ namespace Warlock_The_Soulbinder
             }
             if (Name == "Dragon")
             {
+
                 NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(1870, 1175), false, false, false, true, 0, "");
                 fireDragonShrine.DragonElement = "Fire";
                 NPCs.Add(fireDragonShrine);
@@ -308,6 +311,10 @@ namespace Warlock_The_Soulbinder
 
             if (Name == "DragonRealm")
             {
+
+                MediaPlayer.Play(GameWorld.Instance.DragonMusic, TimeSpan.Zero);
+                GameWorld.Instance.ChangeMusic();
+    
                 int dragon = -1;
                 if (enemyType == "Beast" && Combat.Instance.neutralDragonDead == false)
                 {
