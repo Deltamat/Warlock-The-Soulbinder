@@ -21,8 +21,7 @@ namespace Warlock_The_Soulbinder
         public List<Rectangle> CollisionRects { get; private set; } = new List<Rectangle>();
         public List<Trigger> Triggers { get; private set; } = new List<Trigger>();
         public List<NPC> NPCs { get; private set; } = new List<NPC>();
-
-
+        
         /// <summary>
         /// Creates a Zone with a name that contains the Tiled map and Tiled objects
         /// </summary>
@@ -62,6 +61,7 @@ namespace Warlock_The_Soulbinder
                     }
                 }
             }
+
             if (this.enemiesInZone > spawnPoints.Count) // if the specifed enemies exceeds the toal amount of spawnpoints, set to spawnPoints.Count
             {
                 this.enemiesInZone = spawnPoints.Count;
@@ -78,6 +78,7 @@ namespace Warlock_The_Soulbinder
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "Cant a man get some privacy!"));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 0, "Garithos did nothing wrong!"));
             }
+
             if (Name == "Dragon")
             {
                 NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(1870, 1175), false, false, false, true, 0, "");
@@ -93,15 +94,15 @@ namespace Warlock_The_Soulbinder
                 NPCs.Add(metalDragonShrine);
 
                 NPC earthDragonShrine = new NPC("npc/earthDragonShrine", new Vector2(2675, 900), false, false, false, true, 0, "");
-                earthDragonShrine.DragonElement = "Grass";
+                earthDragonShrine.DragonElement = "Earth";
                 NPCs.Add(earthDragonShrine);
 
-                NPC undeadDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(2470, 675), false, false, false, true, 0, "");
-                undeadDragonShrine.DragonElement = "Undead";
-                NPCs.Add(undeadDragonShrine);
+                NPC darkDragonShrine = new NPC("npc/darkDragonShrine", new Vector2(2470, 675), false, false, false, true, 0, "");
+                darkDragonShrine.DragonElement = "Dark";
+                NPCs.Add(darkDragonShrine);
 
                 NPC airDragonShrine = new NPC("npc/airDragonShrine", new Vector2(2170, 675), false, false, false, true, 0, "");
-                airDragonShrine.DragonElement = "Wind";
+                airDragonShrine.DragonElement = "Air";
                 NPCs.Add(airDragonShrine);
 
                 NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(1870, 675), false, false, false, true, 0, "");
@@ -278,13 +279,13 @@ namespace Warlock_The_Soulbinder
                     case "Neutral":
                         enemyindex = GameWorld.Instance.RandomInt(0, 3);
                         break;
-                    case "Grass":
+                    case "Earth":
                         enemyindex = GameWorld.Instance.RandomInt(3, 6);
                         break;
                     case "Water":
                         enemyindex = GameWorld.Instance.RandomInt(6, 9);
                         break;
-                    case "Undead":
+                    case "Dark":
                         enemyindex = GameWorld.Instance.RandomInt(9, 12);
                         break;
                     case "Metal":
@@ -293,7 +294,7 @@ namespace Warlock_The_Soulbinder
                     case "Fire":
                         enemyindex = GameWorld.Instance.RandomInt(15, 18);
                         break;
-                    case "Wind":
+                    case "Air":
                         enemyindex = GameWorld.Instance.RandomInt(18, 21);
                         break;
                 }
@@ -309,31 +310,31 @@ namespace Warlock_The_Soulbinder
             if (Name == "DragonRealm")
             {
                 int dragon = -1;
-                if (enemyType == "Neutral" && Combat.Instance.neutralDragonDead == false)
+                if (enemyType == "Neutral" && Combat.Instance.NeutralDragonDead == false)
                 {
                     dragon = 21;
                 }
-                if (enemyType == "Grass" && Combat.Instance.earthDragonDead == false)
+                if (enemyType == "Earth" && Combat.Instance.EarthDragonDead == false)
                 {
                     dragon = 22;
                 }
-                if (enemyType == "Water" && Combat.Instance.waterDragonDead == false)
+                if (enemyType == "Water" && Combat.Instance.WaterDragonDead == false)
                 {
                     dragon = 23;
                 }
-                if (enemyType == "Undead" && Combat.Instance.darkDragonDead == false)
+                if (enemyType == "Dark" && Combat.Instance.DarkDragonDead == false)
                 {
                     dragon = 24;
                 }
-                if (enemyType == "Metal" && Combat.Instance.metalDragonDead == false)
+                if (enemyType == "Metal" && Combat.Instance.MetalDragonDead == false)
                 {
                     dragon = 25;
                 }
-                if (enemyType == "Fire" && Combat.Instance.fireDragonDead == false)
+                if (enemyType == "Fire" && Combat.Instance.FireDragonDead == false)
                 {
                     dragon = 26;
                 }
-                if (enemyType == "Wind" && Combat.Instance.airDragonDead == false)
+                if (enemyType == "Air" && Combat.Instance.AirDragonDead == false)
                 {
                     dragon = 27;
                 }
@@ -364,37 +365,37 @@ namespace Warlock_The_Soulbinder
         public void ChangeDragonPillarSprite()
         {
             dragonsDead = 0;
-            if (Combat.Instance.fireDragonDead)
+            if (Combat.Instance.FireDragonDead)
             {
                 pillars[0].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/FirePillar");
                 dragonsDead++;
             }
-            if (Combat.Instance.waterDragonDead)
+            if (Combat.Instance.WaterDragonDead)
             {
                 pillars[1].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/WaterPillar");
                 dragonsDead++;
             }
-            if (Combat.Instance.metalDragonDead)
+            if (Combat.Instance.MetalDragonDead)
             {
                 pillars[2].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/MetalPillar");
                 dragonsDead++;
             }
-            if (Combat.Instance.earthDragonDead)
+            if (Combat.Instance.EarthDragonDead)
             {
                 pillars[3].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/EarthPillar");
                 dragonsDead++;
             }
-            if (Combat.Instance.darkDragonDead)
+            if (Combat.Instance.DarkDragonDead)
             {
                 pillars[4].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/DarkPillar");
                 dragonsDead++;
             }
-            if (Combat.Instance.airDragonDead)
+            if (Combat.Instance.AirDragonDead)
             {
                 pillars[5].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/AirPillar");
                 dragonsDead++;
             }
-            if (Combat.Instance.neutralDragonDead)
+            if (Combat.Instance.NeutralDragonDead)
             {
                 pillars[6].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/NeutralPillar");
                 dragonsDead++;
