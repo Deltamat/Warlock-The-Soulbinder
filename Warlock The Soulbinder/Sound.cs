@@ -20,8 +20,7 @@ namespace Warlock_The_Soulbinder
         public Sound(string sound)
         {
             this.sound = GameWorld.ContentManager.Load<SoundEffect>($"sound/{sound}");
-            instance = this.sound.CreateInstance();
-            instance.IsLooped = false; ;
+
         }
 
 

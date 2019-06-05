@@ -167,6 +167,11 @@ namespace Warlock_The_Soulbinder
                 // What happpens when player enters a zone trigger
                 if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox))
                 {
+                    if (trigger.TargetZone == "Dragon")
+                    {
+                        MediaPlayer.Play(GameWorld.Instance.DragonMusic, TimeSpan.Zero);
+                        GameWorld.Instance.ChangeMusic();
+                    }
                     KillEnemiesInZone();
                     GameWorld.Instance.currentZone = trigger.TargetZone;
                     GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies

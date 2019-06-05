@@ -235,7 +235,7 @@ namespace Warlock_The_Soulbinder
             //Log.Instance.FullScans();
             Log.Instance.CalculateBonus();
             // Music
-            MusicVolume = 0f;
+            MusicVolume = 0.04f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
             combatMusic = Content.Load<Song>("sound/combatMusic");
