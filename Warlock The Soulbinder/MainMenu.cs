@@ -212,14 +212,26 @@ namespace Warlock_The_Soulbinder
                 {
                     case 0:
                         GameWorld.Instance.CurrentSaveFile = "1";
+                        if (MainMenuState == "Load Game")
+                        {
+                            GameWorld.Instance.LoadDB();
+                        }
                         GameWorld.Instance.GameState = "Overworld";
                         break;
                     case 1:
                         GameWorld.Instance.CurrentSaveFile = "2";
+                        if (MainMenuState == "Load Game")
+                        {
+                            GameWorld.Instance.LoadDB();
+                        }
                         GameWorld.Instance.GameState = "Overworld";
                         break;
                     case 2:
                         GameWorld.Instance.CurrentSaveFile = "3";
+                        if (MainMenuState == "Load Game")
+                        {
+                            GameWorld.Instance.LoadDB();
+                        }
                         GameWorld.Instance.GameState = "Overworld";
                         break;
                 }

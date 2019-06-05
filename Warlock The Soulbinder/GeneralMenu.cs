@@ -911,6 +911,23 @@ namespace Warlock_The_Soulbinder
                         GameWorld.Instance.Exit();
                         break;
                     case 8:
+                        Combat.Instance.earthDragonDead = false;
+                        Combat.Instance.fireDragonDead = false;
+                        Combat.Instance.darkDragonDead = false;
+                        Combat.Instance.metalDragonDead = false;
+                        Combat.Instance.waterDragonDead = false;
+                        Combat.Instance.airDragonDead = false; 
+                        Combat.Instance.neutralDragonDead = false;
+                        FilledStone.StoneList.Clear();
+                        Equipment.Instance.Weapon = null;
+                        Equipment.Instance.Armor = null;
+                        Equipment.Instance.Skill1 = null;
+                        Equipment.Instance.Skill2 = null;
+                        Equipment.Instance.Skill3 = null;
+                        GameWorld.Instance.currentZone = "Town";
+                        Player.Instance.BaseStats();
+                        Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
+                        Player.Instance.Position = new Vector2(1200);
                         MainMenu.Instance.MainMenuState = "Main";
                         GameWorld.Instance.GameState = "MainMenu";
                         MainMenu.Instance.Delay = 0;
