@@ -138,7 +138,7 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (target != null && target.CurrentHealth <= 0)
+            if (target != null && (target.CurrentHealth <= 0 || victoryTimer > 0))
             {
                 victoryTimer += gameTime.ElapsedGameTime.Milliseconds;
             }
@@ -376,7 +376,8 @@ namespace Warlock_The_Soulbinder
                             if ((tempChance) * 2 < tempInt)
                             {
                                 FilledStone.CatchMonster(Target);
-                                Target.CurrentHealth = 0;
+                                victoryTimer = 1;
+                                EnemyScrolling("Captured!", Color.White);
                             }
 
                             playerAttackTimer = 0;
@@ -904,6 +905,10 @@ namespace Warlock_The_Soulbinder
                         EnemyScrolling("HP -0", Color.Red);
                     }
                 }
+                else
+                {
+                    PlayerScrolling("Stunned", Color.White);
+                }
                 playerAttackAmount = 1; //resets how many times the player attacks
                 combatDelay = 0; //resets combat delay
             }
@@ -1103,9 +1108,12 @@ namespace Warlock_The_Soulbinder
                 {
                     PlayerScrolling($"HP -0", Color.Red);
                 }
-
-                enemyAttackAmount = 1;
             }
+            else
+            {
+                EnemyScrolling("Stunned", Color.White);
+            }
+            enemyAttackAmount = 1;
         }
 
         /// <summary>
@@ -1311,9 +1319,12 @@ namespace Warlock_The_Soulbinder
                 {
                     PlayerScrolling($"HP -0", Color.Red);
                 }
-
-                enemyAttackAmount = 1;
             }
+            else
+            {
+                EnemyScrolling("Stunned", Color.White);
+            }
+            enemyAttackAmount = 1;
         }
 
         /// <summary>

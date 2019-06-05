@@ -427,12 +427,14 @@ namespace Warlock_The_Soulbinder
                         }
                     }
 
-                    if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff)
+                    //Increases stats for the player if the quipped stone in weapon has StatBuff == true
+                    if (Equipment.Instance.EquippedEquipment[0] != null && Equipment.Instance.EquippedEquipment[0].WeaponEffect.StatBuff && Equipment.Instance.EquippedEquipment[0] == stone)
                     {
                         Effect effect = new Effect(Equipment.Instance.EquippedEquipment[0].WeaponEffect.Index, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Type, Equipment.Instance.EquippedEquipment[0].WeaponEffect.Stone, this, 0);
                     }
-                    
-                    if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff)
+
+                    //Increases stats for the player if the quipped stone in armor has StatBuff == true
+                    if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.StatBuff && Equipment.Instance.EquippedEquipment[1] == stone)
                     {
                         Effect effect = new Effect(Equipment.Instance.EquippedEquipment[1].ArmorEffect.Index, Equipment.Instance.EquippedEquipment[1].ArmorEffect.Type, Equipment.Instance.EquippedEquipment[1].ArmorEffect.Stone, this, 0);
                     }
@@ -447,14 +449,14 @@ namespace Warlock_The_Soulbinder
         {
             Damage = 10;
             Defense = 0;
-            AttackSpeed = 15;
+            AttackSpeed = 10;
             MaxHealth = 100;
 #if DEBUG
             int over9000 = 9001;
-            Damage += over9000;
-            Defense += over9000;
-            AttackSpeed += over9000;
-            MaxHealth += over9000;
+            //Damage += over9000;
+            //Defense += over9000;
+            //AttackSpeed += over9000;
+            //MaxHealth += over9000;
 #endif
             for (int i = 0; i < DamageTypes.Count; i++)
             {
