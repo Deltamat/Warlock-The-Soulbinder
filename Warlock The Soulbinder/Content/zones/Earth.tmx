@@ -26,7 +26,7 @@
    eJzt1mFOAjEQhuFd+SXe/yAKHgCVAyh4AeAE6gH8EjFZmpnttDbKyvsk359myjSzzbJd92WlPCiPypOyPq7fKnfKQlkq95l1S6S25PfO0bPyomyUrfJ6XPfm6q1bIrWRmtoZ/+TZWHv7vuuulFl/WrtT9sphsObN1Vu3+nm1Q5Ga2hmP7cvN1tp7rbnNlZtkfm/Ku/KR/IY1V2/dO2taa53b6/OtdsZj+3LPJNIzx5urte71S2utc3t9hmpn7O2LzCfXs7VIv9rnWjvjsX2580Z6thTt1+q5pu+CXP/S+nPV6twl3wI19f9d6btgrN76X5v6t2lE6bvAq7fu5iXc19J3gVdv3c0W3zCXxLqbv/0NM2XW3ZzqfzQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwlz4BMKoKQQ==
   </data>
  </layer>
- <objectgroup id="3" name="Objects">
+ <objectgroup id="3" name="Objects" visible="0">
   <object id="1" type="EntryTrigger" x="5056" y="2304" width="64" height="192">
    <properties>
     <property name="targetName" value="BeastW"/>
