@@ -251,8 +251,10 @@ namespace Warlock_The_Soulbinder
                 EnemyStone = new FilledStone(this);
             }
 
-            thread = new Thread(() => Update());
-            thread.IsBackground = true;
+            thread = new Thread(() => Update())
+            {
+                IsBackground = true
+            };
             thread.Start();
         }
 
@@ -358,8 +360,10 @@ namespace Warlock_The_Soulbinder
             //gives the enemy a FilledStone with its effects
             EnemyStone = new FilledStone(this);
 
-            thread = new Thread(() => Update());
-            thread.IsBackground = true;
+            thread = new Thread(() => Update())
+            {
+                IsBackground = true
+            };
             thread.Start();
         }
         

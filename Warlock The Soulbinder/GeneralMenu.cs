@@ -23,7 +23,6 @@ namespace Warlock_The_Soulbinder
         private Texture2D levelCircle;
         private Texture2D expFull;
         private bool fullscreenState = false;
-        private GameTime tempTime;
         private int logPage = 0;
         private List<String> menuList = new List<string>();
         private Texture2D arrow;
@@ -884,7 +883,7 @@ namespace Warlock_The_Soulbinder
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "When you capture a monster you convert their soul \ninto a stone which inherits the strengths, weaknesses \nand skills of each monster. Each monster shares the \nsame unique skills, but has different strengths and \nweaknesses, so make sure to capture plenty to find \nthe strongest monster, when you have \nyou are now ready to use it, and make it stronger.", new Vector2(130, 400), Color.White);
 
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Equipment").X / 2), 120), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto equip them upon yourself to use power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determins its protection. So make sure \nto take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto equip them upon yourself to use their power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determins its protection. So make sure \nto take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped monster stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
                         break;
 
@@ -941,19 +940,20 @@ namespace Warlock_The_Soulbinder
                         GameWorld.Instance.Exit();
                         break;
                     case 8:
-                        Combat.Instance.earthDragonDead = false;
-                        Combat.Instance.fireDragonDead = false;
-                        Combat.Instance.darkDragonDead = false;
-                        Combat.Instance.metalDragonDead = false;
-                        Combat.Instance.waterDragonDead = false;
-                        Combat.Instance.airDragonDead = false; 
-                        Combat.Instance.neutralDragonDead = false;
+                        Combat.Instance.EarthDragonDead = false;
+                        Combat.Instance.FireDragonDead = false;
+                        Combat.Instance.DarkDragonDead = false;
+                        Combat.Instance.MetalDragonDead = false;
+                        Combat.Instance.WaterDragonDead = false;
+                        Combat.Instance.AirDragonDead = false; 
+                        Combat.Instance.NeutralDragonDead = false;
                         FilledStone.StoneList.Clear();
                         Equipment.Instance.Weapon = null;
                         Equipment.Instance.Armor = null;
                         Equipment.Instance.Skill1 = null;
                         Equipment.Instance.Skill2 = null;
                         Equipment.Instance.Skill3 = null;
+                        FilledStone.StoneListPages = 0;
                         GameWorld.Instance.currentZone = "Town";
                         Player.Instance.BaseStats();
                         Player.Instance.CurrentHealth = Player.Instance.MaxHealth;

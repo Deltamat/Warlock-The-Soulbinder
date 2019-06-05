@@ -8,6 +8,7 @@ namespace Warlock_The_Soulbinder
 {
     class Effect
     {
+        #region VARIABLES
         private bool targetsSelf;
         private bool targetBoth;
         private bool statBuff;
@@ -32,6 +33,7 @@ namespace Warlock_The_Soulbinder
         private int index;
         private string type;
         private FilledStone stone;
+        #endregion
 
         public Effect(int index, string type, FilledStone stone, CharacterCombat characterCombat, int damageDealt)
         {
@@ -480,28 +482,106 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        #region PROPERTIES
+        /// <summary>
+        /// Whether the effect targets the caster or their enemy
+        /// </summary>
         public bool TargetsSelf { get => targetsSelf; set => targetsSelf = value; }
+        /// <summary>
+        /// Whether the effect targets both characters or not
+        /// </summary>
         public bool TargetsBoth { get => targetBoth; set => targetBoth = value; }
+        /// <summary>
+        /// An integer value that depicts whether or not the effect can be used. 
+        /// Needs to be 0 or less to be activatable
+        /// </summary>
         public int Cooldown { get => cooldown; set => cooldown = value; }
+        /// <summary>
+        /// The amount of damage the effect does
+        /// </summary>
         public int Damage { get => damage; set => damage = value; }
+        /// <summary>
+        /// How much health the effect restores
+        /// </summary>
         public int Heal { get => heal; set => heal = value; }
+        /// <summary>
+        /// How many turns the effect is active
+        /// </summary>
         public int EffectLength { get => effectlength; set => effectlength = value; }
+        /// <summary>
+        /// Percentile damage reduction. 
+        /// Acts as a damage modifier: 1 is 0% reduction, 0 is 100% reduction
+        /// </summary>
         public float DamageReduction { get => damageReduction; set => damageReduction = value; }
+        /// <summary>
+        /// Reduces damage by a flat amount
+        /// </summary>
         public int DamageAbs { get => damageAbs; set => damageAbs = value; }
+        /// <summary>
+        /// Modifies the character's speed. 
+        /// Less than 1 is slower, more than 1 is faster
+        /// </summary>
         public float SpeedMod { get => speedMod; set => speedMod = value; }
+        /// <summary>
+        /// Modifies the character's chance to hit. 
+        /// Base hit chance is 100% at 1
+        /// </summary>
         public float AccuracyMod { get => accuracyMod; set => accuracyMod = value; }
+        /// <summary>
+        /// Modifies the character's damage. 
+        /// Less than 1 is less damage, more than 1 is more damage
+        /// </summary>
         public float DamageMod { get => damageMod; set => damageMod = value; }
+        /// <summary>
+        /// Damage taken by the character is first subtracted from shield, 
+        /// before it affects the character's health
+        /// </summary>
         public int Shield { get => shield; set => shield = value; }
+        /// <summary>
+        /// If a character is stunned, they miss a turn
+        /// </summary>
         public bool Stun { get => stun; set => stun = value; }
+        /// <summary>
+        /// Confused characters has a 50% to damage themselves,
+        /// 25% chance to miss, and 25% chance to hit (before AccuracyMod)
+        /// </summary>
         public bool Confuse { get => confuse; set => confuse = value; }
+        /// <summary>
+        /// Whether the effect causes the character to attack once more on their next attack
+        /// </summary>
         public bool DoubleAttack { get => doubleAttack; set => doubleAttack = value; }
+        /// <summary>
+        /// A string describing the effect's gameplay effect
+        /// </summary>
         public string EffectString { get => effectString; set => effectString = value; }
+        /// <summary>
+        /// The upperbounds for the effect to take effect
+        /// </summary>
         public int UpperChanceBounds { get => upperChanceBounds; set => upperChanceBounds = value; }
+        /// <summary>
+        /// Integer to indetify effects
+        /// </summary>
         public int Index { get => index; set => index = value; }
+        /// <summary>
+        /// Whether the effect is Weapon, Armor or skill
+        /// </summary>
         public string Type { get => type; set => type = value; }
+        /// <summary>
+        /// The FilledStone the effect is attached to
+        /// </summary>
         public FilledStone Stone { get => stone; set => stone = value; }
+        /// <summary>
+        /// Effects with StatBuff == true applies their effect when equipped
+        /// </summary>
         public bool StatBuff { get => statBuff; set => statBuff = value; }
+        /// <summary>
+        /// Effects with StunImmunity == true sets the Stun property to false
+        /// </summary>
         public bool StunImmunity { get => stunImmunity; set => stunImmunity = value; }
+        /// <summary>
+        /// Whether the effect should take effect immediatly after the character is hit
+        /// </summary>
         public bool Retaliate { get => retaliate; set => retaliate = value; }
+        #endregion
     }
 }

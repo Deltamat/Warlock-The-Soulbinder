@@ -851,6 +851,11 @@
 /processorParam:TextureFormat=Color
 /build:monsters/wolf.png
 
+#begin Neutral.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Neutral.tmx
+
 #begin npc/airDragonShrine.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3201,11 +3206,6 @@
 /processorParam:TextureFormat=Color
 /build:TurnFull.png
 
-#begin zones/Beast.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Beast.tmx
-
 #begin zones/Dragon.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -3221,15 +3221,15 @@
 /processor:TiledMapProcessor
 /build:zones/Fire.tmx
 
-#begin zones/Grass.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Grass.tmx
-
 #begin zones/Metal.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Metal.tmx
+
+#begin zones/Neutral.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Neutral.tmx
 
 #begin zones/tilesetGrassland.png
 /importer:TextureImporter
@@ -3272,11 +3272,6 @@
 /processor:TiledMapProcessor
 /build:zones/Town.tmx
 
-#begin zones/Undead.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Undead.tmx
-
 #begin zones/verticalTree.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3294,8 +3289,18 @@
 /processor:TiledMapProcessor
 /build:zones/Water.tmx
 
-#begin zones/Wind.tmx
+#begin zones/Air.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:zones/Wind.tmx
+/build:zones/Air.tmx
+
+#begin zones/Dark.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Dark.tmx
+
+#begin zones/Earth.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Earth.tmx
 
