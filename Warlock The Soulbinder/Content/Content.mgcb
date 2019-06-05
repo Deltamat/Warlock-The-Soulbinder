@@ -851,11 +851,6 @@
 /processorParam:TextureFormat=Color
 /build:monsters/wolf.png
 
-#begin Neutral.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Neutral.tmx
-
 #begin npc/airDragonShrine.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3155,16 +3150,6 @@
 /processorParam:Quality=Best
 /build:sound/testSound.wav
 
-#begin t.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:t.tmx
-
-#begin t2.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:t2.tmx
-
 #begin tempPlayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3176,11 +3161,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tempPlayer.png
-
-#begin test3.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:test3.tmx
 
 #begin tileset3.png
 /importer:TextureImporter
@@ -3206,6 +3186,16 @@
 /processorParam:TextureFormat=Color
 /build:TurnFull.png
 
+#begin zones/Air.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Air.tmx
+
+#begin zones/Dark.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Dark.tmx
+
 #begin zones/Dragon.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -3215,6 +3205,11 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/DragonRealm.tmx
+
+#begin zones/Earth.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Earth.tmx
 
 #begin zones/Fire.tmx
 /importer:TiledMapImporter
@@ -3288,19 +3283,4 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Water.tmx
-
-#begin zones/Air.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Air.tmx
-
-#begin zones/Dark.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Dark.tmx
-
-#begin zones/Earth.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Earth.tmx
 
