@@ -851,6 +851,11 @@
 /processorParam:TextureFormat=Color
 /build:monsters/wolf.png
 
+#begin Neutral.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Neutral.tmx
+
 #begin npc/airDragonShrine.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3189,11 +3194,6 @@
 /processorParam:TextureFormat=Color
 /build:TurnFull.png
 
-#begin zones/Beast.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Beast.tmx
-
 #begin zones/Dragon.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -3218,6 +3218,11 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Metal.tmx
+
+#begin zones/Neutral.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Neutral.tmx
 
 #begin zones/tilesetGrassland.png
 /importer:TextureImporter

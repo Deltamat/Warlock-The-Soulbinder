@@ -104,21 +104,21 @@ namespace Warlock_The_Soulbinder
                 NPCs.Add(airDragonShrine);
 
                 NPC neutralDragonShrine = new NPC("npc/neutralDragonShrine", new Vector2(2800, 1000), false, false, false, true, 0, "");
-                neutralDragonShrine.DragonElement = "Beast";
+                neutralDragonShrine.DragonElement = "Neutral";
                 NPCs.Add(neutralDragonShrine);
 
                 NPC firePillar = new NPC("pillars/BlankPillar", new Vector2(2222, 1150), false, false, false, false, 0, "");
                 NPC waterPillar = new NPC("pillars/BlankPillar", new Vector2(2422, 1150), false, false, false, false, 0, "");
                 NPC metalPillar = new NPC("pillars/BlankPillar", new Vector2(2222, 825), false, false, false, false, 0, "");
                 NPC earthPillar = new NPC("pillars/BlankPillar", new Vector2(2422, 825), false, false, false, false, 0, "");
-                NPC undeadPillar = new NPC("pillars/BlankPillar", new Vector2(2600, 875), false, false, false, false, 0, "");
+                NPC darkPillar = new NPC("pillars/BlankPillar", new Vector2(2600, 875), false, false, false, false, 0, "");
                 NPC airPillar = new NPC("pillars/BlankPillar", new Vector2(2600, 1100), false, false, false, false, 0, "");
                 NPC neutralPillar = new NPC("pillars/BlankPillar", new Vector2(2700, 1000), false, false, false, false, 0, "");
                 pillars.Add(firePillar);
                 pillars.Add(waterPillar);
                 pillars.Add(metalPillar);
                 pillars.Add(earthPillar);
-                pillars.Add(undeadPillar);
+                pillars.Add(darkPillar);
                 pillars.Add(airPillar);
                 pillars.Add(neutralPillar);
 
@@ -273,7 +273,7 @@ namespace Warlock_The_Soulbinder
             {
                 switch (enemyType)
                 {
-                    case "Beast":
+                    case "Neutral":
                         enemyindex = GameWorld.Instance.RandomInt(0, 3);
                         break;
                     case "Grass":
@@ -307,7 +307,7 @@ namespace Warlock_The_Soulbinder
             if (Name == "DragonRealm")
             {
                 int dragon = -1;
-                if (enemyType == "Beast" && Combat.Instance.neutralDragonDead == false)
+                if (enemyType == "Neutral" && Combat.Instance.neutralDragonDead == false)
                 {
                     dragon = 21;
                 }

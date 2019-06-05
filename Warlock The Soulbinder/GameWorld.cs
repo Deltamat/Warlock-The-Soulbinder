@@ -42,7 +42,7 @@ namespace Warlock_The_Soulbinder
         private float musicVolume;
 
         //Tiled fields
-        private Zone town, beast, grass, water, dragon, metal, undead, fire, wind, dragonRealm;
+        private Zone town, neutral, grass, water, dragon, metal, undead, fire, wind, dragonRealm;
         public string currentZone = "Town";
         public List<Zone> zones = new List<Zone>();
 
@@ -171,7 +171,7 @@ namespace Warlock_The_Soulbinder
 
             // zoner laves med navn og antal af fjender.
             town = new Zone("Town", 0);
-            beast = new Zone("Beast", 5);
+            neutral = new Zone("Neutral", 5);
             grass = new Zone("Grass", 3);
             dragon = new Zone("Dragon", 3);
             wind = new Zone("Wind", 8);
@@ -181,7 +181,7 @@ namespace Warlock_The_Soulbinder
             metal = new Zone("Metal", 3);
             dragonRealm = new Zone("DragonRealm", 8);
             zones.Add(town);
-            zones.Add(beast);
+            zones.Add(neutral);
             zones.Add(grass);
             zones.Add(dragon);
             zones.Add(wind);
@@ -201,7 +201,7 @@ namespace Warlock_The_Soulbinder
             IsMouseVisible = true;
 
 #if DEBUG
-            //adds five of all enemy types as stones to the player's inventory - TEMP
+            //adds five of all enemy types as stones to the player's inventory - DEBUG ONLY
             #region tempStonesAdd
             if (FilledStone.StoneList.Count == 0)
             {
