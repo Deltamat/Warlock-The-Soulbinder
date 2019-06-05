@@ -3199,43 +3199,43 @@
 /build:TurnFull.png
 
 #begin zones/Air.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Air.tmx
 
 #begin zones/Dark.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Dark.tmx
 
 #begin zones/Dragon.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Dragon.tmx
 
 #begin zones/DragonRealm.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/DragonRealm.tmx
 
 #begin zones/Earth.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Earth.tmx
 
 #begin zones/Fire.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Fire.tmx
 
 #begin zones/Metal.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Metal.tmx
 
 #begin zones/Neutral.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Neutral.tmx
 
 #begin zones/tilesetDark.png
@@ -3249,6 +3249,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:zones/tilesetDark.png
+
+#begin zones/tilesetFire.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zones/tilesetFire.png
 
 #begin zones/tilesetGrassland.png
 /importer:TextureImporter
@@ -3299,8 +3311,8 @@
 /build:zones/tombs.png
 
 #begin zones/Town.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Town.tmx
 
 #begin zones/verticalTree.png
@@ -3316,7 +3328,7 @@
 /build:zones/verticalTree.png
 
 #begin zones/Water.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
+/importer:
+/processor:
 /build:zones/Water.tmx
 
