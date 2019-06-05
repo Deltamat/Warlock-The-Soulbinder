@@ -93,6 +93,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Weapon.Equipped = false;
                                     Equipment.Instance.Weapon = null;
+                                    Equipment.Instance.EquippedEquipment[0] = null;
                                 }
                                 break;
 
@@ -101,6 +102,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Armor.Equipped = false;
                                     Equipment.Instance.Armor = null;
+                                    Equipment.Instance.EquippedEquipment[1] = null;
                                 }
                                 break;
 
@@ -109,6 +111,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Skill1.Equipped = false;
                                     Equipment.Instance.Skill1 = null;
+                                    Equipment.Instance.EquippedEquipment[2] = null;
                                 }
                                 break;
 
@@ -117,6 +120,7 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Skill2.Equipped = false;
                                     Equipment.Instance.Skill2 = null;
+                                    Equipment.Instance.EquippedEquipment[3] = null;
                                 }
                                 break;
 
@@ -125,9 +129,11 @@ namespace Warlock_The_Soulbinder
                                 {
                                     Equipment.Instance.Skill3.Equipped = false;
                                     Equipment.Instance.Skill3 = null;
+                                    Equipment.Instance.EquippedEquipment[4] = null;
                                 }
                                 break;
                         }
+                        Player.Instance.UpdateStats();
                     }
                     break;
                 case "FilledStones":
