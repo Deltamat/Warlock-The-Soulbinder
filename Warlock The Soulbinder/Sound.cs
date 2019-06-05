@@ -11,7 +11,6 @@ namespace Warlock_The_Soulbinder
 
     {
         SoundEffect sound;
-        public SoundEffectInstance instance;
 
        /// <summary>
        /// base, monster, menu

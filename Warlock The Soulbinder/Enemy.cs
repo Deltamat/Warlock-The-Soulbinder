@@ -107,16 +107,16 @@ namespace Warlock_The_Soulbinder
             }
             
             #region base stats
-            Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.1f));
-            Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
-            maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 1.25f));
-            attackSpeed = (5 * (Level * 0.5f) + GameWorld.Instance.RandomInt(-1, 3));
-            MetalResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            EarthResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            AirResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            FireResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            DarkResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
-            WaterResistance = (float)Math.Log(10 * (Level * 0.15f) + GameWorld.Instance.RandomInt(1, 5));
+            Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.2f));
+            Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.4f));
+            maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 2.5f));
+            attackSpeed = (5 * Level + GameWorld.Instance.RandomInt(5, 11));
+            MetalResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
+            EarthResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
+            AirResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
+            FireResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
+            DarkResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
+            WaterResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
             #endregion
 
             if (dragon)
@@ -124,7 +124,6 @@ namespace Warlock_The_Soulbinder
                 Damage *= 2;
                 maxHealth *= 5;
             }
-            currentHealth = 0 + maxHealth;
 
             //switch case to determine special properties based on the monster's element (logistic function)
             switch (Monster)
@@ -245,14 +244,53 @@ namespace Warlock_The_Soulbinder
             if (dragon)
             {
                 DragonStone = new FilledStone(this);
+                if (DragonStone.DragonWeaponEffect1.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect1.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonWeaponEffect2.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect2.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonWeaponEffect3.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect3.Index, "Weapon", DragonStone, this, 0);
+                }
+
+                if (DragonStone.DragonArmorEffect1.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect1.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonArmorEffect2.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect2.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonArmorEffect3.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect3.Index, "Weapon", DragonStone, this, 0);
+                }
             }
             else
             {
                 EnemyStone = new FilledStone(this);
+
+                if (EnemyStone.WeaponEffect.StatBuff)
+                {
+                    new Effect(index, "Weapon", EnemyStone, this, 0);
+                }
+
+                if (EnemyStone.ArmorEffect.StatBuff)
+                {
+                    new Effect(index, "Armor", EnemyStone, this, 0);
+                }
             }
 
-            thread = new Thread(() => Update());
-            thread.IsBackground = true;
+            currentHealth = 0 + maxHealth;
+
+            thread = new Thread(() => Update())
+            {
+                IsBackground = true
+            };
             thread.Start();
         }
 
@@ -358,8 +396,10 @@ namespace Warlock_The_Soulbinder
             //gives the enemy a FilledStone with its effects
             EnemyStone = new FilledStone(this);
 
-            thread = new Thread(() => Update());
-            thread.IsBackground = true;
+            thread = new Thread(() => Update())
+            {
+                IsBackground = true
+            };
             thread.Start();
         }
         

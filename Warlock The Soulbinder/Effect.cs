@@ -8,6 +8,7 @@ namespace Warlock_The_Soulbinder
 {
     class Effect
     {
+        #region VARIABLES
         private bool targetsSelf;
         private bool targetBoth;
         private bool statBuff;
@@ -32,6 +33,7 @@ namespace Warlock_The_Soulbinder
         private int index;
         private string type;
         private FilledStone stone;
+        #endregion
 
         public Effect(int index, string type, FilledStone stone, CharacterCombat characterCombat, int damageDealt)
         {
@@ -59,7 +61,7 @@ namespace Warlock_The_Soulbinder
                         case 2: //bear
                             EffectString = "Has a chance to maul the enemy,\ncausing them to bleed";
                             UpperChanceBounds = 8;
-                            Damage = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.2f));
+                            Damage = (int)(3 * (stone.Level + 4));
                             EffectLength = 3;
                             break;
                         case 3: //plant eater
@@ -71,7 +73,7 @@ namespace Warlock_The_Soulbinder
                         case 4: //insect soldier
                             EffectString = "Has a chance to poison the enemy";
                             UpperChanceBounds = 6;
-                            Damage = (int)(2.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.15f));
+                            Damage = (int)(2.5 * (stone.Level + 3));
                             EffectLength = 5;
                             break;
                         case 5: //slime snake
@@ -82,7 +84,7 @@ namespace Warlock_The_Soulbinder
                         case 6: //tentacle
                             EffectString = "Has a chance to constrict your\nenemy with tentacles, crushing them";
                             UpperChanceBounds = 7;
-                            Damage = (int)(2.75 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
+                            Damage = (int)(2.75 * (stone.Level + 3));
                             EffectLength = 4;
                             break;
                         case 7: //frog
@@ -94,7 +96,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to regenerate\nyour health";
                             UpperChanceBounds = 10;
                             TargetsSelf = true;
-                            Heal = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
+                            Heal = (int)(2 * (stone.Level + 3));
                             break;
                         case 9: //mummy
                             EffectString = "Has a chance to curse your\nenemy, lowering their accuracy";
@@ -145,7 +147,7 @@ namespace Warlock_The_Soulbinder
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your\nenemy on fire";
                             UpperChanceBounds = 3;
-                            Damage = (int)(4 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.3f));
+                            Damage = (int)(4 * (stone.Level + 5));
                             EffectLength = 2;
                             break;
                         case 17: //ash zombie
@@ -184,7 +186,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.Defense += (int)(1.5f * (stone.Level + 3));
+                                characterCombat.Defense += (int)(0.5f * stone.Level + 3);
                             }
                             break;
                         case 1: //wolf
@@ -199,7 +201,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.MaxHealth += (int)(3 * ((stone.Level + 4) * 0.1f));
+                                characterCombat.MaxHealth += (int)(3 * (stone.Level + 4));
                             }
                             break;
                         case 3: //plant eater
@@ -217,20 +219,20 @@ namespace Warlock_The_Soulbinder
                         case 4: //insect soldier
                             EffectString = "Has a chance to posion the \nenemy when attacked";
                             UpperChanceBounds = 8;
-                            Damage = (int)(2.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.15f));
+                            Damage = (int)(2.5 * (stone.Level + 3));
                             EffectLength = 4;
                             break;
                         case 5: //slime eater
                             EffectString = "Has a chance to give you a \nshield after being hit";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
-                            Shield = 3 * stone.Level + GameWorld.Instance.RandomInt(1, 3) + 1;
+                            Shield = 3 * stone.Level + 4;
                             break;
                         case 6: //tentacle
                             EffectString = "Has a chance to retaliate with a \ntentacle when hit, dealing damage \nto your attacker";
                             Retaliate = true;
                             UpperChanceBounds = 2;
-                            Damage = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 5)) * 0.2f));
+                            Damage = (int)(2 * (stone.Level + 5));
                             break;
                         case 7: //frog
                             EffectString = "Has a chance to slow your enemy \ndown when attacked";
@@ -242,7 +244,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to regenerate \nsome health when attacked";
                             UpperChanceBounds = 15;
                             TargetsSelf = true;
-                            Heal = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.2f));
+                            Heal = (int)(2 * (stone.Level + 3));
                             break;
                         case 9: //mummy
                             EffectString = "Gives you immunity to curses";
@@ -265,12 +267,12 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to give yourself a shield \nafter being hit";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
-                            Shield = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.3f)) + 1;
+                            Shield = (int)(3 * (stone.Level + 3)) + 1;
                             break;
                         case 13: //defender
                             EffectString = "Strengthens your defense after being hit";
                             TargetsSelf = true;
-                            DamageAbs = (int)(1.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 3)) * 0.6f));
+                            DamageAbs = (int)(1.5 * (stone.Level + 3));
                             EffectLength = 1;
                             break;
                         case 14: //sentry
@@ -288,7 +290,7 @@ namespace Warlock_The_Soulbinder
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your enemy \non fire when attacked";
                             UpperChanceBounds = 6;
-                            Damage = (int)(3.5 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.25f));
+                            Damage = (int)(3.5 * (stone.Level + 4));
                             EffectLength = 1;
                             break;
                         case 17: //ash zombie
@@ -335,7 +337,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 2: //bear
                             EffectString = "Maul your enemy causing them\nto bleed";
-                            Damage = (int)(3 * ((stone.Level + GameWorld.Instance.RandomInt(1, 4)) * 0.33f));
+                            Damage = (int)(3 * (stone.Level + 4));
                             EffectLength = 3;
                             Cooldown = 5;
                             break;
@@ -353,20 +355,20 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 4: //insect soldier
                             EffectString = "Poison your enemy";
-                            Damage = (int)(2.75 * ((stone.Level + GameWorld.Instance.RandomInt(2, 4)) * 0.25f));
+                            Damage = (int)(2.75 * (stone.Level + 4));
                             EffectLength = 5;
                             Cooldown = 5;
                             break;
                         case 5: //slime eater
                             EffectString = "Cover yourself in a thick \nlayer of slime, reducing \ndamage you take";
                             TargetsSelf = true;
-                            DamageAbs = (int)(2 * ((stone.Level + GameWorld.Instance.RandomInt(2, 3)) * 0.4f));
+                            DamageAbs = (int)(2 * (stone.Level + 3));
                             EffectLength = 4;
                             Cooldown = 5;
                             break;
                         case 6: //tentacle
                             EffectString = "Wrap tentacles around your \nenemy crushing them \nfor a few rounds";
-                            Damage = (int)(3.25 * ((stone.Level + GameWorld.Instance.RandomInt(2, 6)) * 0.3f));
+                            Damage = (int)(3.25 * (stone.Level + 6));
                             EffectLength = 4;
                             Cooldown = 6;
                             break;
@@ -379,7 +381,7 @@ namespace Warlock_The_Soulbinder
                         case 8: //fish
                             EffectString = "Regenerate health for a few round";
                             TargetsSelf = true;
-                            Heal = (int)(1.25 * ((stone.Level + GameWorld.Instance.RandomInt(3, 6)) * 0.7f));
+                            Heal = (int)(1.25 * (stone.Level + 6));
                             EffectLength = 3;
                             Cooldown = 8;
                             break;
@@ -395,7 +397,7 @@ namespace Warlock_The_Soulbinder
                             Shield = 1; 
                             if (characterCombat != null)
                             {
-                                Shield = (int)((characterCombat.MaxHealth - characterCombat.CurrentHealth) * 0.25);
+                                Shield = (int)(characterCombat.MaxHealth - characterCombat.CurrentHealth);
                             }
                             Cooldown = 10;
                             break;
@@ -445,7 +447,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 16: //infernal golem
                             EffectString = "Sets your enemy ablaze";
-                            Damage = (int)(4.25 * ((stone.Level + GameWorld.Instance.RandomInt(2, 5)) * 0.35f));
+                            Damage = (int)(4.25 * (stone.Level + 5));
                             EffectLength = 3;
                             Cooldown = 6;
                             break;
@@ -480,28 +482,106 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        #region PROPERTIES
+        /// <summary>
+        /// Whether the effect targets the caster or their enemy
+        /// </summary>
         public bool TargetsSelf { get => targetsSelf; set => targetsSelf = value; }
+        /// <summary>
+        /// Whether the effect targets both characters or not
+        /// </summary>
         public bool TargetsBoth { get => targetBoth; set => targetBoth = value; }
+        /// <summary>
+        /// An integer value that depicts whether or not the effect can be used. 
+        /// Needs to be 0 or less to be activatable
+        /// </summary>
         public int Cooldown { get => cooldown; set => cooldown = value; }
+        /// <summary>
+        /// The amount of damage the effect does
+        /// </summary>
         public int Damage { get => damage; set => damage = value; }
+        /// <summary>
+        /// How much health the effect restores
+        /// </summary>
         public int Heal { get => heal; set => heal = value; }
+        /// <summary>
+        /// How many turns the effect is active
+        /// </summary>
         public int EffectLength { get => effectlength; set => effectlength = value; }
+        /// <summary>
+        /// Percentile damage reduction. 
+        /// Acts as a damage modifier: 1 is 0% reduction, 0 is 100% reduction
+        /// </summary>
         public float DamageReduction { get => damageReduction; set => damageReduction = value; }
+        /// <summary>
+        /// Reduces damage by a flat amount
+        /// </summary>
         public int DamageAbs { get => damageAbs; set => damageAbs = value; }
+        /// <summary>
+        /// Modifies the character's speed. 
+        /// Less than 1 is slower, more than 1 is faster
+        /// </summary>
         public float SpeedMod { get => speedMod; set => speedMod = value; }
+        /// <summary>
+        /// Modifies the character's chance to hit. 
+        /// Base hit chance is 100% at 1
+        /// </summary>
         public float AccuracyMod { get => accuracyMod; set => accuracyMod = value; }
+        /// <summary>
+        /// Modifies the character's damage. 
+        /// Less than 1 is less damage, more than 1 is more damage
+        /// </summary>
         public float DamageMod { get => damageMod; set => damageMod = value; }
+        /// <summary>
+        /// Damage taken by the character is first subtracted from shield, 
+        /// before it affects the character's health
+        /// </summary>
         public int Shield { get => shield; set => shield = value; }
+        /// <summary>
+        /// If a character is stunned, they miss a turn
+        /// </summary>
         public bool Stun { get => stun; set => stun = value; }
+        /// <summary>
+        /// Confused characters has a 50% to damage themselves,
+        /// 25% chance to miss, and 25% chance to hit (before AccuracyMod)
+        /// </summary>
         public bool Confuse { get => confuse; set => confuse = value; }
+        /// <summary>
+        /// Whether the effect causes the character to attack once more on their next attack
+        /// </summary>
         public bool DoubleAttack { get => doubleAttack; set => doubleAttack = value; }
+        /// <summary>
+        /// A string describing the effect's gameplay effect
+        /// </summary>
         public string EffectString { get => effectString; set => effectString = value; }
+        /// <summary>
+        /// The upperbounds for the effect to take effect
+        /// </summary>
         public int UpperChanceBounds { get => upperChanceBounds; set => upperChanceBounds = value; }
+        /// <summary>
+        /// Integer to indetify effects
+        /// </summary>
         public int Index { get => index; set => index = value; }
+        /// <summary>
+        /// Whether the effect is Weapon, Armor or skill
+        /// </summary>
         public string Type { get => type; set => type = value; }
+        /// <summary>
+        /// The FilledStone the effect is attached to
+        /// </summary>
         public FilledStone Stone { get => stone; set => stone = value; }
+        /// <summary>
+        /// Effects with StatBuff == true applies their effect when equipped
+        /// </summary>
         public bool StatBuff { get => statBuff; set => statBuff = value; }
+        /// <summary>
+        /// Effects with StunImmunity == true sets the Stun property to false
+        /// </summary>
         public bool StunImmunity { get => stunImmunity; set => stunImmunity = value; }
+        /// <summary>
+        /// Whether the effect should take effect immediatly after the character is hit
+        /// </summary>
         public bool Retaliate { get => retaliate; set => retaliate = value; }
+        #endregion
     }
 }

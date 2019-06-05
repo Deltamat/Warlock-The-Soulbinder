@@ -3648,16 +3648,6 @@
 /processorParam:Quality=Best
 /build:sound/testSound.wav
 
-#begin t.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:t.tmx
-
-#begin t2.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:t2.tmx
-
 #begin tempPlayer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3669,11 +3659,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tempPlayer.png
-
-#begin test3.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:test3.tmx
 
 #begin tileset3.png
 /importer:TextureImporter
@@ -3699,10 +3684,15 @@
 /processorParam:TextureFormat=Color
 /build:TurnFull.png
 
-#begin zones/Beast.tmx
+#begin zones/Air.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
-/build:zones/Beast.tmx
+/build:zones/Air.tmx
+
+#begin zones/Dark.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Dark.tmx
 
 #begin zones/Dragon.tmx
 /importer:TiledMapImporter
@@ -3714,20 +3704,37 @@
 /processor:TiledMapProcessor
 /build:zones/DragonRealm.tmx
 
+#begin zones/Earth.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Earth.tmx
+
 #begin zones/Fire.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Fire.tmx
 
-#begin zones/Grass.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Grass.tmx
-
 #begin zones/Metal.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Metal.tmx
+
+#begin zones/Neutral.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Neutral.tmx
+
+#begin zones/tilesetDark.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zones/tilesetDark.png
 
 #begin zones/tilesetGrassland.png
 /importer:TextureImporter
@@ -3765,15 +3772,22 @@
 /processorParam:TextureFormat=Color
 /build:zones/tilesetTown.png
 
+#begin zones/tombs.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zones/tombs.png
+
 #begin zones/Town.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Town.tmx
-
-#begin zones/Undead.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Undead.tmx
 
 #begin zones/verticalTree.png
 /importer:TextureImporter
@@ -3791,9 +3805,4 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Water.tmx
-
-#begin zones/Wind.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Wind.tmx
 

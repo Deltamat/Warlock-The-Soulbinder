@@ -41,6 +41,7 @@ namespace Warlock_The_Soulbinder
         private float enemySpeedMod = 1;
         private int playerShield;
         private int enemyShield;
+        private double victoryTimer;
 
         private Color buttonColor = Color.White;
         Sound victorySound = new Sound("battleVictory");
@@ -52,13 +53,13 @@ namespace Warlock_The_Soulbinder
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
 
-        public bool fireDragonDead { get; set; } = false;
-        public bool waterDragonDead { get; set; } = false;
-        public bool earthDragonDead { get; set; } = false;
-        public bool metalDragonDead { get; set; } = false;
-        public bool neutralDragonDead { get; set; } = false;
-        public bool airDragonDead { get; set; } = false;
-        public bool darkDragonDead { get; set; } = false;
+        public bool FireDragonDead { get; set; } = false;
+        public bool WaterDragonDead { get; set; } = false;
+        public bool EarthDragonDead { get; set; } = false;
+        public bool MetalDragonDead { get; set; } = false;
+        public bool NeutralDragonDead { get; set; } = false;
+        public bool AirDragonDead { get; set; } = false;
+        public bool DarkDragonDead { get; set; } = false;
 
         public SpriteFont CombatFont { get => combatFont; private set => combatFont = value; }
 
@@ -106,7 +107,7 @@ namespace Warlock_The_Soulbinder
         {
             combatDelay += gameTime.ElapsedGameTime.Milliseconds;
 
-            if (Target != null && playerAttackTimer < turnTimer && enemyAttackTimer < turnTimer && !Player.Instance.Attacking && !Player.Instance.Hurt && !Player.Instance.AttackStart && !Player.Instance.HurtStart)
+            if (Target != null && playerAttackTimer < turnTimer && enemyAttackTimer < turnTimer && !Player.Instance.Attacking && !Player.Instance.Hurt && !Player.Instance.AttackStart && !Player.Instance.HurtStart && victoryTimer == 0)
             {
                 buttonColor = Color.Gray;
                 playerAttackTimer += Player.Instance.AttackSpeed * playerSpeedMod;
@@ -137,80 +138,81 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (Target != null)
+            if (target != null && (target.CurrentHealth <= 0 || victoryTimer > 0))
             {
-                if (Target.CurrentHealth <= 0) //if the target dies, remove target
-                {
-                    Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, Target.Level)));
+                victoryTimer += gameTime.ElapsedGameTime.Milliseconds;
+            }
 
-                    if (Target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
+            if (Target != null && victoryTimer > 2000)
+            {
+                Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, Target.Level)));
+
+                if (Target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
+                {
+                    switch (Target.Monster)
                     {
-                        switch (Target.Monster)
-                        {
-                            case "fireDragon":
-                                fireDragonDead = true;
-                                break;
-                            case "waterDragon":
-                                waterDragonDead = true;
-                                break;
-                            case "metalDragon":
-                                metalDragonDead = true;
-                                break;
-                            case "earthDragon":
-                                earthDragonDead = true;
-                                break;
-                            case "airDragon":
-                                airDragonDead = true;
-                                break;
-                            case "neutralDragon":
-                                neutralDragonDead = true;
-                                break;
-                            case "darkDragon":
-                                darkDragonDead = true;
-                                break;
-                        }
-                        GameWorld.Instance.currentZone = "Dragon";
-                        GameWorld.Instance.CurrentZone().ChangeDragonPillarSprite();
-                        GameWorld.Instance.currentZone = "DragonRealm";
-
+                        case "fireDragon":
+                            FireDragonDead = true;
+                            break;
+                        case "waterDragon":
+                            WaterDragonDead = true;
+                            break;
+                        case "metalDragon":
+                            MetalDragonDead = true;
+                            break;
+                        case "earthDragon":
+                            EarthDragonDead = true;
+                            break;
+                        case "airDragon":
+                            AirDragonDead = true;
+                            break;
+                        case "neutralDragon":
+                            NeutralDragonDead = true;
+                            break;
+                        case "darkDragon":
+                            DarkDragonDead = true;
+                            break;
                     }
-
-                    Target.Alive = false;
-                    GameWorld.Instance.CurrentZone().Enemies.Remove(Target);
-                    ExitCombat();
+                    GameWorld.Instance.currentZone = "Dragon";
+                    GameWorld.Instance.CurrentZone().ChangeDragonPillarSprite();
+                    GameWorld.Instance.currentZone = "DragonRealm";
                 }
 
-                //Scrolls playerText
-                foreach (GameObject stringObject in  playerText)
+                Target.Alive = false;
+                GameWorld.Instance.CurrentZone().Enemies.Remove(Target);
+                ExitCombat();
+            }
+
+            //Scrolls playerText
+            foreach (GameObject stringObject in playerText)
+            {
+                stringObject.StringPosition += new Vector2(0, -1);
+
+                if (stringObject.Position.X < 0)
                 {
-                    stringObject.StringPosition += new Vector2(0, -1);
-
-                    if (stringObject.Position.X < 0)
-                    {
-                        toBeRemovedPlayerText.Add(stringObject);
-                    }
+                    toBeRemovedPlayerText.Add(stringObject);
                 }
+            }
 
-                //Scrolls enemyText
-                foreach (GameObject stringObject in enemyText)
+            //Scrolls enemyText
+            foreach (GameObject stringObject in enemyText)
+            {
+                stringObject.StringPosition += new Vector2(0, -1);
+
+                if (stringObject.Position.X < 0)
                 {
-                    stringObject.StringPosition += new Vector2(0, -1);
-
-                    if (stringObject.Position.X < 0)
-                    {
-                        toBeRemovedEnemyText.Add(stringObject);
-                    }
+                    toBeRemovedEnemyText.Add(stringObject);
                 }
+            }
 
-                foreach (GameObject stringObject in toBeRemovedPlayerText)
-                {
-                    PlayerText.Remove(stringObject);
-                }
+            foreach (GameObject stringObject in toBeRemovedPlayerText)
+            {
+                PlayerText.Remove(stringObject);
+            }
 
-                foreach (GameObject stringObject in toBeRemovedEnemyText)
-                {
-                    EnemyText.Remove(stringObject);
-                }
+            foreach (GameObject stringObject in toBeRemovedEnemyText)
+            {
+                EnemyText.Remove(stringObject);
             }
         }
 
@@ -374,7 +376,8 @@ namespace Warlock_The_Soulbinder
                             if ((tempChance) * 2 < tempInt)
                             {
                                 FilledStone.CatchMonster(Target);
-                                Target.CurrentHealth = 0;
+                                victoryTimer = 1;
+                                EnemyScrolling("Captured!", Color.White);
                             }
 
                             playerAttackTimer = 0;
@@ -471,7 +474,7 @@ namespace Warlock_The_Soulbinder
                                     playerEffects[playerEffects.Count - 1].EffectLength--;
                                 }
                             }
-                            else if (!Equipment.Instance.Skill2.SkillEffect.TargetsSelf && !Equipment.Instance.Skill1.SkillEffect.TargetsBoth)
+                            else if (!Equipment.Instance.Skill2.SkillEffect.TargetsSelf && !Equipment.Instance.Skill2.SkillEffect.TargetsBoth)
                             {
                                 if (Equipment.Instance.Skill2.SkillEffect.EffectLength == 1 && Equipment.Instance.Skill2.SkillEffect.Damage > 0 && GameWorld.Instance.RandomInt(0, Equipment.Instance.Skill2.SkillEffect.UpperChanceBounds) == 0)
                                 {                                    
@@ -523,7 +526,7 @@ namespace Warlock_The_Soulbinder
                                     playerEffects[playerEffects.Count - 1].EffectLength--;
                                 }
                             }
-                            else if (!Equipment.Instance.Skill3.SkillEffect.TargetsSelf && !Equipment.Instance.Skill1.SkillEffect.TargetsBoth)
+                            else if (!Equipment.Instance.Skill3.SkillEffect.TargetsSelf && !Equipment.Instance.Skill3.SkillEffect.TargetsBoth)
                             {
                                 if (Equipment.Instance.Skill3.SkillEffect.EffectLength == 1 && Equipment.Instance.Skill3.SkillEffect.Damage > 0 && GameWorld.Instance.RandomInt(0, Equipment.Instance.Skill3.SkillEffect.UpperChanceBounds) == 0)
                                 {
@@ -865,7 +868,7 @@ namespace Warlock_The_Soulbinder
                                 }
                             }
                             
-                            //rolls chance for player weapon soul stone
+                            //rolls chance for player's weapon soul stone
                             if (Equipment.Instance.Weapon != null)
                             {
                                 if (!Equipment.Instance.Weapon.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Weapon.WeaponEffect.UpperChanceBounds) == 0 && !Equipment.Instance.Weapon.WeaponEffect.StatBuff) //has a chance to add negative effects to the enemy
@@ -901,6 +904,10 @@ namespace Warlock_The_Soulbinder
                     {
                         EnemyScrolling("HP -0", Color.Red);
                     }
+                }
+                else
+                {
+                    PlayerScrolling("Stunned", Color.White);
                 }
                 playerAttackAmount = 1; //resets how many times the player attacks
                 combatDelay = 0; //resets combat delay
@@ -1103,9 +1110,12 @@ namespace Warlock_The_Soulbinder
                 {
                     PlayerScrolling($"HP -0", Color.Red);
                 }
-
-                enemyAttackAmount = 1;
             }
+            else
+            {
+                EnemyScrolling("Stunned", Color.White);
+            }
+            enemyAttackAmount = 1;
         }
 
         /// <summary>
@@ -1312,9 +1322,12 @@ namespace Warlock_The_Soulbinder
                 {
                     PlayerScrolling($"HP -0", Color.Red);
                 }
-
-                enemyAttackAmount = 1;
             }
+            else
+            {
+                EnemyScrolling("Stunned", Color.White);
+            }
+            enemyAttackAmount = 1;
         }
 
         /// <summary>
@@ -1394,6 +1407,7 @@ namespace Warlock_The_Soulbinder
             selectedInt = 0;
             playerAttackTimer = 0;
             enemyAttackTimer = 0;
+            victoryTimer = 0;
             buttonType = "Normal";
             Target = null;
             Log.Instance.CalculateBonus();
