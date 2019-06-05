@@ -168,7 +168,7 @@ namespace Warlock_The_Soulbinder
             dragon = new Zone("Dragon", 3);
             air = new Zone("Air", 8);
             fire = new Zone("Fire", 3);
-            water = new Zone("Water", 3);
+            water = new Zone("Water", 10);
             dark = new Zone("Dark", 3);
             metal = new Zone("Metal", 3);
             dragonRealm = new Zone("DragonRealm", 8);

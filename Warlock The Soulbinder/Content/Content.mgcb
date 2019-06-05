@@ -851,11 +851,6 @@
 /processorParam:TextureFormat=Color
 /build:monsters/wolf.png
 
-#begin Neutral.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Neutral.tmx
-
 #begin npc/airDragonShrine.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3206,6 +3201,16 @@
 /processorParam:TextureFormat=Color
 /build:TurnFull.png
 
+#begin zones/Air.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Air.tmx
+
+#begin zones/Dark.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Dark.tmx
+
 #begin zones/Dragon.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -3215,6 +3220,11 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/DragonRealm.tmx
+
+#begin zones/Earth.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:zones/Earth.tmx
 
 #begin zones/Fire.tmx
 /importer:TiledMapImporter
@@ -3230,6 +3240,18 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Neutral.tmx
+
+#begin zones/tilesetDark.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zones/tilesetDark.png
 
 #begin zones/tilesetGrassland.png
 /importer:TextureImporter
@@ -3267,6 +3289,18 @@
 /processorParam:TextureFormat=Color
 /build:zones/tilesetTown.png
 
+#begin zones/tombs.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zones/tombs.png
+
 #begin zones/Town.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
@@ -3288,19 +3322,4 @@
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
 /build:zones/Water.tmx
-
-#begin zones/Air.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Air.tmx
-
-#begin zones/Dark.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Dark.tmx
-
-#begin zones/Earth.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:zones/Earth.tmx
 
