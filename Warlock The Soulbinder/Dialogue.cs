@@ -63,7 +63,7 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.GameState = "Overworld";
                 if (talkingNPC.IsShrine == true)
                 {
-                    GameWorld.Instance.currentZone = $"DragonRealm";
+                    GameWorld.Instance.currentZone = "DragonRealm";
                     GameWorld.Instance.CurrentZone().GenerateZone();
                 }
             }

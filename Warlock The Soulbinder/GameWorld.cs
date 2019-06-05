@@ -36,8 +36,8 @@ namespace Warlock_The_Soulbinder
         //private bool loading = false; // temporary
         Song overworldMusic;
         Song combatMusic;
-        private bool currentKeyH = true;
-        private bool previousKeyH = true;
+        private bool currentKeyH = true; //temporary
+        private bool previousKeyH = true; //temporary
         TimeSpan songPosition;
         private float musicVolume;
 
@@ -85,7 +85,7 @@ namespace Warlock_The_Soulbinder
         {
             get
             {
-                return graphics.GraphicsDevice.Viewport.Bounds;
+                return Graphics.GraphicsDevice.Viewport.Bounds;
             }
         }
 
@@ -137,19 +137,20 @@ namespace Warlock_The_Soulbinder
         public float SoundEffectVolume { get; set; } = 0.3f;
         public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
         public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
+        public GraphicsDeviceManager Graphics { get => graphics; set => graphics = value; }
 
         public GameWorld()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             content = Content;
             //Sets the window size
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1020;
+            Graphics.PreferredBackBufferWidth = 1920;
+            Graphics.PreferredBackBufferHeight = 1020;
 #if !DEBUG
-            graphics.IsFullScreen = false;
+            Graphics.IsFullScreen = false;
 #endif
-            graphics.ApplyChanges();
+            Graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -172,7 +173,7 @@ namespace Warlock_The_Soulbinder
             // zoner laves med navn og antal af fjender.
             town = new Zone("Town", 0);
             neutral = new Zone("Neutral", 5);
-            grass = new Zone("Grass", 3);
+            grass = new Zone("Grass", 15);
             dragon = new Zone("Dragon", 3);
             wind = new Zone("Wind", 8);
             fire = new Zone("Fire", 3);
@@ -180,6 +181,7 @@ namespace Warlock_The_Soulbinder
             undead = new Zone("Undead", 3);
             metal = new Zone("Metal", 3);
             dragonRealm = new Zone("DragonRealm", 8);
+            
             zones.Add(town);
             zones.Add(neutral);
             zones.Add(grass);
@@ -203,39 +205,39 @@ namespace Warlock_The_Soulbinder
 #if DEBUG
             //adds five of all enemy types as stones to the player's inventory - DEBUG ONLY
             #region tempStonesAdd
-            if (FilledStone.StoneList.Count == 0)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
-                    FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
-                }
-            }
+            //if (FilledStone.StoneList.Count == 0)
+            //{
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(0, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(1, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(2, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(3, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(4, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(5, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(6, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(7, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(8, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(9, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(10, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(11, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(12, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(13, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(14, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(15, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(16, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(17, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(18, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(19, Vector2.Zero)));
+            //        FilledStone.StoneList.Add(new FilledStone(new Enemy(20, Vector2.Zero)));
+            //    }
+            //}
             #endregion
 #endif
 
             //LogLoad
             Log.Instance.GenerateLogList();
-            Log.Instance.FullScans();
+            //Log.Instance.FullScans();
             Log.Instance.CalculateBonus();
             // Music
             MusicVolume = 0f;
@@ -275,7 +277,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void UnloadContent()
         {
-
+            //SaveToDB();
         }
 
         /// <summary>
@@ -503,7 +505,7 @@ namespace Warlock_The_Soulbinder
                     return zone;
                 }
             }
-            return null;
+            return zones[0];
         }
 
         /// <summary>
