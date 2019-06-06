@@ -315,12 +315,20 @@ namespace Warlock_The_Soulbinder
         {
             Monster = monster;
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
-            scale = 0.25f;
+
+            if (ReturnMonsterIndex(Monster) >= 21)
+            {
+                scale = 0.75f;
+            }
+            else
+            {
+                scale = 0.25f;
+            }
 
             movementSpeed = 10;
             Position = startPos;
 
-            if (ReturnMonsterIndex(Monster) > 20)
+            if (ReturnMonsterIndex(Monster) >= 21)
             {
                 Dragon = true;
             }
@@ -438,7 +446,49 @@ namespace Warlock_The_Soulbinder
             #endregion
 
             //gives the enemy a FilledStone with its effects
-            EnemyStone = new FilledStone(this);
+            if (dragon)
+            {
+                DragonStone = new FilledStone(this);
+                if (DragonStone.DragonWeaponEffect1.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect1.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonWeaponEffect2.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect2.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonWeaponEffect3.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect3.Index, "Weapon", DragonStone, this, 0);
+                }
+
+                if (DragonStone.DragonArmorEffect1.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect1.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonArmorEffect2.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect2.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonArmorEffect3.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect3.Index, "Weapon", DragonStone, this, 0);
+                }
+            }
+            else
+            {
+                EnemyStone = new FilledStone(this);
+
+                if (EnemyStone.WeaponEffect.StatBuff)
+                {
+                    new Effect(ReturnMonsterIndex(Monster), "Weapon", EnemyStone, this, 0);
+                }
+
+                if (EnemyStone.ArmorEffect.StatBuff)
+                {
+                    new Effect(ReturnMonsterIndex(Monster), "Armor", EnemyStone, this, 0);
+                }
+            }
 
             thread = new Thread(() => Update())
             {
