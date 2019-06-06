@@ -36,6 +36,7 @@ namespace Warlock_The_Soulbinder
         //private bool loading = false; // temporary
         Song overworldMusic;
         Song combatMusic;
+        Song dragonMusic;
         private bool currentKeyH = true; //temporary
         private bool previousKeyH = true; //temporary
         TimeSpan songPosition;
@@ -109,8 +110,9 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-
+                
                 gameState = value;
+                ChangeMusic();
             }
         }
         
@@ -130,6 +132,8 @@ namespace Warlock_The_Soulbinder
         public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
         public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
         public GraphicsDeviceManager Graphics { get => graphics; set => graphics = value; }
+        public TimeSpan SongPosition { get => songPosition; set => songPosition = value; }
+        public Song DragonMusic { get => dragonMusic; set => dragonMusic = value; }
         public Texture2D Background { get => background; set => background = value; }
 
         public GameWorld()
@@ -233,12 +237,13 @@ namespace Warlock_The_Soulbinder
             //Log.Instance.FullScans();
             Log.Instance.CalculateBonus();
             // Music
-            MusicVolume = 0f;
+            MusicVolume = 0.04f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = MusicVolume;
-            //combatMusic = Content.Load<Song>("sound/combatMusicV2");
-            //overworldMusic = Content.Load<Song>("sound/overworldMusic");
-            //MediaPlayer.Play(overworldMusic);
+            combatMusic = Content.Load<Song>("sound/combatMusic");
+            DragonMusic = Content.Load<Song>("sound/dragonMusic");
+            overworldMusic = Content.Load<Song>("sound/overworldMusic");
+            MediaPlayer.Play(overworldMusic);
 
             Equipment.Instance.UpdateExperienceRequired();
             base.Initialize();
@@ -321,6 +326,7 @@ namespace Warlock_The_Soulbinder
             {
                 if (GameState == "Overworld")
                 {
+                    Sound.PlaySound("sound/menuSounds/openMenu");
                     GeneralMenu.Instance.SelectedInt = 0;
                     GeneralMenu.Instance.InventoryState = "GeneralMenu";
                     GameState = "GeneralMenu";
@@ -328,6 +334,7 @@ namespace Warlock_The_Soulbinder
 
                 else if (GameState == "GeneralMenu")
                 {
+                    Sound.PlaySound("sound/menuSounds/closeMenu");
                     GameState = "Overworld";
                 }
 
@@ -495,10 +502,36 @@ namespace Warlock_The_Soulbinder
             {
                 if (zone.Name == currentZone)
                 {
+
                     return zone;
                 }
             }
+
             return zones[0];
+
+        }
+
+        public void ChangeMusic()
+        {
+            SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+           
+
+            if ((currentZone == "DragonRealm") && gameState != "Dialogue" && gameState != "GeneralMenu")
+            {
+                MediaPlayer.Play(DragonMusic, SongPosition);
+            }
+
+            else if (GameState == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
+            {
+                MediaPlayer.Play(overworldMusic, SongPosition);
+            }
+
+            else if (GameState == "Combat" && currentZone != "DragonRealm")
+            {
+                SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
+                MediaPlayer.Play(combatMusic, TimeSpan.Zero);
+            }
+
         }
 
         /// <summary>
@@ -592,5 +625,7 @@ namespace Warlock_The_Soulbinder
 
             Controller.Instance.CloseTheGates();
         }
+
+
     }
 }

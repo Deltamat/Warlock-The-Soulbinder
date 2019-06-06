@@ -210,22 +210,22 @@ namespace Warlock_The_Soulbinder
                 case "Keybinds":
                     ChangeSelected(7);
 
-                    //Resets keybinds
-                    if (InputHandler.Instance.KeyPressed(Keys.R))
-                    {
-                        InputHandler.Instance.ResetKeybinds();
-                    }
+                    ////Resets keybinds
+                    //if (InputHandler.Instance.KeyPressed(Keys.R))
+                    //{
+                    //    InputHandler.Instance.ResetKeybinds();
+                    //}
                     break;
                 case "Log":
 
                     //Changes pages in Log
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && logPage < 20)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || ((InputHandler.Instance.KeyPressed(Keys.D))) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && logPage < 20)
                     {
                         logPage++;
                         delay = 0;
                     }
 
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && logPage > 0)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || ((InputHandler.Instance.KeyPressed(Keys.A))) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && logPage > 0)
                     {
                         logPage--;
                         delay = 0;
@@ -235,14 +235,14 @@ namespace Warlock_The_Soulbinder
                 case "Help":
 
                     //Changes pages
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && helpPage < 2)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || ((InputHandler.Instance.KeyPressed(Keys.D))) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && helpPage < 2)
                     {
                         helpPage+=2;
                         delay = 0;
                         selectedInt = 0;
                     }
 
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && helpPage > 0)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || ((InputHandler.Instance.KeyPressed(Keys.A))) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && helpPage > 0)
                     {
                         helpPage-=2;
                         delay = 0;
@@ -261,8 +261,9 @@ namespace Warlock_The_Soulbinder
             }
 
             //Key for going back in menus
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.KeyPressed(Keys.R) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 150)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.KeyPressed(Keys.R) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 150 && InventoryState != "GeneralMenu")
             {
+                Sound.PlaySound("sound/menuSounds/turnPageBack");
                 //case = current menu, inventorystate = go back to this menu
                 switch (InventoryState)
                 {
@@ -368,32 +369,32 @@ namespace Warlock_The_Soulbinder
                             switch (Equipment.Instance.Armor.Element)
                             {
                                 case "neutral":
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% all", new Vector2(1450, 320), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.EarthResistance}% all", new Vector2(1450, 320), Color.White);
                                     break;
 
                                 case "earth":
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% earth", new Vector2(1450, 280), Color.White);
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.DarkResistance}% dark", new Vector2(1450, 360), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.EarthResistance}% earth", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.DarkResistance}% dark", new Vector2(1450, 360), Color.White);
                                     break;
                                 case "air":
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.AirResistance}% air", new Vector2(1450, 280), Color.White);
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.EarthResistance}% earth", new Vector2(1450, 360), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.AirResistance}% air", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.EarthResistance}% earth", new Vector2(1450, 360), Color.White);
                                     break;
                                 case "water":
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.WaterResistance}% water", new Vector2(1450, 280), Color.White);
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.AirResistance}% air", new Vector2(1450, 360), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.WaterResistance}% water", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.AirResistance}% air", new Vector2(1450, 360), Color.White);
                                     break;
                                 case "fire":
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.FireResistance}% fire", new Vector2(1450, 280), Color.White);
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.WaterResistance}% Water", new Vector2(1450, 360), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.FireResistance}% fire", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.WaterResistance}% water", new Vector2(1450, 360), Color.White);
                                     break;
                                 case "metal":
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.MetalResistance}% metal", new Vector2(1450, 280), Color.White);
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.FireResistance}% fire", new Vector2(1450, 360), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.MetalResistance}% metal", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.FireResistance}% fire", new Vector2(1450, 360), Color.White);
                                     break;
                                 case "dark":
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.DarkResistance}% dark", new Vector2(1450, 280), Color.White);
-                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{Player.Instance.MetalResistance}% metal", new Vector2(1450, 360), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.DarkResistance}% dark", new Vector2(1450, 280), Color.White);
+                                    spriteBatch.DrawString(Combat.Instance.CombatFont, $"{(int)Player.Instance.MetalResistance}% metal", new Vector2(1450, 360), Color.White);
                                     break;
 
 
@@ -914,9 +915,14 @@ namespace Warlock_The_Soulbinder
 
         //What happens when you press enter in various states
         public void ChangeState()
-        {
+        { 
             if (InventoryState == "GeneralMenu")
             {
+                if (selectedInt != 0)
+                {
+                    Sound.PlaySound("sound/menuSounds/turnPage");
+                }
+
                 switch (selectedInt)
                 {
                     case 1:
@@ -1054,6 +1060,7 @@ namespace Warlock_The_Soulbinder
             }
             else if (InventoryState == "Equipment")
             {
+                Sound.PlaySound("sound/menuSounds/turnPage");
                 Equipping = true;
                 EquippingTo = selectedInt;
                 InventoryState = "FilledStones";
@@ -1063,6 +1070,7 @@ namespace Warlock_The_Soulbinder
                 if (selectedInt == 2)
                 {
                     InventoryState = "Keybinds";
+                    Sound.PlaySound("sound/menuSounds/turnPage");
                 }
 
                 if (selectedInt == 3)
@@ -1140,14 +1148,16 @@ namespace Warlock_The_Soulbinder
         //Changes selectedInt which determines what item you are going to press
         public void ChangeSelected(int max)
         {
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && delay > 150 && SelectedInt > 0)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.KeyPressed(Keys.W) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && delay > 150 && SelectedInt > 0)
             {
+                Sound.PlaySound("sound/menuSounds/button");
                 SelectedInt--;
                 delay = 0;
             }
 
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonDown)) && delay > 150 && SelectedInt < max)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.KeyPressed(Keys.S) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonDown)) && delay > 150 && SelectedInt < max)
             {
+                Sound.PlaySound("sound/menuSounds/button");
                 SelectedInt++;
                 delay = 0;
             }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace Warlock_The_Soulbinder
@@ -81,6 +83,7 @@ namespace Warlock_The_Soulbinder
 
             if (Name == "Dragon")
             {
+
                 NPC fireDragonShrine = new NPC("npc/fireDragonShrine", new Vector2(1870, 1175), false, false, false, true, 0, "");
                 fireDragonShrine.DragonElement = "Fire";
                 NPCs.Add(fireDragonShrine);
@@ -164,6 +167,11 @@ namespace Warlock_The_Soulbinder
                 // What happpens when player enters a zone trigger
                 if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox))
                 {
+                    if (trigger.TargetZone == "Dragon")
+                    {
+                        MediaPlayer.Play(GameWorld.Instance.DragonMusic, TimeSpan.Zero);
+                        GameWorld.Instance.ChangeMusic();
+                    }
                     KillEnemiesInZone();
                     GameWorld.Instance.currentZone = trigger.TargetZone;
                     GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies
@@ -309,6 +317,10 @@ namespace Warlock_The_Soulbinder
 
             if (Name == "DragonRealm")
             {
+
+                MediaPlayer.Play(GameWorld.Instance.DragonMusic, TimeSpan.Zero);
+                GameWorld.Instance.ChangeMusic();
+    
                 int dragon = -1;
                 if (enemyType == "Neutral" && Combat.Instance.NeutralDragonDead == false)
                 {
