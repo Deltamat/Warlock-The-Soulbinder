@@ -68,7 +68,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to steal nutrients\nfrom the enemy, healing you";
                             UpperChanceBounds = 5;
                             TargetsSelf = true;
-                            Heal = (int)(damageDealt * 0.2f);
+                            Heal = (int)(damageDealt * 0.25f);
                             break;
                         case 4: //insect soldier
                             EffectString = "Has a chance to poison the enemy";
@@ -173,7 +173,7 @@ namespace Warlock_The_Soulbinder
                         case 20: //raven
                             EffectString = "Has a chance to blind\nyour enemy, reducing \ntheir accuracy";
                             UpperChanceBounds = 13;
-                            AccuracyMod = 0.1f;
+                            AccuracyMod = 0.25f;
                             EffectLength = 3;
                             break;
                     }
@@ -270,7 +270,7 @@ namespace Warlock_The_Soulbinder
                             Shield = (int)(3 * (stone.Level + 3)) + 1;
                             break;
                         case 13: //defender
-                            EffectString = "Strengthens your defense after being hit";
+                            EffectString = "Strengthens your defense after being \nhit";
                             TargetsSelf = true;
                             DamageAbs = (int)(1.5 * (stone.Level + 3));
                             EffectLength = 1;
@@ -315,7 +315,7 @@ namespace Warlock_The_Soulbinder
                         case 20: //raven
                             EffectString = "Has a chance to blind the enemy \nwhen hit";
                             UpperChanceBounds = 20;
-                            AccuracyMod = 0.1f;
+                            AccuracyMod = 0.25f;
                             EffectLength = 3;
                             break;
                     }
@@ -352,6 +352,7 @@ namespace Warlock_The_Soulbinder
                                 Heal = (int)(localDamage * 0.5f);
                                 Cooldown = 5;
                             }
+                            Cooldown = 3;
                             break;
                         case 4: //insect soldier
                             EffectString = "Poison your enemy";
@@ -375,8 +376,8 @@ namespace Warlock_The_Soulbinder
                         case 7: //frog
                             EffectString = "Shoot mucus at you enemy \nslowing them down";
                             SpeedMod = 0.6f;
-                            EffectLength = 3;
-                            Cooldown = 6;
+                            EffectLength = 2;
+                            Cooldown = 8;
                             break;
                         case 8: //fish
                             EffectString = "Regenerate health for a few round";
@@ -428,7 +429,6 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Scans your enemy, adding \ntheir info to your Log";
-
                             Cooldown = 99;
                             break;
                         case 15: //fire golem
@@ -452,10 +452,9 @@ namespace Warlock_The_Soulbinder
                             Cooldown = 6;
                             break;
                         case 17: //ash zombie
-                            EffectString = "Causes your next two attacks to \nstrike twice";
+                            EffectString = "Causes your next attack to \nstrike twice";
                             TargetsSelf = true;
                             DoubleAttack = true;
-                            EffectLength = 2;
                             Cooldown = 7;
                             break;
                         case 18: //falcon
@@ -463,7 +462,7 @@ namespace Warlock_The_Soulbinder
                             TargetsSelf = true;
                             SpeedMod = 1.55f;
                             EffectLength = 3;
-                            Cooldown = 6;
+                            Cooldown = 4;
                             break;
                         case 19: //bat
                             EffectString = "Confuses your enemy with a \nsuper sonic screech";
@@ -473,7 +472,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 20: //raven
                             EffectString = "Pecks out your enemy's eyes, \nlowering their accuracy for \na few rounds";
-                            AccuracyMod = 0.1f;
+                            AccuracyMod = 0.25f;
                             EffectLength = 3;
                             Cooldown = 10;
                             break;

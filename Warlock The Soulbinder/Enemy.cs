@@ -320,6 +320,11 @@ namespace Warlock_The_Soulbinder
             movementSpeed = 10;
             Position = startPos;
 
+            if (ReturnMonsterIndex(Monster) > 20)
+            {
+                Dragon = true;
+            }
+
             Level = level;
             
             //base stats
@@ -373,6 +378,46 @@ namespace Warlock_The_Soulbinder
                 case "bat":
                 case "raven":
                     airDamage = (int)(Damage * 4f);
+                    break;
+                    //dragons
+                case "neutralDragon":
+                    Defense = (int)(Defense * 1.25f);
+                    break;
+                case "earthDragon":
+                    EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    earthDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "waterDragon":
+                    WaterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    AirResistance = (float)(AirResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    waterDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "darkDragon":
+                    DarkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    MetalResistance = (float)(MetalResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    darkDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "metalDragon":
+                    MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    metalDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "fireDragon":
+                    FireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    WaterResistance = (float)(WaterResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    fireDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "airDragon":
+                    AirResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    EarthResistance = (float)(EarthResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    airDamage = damage;
+                    damage = (int)(damage * 0.25f);
                     break;
             }
             

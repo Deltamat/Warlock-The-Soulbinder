@@ -333,25 +333,7 @@ namespace Warlock_The_Soulbinder
                     airDamage = (int)(damage * 4f);
                     break;
             }
-
-            //adds damage and resistances to lists for ease of use
-            #region
-            ResistanceTypes.Clear();
-            DamageTypes.Clear();
-            ResistanceTypes.Add(earthResistance);
-            ResistanceTypes.Add(waterResistance);
-            ResistanceTypes.Add(darkResistance);
-            ResistanceTypes.Add(metalResistance);
-            ResistanceTypes.Add(fireResistance);
-            ResistanceTypes.Add(airResistance);
-            DamageTypes.Add(earthDamage);
-            DamageTypes.Add(waterDamage);
-            DamageTypes.Add(darkDamage);
-            DamageTypes.Add(metalDamage);
-            DamageTypes.Add(fireDamage);
-            DamageTypes.Add(airDamage);
-            #endregion
-
+            
             WeaponSkill();
             ArmorSkill();
             Skill();
