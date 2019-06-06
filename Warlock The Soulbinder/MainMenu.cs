@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Warlock_The_Soulbinder
 {
@@ -16,6 +17,7 @@ namespace Warlock_The_Soulbinder
         private Button loadGameButton;
         private Button newGameButton;
         private Button exitGameButton;
+        private Button returnButton;
         private Button loadSlot1;
         private Button loadSlot2;
         private Button loadSlot3;
@@ -69,12 +71,17 @@ namespace Warlock_The_Soulbinder
             loadSlot2.TextForButton = "Save slot 2";
             loadSlot3 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 700), GameWorld.ContentManager);
             loadSlot3.TextForButton = "Save slot 3";
+            returnButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 800), GameWorld.ContentManager);
+            returnButton.TextForButton = "Return";
+
             loadSlot1.Click += SaveSlot1;
             loadSlot2.Click += SaveSlot2;
             loadSlot3.Click += SaveSlot3;
+            returnButton.Click += ReturnButton;
             loadSlots.Add(loadSlot1);
             loadSlots.Add(loadSlot2);
             loadSlots.Add(loadSlot3);
+            loadSlots.Add(returnButton);
             mainMenuButtons.Add(loadGameButton);
             mainMenuButtons.Add(newGameButton);
             mainMenuButtons.Add(exitGameButton);
@@ -97,13 +104,18 @@ namespace Warlock_The_Soulbinder
             }
             else 
             {
+                //return to main menu
+                if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyReturn) || InputHandler.Instance.KeyPressed(Keys.R) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonReturn)) && delay > 150)
+                {
+                    MainMenuState = "Main";
+                }
                 //for mouse
                 foreach (var loadSlot in loadSlots)
                 {
                     loadSlot.Update(gameTime);
                 }
                 //for keyboard
-                ChangeSelectedIndex(2);
+                ChangeSelectedIndex(3);
                 ChooseSaveGame();
             }
         }
@@ -152,6 +164,10 @@ namespace Warlock_The_Soulbinder
         private void ExitGame(object sender, EventArgs e)
         {
             GameWorld.Instance.Exit();
+        }
+        private void ReturnButton(object sender, EventArgs e)
+        {
+            MainMenuState = "Main";
         }
 
         private void SaveSlot1(object sender, EventArgs e)
@@ -246,6 +262,9 @@ namespace Warlock_The_Soulbinder
                             GameWorld.Instance.LoadDB();
                         }
                         GameWorld.Instance.GameState = "Overworld";
+                        break;
+                    case 3:
+                        MainMenuState = "Main";
                         break;
                 }
             }

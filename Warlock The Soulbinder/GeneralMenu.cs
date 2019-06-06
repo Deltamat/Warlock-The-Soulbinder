@@ -149,7 +149,7 @@ namespace Warlock_The_Soulbinder
                     }
 
                     //Goes to next page in case it has one
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && currentPage < FilledStone.StoneListPages)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.KeyPressed(Keys.D) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 200 && currentPage < FilledStone.StoneListPages)
                     {
                         currentPage++;
                         delay = 0;
@@ -157,7 +157,7 @@ namespace Warlock_The_Soulbinder
                     }
 
                     //Goes to last page unless you are on the first one
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && currentPage > 0)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.KeyPressed(Keys.A) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 200 && currentPage > 0)
                     {
                         currentPage--;
                         delay = 0;
@@ -168,7 +168,7 @@ namespace Warlock_The_Soulbinder
                     ChangeSelected(3);
 
                     //Changes sound and music volume for the game
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 30)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.KeyPressed(Keys.D) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 30)
                     {
                         if (GameWorld.Instance.SoundEffectVolume < 1 && selectedInt == 0)
                         {
@@ -183,7 +183,7 @@ namespace Warlock_The_Soulbinder
                         }
                     }
 
-                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 30)
+                    if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyLeft) || InputHandler.Instance.KeyPressed(Keys.A) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonLeft)) && delay > 30)
                     {
                         if (GameWorld.Instance.SoundEffectVolume > 0 && selectedInt == 0)
                         {

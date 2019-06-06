@@ -310,9 +310,21 @@ namespace Warlock_The_Soulbinder
             {
                 FilledStone.StoneList.Add(new FilledStone(new Enemy(RandomInt(0, 21), Vector2.Zero)));
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.U) && delay > 100)
+            {
+                foreach (FilledStone stone in Equipment.Instance.EquippedEquipment)
+                {
+                    if (stone != null)
+                    {
+                        stone.Level = 20;
+                    }
+                }
+            }
+
             #endregion
 #endif
-            
+
             //timer for how long the "Saved" text should be in the top-left of the screen
             if (Saved)
             {
