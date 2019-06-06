@@ -142,7 +142,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="app.manifest" />
-    <None Include="Content\Content.mgcb" />
+    <None Include="Content\Content.mgcb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
