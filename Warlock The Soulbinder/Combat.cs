@@ -143,7 +143,7 @@ namespace Warlock_The_Soulbinder
                 victoryTimer += gameTime.ElapsedGameTime.Milliseconds;
             }
 
-            if (Target != null && victoryTimer > 2000)
+            if (Target != null && victoryTimer > 1000)
             {
                 Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, Target.Level)));
 
@@ -576,11 +576,11 @@ namespace Warlock_The_Soulbinder
             //Alternate take on turnTimer
             if (Target.AttackSpeed > Player.Instance.AttackSpeed)
             {
-                turnTimer = Target.AttackSpeed * 100.5f;
+                turnTimer = Target.AttackSpeed * 55.5f;
             }
             else
             {
-                turnTimer = Player.Instance.AttackSpeed * 100.5f;
+                turnTimer = Player.Instance.AttackSpeed * 55.5f;
             }
         }
         

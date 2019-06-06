@@ -935,15 +935,12 @@ namespace Warlock_The_Soulbinder
                         InventoryState = "Help";
                         break;
                     case 4:
-
                         if (Log.Instance.LogBegun == true)
                         {
                             InventoryState = "Log";
                         }
-
                         break;
                     case 5:
-                        //inventoryState = "Save";
                         GameWorld.Instance.SaveToDB();
                         break;
                     case 6:
