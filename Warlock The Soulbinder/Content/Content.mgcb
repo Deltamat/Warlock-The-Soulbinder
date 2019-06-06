@@ -3199,43 +3199,55 @@
 /build:TurnFull.png
 
 #begin zones/Air.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Air.tmx
 
 #begin zones/Dark.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Dark.tmx
 
 #begin zones/Dragon.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Dragon.tmx
 
 #begin zones/DragonRealm.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/DragonRealm.tmx
 
+#begin zones/dungeonTileset.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:zones/dungeonTileset.png
+
 #begin zones/Earth.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Earth.tmx
 
 #begin zones/Fire.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Fire.tmx
 
 #begin zones/Metal.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Metal.tmx
 
 #begin zones/Neutral.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Neutral.tmx
 
 #begin zones/tilesetDark.png
@@ -3311,8 +3323,8 @@
 /build:zones/tombs.png
 
 #begin zones/Town.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Town.tmx
 
 #begin zones/verticalTree.png
@@ -3328,7 +3340,7 @@
 /build:zones/verticalTree.png
 
 #begin zones/Water.tmx
-/importer:
-/processor:
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
 /build:zones/Water.tmx
 

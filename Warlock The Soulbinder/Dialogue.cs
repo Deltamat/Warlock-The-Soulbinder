@@ -65,6 +65,7 @@ namespace Warlock_The_Soulbinder
                 {
                     GameWorld.Instance.currentZone = "DragonRealm";
                     GameWorld.Instance.CurrentZone().GenerateZone();
+                    Player.Instance.Position = new Vector2(3300, 6100);
                 }
             }
         }

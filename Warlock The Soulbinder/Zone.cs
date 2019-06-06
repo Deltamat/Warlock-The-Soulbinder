@@ -341,7 +341,7 @@ namespace Warlock_The_Soulbinder
 
                 if (dragon != -1)
                 {
-                    Enemies.Add(new Enemy(dragon, new Vector2(100, 100)));
+                    Enemies.Add(new Enemy(dragon, new Vector2(3100, 500)));
                 }
                 
             }
