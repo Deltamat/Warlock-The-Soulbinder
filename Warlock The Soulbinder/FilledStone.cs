@@ -35,14 +35,6 @@ namespace Warlock_The_Soulbinder
         private Effect dragonArmorEffect3;
         private List<Effect> dragonArmorEffects = new List<Effect>();
         private Effect skillEffect;
-        public string SpriteName { get => spriteName; set => spriteName = value; }
-        public string Monster { get => monster; set => monster = value; }
-        public string Element { get => element; set => element = value; }
-        public int Level { get => level; set => level = value; }
-        public int Experience { get => experience; set => experience = value; }
-        public bool Equipped { get => equipped; set => equipped = value; }
-        public string EquipmentSlot { get => equipmentSlot; set => equipmentSlot = value; }
-        public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
         private int id;
 
         private int maxHealth;
@@ -79,6 +71,22 @@ namespace Warlock_The_Soulbinder
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
         public int InternalCooldown { get => internalCooldown; set => internalCooldown = value; }
+        public string SpriteName { get => spriteName; set => spriteName = value; }
+        public string Monster { get => monster; set => monster = value; }
+        public string Element { get => element; set => element = value; }
+        public int Experience { get => experience; set => experience = value; }
+        public bool Equipped { get => equipped; set => equipped = value; }
+        public string EquipmentSlot { get => equipmentSlot; set => equipmentSlot = value; }
+        public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
+        public int Level
+        {
+            get => level;
+            set 
+            {
+                level = value;
+                BaseStats();
+            }
+        }
 
         public static List<FilledStone> StoneList
         {
@@ -350,7 +358,7 @@ namespace Warlock_The_Soulbinder
         public FilledStone(Enemy enemy)
         {
             Monster = enemy.Monster;
-            Level = (int)(enemy.Level/2);
+            Level = (int)(enemy.Level * 0.5);
             try
             {
                 spriteName = $"monsters/Orbs/{Monster}";
@@ -364,14 +372,10 @@ namespace Warlock_The_Soulbinder
             {
                 sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
             }
-
-            float modifier = 0.2f;
+            
 
             //base stats
-            Damage = (int)(enemy.Damage*0.5f);
-            maxHealth = (int)(enemy.MaxHealth * modifier);
-            attackSpeed = (enemy.AttackSpeed * modifier);
-            Defense = (int)(enemy.Defense * modifier);
+            //BaseStats();
 
             //switch case to determine the element, and name of abilities, based on the monster type, directly add effects to dragons
             switch (Monster)
@@ -632,11 +636,7 @@ namespace Warlock_The_Soulbinder
             }
 
             //adds damage and resistances to lists for ease of use
-            for (int i = 0; i < enemy.ResistanceTypes.Count; i++)
-            {
-                ResistanceTypes.Add(enemy.ResistanceTypes[i] * modifier * 2);
-                DamageTypes.Add((int)(enemy.DamageTypes[i] * modifier * 2));
-            }
+            
 
             if (!enemy.Dragon)
             {
@@ -644,6 +644,39 @@ namespace Warlock_The_Soulbinder
                 ArmorSkill();
                 Skill();
             }
+        }
+
+        /// <summary>
+        /// Sets base stats according to the stone's level
+        /// </summary>
+        public void BaseStats()
+        {
+            float modifier = 0.2f;
+
+            //base stats
+            Damage = (int)((5 * (Level + 2.5) * 0.6f) * modifier);
+            maxHealth = (int)((5 * (Level + 3) * 2.5f) * modifier);
+            attackSpeed = (int)((3 * (Level + 5.5)) * modifier);
+            Defense = (int)((5 * (Level + 2.5f) * 0.2f) * modifier);
+
+            //MetalResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            //EarthResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            //AirResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            //FireResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            //DarkResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            //WaterResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+
+            //switch (Element)
+            //{
+            //    default:
+            //        break;
+            //}
+
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    ResistanceTypes.Add(enemy.ResistanceTypes[i] * modifier * 2);
+            //    DamageTypes.Add((int)(enemy.DamageTypes[i] * modifier * 2));
+            //}
         }
 
         public void WeaponSkill()

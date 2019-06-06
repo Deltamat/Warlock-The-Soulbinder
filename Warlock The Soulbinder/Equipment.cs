@@ -132,7 +132,6 @@ namespace Warlock_The_Soulbinder
                     {
                         if (tempList[i].ExperienceRequired - tempList[i].Experience <= 0)
                         {
-
                             tempList[i].Experience = tempList[i].Experience - tempList[i].ExperienceRequired;
                             tempList[i].Level++;
                             tempList[i].Damage = (int)(Math.Round(tempList[i].Damage * 1.1));
@@ -143,7 +142,6 @@ namespace Warlock_The_Soulbinder
                             tempList[i].ExperienceRequired = (int)(10 * Math.Pow(1.3, tempList[i].Level));
                         }
                     }
-                   
                 }
             }
 
