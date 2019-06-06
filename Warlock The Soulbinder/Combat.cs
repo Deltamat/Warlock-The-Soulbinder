@@ -145,7 +145,7 @@ namespace Warlock_The_Soulbinder
 
             if (Target != null && victoryTimer > 1000)
             {
-                Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, Target.Level)));
+                Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.3, Target.Level)));
 
                 if (Target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
                 {
@@ -1418,6 +1418,7 @@ namespace Warlock_The_Soulbinder
             Player.Instance.AttackStart = false;
             Player.Instance.Hurt = false;
             Player.Instance.HurtStart = false;
+            GameWorld.Instance.SaveToDB();
         }
     }
 }
