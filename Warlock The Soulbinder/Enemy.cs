@@ -162,7 +162,7 @@ namespace Warlock_The_Soulbinder
                 case "sentry":
                     MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
+                    metalDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "fireGolem":
@@ -206,7 +206,7 @@ namespace Warlock_The_Soulbinder
                 case "metalDragon":
                     MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
                     FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
-                    earthDamage = damage;
+                    metalDamage = damage;
                     damage = (int)(damage * 0.25f);
                     break;
                 case "fireDragon":

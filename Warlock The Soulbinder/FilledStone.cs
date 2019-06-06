@@ -336,6 +336,8 @@ namespace Warlock_The_Soulbinder
 
             //adds damage and resistances to lists for ease of use
             #region
+            ResistanceTypes.Clear();
+            DamageTypes.Clear();
             ResistanceTypes.Add(earthResistance);
             ResistanceTypes.Add(waterResistance);
             ResistanceTypes.Add(darkResistance);
