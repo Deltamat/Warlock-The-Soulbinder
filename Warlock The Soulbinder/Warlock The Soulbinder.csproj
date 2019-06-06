@@ -143,7 +143,7 @@
     <None Include="App.config" />
     <None Include="app.manifest" />
     <MonoGameContentReference Include="Content\Content.mgcb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </MonoGameContentReference>
     <None Include="packages.config" />
   </ItemGroup>
