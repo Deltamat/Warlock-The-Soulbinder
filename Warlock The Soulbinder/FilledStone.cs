@@ -40,19 +40,19 @@ namespace Warlock_The_Soulbinder
         private int maxHealth;
         protected float attackSpeed;
         protected int damage;
+        protected int earthDamage;
         protected int waterDamage;
         protected int darkDamage;
+        protected int metalDamage;
         protected int fireDamage;
         protected int airDamage;
-        protected int earthDamage;
-        protected int metalDamage;
         protected int defense;
+        protected float earthResistance;
         protected float waterResistance;
         protected float darkResistance;
+        protected float metalResistance;
         protected float fireResistance;
         protected float airResistance;
-        protected float earthResistance;
-        protected float metalResistance;
         protected List<int> damageTypes = new List<int>();
         protected List<float> resistanceTypes = new List<float>();
 
@@ -358,24 +358,6 @@ namespace Warlock_The_Soulbinder
         public FilledStone(Enemy enemy)
         {
             Monster = enemy.Monster;
-            Level = (int)(enemy.Level * 0.5);
-            try
-            {
-                spriteName = $"monsters/Orbs/{Monster}";
-            }
-            catch
-            {
-                spriteName = "items/blankSoulGem";
-            }
-            
-            if (Enemy.ReturnMonsterIndex(enemy.Monster) <= 20)
-            {
-                sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-            }
-            
-
-            //base stats
-            //BaseStats();
 
             //switch case to determine the element, and name of abilities, based on the monster type, directly add effects to dragons
             switch (Monster)
@@ -635,9 +617,22 @@ namespace Warlock_The_Soulbinder
                     break;
             }
 
-            //adds damage and resistances to lists for ease of use
-            
+            Level = (int)(enemy.Level * 0.5);
 
+            try
+            {
+                spriteName = $"monsters/Orbs/{Monster}";
+            }
+            catch
+            {
+                spriteName = "monsters/Orbs/blankSoulGem";
+            }
+            
+            if (Enemy.ReturnMonsterIndex(enemy.Monster) <= 20)
+            {
+                sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
+            }
+            
             if (!enemy.Dragon)
             {
                 WeaponSkill();
@@ -654,29 +649,81 @@ namespace Warlock_The_Soulbinder
             float modifier = 0.2f;
 
             //base stats
-            Damage = (int)((5 * (Level + 2.5) * 0.6f) * modifier);
+            Damage = (int)((10 * (Level + 2.5) * 0.6f) * modifier);
             maxHealth = (int)((5 * (Level + 3) * 2.5f) * modifier);
             attackSpeed = (int)((3 * (Level + 5.5)) * modifier);
             Defense = (int)((5 * (Level + 2.5f) * 0.2f) * modifier);
 
-            //MetalResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            //EarthResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            //AirResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            //FireResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            //DarkResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            //WaterResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            earthResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
+            waterResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
+            darkResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
+            metalResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
+            fireResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
+            airResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
 
-            //switch (Element)
-            //{
-            //    default:
-            //        break;
-            //}
+            switch (Element)
+            {
+                case "neutral":
+                    Defense = (int)(Defense * (Level * 0.75f) * modifier);
+                    break;
+                case "earth":
+                    earthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    darkResistance = (float)(darkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    earthDamage = (int)(damage * 0.75f);
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "water":
+                    waterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    airResistance = (float)(airResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    waterDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "dark":
+                    darkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    metalResistance = (float)(metalResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    darkDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "metal":
+                    metalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    fireResistance = (float)(fireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    earthDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "fire":
+                    fireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    waterResistance = (float)(waterResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    fireDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+                case "air":
+                    airResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+                    earthResistance = (float)(earthResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
+                    airDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
+                    break;
+            }
 
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    ResistanceTypes.Add(enemy.ResistanceTypes[i] * modifier * 2);
-            //    DamageTypes.Add((int)(enemy.DamageTypes[i] * modifier * 2));
-            //}
+            ResistanceTypes.Clear();
+            DamageTypes.Clear();
+
+            ResistanceTypes.Add(earthResistance);
+            ResistanceTypes.Add(waterResistance);
+            ResistanceTypes.Add(darkResistance);
+            ResistanceTypes.Add(metalResistance);
+            ResistanceTypes.Add(fireResistance);
+            ResistanceTypes.Add(airResistance);
+            DamageTypes.Add(earthDamage);
+            DamageTypes.Add(waterDamage);
+            DamageTypes.Add(darkDamage);
+            DamageTypes.Add(metalDamage);
+            DamageTypes.Add(fireDamage);
+            DamageTypes.Add(airDamage);
+
+            if (Equipped)
+            {
+                Player.Instance.UpdateStats();
+            }
         }
 
         public void WeaponSkill()

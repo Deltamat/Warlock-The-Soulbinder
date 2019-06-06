@@ -111,12 +111,12 @@ namespace Warlock_The_Soulbinder
             Damage = (int)(5 * ((Level + GameWorld.Instance.RandomInt(2, 4)) * 0.6f));
             maxHealth = (int)(5 * ((Level + GameWorld.Instance.RandomInt(2, 5)) * 2.5f));
             attackSpeed = (3 * Level + GameWorld.Instance.RandomInt(5, 7));
-            MetalResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
             EarthResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            AirResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            FireResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
-            DarkResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
             WaterResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            DarkResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            MetalResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            FireResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            AirResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
             #endregion
 
             if (dragon)
