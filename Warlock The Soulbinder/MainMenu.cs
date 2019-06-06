@@ -15,6 +15,7 @@ namespace Warlock_The_Soulbinder
         private Texture2D emptyButton;
         private Button loadGameButton;
         private Button newGameButton;
+        private Button exitGameButton;
         private Button loadSlot1;
         private Button loadSlot2;
         private Button loadSlot3;
@@ -51,13 +52,16 @@ namespace Warlock_The_Soulbinder
             arrow = GameWorld.ContentManager.Load<Texture2D>("Arrow");
             emptyButton = GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton");
             cX = GameWorld.Instance.ScreenSize.Width * 0.5f - emptyButton.Width * 0.5f;
-            loadGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 400), GameWorld.ContentManager);
-            loadGameButton.TextForButton = "Load";
             newGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 300), GameWorld.ContentManager);
             newGameButton.TextForButton = "New game";
+            loadGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 400), GameWorld.ContentManager);
+            loadGameButton.TextForButton = "Load";
+            exitGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 500), GameWorld.ContentManager);
+            exitGameButton.TextForButton = "Exit game";
             cX2 = cX - arrow.Width;
             loadGameButton.Click += LoadGame;
             newGameButton.Click += NewGame;
+            exitGameButton.Click += ExitGame;
 
             loadSlot1 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 500), GameWorld.ContentManager);
             loadSlot1.TextForButton = "Save slot 1";
@@ -73,6 +77,7 @@ namespace Warlock_The_Soulbinder
             loadSlots.Add(loadSlot3);
             mainMenuButtons.Add(loadGameButton);
             mainMenuButtons.Add(newGameButton);
+            mainMenuButtons.Add(exitGameButton);
         }
 
         public override void Update(GameTime gameTime)
@@ -87,7 +92,7 @@ namespace Warlock_The_Soulbinder
                     item.Update(gameTime);
                 }
                 //for keyboard
-                ChangeSelectedIndex(1);
+                ChangeSelectedIndex(2);
                 ChangeMainMenuState();
             }
             else 
@@ -142,6 +147,11 @@ namespace Warlock_The_Soulbinder
         private void LoadGame(object sender, EventArgs e)
         {
             MainMenuState = "Load Game";
+        }
+
+        private void ExitGame(object sender, EventArgs e)
+        {
+            GameWorld.Instance.Exit();
         }
 
         private void SaveSlot1(object sender, EventArgs e)
@@ -199,6 +209,9 @@ namespace Warlock_The_Soulbinder
                     case 1:
                         MainMenuState = "Load Game";
                         break;
+                    case 2:
+                        GameWorld.Instance.Exit();
+                        break;
                 }
                 Delay = 0;
                 selectedIndex = 0;
@@ -240,13 +253,13 @@ namespace Warlock_The_Soulbinder
 
         private void ChangeSelectedIndex(int maxIndex)
         {
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && Delay > 150 && selectedIndex > 0)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyW) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && Delay > 150 && selectedIndex > 0)
             {
                 selectedIndex--;
                 Delay = 0;
             }
 
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonDown)) && Delay > 150 && selectedIndex < maxIndex)
+            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyS) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyDown) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonDown)) && Delay > 150 && selectedIndex < maxIndex)
             {
                 selectedIndex++;
                 Delay = 0;
