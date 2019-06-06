@@ -110,11 +110,9 @@ namespace Warlock_The_Soulbinder
             if (Target != null && playerAttackTimer < turnTimer && enemyAttackTimer < turnTimer && !Player.Instance.Attacking && !Player.Instance.Hurt && !Player.Instance.AttackStart && !Player.Instance.HurtStart && victoryTimer == 0)
             {
                 buttonColor = Color.Gray;
-                playerAttackTimer += Player.Instance.AttackSpeed * playerSpeedMod;
+                playerAttackTimer += Player.Instance.AttackSpeed * playerSpeedMod + 0.1f;
                 enemyAttackTimer += Target.AttackSpeed * enemySpeedMod;
             }
-
-
             else if (playerAttackTimer >= turnTimer)
             {
                 buttonColor = Color.White;
@@ -145,7 +143,7 @@ namespace Warlock_The_Soulbinder
 
             if (Target != null && victoryTimer > 1000)
             {
-                Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.2, Target.Level)));
+                Equipment.Instance.ExperienceEquipment((int)(20 * Math.Pow(1.3, Target.Level)));
 
                 if (Target.Monster.Contains("Dragon")) // if enemy is a dragon mark the dragon as dead
                 {
@@ -1077,15 +1075,18 @@ namespace Warlock_The_Soulbinder
                             target.CurrentHealth -= tempEffect.Damage; //damages enemy
                             Player.Instance.CurrentHealth += tempEffect.Heal; //heals player
                         }
-                        
+
                         //rolls chance for target's weapon soul stone to apply effects
-                        if (!target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0 && !target.EnemyStone.WeaponEffect.StatBuff) //has a chance to add negative effects to the player
+                        if (target != null)
                         {
-                            playerEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
-                        }
-                        else if (target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0 && !target.EnemyStone.WeaponEffect.StatBuff) //has a chance to add positive effects to the enemy
-                        {
-                            enemyEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                            if (!target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0 && !target.EnemyStone.WeaponEffect.StatBuff) //has a chance to add negative effects to the player
+                            {
+                                playerEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                            }
+                            else if (target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0 && !target.EnemyStone.WeaponEffect.StatBuff) //has a chance to add positive effects to the enemy
+                            {
+                                enemyEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
+                            }
                         }
 
                         //applies healing
@@ -1418,6 +1419,7 @@ namespace Warlock_The_Soulbinder
             Player.Instance.AttackStart = false;
             Player.Instance.Hurt = false;
             Player.Instance.HurtStart = false;
+            GameWorld.Instance.SaveToDB();
         }
     }
 }

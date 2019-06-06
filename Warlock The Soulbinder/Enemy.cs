@@ -107,16 +107,16 @@ namespace Warlock_The_Soulbinder
             }
             
             #region base stats
-            Defense = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 4)) * 0.2f));
-            Damage = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 5)) * 0.4f));
-            maxHealth = (int)(10 * ((Level + GameWorld.Instance.RandomInt(1, 6)) * 2.5f));
-            attackSpeed = (5 * Level + GameWorld.Instance.RandomInt(5, 11));
-            MetalResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
-            EarthResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
-            AirResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
-            FireResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
-            DarkResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
-            WaterResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(1, 5));
+            Defense = (int)(5 * ((Level + GameWorld.Instance.RandomInt(2, 4)) * 0.2f));
+            Damage = (int)(5 * ((Level + GameWorld.Instance.RandomInt(2, 4)) * 0.6f));
+            maxHealth = (int)(5 * ((Level + GameWorld.Instance.RandomInt(2, 5)) * 2.5f));
+            attackSpeed = (3 * Level + GameWorld.Instance.RandomInt(5, 7));
+            EarthResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            WaterResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            DarkResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            MetalResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            FireResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
+            AirResistance = (float)Math.Log(10 * (Level * 0.3f) + GameWorld.Instance.RandomInt(2, 4));
             #endregion
 
             if (dragon)
