@@ -570,6 +570,7 @@ namespace Warlock_The_Soulbinder
         public void SelectEnemy(Enemy combatEnemy)
         {
             Target = combatEnemy;
+            Player.Instance.AniIndex = 0;
 
             //Alternate take on turnTimer
             if (Target.AttackSpeed > Player.Instance.AttackSpeed)
@@ -628,6 +629,10 @@ namespace Warlock_The_Soulbinder
                 {
                     if (effect.EffectLength > 0)
                     {
+                        if (effect.Heal > 0)
+                        {
+                            effect.EffectLength++;
+                        }
                         Player.Instance.CurrentHealth -= effect.Damage; //applies damage
                         playerShield += effect.Shield;
                         if (effect.Shield != 0)
@@ -1289,17 +1294,21 @@ namespace Warlock_The_Soulbinder
                         }
 
                         //rolls chance for target's weapon soul stone to apply effects
-                        foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
+                        if (target != null)
                         {
-                            if (!itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add negative effects to the player
+                            foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
                             {
-                                playerEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
-                            }
-                            else if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add positive effects to the enemy
-                            {
-                                enemyEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
+                                if (!itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add negative effects to the player
+                                {
+                                    playerEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
+                                }
+                                else if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add positive effects to the enemy
+                                {
+                                    enemyEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
+                                }
                             }
                         }
+                        
                         
                         //applies healing
                         foreach (Effect effect in enemyEffects)
@@ -1413,6 +1422,7 @@ namespace Warlock_The_Soulbinder
             buttonType = "Normal";
             Target = null;
             Log.Instance.CalculateBonus();
+            Player.Instance.AniIndex = 0;
             Player.Instance.GracePeriod = 0;
             Player.Instance.GraceStart = false;
             Player.Instance.Attacking = false;

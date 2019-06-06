@@ -652,7 +652,7 @@ namespace Warlock_The_Soulbinder
             Damage = (int)((10 * (Level + 2.5) * 0.6f) * modifier);
             maxHealth = (int)((5 * (Level + 3) * 2.5f) * modifier);
             attackSpeed = (int)((3 * (Level + 5.5)) * modifier);
-            Defense = (int)((5 * (Level + 2.5f) * 0.2f) * modifier);
+            Defense = (int)((10 * (Level + 2.5f) * 0.2f) * modifier);
 
             earthResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
             waterResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
@@ -664,42 +664,48 @@ namespace Warlock_The_Soulbinder
             switch (Element)
             {
                 case "neutral":
-                    Defense = (int)(Defense * (Level * 0.75f) * modifier);
+                    Defense = (int)(Defense * (Level * 0.75f) * modifier + Level);
+                    earthResistance *= 2;
+                    waterResistance *= 2;
+                    darkResistance *= 2;
+                    metalResistance *= 2;
+                    fireResistance *= 2;
+                    airResistance *= 2;
                     break;
                 case "earth":
                     earthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     darkResistance = (float)(darkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.75f);
-                    damage = (int)(damage * 0.25f);
+                    earthDamage = (int)(damage * 1.8f);
+                    damage = (int)(damage * 0.2f);
                     break;
                 case "water":
                     waterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     airResistance = (float)(airResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    waterDamage = (int)(damage * 0.8f);
+                    waterDamage = (int)(damage * 1.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "dark":
                     darkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     metalResistance = (float)(metalResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    darkDamage = (int)(damage * 0.8f);
+                    darkDamage = (int)(damage * 1.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "metal":
                     metalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     fireResistance = (float)(fireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
+                    earthDamage = (int)(damage * 1.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "fire":
                     fireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     waterResistance = (float)(waterResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    fireDamage = (int)(damage * 0.8f);
+                    fireDamage = (int)(damage * 1.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "air":
                     airResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     earthResistance = (float)(earthResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    airDamage = (int)(damage * 0.8f);
+                    airDamage = (int)(damage * 1.8f);
                     damage = (int)(damage * 0.2f);
                     break;
             }

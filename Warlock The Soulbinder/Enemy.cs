@@ -138,8 +138,8 @@ namespace Warlock_The_Soulbinder
                 case "slimeSnake":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.75f);
-                    damage = (int)(damage * 0.25f);
+                    earthDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
                     break;
                 case "tentacle":
                 case "frog":
@@ -183,7 +183,7 @@ namespace Warlock_The_Soulbinder
                     break;
                     //dragons
                 case "neutralDragon":
-                    Defense = (int)(Defense * (Level * 1.75f));
+                    Defense = (int)(Defense * 1.75f);
                     Damage = (int)Math.Round(Damage * 1.25f);
                     break;
                 case "earthDragon":

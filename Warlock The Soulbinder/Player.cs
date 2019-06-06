@@ -86,6 +86,7 @@ namespace Warlock_The_Soulbinder
         public bool GraceStart { get => graceStart; set => graceStart = value; }
         public bool AttackStart { get => attackStart; set => attackStart = value; }
         public bool HurtStart { get => hurtStart; set => hurtStart = value; }
+        public int AniIndex { set => aniIndex = value; }
 
         /// <summary>
         /// Returns the player's collision box. Modified to better suit this game's player sprite
@@ -460,7 +461,7 @@ namespace Warlock_The_Soulbinder
             //Damage += over9000;
             //Defense += over9000;
             //AttackSpeed += over9000;
-            MaxHealth += over9000;
+            //MaxHealth += over9000;
 #endif
             for (int i = 0; i < DamageTypes.Count; i++)
             {
