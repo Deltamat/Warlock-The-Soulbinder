@@ -1025,27 +1025,32 @@ namespace Warlock_The_Soulbinder
                         //Checks all of the equipment slots and makes them null if the item is no longer equipped to them
                         if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.Equipped == false)
                         {
-                            Equipment.Instance.Weapon = null ;
+                            Equipment.Instance.Weapon = null;
+                            Equipment.Instance.EquippedEquipment[0] = null;
                         }
                             
                         if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.Equipped == false)
                         {
                             Equipment.Instance.Armor = null;
+                            Equipment.Instance.EquippedEquipment[1] = null;
                         }
                             
                         if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.Equipped == false)
                         {
                             Equipment.Instance.Skill1 = null;
+                            Equipment.Instance.EquippedEquipment[2] = null;
                         }
                             
                         if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.Equipped == false)
                         {
-                            Equipment.Instance.Skill2 = null ;
+                            Equipment.Instance.Skill2 = null;
+                            Equipment.Instance.EquippedEquipment[3] = null;
                         }
                             
                         if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.Equipped == false)
                         {
                             Equipment.Instance.Skill3 = null;
+                            Equipment.Instance.EquippedEquipment[4] = null;
                         }
                         
                         Equipment.Instance.EquipStone(EquippingTo, FilledStone.StoneList[selectedInt + currentPage * 9]);
