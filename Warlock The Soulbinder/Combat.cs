@@ -218,6 +218,7 @@ namespace Warlock_The_Soulbinder
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(GameWorld.Instance.Background, Vector2.Zero, Color.White);
             spriteBatch.Draw(sheet, new Vector2(800, 300), Color.White);
 
             for (int i = 0; i < emptyButtonList.Count; i++)
@@ -401,7 +402,7 @@ namespace Warlock_The_Soulbinder
                         if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.InternalCooldown == 0)
                         {
                             CountCooldown();
-
+                            
                            
                             Effect tempEffect = new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, Player.Instance, 0);
                             if (Equipment.Instance.Skill1.Monster == "sentry")
@@ -928,6 +929,8 @@ namespace Warlock_The_Soulbinder
             enemyDamageReduction = 1;
             enemyDamageAbs = 0;
 
+            Sound.PlaySound($"sound/monsterSounds/{target.Monster}");
+
             if (target.EnemyStone.WeaponEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0) //checks for double attack 
             {
                 enemyAttackAmount++;
@@ -1129,6 +1132,7 @@ namespace Warlock_The_Soulbinder
             enemySpeedMod = 1f;
             enemyDamageReduction = 1;
             enemyDamageAbs = 0;
+            Sound.PlaySound($"sound/monsterSounds/dragon");
 
             foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
             {

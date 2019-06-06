@@ -159,7 +159,7 @@ namespace Warlock_The_Soulbinder
             keySelect = Keys.Enter;
             keyCancel = Keys.RightShift;
             keyReturn = Keys.Back;
-            keyMenu = Keys.D3;
+            keyMenu = Keys.Escape;
 
             buttonDown = Buttons.DPadDown;
             buttonUp = Buttons.DPadUp;
