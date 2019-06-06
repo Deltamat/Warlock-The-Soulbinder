@@ -350,7 +350,7 @@ namespace Warlock_The_Soulbinder
         public FilledStone(Enemy enemy)
         {
             Monster = enemy.Monster;
-            Level = enemy.Level;
+            Level = (int)(enemy.Level/2);
             try
             {
                 spriteName = $"monsters/Orbs/{Monster}";
@@ -663,11 +663,6 @@ namespace Warlock_The_Soulbinder
 
         public static void CatchMonster(Enemy target)
         {
-            int tempLevel = (int)(target.Level * 0.5);
-            if (tempLevel == 0)
-            {
-                tempLevel = 1;
-            }
             stoneList.Add(new FilledStone(target));
         }
     }

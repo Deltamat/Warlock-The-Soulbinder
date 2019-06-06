@@ -65,10 +65,13 @@ namespace Warlock_The_Soulbinder
                 currentHealth = value;
                 if (currentHealth <= 0) // if the player is dead, teleport back to the town
                 {
+                    Sound.PlaySound("sound/battleDefeat");
                     Position = new Vector2(1800, 2630);
                     GameWorld.Instance.CurrentZone().KillEnemiesInZone();
                     GameWorld.Instance.currentZone = "Town";
                     GameWorld.Instance.GameState = "Overworld";
+                    GameWorld.Instance.SongPosition = TimeSpan.Zero;
+                    GameWorld.Instance.ChangeMusic();
                     currentHealth = maxHealth;
                 }
                 else if (currentHealth > maxHealth)
@@ -447,9 +450,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void BaseStats()
         {
-            Damage = 10;
+            Damage = 35;
             Defense = 0;
-            AttackSpeed = 10;
+            AttackSpeed = 14;
             MaxHealth = 100;
 #if DEBUG
             int over9000 = 9001;

@@ -1,27 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="11">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="76">
  <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="tilesetGrassland.png" width="1024" height="1024"/>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="40" height="40">
+ <tileset firstgid="257" name="dungeonTileset" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="dungeonTileset.png" width="1024" height="1024"/>
+ </tileset>
+ <layer id="6" name="Under" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAMBKHr9P27rcdQcNVUVVVVVVUfPeAdPtA=
+   eJztw7ENAAAIA6D2/6cdnV0NJCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwEW7gX8Gs30ABw==
+  </data>
+ </layer>
+ <layer id="7" name="Ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztnc1S01AYhk8uofUXXbX4g7DCBeoSFyJLXOg2UKprKOitqKss1SsQV7k03zTTmZgpkxBxzpv6PDPfcE6bTDrfm/M0hSENwYNBEsJQdZ6E/Ew1q/w8v6Zx0/OjJGR6HVnsXjigXoSxaqq+HKsmlZ/Taxo3Pa/jZ0PymKPzM1NPskSZxCplk2q9pLF74YCckR1HzkPHT8/IY47Oy2waOQ+tz3RGHnPwlRf4ygt85QW+8gJfeYGvvMBXXuArL/CVF/jKC3zlBb7yAl95ga+8wFdeDNWHsWpSnqeFO0Kb8YYyvFvLUfOw1nL/6nhc/g09j90LBwbKYlSen4W7ivUS2oyfKIu1Wh4b5eOt9q+OdU7kA/L4K96pf29V1Tx2VM+S2K/s/2RPWbyq5aF58ThEQOsg36nlofVSrBuIAL7yAl95ga+8wFde4Csv8FU3Fv9PcEN1U3WrYdx2uxf6TL+vqubxvHy8cd+u49uqOz3Pe1T+fiisqx6oHjaM226n3qeva3loHvZb7Nt1/Ej1uOd5LHvf7WutwvXCsvfdvtYqXC8se9/ta63C9QK+8gJfeYGvvMBXXuArL/CVF/jKC3zlBb7yAl95ga+8wFde4Csv8JUX+MoLfOUFvvICX3mBr7zAV17gKy/wlRf4ygt85QW+8gJfeYGvvMBXXuArL/CVF/jKC3zlBb7y4lCv/yi5+j3CJpX5ZdvcU92v9UzzdKvD/c3aHO+96kPP8zjR6z9Nrn6PsFllftk2m6qtWh7KKN3scH+zNsf7qPrU8zz+JdvqzdNaHm/kxgPu9RaFXfX/ZS0PzfNd8ojCQbke/shD6yXfJo8o4Csv8JUX+MoLfOUFvvJi2frAV/HAV17gKy+4vvICX3mBr7zAV17gKy/wlRf4ygs+n3uBr7zAV15wfeUFvvICX3mBr7zAV14sfPVL/b9Q/VThq3gsvhv6h/r/XfVNdaT5Kd+dHYXFd0N/VQ5fVJ9Vh5qf9DCP3+YHwrA=
+  </data>
+ </layer>
+ <layer id="8" name="Top" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
   </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="1" type="EntryTrigger" x="1280" y="832" width="64" height="64">
+  <object id="1" type="EntryTrigger" x="3328" y="6336" width="64" height="64">
    <properties>
     <property name="targetName" value="dragonFire"/>
    </properties>
   </object>
-  <object id="2" type="Spawn" x="896" y="1280" width="128" height="128"/>
-  <object id="3" type="Spawn" x="1280" y="1856" width="128" height="128"/>
-  <object id="4" type="Spawn" x="1792" y="1408" width="128" height="128"/>
-  <object id="5" type="Spawn" x="2112" y="640" width="128" height="128"/>
-  <object id="6" type="Spawn" x="576" y="448" width="128" height="128"/>
-  <object id="7" type="Spawn" x="256" y="1600" width="128" height="128"/>
-  <object id="8" type="Spawn" x="1984" y="1920" width="128" height="128"/>
-  <object id="9" type="Spawn" x="1728" y="448" width="128" height="128"/>
-  <object id="10" type="Spawn" x="640" y="960" width="128" height="128"/>
+  <object id="5" type="Spawn" x="2368" y="3392" width="128" height="128"/>
+  <object id="11" type="Spawn" x="2304" y="3776" width="128" height="128"/>
+  <object id="12" type="Spawn" x="2112" y="3072" width="128" height="128"/>
+  <object id="13" type="Spawn" x="1920" y="2432" width="128" height="128"/>
+  <object id="14" type="Spawn" x="2496" y="2240" width="128" height="128"/>
+  <object id="15" type="Spawn" x="2880" y="2368" width="128" height="128"/>
+  <object id="16" type="Spawn" x="3648" y="2304" width="128" height="128"/>
+  <object id="17" type="Spawn" x="4224" y="2304" width="128" height="128"/>
+  <object id="18" type="Spawn" x="4544" y="2560" width="128" height="128"/>
+  <object id="19" type="Spawn" x="4672" y="3072" width="128" height="128"/>
+  <object id="20" type="Spawn" x="4672" y="3648" width="128" height="128"/>
+  <object id="21" type="Spawn" x="4608" y="4096" width="128" height="128"/>
+  <object id="22" type="Spawn" x="4032" y="4032" width="128" height="128"/>
+  <object id="23" type="Spawn" x="3456" y="4032" width="128" height="128"/>
+  <object id="24" type="Spawn" x="2816" y="4032" width="128" height="128"/>
+  <object id="25" type="Spawn" x="2752" y="3712" width="128" height="128"/>
+  <object id="26" type="Spawn" x="3328" y="3584" width="128" height="128"/>
+  <object id="27" type="Spawn" x="4032" y="3584" width="128" height="128"/>
+  <object id="28" type="Spawn" x="4288" y="3456" width="128" height="128"/>
+  <object id="29" type="Spawn" x="4288" y="3008" width="128" height="128"/>
+  <object id="30" type="Spawn" x="4160" y="2752" width="128" height="128"/>
+  <object id="31" type="Spawn" x="3968" y="2624" width="128" height="128"/>
+  <object id="32" type="Spawn" x="3136" y="2688" width="128" height="128"/>
+  <object id="33" type="Spawn" x="2432" y="2752" width="128" height="128"/>
+  <object id="34" type="Spawn" x="2368" y="3008" width="128" height="128"/>
+  <object id="35" type="Spawn" x="2880" y="3136" width="128" height="128"/>
+  <object id="36" type="Spawn" x="3136" y="3072" width="128" height="128"/>
+  <object id="37" type="Spawn" x="3584" y="2944" width="128" height="128"/>
+  <object id="38" type="Spawn" x="3904" y="3072" width="128" height="128"/>
+  <object id="39" type="Spawn" x="4032" y="3456" width="128" height="128"/>
+  <object id="40" type="Spawn" x="3584" y="3392" width="128" height="128"/>
+  <object id="41" type="Spawn" x="3904" y="3840" width="128" height="128"/>
+  <object id="42" type="Spawn" x="3136" y="3840" width="128" height="128"/>
+  <object id="43" type="Spawn" x="2176" y="4096" width="128" height="128"/>
+  <object id="44" type="Spawn" x="1920" y="3712" width="128" height="128"/>
+  <object id="45" type="Spawn" x="1920" y="3328" width="128" height="128"/>
+  <object id="46" type="Spawn" x="1856" y="2880" width="128" height="128"/>
+  <object id="47" type="Spawn" x="2112" y="2624" width="128" height="128"/>
+  <object id="48" type="Spawn" x="2688" y="2560" width="128" height="128"/>
+  <object id="49" type="Spawn" x="3328" y="2432" width="128" height="128"/>
+  <object id="50" type="Spawn" x="3584" y="2624" width="128" height="128"/>
+  <object id="51" type="Spawn" x="3264" y="3392" width="128" height="128"/>
+  <object id="52" type="Spawn" x="2944" y="2880" width="128" height="128"/>
+  <object id="53" type="Spawn" x="2752" y="3584" width="128" height="128"/>
+  <object id="54" type="Spawn" x="2624" y="3136" width="128" height="128"/>
+  <object id="55" type="Spawn" x="3008" y="3456" width="128" height="128"/>
+  <object id="56" type="Spawn" x="4480" y="2752" width="128" height="128"/>
+  <object id="57" type="Spawn" x="4352" y="3776" width="128" height="128"/>
+  <object id="58" type="Spawn" x="3200" y="2112" width="128" height="128"/>
+  <object id="59" x="3136" y="6272" width="192" height="128"/>
+  <object id="60" x="3392" y="6272" width="192" height="128"/>
+  <object id="61" x="3456" y="4416" width="128" height="1856"/>
+  <object id="62" x="3136" y="4416" width="128" height="1856"/>
+  <object id="63" x="1664" y="4416" width="1472" height="128"/>
+  <object id="64" x="1664" y="1984" width="128" height="2432"/>
+  <object id="65" x="1792" y="1984" width="1408" height="128"/>
+  <object id="66" x="3392" y="1984" width="1664" height="128"/>
+  <object id="67" x="4928" y="2112" width="128" height="2432"/>
+  <object id="68" x="3584" y="4416" width="1344" height="128"/>
+  <object id="69" x="3392" y="1280" width="128" height="704"/>
+  <object id="70" x="3072" y="1280" width="128" height="704"/>
+  <object id="71" x="2176" y="1280" width="896" height="128"/>
+  <object id="72" x="2176" y="0" width="128" height="1280"/>
+  <object id="73" x="2304" y="0" width="2112" height="128"/>
+  <object id="74" x="4288" y="128" width="128" height="1280"/>
+  <object id="75" x="3520" y="1280" width="768" height="128"/>
  </objectgroup>
 </map>
