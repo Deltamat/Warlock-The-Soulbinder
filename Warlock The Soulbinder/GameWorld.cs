@@ -41,6 +41,8 @@ namespace Warlock_The_Soulbinder
         TimeSpan songPosition;
         private float musicVolume;
         private Texture2D background;
+        private bool saved;
+        private double saveTextTime;
 
         //Tiled fields
         private Zone town, neutral, earth, water, dragon, metal, dark, fire, air, dragonRealm;
@@ -131,6 +133,8 @@ namespace Warlock_The_Soulbinder
         public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
         public GraphicsDeviceManager Graphics { get => graphics; set => graphics = value; }
         public Texture2D Background { get => background; set => background = value; }
+        public bool Saved { get => saved; set => saved = value; }
+        public double SaveTextTime { get => saveTextTime; set => saveTextTime = value; }
 
         public GameWorld()
         {
@@ -293,7 +297,6 @@ namespace Warlock_The_Soulbinder
             }
 
             Player.Instance.Update(gameTime);
-            Combat.Instance.Update(gameTime);
 
 #if DEBUG
             //TEMPORARY
@@ -304,18 +307,12 @@ namespace Warlock_The_Soulbinder
             }
             #endregion
 #endif
-
-            //temporary save
-            #region save
-            previousKeyH = currentKeyH;
-            currentKeyH = Keyboard.GetState().IsKeyUp(Keys.H);
-
-            if (previousKeyH == false && currentKeyH == true)
+            
+            //timer for how long the "Saved" text should be in the top-left of the screen
+            if (Saved)
             {
-                SaveToDB();
+                SaveTextTime += deltaTimeMilli;
             }
-
-            #endregion
 
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
             {
@@ -421,7 +418,7 @@ namespace Warlock_The_Soulbinder
                 SpriteBatch.Begin();
 
                 GeneralMenu.Instance.Draw(SpriteBatch);
-
+                
                 SpriteBatch.End();
             }
 
@@ -437,6 +434,20 @@ namespace Warlock_The_Soulbinder
                 }
                 SpriteBatch.End();
             }
+
+            //draws "Saved" in the top-left of the screen
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
+            if (SaveTextTime > 0)
+            {
+                spriteBatch.DrawString(copperFont, "Saved", Vector2.Zero, Color.BlanchedAlmond, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+            }
+
+            if (SaveTextTime > 2500)
+            {
+                Saved = false;
+                SaveTextTime = 0;
+            }
+            spriteBatch.End();
         }
 
         /// <summary>
@@ -531,8 +542,7 @@ namespace Warlock_The_Soulbinder
            
             Controller.Instance.DeleteSoulStoneDB();
             Controller.Instance.DeleteStatisticDB();
-
-           
+            
             for (int i = 0; i < CurrentZone().Enemies.Count; i++)
             {
                 Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
@@ -589,6 +599,8 @@ namespace Warlock_The_Soulbinder
             
             //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
+
+            Saved = true;
 
             Controller.Instance.CloseTheGates();
         }

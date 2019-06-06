@@ -368,7 +368,7 @@ namespace Warlock_The_Soulbinder
             float modifier = 0.2f;
 
             //base stats
-            Damage = (int)(enemy.Damage * modifier);
+            Damage = enemy.Damage;
             maxHealth = (int)(enemy.MaxHealth * modifier);
             attackSpeed = (enemy.AttackSpeed * modifier);
             Defense = (int)(enemy.Defense * modifier);
