@@ -47,6 +47,8 @@ namespace Warlock_The_Soulbinder
         private  Buttons buttonReturn = Buttons.Y;
         private  Buttons buttonMenu = Buttons.Start;
 
+        private Keys keyW = Keys.W;
+        private Keys keyS = Keys.S;
         public  Keys KeyDown { get => keyDown; set => keyDown = value; }
         public  Keys KeyUp { get => keyUp; set => keyUp = value; }
         public  Keys KeyRight { get => keyRight; set => keyRight = value; }
@@ -63,6 +65,8 @@ namespace Warlock_The_Soulbinder
         public  Buttons ButtonCancel { get => buttonCancel; set => buttonCancel = value; }
         public  Buttons ButtonReturn { get => buttonReturn; set => buttonReturn = value; }
         public  Buttons ButtonMenu { get => buttonMenu; set => buttonMenu = value; }
+        public Keys KeyS { get => keyS; set => keyS = value; }
+        public Keys KeyW { get => keyW; set => keyW = value; }
 
         private InputHandler()
         {
