@@ -997,7 +997,7 @@ namespace Warlock_The_Soulbinder
             }
 
             enemyAttackTimer = 0;
-            if (!stunned)
+            if (!stunned && target.CurrentHealth > 0)
             {
                 List<int> damageToDeal = new List<int>();
                 int totalDamageToDeal = 0;
@@ -1118,7 +1118,7 @@ namespace Warlock_The_Soulbinder
                     PlayerScrolling($"HP -0", Color.Red);
                 }
             }
-            else
+            else if (stunned)
             {
                 EnemyScrolling("Stunned", Color.White);
             }
@@ -1209,7 +1209,7 @@ namespace Warlock_The_Soulbinder
             }
                 
             enemyAttackTimer = 0;
-            if (!stunned)
+            if (!stunned && target.CurrentHealth > 0)
             {
                 List<int> damageToDeal = new List<int>();
                 int totalDamageToDeal = 0;
@@ -1309,7 +1309,6 @@ namespace Warlock_The_Soulbinder
                             }
                         }
                         
-                        
                         //applies healing
                         foreach (Effect effect in enemyEffects)
                         {
@@ -1317,10 +1316,6 @@ namespace Warlock_The_Soulbinder
                             {
                                 target.CurrentHealth += effect.Heal;
                                 effect.EffectLength--;
-                                if (effect.Heal <= 0)
-                                {
-                                    EnemyScrolling("HP +0", Color.Green);
-                                }
                             }
                         }
                     }
@@ -1334,7 +1329,7 @@ namespace Warlock_The_Soulbinder
                     PlayerScrolling($"HP -0", Color.Red);
                 }
             }
-            else
+            else if (stunned)
             {
                 EnemyScrolling("Stunned", Color.White);
             }

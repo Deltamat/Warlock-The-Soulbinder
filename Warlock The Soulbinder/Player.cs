@@ -65,7 +65,6 @@ namespace Warlock_The_Soulbinder
                 currentHealth = value;
                 if (currentHealth <= 0) // if the player is dead, teleport back to the town
                 {
-                    Combat.Instance.ExitCombat();
                     Sound.PlaySound("sound/battleDefeat");
                     Position = new Vector2(1800, 2630);
                     GameWorld.Instance.CurrentZone().KillEnemiesInZone();
@@ -74,6 +73,7 @@ namespace Warlock_The_Soulbinder
                     GameWorld.Instance.SongPosition = TimeSpan.Zero;
                     GameWorld.Instance.ChangeMusic();
                     currentHealth = maxHealth;
+                    Combat.Instance.ExitCombat();
                 }
                 else if (currentHealth > maxHealth)
                 {
