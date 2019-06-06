@@ -183,8 +183,7 @@ namespace Warlock_The_Soulbinder
                     break;
                     //dragons
                 case "neutralDragon":
-                    Defense = (int)(Defense * 1.75f);
-                    Damage = (int)Math.Round(Damage * 1.25f);
+                    Defense = (int)(Defense * 1.25f);
                     break;
                 case "earthDragon":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
