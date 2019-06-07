@@ -142,6 +142,7 @@ namespace Warlock_The_Soulbinder
         public Texture2D Background { get => background; set => background = value; }
         public bool Saved { get => saved; set => saved = value; }
         public double SavedTextTime { get => savedTextTime; set => savedTextTime = value; }
+        public bool Saving { get => saving; set => saving = value; }
 
         public GameWorld()
         {
@@ -481,7 +482,7 @@ namespace Warlock_The_Soulbinder
                 SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
                 SpriteBatch.DrawString(copperFont, "Saving...", Vector2.Zero, Color.HotPink);
                 SpriteBatch.End();
-                saving = true;
+                Saving = true;
                 SaveToDB();
             }
         }
@@ -604,7 +605,7 @@ namespace Warlock_The_Soulbinder
         {
             saveStart = true;
 
-            if (savingTextTime > 1)
+            if (savingTextTime > 1 && Saving)
             {
                 Controller.Instance.OpenTheGates();
 
@@ -674,7 +675,7 @@ namespace Warlock_The_Soulbinder
                 Controller.Instance.SaveToLogDB(Log.Instance.SheepLog, Log.Instance.WolfLog, Log.Instance.BearLog, Log.Instance.PlantEaterLog, Log.Instance.InsectSoldierLog, Log.Instance.SlimeSnakeLog, Log.Instance.TentacleLog, Log.Instance.FrogLog, Log.Instance.FishLog, Log.Instance.MummyLog, Log.Instance.VampireLog, Log.Instance.BansheeLog, Log.Instance.BucketManLog, Log.Instance.DefenderLog, Log.Instance.SentryLog, Log.Instance.FireGolemLog, Log.Instance.InfernalDemonLog, Log.Instance.AshZombieLog, Log.Instance.FalconLog, Log.Instance.BatLog, Log.Instance.RavenLog);
 
                 Saved = true;
-                saving = false;
+                Saving = false;
                 saveStart = false;
                 savingTextTime = 0;
 

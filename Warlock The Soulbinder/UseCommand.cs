@@ -49,7 +49,6 @@ namespace Warlock_The_Soulbinder
                 Dialogue.Instance.NextDialogue();
                 
             }
-
         }
     }
 }
