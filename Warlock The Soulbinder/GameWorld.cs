@@ -280,7 +280,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         protected override void UnloadContent()
         {
-            //SaveToDB();
+            
         }
 
         /// <summary>
