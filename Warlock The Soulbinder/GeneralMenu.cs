@@ -964,6 +964,8 @@ namespace Warlock_The_Soulbinder
                         Equipment.Instance.Skill2 = null;
                         Equipment.Instance.Skill3 = null;
                         FilledStone.StoneListPages = 0;
+                        Log.Instance.ResetForMainMenu();
+                        Log.Instance.CalculateBonus();
                         GameWorld.Instance.currentZone = "Town";
                         Player.Instance.BaseStats();
                         Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
