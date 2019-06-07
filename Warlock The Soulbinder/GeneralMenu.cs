@@ -941,7 +941,7 @@ namespace Warlock_The_Soulbinder
                         }
                         break;
                     case 5:
-                        GameWorld.Instance.SaveToDB();
+                        GameWorld.Instance.SaveToDBThreadMaker();
                         break;
                     case 6:
                         InventoryState = "Options";
