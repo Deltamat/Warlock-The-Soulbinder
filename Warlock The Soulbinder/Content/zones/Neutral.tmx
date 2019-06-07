@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="93">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="40" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="97">
  <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="tilesetGrassland.png" width="1024" height="1024"/>
  </tileset>
@@ -13,7 +13,7 @@
  </layer>
  <layer id="4" name="Ground" width="40" height="80">
   <data encoding="base64" compression="zlib">
-   eJzt2MEJwkAQRuFNIPEeMNYhViCYGqId2I8NO8dFcIxhcP7IO7zbsnzs7GmGUsoQ0NE6Wfug+6LDhw8fPnz5Fnz41MKHDx8+fPkWfPjUwocP3/Z9o9U6dcm+T2W979m6OO02Mn98+PBp+h5vmq1r1c05+9qv7Peq7FmqzhcfPnz48OHDp5Wyr7EOor7a1luTgAkbtqV5u7A1Rb/bkp3Yt0XO1NuJrU3pvxEREdH/9QSmUAOR
+   eJzt2MEJwkAQRuGNYLwH1DqCFQhaQ7QDe7AMG3aOi+AYw5D5E97h3ZblY2dP05VSuoB662Ttg+6LDh8+fPjw5Vvw4VMLHz58+PDlW/DhUwsfPnzL9x2sjdM22ferrPc9Wxen3ULmjw8fPk3f60uDdau6O2c/m8v+qMqepep88eHDhw8fPnxaKfsa6yjqq22tdRUwYcM2Nm8XNqXodxuzE/u3yJl6O7GpKf030uwpYFC0YFufCdt6bZTbG37iBtk=
   </data>
  </layer>
  <layer id="5" name="Top" width="40" height="80">
@@ -23,7 +23,7 @@
  </layer>
  <layer id="9" name="OverTop" width="40" height="80">
   <data encoding="base64" compression="zlib">
-   eJztmjlOBDEQRT1ABERABPRZOBQhcAJAIodLsMfsS8a+hMAJgAPwLbqlkrHdDG6oQvpP+hqrknmq7q8Jxs6RNtaRDWQT2UK2xWyg59wgMtTT89tD9pED5BA5ErNheI0go4p+F8glcoVcIzdiNgavcWRC0c/zhDwjL8FsEl5TyLSy3yvyhrwHMwvE+mGJWD8sEeuHNWL9sESsH1aRfbHiIXsr+6JJqreyL5rkenuKnGlIBTQe58H8Hnn4e50vNB6P2iJ9YKW/Kaz0N4WV/uaw0t8UVvpLCCGEdMGstkAL9CuHjuXQrwz6/RzLboSQdma0BQj5B1j4f58Qi/A3hGjBd48Q8pvMaQtk8G4r2hI13mVeZMF9ui1rStU0e/IuS/WnjCbSLZZKyUk+w9jOKqezv9y+qsTcglsuDfJO0Q6yG5y7dqsS53DWIO8UHSMnwbmExcj397s/eafoFrkLziWsuvyucu+hRN6h7fI+rd/f2jdcYvkAWLqrGA==
+   eJztmjlOA0EQRdtABESGCJizcChCzAkAiRwuAWaJ2ZeMfQmBEwAH4FvQotR092B6cBXSf9KTR5X4qe2SA7dzpI51uAG7cBNuidlQy7lhONLS69uFe3AfHsBDMRtF1xgcV+w7hxfwEl7BazFro2sCTir29XiET/A5mE2haxrOKPe9wFf4FswsENsPS8T2wxKx/bBGbD8sEdsPq8h9sdIh91buiyapvZX7oklub0/gqUZUgO84C+Z38H7wOd/wHQ/aIX1gZX9TWNnfFFb2N4eV/U1hZX8JIYSQJpjTDqiBfeWwsRz2lcG+32O5jRBSz6x2ACH/AAv/7xNiEf6GEC343SOE/CXz2gE1rGgHCDrCBffRtqxa9IVvWfp8lWrj22JWSk3yM4ydWeX0zi91XlVibqEtp0feKdqGO8Fz021V4jmceeSdoiN4HDyXsBh5/37PT94puoG3wXMJqy5/VrnvoUTeoW3yPm3v/NZ+0BLzHSCKp0A=
   </data>
  </layer>
  <objectgroup id="3" name="Objects">
@@ -120,5 +120,7 @@
   <object id="90" type="Spawn" x="448" y="3072" width="128" height="128"/>
   <object id="91" type="Spawn" x="896" y="3072" width="128" height="128"/>
   <object id="92" type="Spawn" x="832" y="4416" width="128" height="128"/>
+  <object id="93" x="2432" y="4480" width="64" height="64"/>
+  <object id="96" x="2496" y="4352" width="64" height="128"/>
  </objectgroup>
 </map>

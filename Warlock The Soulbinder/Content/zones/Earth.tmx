@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="187">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="191">
  <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="tilesetGrassland.png" width="1024" height="1024"/>
  </tileset>
@@ -26,7 +26,7 @@
    eJzt1mFOAjEQhuFd+SXe/yAKHgCVAyh4AeAE6gH8EjFZmpnttDbKyvsk359myjSzzbJd92WlPCiPypOyPq7fKnfKQlkq95l1S6S25PfO0bPyomyUrfJ6XPfm6q1bIrWRmtoZ/+TZWHv7vuuulFl/WrtT9sphsObN1Vu3+nm1Q5Ga2hmP7cvN1tp7rbnNlZtkfm/Ku/KR/IY1V2/dO2taa53b6/OtdsZj+3LPJNIzx5urte71S2utc3t9hmpn7O2LzCfXs7VIv9rnWjvjsX2580Z6thTt1+q5pu+CXP/S+nPV6twl3wI19f9d6btgrN76X5v6t2lE6bvAq7fu5iXc19J3gVdv3c0W3zCXxLqbv/0NM2XW3ZzqfzQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwlz4BMKoKQQ==
   </data>
  </layer>
- <objectgroup id="3" name="Objects" visible="0">
+ <objectgroup id="3" name="Objects">
   <object id="1" type="EntryTrigger" x="5056" y="2304" width="64" height="192">
    <properties>
     <property name="targetName" value="BeastW"/>
@@ -212,5 +212,9 @@
   <object id="179" type="Spawn" x="3264" y="1088" width="128" height="128"/>
   <object id="180" type="Spawn" x="2688" y="640" width="128" height="128"/>
   <object id="181" type="Spawn" x="4032" y="1024" width="128" height="128"/>
+  <object id="187" x="5120" y="2240" width="64" height="320"/>
+  <object id="188" x="2624" y="5120" width="384" height="64"/>
+  <object id="189" x="-64" y="960" width="64" height="256"/>
+  <object id="190" x="2432" y="-64" width="320" height="64"/>
  </objectgroup>
 </map>
