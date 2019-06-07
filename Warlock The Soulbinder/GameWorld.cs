@@ -308,7 +308,7 @@ namespace Warlock_The_Soulbinder
             #region TEMP
             if (Keyboard.GetState().IsKeyDown(Keys.T) && delay > 100)
             {
-                FilledStone.StoneList.Add(new FilledStone(new Enemy(RandomInt(0, 21), Vector2.Zero)));
+
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.U) && delay > 100)
@@ -320,6 +320,8 @@ namespace Warlock_The_Soulbinder
                         stone.Level = 20;
                     }
                 }
+
+                Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
             }
 
             #endregion

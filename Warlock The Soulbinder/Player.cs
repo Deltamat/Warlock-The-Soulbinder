@@ -24,6 +24,7 @@ namespace Warlock_The_Soulbinder
         private bool hurt;
         private bool hurtStart;
         private bool blinking;
+        private int totalDamage;
         
         static Player instance;
         public static Player Instance
@@ -66,11 +67,8 @@ namespace Warlock_The_Soulbinder
                     Position = new Vector2(1800, 2630);
                     GameWorld.Instance.CurrentZone().KillEnemiesInZone();
                     GameWorld.Instance.currentZone = "Town";
-                    GameWorld.Instance.GameState = "Overworld";
                     GameWorld.Instance.SongPosition = TimeSpan.Zero;
                     GameWorld.Instance.ChangeMusic();
-                    currentHealth = maxHealth;
-                    Combat.Instance.ExitCombat();
                 }
                 else if (currentHealth > maxHealth)
                 {
@@ -98,6 +96,7 @@ namespace Warlock_The_Soulbinder
 
         public bool Attacking { get => attacking; set => attacking = value; }
         public bool Hurt { get => hurt; set => hurt = value; }
+        public int TotalDamage { get => totalDamage; set => totalDamage = value; }
 
         public Player()
         {
@@ -361,6 +360,7 @@ namespace Warlock_The_Soulbinder
                 if (stone != null)
                 {
                     Damage += stone.Damage; //adds damage to the player
+                    TotalDamage += stone.TotalDamage; //adds damage to the player
                     Defense += stone.Defense; //adds defense to the player
                     AttackSpeed += stone.AttackSpeed; //adds attack speed to the player
                     MaxHealth += stone.MaxHealth; //adds max health to the player
@@ -448,6 +448,7 @@ namespace Warlock_The_Soulbinder
             Defense = 0;
             AttackSpeed = 10;
             MaxHealth = 100;
+            totalDamage = 10;
 #if DEBUG
             int over9000 = 9001;
             //Damage += over9000;
