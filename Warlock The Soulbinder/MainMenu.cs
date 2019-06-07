@@ -173,6 +173,7 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot1(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "1";
+            Controller.Instance = new Controller();
 
             if (MainMenuState == "New Game")
             {
@@ -187,6 +188,7 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot2(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "2";
+            Controller.Instance = new Controller();
 
             if (MainMenuState == "New Game")
             {
@@ -201,6 +203,7 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot3(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "3";
+            Controller.Instance = new Controller();
 
             if (MainMenuState == "New Game")
             {
@@ -233,6 +236,7 @@ namespace Warlock_The_Soulbinder
                 selectedIndex = 0;
             }
         }
+
         private void ChooseSaveGame()
         {
             if ((InputHandler.Instance.KeyPressed(Keys.E) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
@@ -241,6 +245,7 @@ namespace Warlock_The_Soulbinder
                 {
                     case 0:
                         GameWorld.Instance.CurrentSaveFile = "1";
+                        Controller.Instance = new Controller();
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
@@ -249,6 +254,7 @@ namespace Warlock_The_Soulbinder
                         break;
                     case 1:
                         GameWorld.Instance.CurrentSaveFile = "2";
+                        Controller.Instance = new Controller();
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
@@ -257,6 +263,7 @@ namespace Warlock_The_Soulbinder
                         break;
                     case 2:
                         GameWorld.Instance.CurrentSaveFile = "3";
+                        Controller.Instance = new Controller();
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();

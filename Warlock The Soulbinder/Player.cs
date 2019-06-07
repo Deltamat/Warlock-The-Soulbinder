@@ -450,10 +450,10 @@ namespace Warlock_The_Soulbinder
             MaxHealth = 100;
 #if DEBUG
             int over9000 = 9001;
-            //Damage += over9000;
-            //Defense += over9000;
-            //AttackSpeed += over9000;
-            //MaxHealth += over9000;
+            Damage += over9000;
+            Defense += over9000;
+            AttackSpeed += over9000;
+            MaxHealth += over9000;
 #endif
             for (int i = 0; i < DamageTypes.Count; i++)
             {
