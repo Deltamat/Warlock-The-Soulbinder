@@ -233,6 +233,7 @@ namespace Warlock_The_Soulbinder
                 selectedIndex = 0;
             }
         }
+
         private void ChooseSaveGame()
         {
             if ((InputHandler.Instance.KeyPressed(Keys.E) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
