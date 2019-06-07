@@ -65,7 +65,6 @@ namespace Warlock_The_Soulbinder
                 currentHealth = value;
                 if (currentHealth <= 0) // if the player is dead, teleport back to the town
                 {
-                    Combat.Instance.ExitCombat();
                     Sound.PlaySound("sound/battleDefeat");
                     Position = new Vector2(1800, 2630);
                     GameWorld.Instance.CurrentZone().KillEnemiesInZone();
@@ -74,6 +73,7 @@ namespace Warlock_The_Soulbinder
                     GameWorld.Instance.SongPosition = TimeSpan.Zero;
                     GameWorld.Instance.ChangeMusic();
                     currentHealth = maxHealth;
+                    Combat.Instance.ExitCombat();
                 }
                 else if (currentHealth > maxHealth)
                 {
@@ -86,6 +86,7 @@ namespace Warlock_The_Soulbinder
         public bool GraceStart { get => graceStart; set => graceStart = value; }
         public bool AttackStart { get => attackStart; set => attackStart = value; }
         public bool HurtStart { get => hurtStart; set => hurtStart = value; }
+        public int AniIndex { set => aniIndex = value; }
 
         /// <summary>
         /// Returns the player's collision box. Modified to better suit this game's player sprite
@@ -460,7 +461,7 @@ namespace Warlock_The_Soulbinder
             //Damage += over9000;
             //Defense += over9000;
             //AttackSpeed += over9000;
-            MaxHealth += over9000;
+            //MaxHealth += over9000;
 #endif
             for (int i = 0; i < DamageTypes.Count; i++)
             {

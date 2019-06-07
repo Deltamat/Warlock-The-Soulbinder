@@ -569,6 +569,7 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.LoadFromLogDB();
             CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
+            CurrentZone().ChangeDragonPillarSprite(); // updates the pillars so they match the dead dragons
 
             Equipment.Instance.LoadEquipment();
             Equipment.Instance.UpdateExperienceRequired();

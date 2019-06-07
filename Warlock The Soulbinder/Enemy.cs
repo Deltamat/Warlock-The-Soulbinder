@@ -138,8 +138,8 @@ namespace Warlock_The_Soulbinder
                 case "slimeSnake":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.75f);
-                    damage = (int)(damage * 0.25f);
+                    earthDamage = (int)(damage * 0.8f);
+                    damage = (int)(damage * 0.2f);
                     break;
                 case "tentacle":
                 case "frog":
@@ -162,7 +162,7 @@ namespace Warlock_The_Soulbinder
                 case "sentry":
                     MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 0.8f);
+                    metalDamage = (int)(damage * 0.8f);
                     damage = (int)(damage * 0.2f);
                     break;
                 case "fireGolem":
@@ -183,8 +183,7 @@ namespace Warlock_The_Soulbinder
                     break;
                     //dragons
                 case "neutralDragon":
-                    Defense = (int)(Defense * (Level * 1.75f));
-                    Damage = (int)Math.Round(Damage * 1.25f);
+                    Defense = (int)(Defense * 1.25f);
                     break;
                 case "earthDragon":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
@@ -207,7 +206,7 @@ namespace Warlock_The_Soulbinder
                 case "metalDragon":
                     MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
                     FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
-                    earthDamage = damage;
+                    metalDamage = damage;
                     damage = (int)(damage * 0.25f);
                     break;
                 case "fireDragon":
@@ -316,10 +315,23 @@ namespace Warlock_The_Soulbinder
         {
             Monster = monster;
             sprite = GameWorld.ContentManager.Load<Texture2D>($"monsters/{monster}");
-            scale = 0.25f;
+
+            if (ReturnMonsterIndex(Monster) >= 21)
+            {
+                scale = 0.75f;
+            }
+            else
+            {
+                scale = 0.25f;
+            }
 
             movementSpeed = 10;
             Position = startPos;
+
+            if (ReturnMonsterIndex(Monster) >= 21)
+            {
+                Dragon = true;
+            }
 
             Level = level;
             
@@ -375,6 +387,46 @@ namespace Warlock_The_Soulbinder
                 case "raven":
                     airDamage = (int)(Damage * 4f);
                     break;
+                    //dragons
+                case "neutralDragon":
+                    Defense = (int)(Defense * 1.25f);
+                    break;
+                case "earthDragon":
+                    EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    DarkResistance = (float)(DarkResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    earthDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "waterDragon":
+                    WaterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    AirResistance = (float)(AirResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    waterDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "darkDragon":
+                    DarkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    MetalResistance = (float)(MetalResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    darkDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "metalDragon":
+                    MetalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    FireResistance = (float)(FireResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    metalDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "fireDragon":
+                    FireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    WaterResistance = (float)(WaterResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    fireDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
+                case "airDragon":
+                    AirResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));
+                    EarthResistance = (float)(EarthResistance * (-20 / (1 + Math.Pow(Math.E, -Level))));
+                    airDamage = damage;
+                    damage = (int)(damage * 0.25f);
+                    break;
             }
             
             //adds damage and resistances to lists for ease of use
@@ -394,7 +446,49 @@ namespace Warlock_The_Soulbinder
             #endregion
 
             //gives the enemy a FilledStone with its effects
-            EnemyStone = new FilledStone(this);
+            if (dragon)
+            {
+                DragonStone = new FilledStone(this);
+                if (DragonStone.DragonWeaponEffect1.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect1.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonWeaponEffect2.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect2.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonWeaponEffect3.StatBuff)
+                {
+                    new Effect(DragonStone.DragonWeaponEffect3.Index, "Weapon", DragonStone, this, 0);
+                }
+
+                if (DragonStone.DragonArmorEffect1.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect1.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonArmorEffect2.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect2.Index, "Weapon", DragonStone, this, 0);
+                }
+                else if (DragonStone.DragonArmorEffect3.StatBuff)
+                {
+                    new Effect(DragonStone.DragonArmorEffect3.Index, "Weapon", DragonStone, this, 0);
+                }
+            }
+            else
+            {
+                EnemyStone = new FilledStone(this);
+
+                if (EnemyStone.WeaponEffect.StatBuff)
+                {
+                    new Effect(ReturnMonsterIndex(Monster), "Weapon", EnemyStone, this, 0);
+                }
+
+                if (EnemyStone.ArmorEffect.StatBuff)
+                {
+                    new Effect(ReturnMonsterIndex(Monster), "Armor", EnemyStone, this, 0);
+                }
+            }
 
             thread = new Thread(() => Update())
             {
