@@ -89,6 +89,31 @@ namespace Warlock_The_Soulbinder
         {
         }
 
+        public void ResetForMainMenu()
+        {
+            sheepLog = 0;
+            wolfLog = 0;
+            bearLog = 0;
+            plantEaterLog = 0;
+            insectSoldierLog = 0;
+            slimeSnakeLog = 0;
+            tentacleLog = 0;
+            frogLog = 0;
+            fishLog = 0;
+            mummyLog = 0;
+            vampireLog = 0;
+            bansheeLog = 0;
+            bucketManLog = 0;
+            defenderLog = 0;
+            sentryLog = 0;
+            fireGolemLog = 0;
+            infernalDemonLog = 0;
+            ashZombieLog = 0;
+            falconLog = 0;
+            batLog = 0;
+            ravenLog = 0;
+        }
+
         public void GenerateLogList()
         {
             LogList.Clear();

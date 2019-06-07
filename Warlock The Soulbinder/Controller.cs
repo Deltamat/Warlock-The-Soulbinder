@@ -10,7 +10,7 @@ namespace Warlock_The_Soulbinder
     {
         ModelSoulStone filledStone;
         ModelEnemy enemy;
-        ModelQuest quest;
+        ModelLog log;
         ModelPlayer player;
         ModelStatistic statistic;
         Model model;
@@ -39,7 +39,7 @@ namespace Warlock_The_Soulbinder
             enemy = new ModelEnemy();
             player = new ModelPlayer();
             statistic = new ModelStatistic();
-            quest = new ModelQuest();
+            log = new ModelLog();
         }
         
         #region Model
@@ -90,20 +90,22 @@ namespace Warlock_The_Soulbinder
 
         #endregion
         
-        #region Quest
-        public void DeleteQuestDB()
+        #region Log
+        public void DeleteLogDB()
         {
-            quest.ClearDB();
+            log.ClearDB();
         }
 
-        public void SaveToQuestDB(string questName, string questStatus)
+        public void SaveToLogDB(int sheepLog, int wolfLog, int bearLog, int plantEaterLog, int insectSoldierLog, int slimeSnakeLog, int tentacleLog,
+            int frogLog, int fishLog, int mummyLog, int vampireLog, int bansheeLog, int bucketManLog, int defenderLog, int sentryLog, int fireGolemLog,
+            int infernalDemonLog, int ashZombieLog, int falconLog, int batLog, int ravenLog)
         {
-            quest.SaveQuest(questName, questStatus);
+            log.SaveLog(sheepLog, wolfLog, bearLog, plantEaterLog, insectSoldierLog, slimeSnakeLog, tentacleLog, frogLog, fishLog, mummyLog, vampireLog, bansheeLog, bucketManLog, defenderLog, sentryLog, fireGolemLog, infernalDemonLog, ashZombieLog, falconLog, batLog, ravenLog);
         }
 
-        public Dictionary<int, string> LoadFromQuestDB()
+        public void LoadFromLogDB()
         {
-            return quest.LoadQuest();
+           log.LoadLog();
         }
 
         #endregion
