@@ -11,19 +11,20 @@ namespace Warlock_The_Soulbinder
 {
     class FilledStone : Item
     {
+        #region VARIABLES
         private string monster;
         private string element;
         private int level;
-        private int experience = 0;
+        private int experience;
         private int experienceRequired = 13;
         private bool equipped;
         private string equipmentSlot;
-        private static int stoneListPages = 0;
+        private static int stoneListPages;
         private string weaponName;
         private string armorName;
         private string skillName;
         private int internalCooldown;
-        private int experienceLastEncounter = 0;
+        private int experienceLastEncounter;
         private Effect weaponEffect;
         private Effect dragonWeaponEffect1;
         private Effect dragonWeaponEffect2;
@@ -55,7 +56,8 @@ namespace Warlock_The_Soulbinder
         protected float airResistance;
         protected List<int> damageTypes = new List<int>();
         protected List<float> resistanceTypes = new List<float>();
-
+        #endregion
+        #region PROPERTIES
         public int Id { get => id; private set => id = value; }
         public string WeaponName { get => weaponName; set => weaponName = value; }
         public string ArmorName { get => armorName; set => armorName = value; }
@@ -78,6 +80,17 @@ namespace Warlock_The_Soulbinder
         public bool Equipped { get => equipped; set => equipped = value; }
         public string EquipmentSlot { get => equipmentSlot; set => equipmentSlot = value; }
         public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
+        public int ExperienceLastEncounter { get => experienceLastEncounter; set => experienceLastEncounter = value; }
+        internal Effect DragonWeaponEffect1 { get => dragonWeaponEffect1; set => dragonWeaponEffect1 = value; }
+        internal Effect DragonWeaponEffect2 { get => dragonWeaponEffect2; set => dragonWeaponEffect2 = value; }
+        internal Effect DragonWeaponEffect3 { get => dragonWeaponEffect3; set => dragonWeaponEffect3 = value; }
+        internal Effect DragonArmorEffect1 { get => dragonArmorEffect1; set => dragonArmorEffect1 = value; }
+        internal Effect DragonArmorEffect2 { get => dragonArmorEffect2; set => dragonArmorEffect2 = value; }
+        internal Effect DragonArmorEffect3 { get => dragonArmorEffect3; set => dragonArmorEffect3 = value; }
+        internal List<Effect> DragonWeaponEffects { get => dragonWeaponEffects; set => dragonWeaponEffects = value; }
+        internal List<Effect> DragonArmorEffects { get => dragonArmorEffects; set => dragonArmorEffects = value; }
+        private static List<FilledStone> stoneList = new List<FilledStone>();
+        #endregion
         public int Level
         {
             get => level;
@@ -112,17 +125,6 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        public int ExperienceLastEncounter { get => experienceLastEncounter; set => experienceLastEncounter = value; }
-        internal Effect DragonWeaponEffect1 { get => dragonWeaponEffect1; set => dragonWeaponEffect1 = value; }
-        internal Effect DragonWeaponEffect2 { get => dragonWeaponEffect2; set => dragonWeaponEffect2 = value; }
-        internal Effect DragonWeaponEffect3 { get => dragonWeaponEffect3; set => dragonWeaponEffect3 = value; }
-        internal Effect DragonArmorEffect1 { get => dragonArmorEffect1; set => dragonArmorEffect1 = value; }
-        internal Effect DragonArmorEffect2 { get => dragonArmorEffect2; set => dragonArmorEffect2 = value; }
-        internal Effect DragonArmorEffect3 { get => dragonArmorEffect3; set => dragonArmorEffect3 = value; }
-        internal List<Effect> DragonWeaponEffects { get => dragonWeaponEffects; set => dragonWeaponEffects = value; }
-        internal List<Effect> DragonArmorEffects { get => dragonArmorEffects; set => dragonArmorEffects = value; }
-
-        private static List<FilledStone> stoneList = new List<FilledStone>();
 
         /// <summary>
         /// Constructor for loading in from a saved game
@@ -136,7 +138,6 @@ namespace Warlock_The_Soulbinder
             
             Experience = experience;
             Monster = monster;
-            Level = level;
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
 
@@ -296,44 +297,8 @@ namespace Warlock_The_Soulbinder
                     break;
             }
 
-            //switch case to determine stats
-            switch (Element)
-            {
-                case "neutral":
-                    Defense = (int)(Level * 0.75f);
-                    break;
-                case "earth":
-                    earthResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    darkResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 4f);
-                    break;
-                case "water":
-                    waterResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    airResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    waterDamage = (int)(damage * 4f);
-                    break;
-                case "dark":
-                    darkResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    metalResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    darkDamage = (int)(damage * 4f);
-                    break;
-                case "metal":
-                    metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    metalDamage = (int)(damage * 4f);
-                    break;
-                case "fire":
-                    fireResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    waterResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    fireDamage = (int)(damage * 4f);
-                    break;
-                case "air":
-                    airResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    earthResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    airDamage = (int)(damage * 4f);
-                    break;
-            }
-            
+            Level = level;
+
             WeaponSkill();
             ArmorSkill();
             Skill();
@@ -601,7 +566,11 @@ namespace Warlock_The_Soulbinder
                     break;
             }
 
-            Level = (int)(enemy.Level * 0.5);
+            Level = (int)Math.Round(enemy.Level * 0.5);
+            if (Level == 0)
+            {
+                Level = 1;
+            }
 
             try
             {
@@ -633,10 +602,10 @@ namespace Warlock_The_Soulbinder
             float modifier = 0.2f;
 
             //base stats
-            Damage = (int)((Level + 2.5) * 4 * modifier);
-            maxHealth = (int)((Level + 3) * 10 * modifier);
-            attackSpeed = (int)((Level + 5.5) * 3 * modifier);
-            Defense = (int)((Level + 2.5f) * 0.8f * modifier);
+            Damage = (int)Math.Round((Level + 2.5) * 4 * modifier);
+            maxHealth = (int)Math.Round((Level + 3) * 10 * modifier);
+            attackSpeed = (int)Math.Round((Level + 5.5) * 3 * modifier);
+            Defense = (int)Math.Round((Level + 2.5f) * 0.8f * modifier);
 
             earthResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
             waterResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
@@ -648,7 +617,7 @@ namespace Warlock_The_Soulbinder
             switch (Element)
             {
                 case "neutral":
-                    Defense = (int)(Defense * (Level * 0.75f) * modifier);
+                    Defense = (int)Math.Round(Defense * (Level * 0.75f) * modifier);
                     earthResistance *= 2;
                     waterResistance *= 2;
                     darkResistance *= 2;
@@ -659,38 +628,38 @@ namespace Warlock_The_Soulbinder
                 case "earth":
                     earthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     darkResistance = (float)(darkResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 1.8f);
-                    damage = (int)(damage * 0.2f);
+                    earthDamage = (int)Math.Round(damage * 1.8f);
+                    damage = (int)Math.Round(damage * 0.2f);
                     break;
                 case "water":
                     waterResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     airResistance = (float)(airResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    waterDamage = (int)(damage * 1.8f);
-                    damage = (int)(damage * 0.2f);
+                    waterDamage = (int)Math.Round(damage * 1.8f);
+                    damage = (int)Math.Round(damage * 0.2f);
                     break;
                 case "dark":
                     darkResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     metalResistance = (float)(metalResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    darkDamage = (int)(damage * 1.8f);
-                    damage = (int)(damage * 0.2f);
+                    darkDamage = (int)Math.Round(damage * 1.8f);
+                    damage = (int)Math.Round(damage * 0.2f);
                     break;
                 case "metal":
                     metalResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     fireResistance = (float)(fireResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 1.8f);
-                    damage = (int)(damage * 0.2f);
+                    earthDamage = (int)Math.Round(damage * 1.8f);
+                    damage = (int)Math.Round(damage * 0.2f);
                     break;
                 case "fire":
                     fireResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     waterResistance = (float)(waterResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    fireDamage = (int)(damage * 1.8f);
-                    damage = (int)(damage * 0.2f);
+                    fireDamage = (int)Math.Round(damage * 1.8f);
+                    damage = (int)Math.Round(damage * 0.2f);
                     break;
                 case "air":
                     airResistance *= (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     earthResistance = (float)(earthResistance * (-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    airDamage = (int)(damage * 1.8f);
-                    damage = (int)(damage * 0.2f);
+                    airDamage = (int)Math.Round(damage * 1.8f);
+                    damage = (int)Math.Round(damage * 0.2f);
                     break;
             }
 
