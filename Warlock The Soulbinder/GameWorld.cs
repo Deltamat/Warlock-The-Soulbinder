@@ -621,59 +621,59 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.DeleteSoulStoneDB();
             Controller.Instance.DeleteStatisticDB();
 
-            //Enemies
-            for (int i = 0; i < CurrentZone().Enemies.Count; i++)
-            {
-                Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
-            }
-            //Filled soul stones
-            for (int i = 0; i < FilledStone.StoneList.Count; i++)
-            {
-                Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
-            }
-            //Player
-            int weapon, armour, skill1, skill2, skill3;
-            try
-            {
-                weapon = Equipment.Instance.Weapon.Id;
-            }
-            catch (Exception)
-            {
-                weapon = -1;
-            }
-            try
-            {
-                armour = Equipment.Instance.Armor.Id;
-            }
-            catch (Exception)
-            {
-                armour = -1;
-            }
-            try
-            {
-                skill1 = Equipment.Instance.Skill1.Id;
-            }
-            catch (Exception)
-            {
-                skill1 = -1;
-            }
-            try
-            {
-                skill2 = Equipment.Instance.Skill2.Id;
-            }
-            catch (Exception)
-            {
-                skill2 = -1;
-            }
-            try
-            {
-                skill3 = Equipment.Instance.Skill3.Id;
-            }
-            catch (Exception)
-            {
-                skill3 = -1;
-            }
-            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth, weapon, armour, skill1, skill2, skill3);
+                //Enemies
+                for (int i = 0; i < CurrentZone().Enemies.Count; i++)
+                {
+                    Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
+                }
+                //Filled soul stones
+                for (int i = 0; i < FilledStone.StoneList.Count; i++)
+                {
+                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
+                }
+                //Player
+                int weapon, armour, skill1, skill2, skill3;
+                try
+                {
+                    weapon = Equipment.Instance.Weapon.Id;
+                }
+                catch (Exception)
+                {
+                    weapon = -1;
+                }
+                try
+                {
+                    armour = Equipment.Instance.Armor.Id;
+                }
+                catch (Exception)
+                {
+                    armour = -1;
+                }
+                try
+                {
+                    skill1 = Equipment.Instance.Skill1.Id;
+                }
+                catch (Exception)
+                {
+                    skill1 = -1;
+                }
+                try
+                {
+                    skill2 = Equipment.Instance.Skill2.Id;
+                }
+                catch (Exception)
+                {
+                    skill2 = -1;
+                }
+                try
+                {
+                    skill3 = Equipment.Instance.Skill3.Id;
+                }
+                catch (Exception)
+                {
+                    skill3 = -1;
+                }
+                Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth, weapon, armour, skill1, skill2, skill3);
 
             //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
