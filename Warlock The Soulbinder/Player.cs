@@ -396,7 +396,7 @@ namespace Warlock_The_Soulbinder
 
                     if (Equipment.Instance.EquippedEquipment[1] != null && stone == Equipment.Instance.EquippedEquipment[1])
                     {
-                        stone.Defense *= 2;
+                        Defense *= 2;
                         for (int i = 0; i < stone.ResistanceTypes.Count; i++) //adds resistance types to the player
                         {
                             ResistanceTypes[i] += stone.ResistanceTypes[i];
