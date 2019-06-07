@@ -222,6 +222,7 @@ namespace Warlock_The_Soulbinder
             if (Player.Instance.CurrentHealth <= 0)
             {
                 ExitCombat();
+                GameWorld.Instance.GameState = "Overworld";
                 Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
             }
             
@@ -843,11 +844,13 @@ namespace Warlock_The_Soulbinder
                         //shield
                         if (enemyShield - totalDamageToDeal <= 0)
                         {
+                            EnemyScrolling($"Shield -{enemyShield}", Color.Gray);
                             totalDamageToDeal -= enemyShield;
                             enemyShield = 0;
                         }
                         else
                         {
+                            EnemyScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
                             enemyShield -= totalDamageToDeal;
                             totalDamageToDeal = 0;
                         }
@@ -1130,11 +1133,13 @@ namespace Warlock_The_Soulbinder
                     //shield
                     if (playerShield - totalDamageToDeal <= 0)
                     {
+                        PlayerScrolling($"Shield -{playerShield}", Color.Gray);
                         totalDamageToDeal -= playerShield;
                         playerShield = 0;
                     }
                     else
                     {
+                        PlayerScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
                         playerShield -= totalDamageToDeal;
                         totalDamageToDeal = 0;
                     }
@@ -1367,11 +1372,13 @@ namespace Warlock_The_Soulbinder
                     //shield
                     if (playerShield - totalDamageToDeal <= 0)
                     {
+                        PlayerScrolling($"Shield -{playerShield}", Color.Gray);
                         totalDamageToDeal -= playerShield;
                         playerShield = 0;
                     }
                     else
                     {
+                        PlayerScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
                         playerShield -= totalDamageToDeal;
                         totalDamageToDeal = 0;
                     }

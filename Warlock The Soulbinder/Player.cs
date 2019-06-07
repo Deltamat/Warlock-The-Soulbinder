@@ -67,7 +67,6 @@ namespace Warlock_The_Soulbinder
                     Position = new Vector2(1800, 2630);
                     GameWorld.Instance.CurrentZone().KillEnemiesInZone();
                     GameWorld.Instance.currentZone = "Town";
-/*                    GameWorld.Instance.GameState = "Overworld"*/;
                     GameWorld.Instance.SongPosition = TimeSpan.Zero;
                     GameWorld.Instance.ChangeMusic();
                 }
