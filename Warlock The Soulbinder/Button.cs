@@ -71,7 +71,7 @@ namespace Warlock_The_Soulbinder
             currentMouse = Mouse.GetState();
             
 
-            var mouseRectangle = new Rectangle(currentMouse.X, currentMouse.Y, 1, 1);
+            Rectangle mouseRectangle = new Rectangle(currentMouse.X, currentMouse.Y, 1, 1);
 
             isHovering = false;
 
@@ -96,7 +96,7 @@ namespace Warlock_The_Soulbinder
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var color = Color.White;
+            Color color = Color.White;
 
             //pretty selfexplanatory, but it changes the button's color to gray from  
             //white if you hover over it with the mouse.
@@ -112,8 +112,8 @@ namespace Warlock_The_Soulbinder
             if (!string.IsNullOrEmpty(TextForButton))
             {
                 //much calculations, much wow.
-                var x = (Rectangle.X + (Rectangle.Width * 0.5f)) - (font.MeasureString(TextForButton).X * 0.5f);
-                var y = (Rectangle.Y + (Rectangle.Height * 0.5f)) - (font.MeasureString(TextForButton).Y * 0.5f);
+                float x = (Rectangle.X + (Rectangle.Width * 0.5f)) - (font.MeasureString(TextForButton).X * 0.5f);
+                float y = (Rectangle.Y + (Rectangle.Height * 0.5f)) - (font.MeasureString(TextForButton).Y * 0.5f);
 
                 //draws the text inside the button.
                 spriteBatch.DrawString(font, TextForButton, new Vector2(x, y), FontColor);

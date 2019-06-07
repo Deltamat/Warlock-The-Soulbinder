@@ -55,7 +55,7 @@ namespace Warlock_The_Soulbinder
             {
                 currentDialogue = 1;
                 InDialogue = false;
-                foreach (var npc in GameWorld.Instance.CurrentZone().NPCs)
+                foreach (NPC npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
                     npc.Talking = false;
                 }

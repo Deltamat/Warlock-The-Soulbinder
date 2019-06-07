@@ -41,9 +41,9 @@ namespace Warlock_The_Soulbinder
         private Texture2D background;
         private bool saved;
         private bool saving;
-        private bool saveStart;
         private double savedTextTime;
         private double savingTextTime;
+        private Thread saveThread;
 
         //Tiled fields
         private Zone town, neutral, earth, water, dragon, metal, dark, fire, air, dragonRealm;
@@ -195,7 +195,7 @@ namespace Warlock_The_Soulbinder
             zones.Add(metal);
             zones.Add(dragonRealm);
 
-            foreach (var zone in zones)
+            foreach (Zone zone in zones)
             {
                 zone.Setup();
             }
@@ -330,10 +330,6 @@ namespace Warlock_The_Soulbinder
             {
                 SavedTextTime += deltaTimeMilli;
             }
-            else if (saveStart) //timer for when the game should start saving
-            {
-                savingTextTime += deltaTimeMilli;
-            }
 
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
             {
@@ -461,9 +457,9 @@ namespace Warlock_The_Soulbinder
 
             //draws "Saved" in the top-left of the screen
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
-            if (SavedTextTime > 0)
+            if (SavedTextTime > 0 && !saving)
             {
-                spriteBatch.DrawString(copperFont, "Saved", Vector2.Zero, Color.HotPink, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                spriteBatch.DrawString(copperFont, "Saved!", Vector2.Zero, Color.HotPink, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
             }
 
             if (SavedTextTime > 2500)
@@ -473,11 +469,11 @@ namespace Warlock_The_Soulbinder
             }
             spriteBatch.End();
 
-            //draws "Saving" in the top-left of the screen
-            if (saveStart)
+            //draws "Saving..." in the top-left of the screen
+            if (saving)
             {
                 SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
-                SpriteBatch.DrawString(copperFont, "Saving...", Vector2.Zero, Color.HotPink);
+                SpriteBatch.DrawString(copperFont, "Saving...", Vector2.Zero, Color.DeepPink);
                 SpriteBatch.End();
                 Saving = true;
             }
@@ -535,7 +531,7 @@ namespace Warlock_The_Soulbinder
         /// <returns>The current Zone</returns>
         public Zone CurrentZone()
         {
-            foreach (var zone in zones)
+            foreach (Zone zone in zones)
             {
                 if (zone.Name == currentZone)
                 {
@@ -599,11 +595,14 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void SaveToDBThreadMaker()
         {
-            Thread thread = new Thread(() => SaveToDB())
+            if (!saving)
             {
-                IsBackground = true
-            };
-            thread.Start();
+                saveThread = new Thread(() => SaveToDB())
+                {
+                    IsBackground = true
+                };
+                saveThread.Start();
+            }
         }
 
         /// <summary>
@@ -611,7 +610,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void SaveToDB()
         {
-            saveStart = true;
+            saving = true;
 
             Controller.Instance.OpenTheGates();
 
@@ -621,59 +620,59 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.DeleteSoulStoneDB();
             Controller.Instance.DeleteStatisticDB();
 
-                //Enemies
-                for (int i = 0; i < CurrentZone().Enemies.Count; i++)
-                {
-                    Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
-                }
-                //Filled soul stones
-                for (int i = 0; i < FilledStone.StoneList.Count; i++)
-                {
-                    Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
-                }
-                //Player
-                int weapon, armour, skill1, skill2, skill3;
-                try
-                {
-                    weapon = Equipment.Instance.Weapon.Id;
-                }
-                catch (Exception)
-                {
-                    weapon = -1;
-                }
-                try
-                {
-                    armour = Equipment.Instance.Armor.Id;
-                }
-                catch (Exception)
-                {
-                    armour = -1;
-                }
-                try
-                {
-                    skill1 = Equipment.Instance.Skill1.Id;
-                }
-                catch (Exception)
-                {
-                    skill1 = -1;
-                }
-                try
-                {
-                    skill2 = Equipment.Instance.Skill2.Id;
-                }
-                catch (Exception)
-                {
-                    skill2 = -1;
-                }
-                try
-                {
-                    skill3 = Equipment.Instance.Skill3.Id;
-                }
-                catch (Exception)
-                {
-                    skill3 = -1;
-                }
-                Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth, weapon, armour, skill1, skill2, skill3);
+            //Enemies
+            for (int i = 0; i < CurrentZone().Enemies.Count; i++)
+            {
+                Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
+            }
+            //Filled soul stones
+            for (int i = 0; i < FilledStone.StoneList.Count; i++)
+            {
+                Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
+            }
+            //Player
+            int weapon, armour, skill1, skill2, skill3;
+            try
+            {
+                weapon = Equipment.Instance.Weapon.Id;
+            }
+            catch (Exception)
+            {
+                weapon = -1;
+            }
+            try
+            {
+                armour = Equipment.Instance.Armor.Id;
+            }
+            catch (Exception)
+            {
+                armour = -1;
+            }
+            try
+            {
+                skill1 = Equipment.Instance.Skill1.Id;
+            }
+            catch (Exception)
+            {
+                skill1 = -1;
+            }
+            try
+            {
+                skill2 = Equipment.Instance.Skill2.Id;
+            }
+            catch (Exception)
+            {
+                skill2 = -1;
+            }
+            try
+            {
+                skill3 = Equipment.Instance.Skill3.Id;
+            }
+            catch (Exception)
+            {
+                skill3 = -1;
+            }
+            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth, weapon, armour, skill1, skill2, skill3);
 
             //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
@@ -682,11 +681,9 @@ namespace Warlock_The_Soulbinder
 
             Saved = true;
             Saving = false;
-            saveStart = false;
             savingTextTime = 0;
 
             Controller.Instance.CloseTheGates();
-            
         }
     }
 }

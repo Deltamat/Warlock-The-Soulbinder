@@ -72,9 +72,6 @@ namespace Warlock_The_Soulbinder
             // based on the name of the zone create the belonging npc's
             if (Name == "Town")
             {
-                //NPCs.Add(new NPC("npc/npc_knight", new Vector2(400), true, false, false, false, 1, ""));
-                //NPCs.Add(new NPC("npc/npc_old", new Vector2(1000), false, true, false, false, 1, ""));
-                //NPCs.Add(new NPC("npc/npc_old", new Vector2(100, 400), false, false, true, false, 1, ""));
                 NPCs.Add(new NPC("npc/npc_knight", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake."));
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 0, "")); // healer
                 NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "Cant a man get some privacy!"));
@@ -127,17 +124,17 @@ namespace Warlock_The_Soulbinder
                 pillars.Add(airPillar);
                 pillars.Add(neutralPillar);
 
-                foreach (var pillar in pillars)
+                foreach (NPC pillar in pillars)
                 {
                     CollisionRects.Add(pillar.CollisionBox);
                 }
-                foreach (var npc in NPCs)
+                foreach (NPC npc in NPCs)
                 {
                     npc.UpdateDialogue();
                 }
             }
 
-            foreach (var npc in NPCs)
+            foreach (NPC npc in NPCs)
             {
                 CollisionRects.Add(npc.CollisionBox);
             }
@@ -165,7 +162,7 @@ namespace Warlock_The_Soulbinder
             foreach (Trigger trigger in Triggers) // checks if the player entered a trigger
             {
                 // What happpens when player enters a zone trigger
-                if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox))
+                if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox) && !GameWorld.Instance.Saving)
                 {
                     if (trigger.TargetZone == "Dragon")
                     {
@@ -176,10 +173,11 @@ namespace Warlock_The_Soulbinder
                     GameWorld.Instance.currentZone = trigger.TargetZone;
                     GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies
                     Player.Instance.Position = new Vector2(trigger.TargetPos.X - 19, trigger.TargetPos.Y - 6);
+                    Player.Instance.GracePeriod = 1.5;
                 }
             }
 
-            foreach (var npc in NPCs)
+            foreach (NPC npc in NPCs)
             {
                 npc.Update(gameTime);
             }
@@ -214,7 +212,7 @@ namespace Warlock_The_Soulbinder
 #endif
             }
 
-            foreach (var npc in NPCs)
+            foreach (NPC npc in NPCs)
             {
                 npc.Draw(spriteBatch);
 #if DEBUG
@@ -223,7 +221,7 @@ namespace Warlock_The_Soulbinder
             }
             if (Name == "Dragon")
             {
-                foreach (var pillar in pillars)
+                foreach (NPC pillar in pillars)
                 {
                     pillar.Draw(spriteBatch);
 #if DEBUG
@@ -231,20 +229,6 @@ namespace Warlock_The_Soulbinder
 #endif
                 }
             }
-
-            //MapRenderer.Draw(Map, GameWorld.Instance.camera.viewMatrix);
-            //foreach (var layer in Map.TileLayers)
-            //{
-            //    if (layer.Name == "Top" || layer.Name == "OverTop")
-            //    {
-            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.99f);
-            //    }
-            //    else
-            //    {
-            //        mapRenderer.Draw(layer, GameWorld.Instance.camera.viewMatrix, null, null, 0.98f);
-            //    }
-            //}
-
         }
 
         /// <summary>
@@ -268,8 +252,6 @@ namespace Warlock_The_Soulbinder
                     }
                 }
             }
-            
-            
         }
 
         /// <summary>
@@ -364,7 +346,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void KillEnemiesInZone()
         {
-            foreach (var enemy in Enemies)
+            foreach (Enemy enemy in Enemies)
             {
                 enemy.Alive = false;
             }
