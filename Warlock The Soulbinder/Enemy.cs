@@ -121,8 +121,8 @@ namespace Warlock_The_Soulbinder
 
             if (dragon)
             {
-                Damage *= 2;
-                maxHealth *= 5;
+                //Damage *= 1;
+                maxHealth *= 4;
             }
 
             //switch case to determine special properties based on the monster's element (logistic function)

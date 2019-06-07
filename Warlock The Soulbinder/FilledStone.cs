@@ -40,6 +40,7 @@ namespace Warlock_The_Soulbinder
 
         private int maxHealth;
         protected float attackSpeed;
+        private int totalDamage;
         protected int damage;
         protected int earthDamage;
         protected int waterDamage;
@@ -124,6 +125,8 @@ namespace Warlock_The_Soulbinder
                 
             }
         }
+
+        public int TotalDamage { get => totalDamage; set => totalDamage = value; }
 
 
         /// <summary>
@@ -602,7 +605,7 @@ namespace Warlock_The_Soulbinder
             float modifier = 0.2f;
 
             //base stats
-            Damage = (int)Math.Round((Level + 2.5) * 4 * modifier);
+            Damage = (int)Math.Round((Level + 2.5) * 4 * modifier);            
             maxHealth = (int)Math.Round((Level + 3) * 10 * modifier);
             attackSpeed = (int)Math.Round((Level + 5.5) * 3 * modifier);
             Defense = (int)Math.Round((Level + 2.5f) * 0.8f * modifier);
@@ -662,6 +665,8 @@ namespace Warlock_The_Soulbinder
                     damage = (int)Math.Round(damage * 0.2f);
                     break;
             }
+
+            TotalDamage = damage + earthDamage + waterDamage + darkDamage + metalDamage + fireDamage + airDamage;
 
             ResistanceTypes.Clear();
             DamageTypes.Clear();

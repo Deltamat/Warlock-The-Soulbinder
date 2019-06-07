@@ -214,6 +214,13 @@ namespace Warlock_The_Soulbinder
             {
                 EnemyText.Remove(stringObject);
             }
+
+            if (Player.Instance.CurrentHealth <= 0)
+            {
+                ExitCombat();
+                Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
+            }
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -850,9 +857,9 @@ namespace Warlock_The_Soulbinder
                                     //armor effects of target
                                     if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
                                     {
-                                        if (target.EnemyStone.ArmorEffect.SkillIcon != null)
+                                        if (itemEffect.SkillIcon != null)
                                         {
-                                            skillIconEnemy.Add(target.EnemyStone.ArmorEffect.SkillIcon);
+                                            skillIconEnemy.Add(itemEffect.SkillIcon);
                                         }
                                         enemyEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
                                     }
@@ -875,9 +882,9 @@ namespace Warlock_The_Soulbinder
                                         }
                                         else
                                         {
-                                            if (target.EnemyStone.ArmorEffect.SkillIcon != null)
+                                            if (itemEffect.SkillIcon != null)
                                             {
-                                                skillIconPlayer.Add(target.EnemyStone.ArmorEffect.SkillIcon);
+                                                skillIconPlayer.Add(itemEffect.SkillIcon);
                                             }
 
                                             playerEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
@@ -1415,7 +1422,7 @@ namespace Warlock_The_Soulbinder
                             {
                                 if (!itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add negative effects to the player
                                 {
-                                    if (itemEffect != null)
+                                    if (itemEffect.SkillIcon != null)
                                     {
                                         skillIconPlayer.Add(itemEffect.SkillIcon);
                                     }
@@ -1424,7 +1431,7 @@ namespace Warlock_The_Soulbinder
                                 }
                                 else if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add positive effects to the enemy
                                 {
-                                    if (itemEffect != null)
+                                    if (itemEffect.SkillIcon != null)
                                     {
                                         skillIconEnemy.Add(itemEffect.SkillIcon);
                                     }
