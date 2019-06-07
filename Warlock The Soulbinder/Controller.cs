@@ -33,19 +33,16 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Tumbleweed.
+        /// </summary>
         public Controller()
-        {
-            //model = new Model();
-            //filledStone = new ModelSoulStone();
-            //enemy = new ModelEnemy();
-            //player = new ModelPlayer();
-            //log = new ModelLog();            
-            //statistic = new ModelStatistic();            
+        {       
         }
         
         #region Model
         /// <summary>
-        /// Calls a method that opens the connection to the database.
+        /// Calls a method that opens a connection to the database.
         /// </summary>
         public void OpenTheGates()
         {
@@ -59,7 +56,6 @@ namespace Warlock_The_Soulbinder
         {
             model.CloseConnection();
         }
-
         #endregion
 
         #region FilledStone
@@ -72,7 +68,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// 
+        /// Calls a method that saves the randomly generated numbers so that they aren't random every time you reload a saved game.
         /// </summary>
         /// <param name="monster">Name of the monster.</param>
         /// <param name="experience">Current experience gathered on that stone.</param>
@@ -86,6 +82,10 @@ namespace Warlock_The_Soulbinder
             filledStone.SaveSoulStone(monster, experience, equipmentSlot, level, damage, maxHealth, attackSpeed);
         }
 
+        /// <summary>
+        /// Calls a method that returns a list of soulstones via the SoulStone table and a special constructor in the FilledStones class.
+        /// </summary>
+        /// <returns></returns>
         public List<FilledStone> LoadFromFilledStoneDB()
         {
             return filledStone.LoadSoulStone();
@@ -100,17 +100,27 @@ namespace Warlock_The_Soulbinder
         {
             statistic.ClearDB();
         }
-
-        public void SaveToStatisticDB(int gold, int soulCount, bool earthDragonDead, bool fireDragonDead, bool darkDragonDead, bool metalDragonDead, bool waterDragonDead, bool airDragonDead, bool neutralDragonDead)
+        /// <summary>
+        /// Calls a method that saves the progress on killing the seven different dragons to the Statistic table.
+        /// </summary>
+        /// <param name="earthDragonDead">Is it dead yet?</param>
+        /// <param name="fireDragonDead">Is it dead yet?</param>
+        /// <param name="darkDragonDead">Is it dead yet?</param>
+        /// <param name="metalDragonDead">Is it dead yet?</param>
+        /// <param name="waterDragonDead">Is it dead yet?</param>
+        /// <param name="airDragonDead">Is it dead yet?</param>
+        /// <param name="neutralDragonDead">Is it dead yet?</param>
+        public void SaveToStatisticDB(bool earthDragonDead, bool fireDragonDead, bool darkDragonDead, bool metalDragonDead, bool waterDragonDead, bool airDragonDead, bool neutralDragonDead)
         {
-            statistic.SaveStatistic(gold, soulCount, earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead);
+            statistic.SaveStatistic(earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead);
         }
-
+        /// <summary>
+        /// Calls a method that loads the saved progress on killing the seven different dragons from the Statistic table.
+        /// </summary>
         public void LoadFromStatisticDB()
         {
             statistic.LoadStatistic();
         }
-
         #endregion
 
         #region Log
@@ -136,7 +146,6 @@ namespace Warlock_The_Soulbinder
         {
            log.LoadLog();
         }
-
         #endregion
 
         #region Player
@@ -167,7 +176,6 @@ namespace Warlock_The_Soulbinder
         {
             player.LoadPlayer();
         }
-
         #endregion
 
         #region Enemy
@@ -209,7 +217,6 @@ namespace Warlock_The_Soulbinder
         {
             return enemy.LoadEnemy();
         }
-
         #endregion
     }
 }

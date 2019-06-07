@@ -540,36 +540,30 @@ namespace Warlock_The_Soulbinder
                     return zone;
                 }
             }
-
             return zones[0];
-
         }
 
         public void ChangeMusic()
         {
             SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-           
 
             if ((currentZone == "DragonRealm") && gameState != "Dialogue" && gameState != "GeneralMenu")
             {
                 MediaPlayer.Play(DragonMusic, SongPosition);
             }
-
             else if (GameState == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
             {
                 MediaPlayer.Play(overworldMusic, SongPosition);
             }
-
             else if (GameState == "Combat" && currentZone != "DragonRealm")
             {
                 SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
                 MediaPlayer.Play(combatMusic, TimeSpan.Zero);
             }
-
         }
 
         /// <summary>
-        /// Loads all the variables from the database
+        /// Loads everything from the database depending on which savefile was chosen in MainMenu.
         /// </summary>
         public void LoadDB()
         {
@@ -608,7 +602,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Saves all the variables to the database
+        /// Saves all the necesary variables to the database
         /// </summary>
         public void SaveToDB()
         {
@@ -634,7 +628,7 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth);
 
             //Which dragons are dead
-            Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
+            Controller.Instance.SaveToStatisticDB(Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
             //Log for scanned enemies
             Controller.Instance.SaveToLogDB(Log.Instance.SheepLog, Log.Instance.WolfLog, Log.Instance.BearLog, Log.Instance.PlantEaterLog, Log.Instance.InsectSoldierLog, Log.Instance.SlimeSnakeLog, Log.Instance.TentacleLog, Log.Instance.FrogLog, Log.Instance.FishLog, Log.Instance.MummyLog, Log.Instance.VampireLog, Log.Instance.BansheeLog, Log.Instance.BucketManLog, Log.Instance.DefenderLog, Log.Instance.SentryLog, Log.Instance.FireGolemLog, Log.Instance.InfernalDemonLog, Log.Instance.AshZombieLog, Log.Instance.FalconLog, Log.Instance.BatLog, Log.Instance.RavenLog);
 
