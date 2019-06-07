@@ -18,9 +18,9 @@ namespace Warlock_The_Soulbinder
         private int plantEaterLog = 0;
         private int insectSoldierLog = 0;
         private int slimeSnakeLog = 0;
-        private int tentacleLog = 0;
-        private int frogLog = 0;
-        private int fishLog = 0;
+        private int tentacleLog = 10;
+        private int frogLog = 10;
+        private int fishLog = 10;
         private int mummyLog = 0;
         private int vampireLog = 0;
         private int bansheeLog = 0;
