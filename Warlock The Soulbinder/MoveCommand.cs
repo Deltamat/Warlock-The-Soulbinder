@@ -18,7 +18,7 @@ namespace Warlock_The_Soulbinder
 
         public void Execute()
         {
-            if (GameWorld.Instance.GameState == "Overworld")
+            if (GameWorld.Instance.GameState == "Overworld" && !GameWorld.Instance.Saving)
             {
                 Player.Instance.Move(direction);
             }
