@@ -25,9 +25,6 @@ namespace Warlock_The_Soulbinder
         private bool hurtStart;
         private bool blinking;
         
-        private Sound step = new Sound("playerStep");
-        private double stepTimer;
-
         static Player instance;
         public static Player Instance
         {
@@ -133,7 +130,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Moves the player for its movementSpeed in the direction of directionInput
+        /// Sets the player's direction
         /// </summary>
         /// <param name="directionInput">The direction the player moves</param>
         public void Move(Vector2 directionInput)
@@ -150,7 +147,6 @@ namespace Warlock_The_Soulbinder
 
         public override void Update(GameTime gameTime)
         {
-            stepTimer += GameWorld.deltaTimeSecond;
             if (graceStart && GameWorld.Instance.GameState == "Overworld")
             {
                 gracePeriod += GameWorld.deltaTimeSecond;
@@ -160,11 +156,6 @@ namespace Warlock_The_Soulbinder
             {
                 lastDirection = direction;
                 walking = true;
-                if (stepTimer > 0.35f)
-                {
-                    //step.Play();
-                    stepTimer = 0;
-                }
             }
             else
             {
@@ -373,7 +364,7 @@ namespace Warlock_The_Soulbinder
                     Defense += stone.Defense; //adds defense to the player
                     AttackSpeed += stone.AttackSpeed; //adds attack speed to the player
                     MaxHealth += stone.MaxHealth; //adds max health to the player
-
+                    
                     if (Equipment.Instance.EquippedEquipment[0] != null && stone == Equipment.Instance.EquippedEquipment[0])
                     {
                         for (int i = 0; i < stone.DamageTypes.Count; i++) //adds damage types to the player
@@ -405,6 +396,7 @@ namespace Warlock_The_Soulbinder
 
                     if (Equipment.Instance.EquippedEquipment[1] != null && stone == Equipment.Instance.EquippedEquipment[1])
                     {
+                        stone.Defense *= 2;
                         for (int i = 0; i < stone.ResistanceTypes.Count; i++) //adds resistance types to the player
                         {
                             ResistanceTypes[i] += stone.ResistanceTypes[i];

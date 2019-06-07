@@ -61,19 +61,19 @@ namespace Warlock_The_Soulbinder
                         case 2: //bear
                             EffectString = "Has a chance to maul the enemy,\ncausing them to bleed";
                             UpperChanceBounds = 8;
-                            Damage = (int)(3 * (stone.Level + 4));
+                            Damage = (int)Math.Round(3d * (stone.Level + 4));
                             EffectLength = 3;
                             break;
                         case 3: //plant eater
                             EffectString = "Has a chance to steal nutrients\nfrom the enemy, healing you";
                             UpperChanceBounds = 5;
                             TargetsSelf = true;
-                            Heal = (int)(damageDealt * 0.25f);
+                            Heal = (int)Math.Round(damageDealt * 0.25f);
                             break;
                         case 4: //insect soldier
                             EffectString = "Has a chance to poison the enemy";
                             UpperChanceBounds = 6;
-                            Damage = (int)(2.5 * (stone.Level + 3));
+                            Damage = (int)Math.Round(1.5 * (stone.Level + 2));
                             EffectLength = 5;
                             break;
                         case 5: //slime snake
@@ -84,7 +84,7 @@ namespace Warlock_The_Soulbinder
                         case 6: //tentacle
                             EffectString = "Has a chance to constrict your\nenemy with tentacles, crushing them";
                             UpperChanceBounds = 7;
-                            Damage = (int)(2.75 * (stone.Level + 3));
+                            Damage = (int)Math.Round(1.75 * (stone.Level + 4));
                             EffectLength = 4;
                             break;
                         case 7: //frog
@@ -96,7 +96,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to regenerate\nyour health";
                             UpperChanceBounds = 10;
                             TargetsSelf = true;
-                            Heal = (int)(2 * (stone.Level + 3));
+                            Heal = (int)Math.Round(2d * (stone.Level + 3));
                             break;
                         case 9: //mummy
                             EffectString = "Has a chance to curse your\nenemy, lowering their accuracy";
@@ -108,7 +108,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to steal blood from\nyour enemy, healing a percentage\nof the damage you dealt";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
-                            Heal = (int)(damageDealt * 0.3f);
+                            Heal = (int)Math.Round(damageDealt * 0.3f);
                             break;
                         case 11: //banshee
                             EffectString = "Has a chance to paralyze your\nenemy, stunning them";
@@ -140,14 +140,14 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.Damage = (int)(characterCombat.Damage * 1.5f);
+                                characterCombat.Damage = (int)Math.Round(characterCombat.Damage * 1.5f);
                                 characterCombat.AttackSpeed = (int)Math.Round(characterCombat.AttackSpeed * 0.8f);
                             }
                             break;
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your\nenemy on fire";
                             UpperChanceBounds = 3;
-                            Damage = (int)(4 * (stone.Level + 5));
+                            Damage = (int)Math.Round(2.8 * (stone.Level + 5));
                             EffectLength = 2;
                             break;
                         case 17: //ash zombie
@@ -186,7 +186,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.Defense += (int)(0.5f * stone.Level + 3);
+                                characterCombat.Defense += (int)Math.Round(0.5f * stone.Level + 3);
                             }
                             break;
                         case 1: //wolf
@@ -201,7 +201,7 @@ namespace Warlock_The_Soulbinder
                             StatBuff = true;
                             if (characterCombat != null)
                             {
-                                characterCombat.MaxHealth += (int)(3 * (stone.Level + 4));
+                                characterCombat.MaxHealth += (int)Math.Round(3d * (stone.Level + 4));
                             }
                             break;
                         case 3: //plant eater
@@ -211,15 +211,15 @@ namespace Warlock_The_Soulbinder
                             if (characterCombat != null)
                             {
                                 int localDamage;
-                                localDamage = (int)(characterCombat.Damage * 0.25f);
+                                localDamage = (int)Math.Round(characterCombat.Damage * 0.25f);
                                 Damage = localDamage;
-                                Heal = (int)(localDamage * 0.5f);
+                                Heal = (int)Math.Round(localDamage * 0.5f);
                             }
                             break;
                         case 4: //insect soldier
                             EffectString = "Has a chance to posion the \nenemy when attacked";
                             UpperChanceBounds = 8;
-                            Damage = (int)(2.5 * (stone.Level + 3));
+                            Damage = (int)Math.Round(1.75 * (stone.Level + 3));
                             EffectLength = 4;
                             break;
                         case 5: //slime eater
@@ -232,7 +232,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to retaliate with a \ntentacle when hit, dealing damage \nto your attacker";
                             Retaliate = true;
                             UpperChanceBounds = 2;
-                            Damage = (int)(2 * (stone.Level + 5));
+                            Damage = (int)Math.Round(2.1 * (stone.Level + 5));
                             break;
                         case 7: //frog
                             EffectString = "Has a chance to slow your enemy \ndown when attacked";
@@ -244,7 +244,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to regenerate \nsome health when attacked";
                             UpperChanceBounds = 15;
                             TargetsSelf = true;
-                            Heal = (int)(2 * (stone.Level + 3));
+                            Heal = (int)Math.Round(2d * (stone.Level + 3));
                             break;
                         case 9: //mummy
                             EffectString = "Gives you immunity to curses";
@@ -267,12 +267,12 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to give yourself a shield \nafter being hit";
                             UpperChanceBounds = 7;
                             TargetsSelf = true;
-                            Shield = (int)(3 * (stone.Level + 3)) + 1;
+                            Shield = (int)Math.Round(3d * (stone.Level + 3)) + 1;
                             break;
                         case 13: //defender
                             EffectString = "Strengthens your defense after being \nhit";
                             TargetsSelf = true;
-                            DamageAbs = (int)(1.5 * (stone.Level + 3));
+                            DamageAbs = (int)Math.Round(1.5 * (stone.Level + 3));
                             EffectLength = 1;
                             break;
                         case 14: //sentry
@@ -290,7 +290,7 @@ namespace Warlock_The_Soulbinder
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your enemy \non fire when attacked";
                             UpperChanceBounds = 6;
-                            Damage = (int)(3.5 * (stone.Level + 4));
+                            Damage = (int)Math.Round(2.5 * (stone.Level + 4));
                             EffectLength = 1;
                             break;
                         case 17: //ash zombie
@@ -337,7 +337,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 2: //bear
                             EffectString = "Maul your enemy causing them\nto bleed";
-                            Damage = (int)(3 * (stone.Level + 4));
+                            Damage = (int)Math.Round(3d * (stone.Level + 4));
                             EffectLength = 3;
                             Cooldown = 5;
                             break;
@@ -347,29 +347,29 @@ namespace Warlock_The_Soulbinder
                             if (characterCombat != null)
                             {
                                 int localDamage;
-                                localDamage = (int)(characterCombat.Damage * 0.75f);
+                                localDamage = (int)Math.Round(characterCombat.Damage * 0.75f);
                                 Damage = localDamage;
-                                Heal = (int)(localDamage * 0.5f);
+                                Heal = (int)Math.Round(localDamage * 0.5f);
                                 Cooldown = 5;
                             }
                             Cooldown = 3;
                             break;
                         case 4: //insect soldier
                             EffectString = "Poison your enemy";
-                            Damage = (int)(2.75 * (stone.Level + 4));
+                            Damage = (int)Math.Round(2d * (stone.Level + 4));
                             EffectLength = 5;
                             Cooldown = 5;
                             break;
                         case 5: //slime eater
                             EffectString = "Cover yourself in a thick \nlayer of slime, reducing \ndamage you take";
                             TargetsSelf = true;
-                            DamageAbs = (int)(2 * (stone.Level + 3));
+                            DamageAbs = (int)Math.Round(2d * (stone.Level + 3));
                             EffectLength = 4;
                             Cooldown = 5;
                             break;
                         case 6: //tentacle
                             EffectString = "Wrap tentacles around your \nenemy crushing them \nfor a few rounds";
-                            Damage = (int)(3.25 * (stone.Level + 6));
+                            Damage = (int)Math.Round(2.5 * (stone.Level + 6));
                             EffectLength = 4;
                             Cooldown = 6;
                             break;
@@ -382,7 +382,7 @@ namespace Warlock_The_Soulbinder
                         case 8: //fish
                             EffectString = "Regenerate health for a few round";
                             TargetsSelf = true;
-                            Heal = (int)(1.25 * (stone.Level + 6));
+                            Heal = (int)Math.Round(1.25 * (stone.Level + 6));
                             EffectLength = 3;
                             Cooldown = 8;
                             break;
@@ -398,7 +398,7 @@ namespace Warlock_The_Soulbinder
                             Shield = 1; 
                             if (characterCombat != null)
                             {
-                                Shield = (int)(characterCombat.MaxHealth - characterCombat.CurrentHealth);
+                                Shield = (characterCombat.MaxHealth - characterCombat.CurrentHealth);
                             }
                             Cooldown = 10;
                             break;
@@ -447,7 +447,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 16: //infernal golem
                             EffectString = "Sets your enemy ablaze";
-                            Damage = (int)(4.25 * (stone.Level + 5));
+                            Damage = (int)Math.Round(3.25 * (stone.Level + 5));
                             EffectLength = 3;
                             Cooldown = 6;
                             break;

@@ -974,7 +974,6 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
             }
-
             else if (InventoryState == "FilledStones")
             {
                 if (equipping == true)
