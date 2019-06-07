@@ -111,8 +111,8 @@ namespace Warlock_The_Soulbinder
                         case 9: //mummy
                             EffectString = "Has a chance to curse your\nenemy, lowering their accuracy";
                             UpperChanceBounds = 6;
-                            AccuracyMod = 0.7f;
-                            EffectLength = 2;
+                            AccuracyMod = 0.5f;
+                            EffectLength = 5;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
                             break;
                         case 10: //vampire
@@ -269,7 +269,7 @@ namespace Warlock_The_Soulbinder
                             Heal = (int)Math.Round(2d * (stone.Level + 3));
                             break;
                         case 9: //mummy
-                            EffectString = "Gives you immunity to reduced speed";
+                            EffectString = "Gives you immunity to reduced accuracy";
                             TargetsSelf = true;
                             AccuracyMod = 1000000;
                             EffectLength = 5;
@@ -427,7 +427,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 9: //mummy
                             EffectString = "Curses your enemy, \nlowering their accuracy";
-                            AccuracyMod = 0.6f;
+                            AccuracyMod = 0.5f;
                             EffectLength = 5;
                             Cooldown = 7;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
@@ -452,7 +452,7 @@ namespace Warlock_The_Soulbinder
                         case 12: //bucket man
                             EffectString = "A powerful attack that \nis difficult to land";
                             TargetsBoth = true;
-                            UpperChanceBounds = 10;
+                            UpperChanceBounds = 9;
                             Damage = 1;
                             if (characterCombat != null)
                             {
