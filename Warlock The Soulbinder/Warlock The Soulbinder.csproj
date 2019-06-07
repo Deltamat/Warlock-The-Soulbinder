@@ -88,7 +88,6 @@
     <Compile Include="ModelEnemy.cs" />
     <Compile Include="ModelLog.cs" />
     <Compile Include="ModelPlayer.cs" />
-    <Compile Include="ModelQuest.cs" />
     <Compile Include="ModelSoulStone.cs" />
     <Compile Include="ModelStatistic.cs" />
     <Compile Include="MoveCommand.cs" />

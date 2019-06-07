@@ -31,23 +31,29 @@ namespace Warlock_The_Soulbinder
                 instance = value;
             }
         }
-        
+
         public Controller()
         {
             model = new Model();
             filledStone = new ModelSoulStone();
             enemy = new ModelEnemy();
             player = new ModelPlayer();
-            statistic = new ModelStatistic();
-            log = new ModelLog();
+            log = new ModelLog();            
+            statistic = new ModelStatistic();            
         }
         
         #region Model
+        /// <summary>
+        /// Calls a method that opens the connection to the database.
+        /// </summary>
         public void OpenTheGates()
         {
             model.OpenConnection();
         }
 
+        /// <summary>
+        /// Calls a method that closes the connection to the database.
+        /// </summary>
         public void CloseTheGates()
         {
             model.CloseConnection();
@@ -56,11 +62,24 @@ namespace Warlock_The_Soulbinder
         #endregion
 
         #region FilledStone
+        /// <summary>
+        /// Calls a method that clears the SoulStone table in current savefile.
+        /// </summary>
         public void DeleteSoulStoneDB()
         {
             filledStone.ClearDB();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="monster">Name of the monster.</param>
+        /// <param name="experience">Current experience gathered on that stone.</param>
+        /// <param name="equipmentSlot">Name of the equipment slot that it's currently in, if any.</param>
+        /// <param name="level">Level of the soulstone.</param>
+        /// <param name="damage">Damage bonus stat of the soulstone.</param>
+        /// <param name="maxHealth">max health bonus of the soulstone.</param>
+        /// <param name="attackSpeed">attackspeed of the soulstone.</param>
         public void SaveToSoulStoneDB(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, float attackSpeed)
         {
             filledStone.SaveSoulStone(monster, experience, equipmentSlot, level, damage, maxHealth, attackSpeed);
@@ -71,8 +90,11 @@ namespace Warlock_The_Soulbinder
             return filledStone.LoadSoulStone();
         }
         #endregion
-        
+
         #region Statistic
+        /// <summary>
+        /// Calls a method that clears the Statistic table in current savefile.
+        /// </summary>
         public void DeleteStatisticDB()
         {
             statistic.ClearDB();
@@ -89,8 +111,11 @@ namespace Warlock_The_Soulbinder
         }
 
         #endregion
-        
+
         #region Log
+        /// <summary>
+        /// Calls a method that clears the Enemy table in current savefile.
+        /// </summary>
         public void DeleteLogDB()
         {
             log.ClearDB();
@@ -109,13 +134,28 @@ namespace Warlock_The_Soulbinder
         }
 
         #endregion
-        
+
         #region Player
+        /// <summary>
+        /// Calls a method that clears the Player table in current savefile.
+        /// </summary>
         public void DeletePlayerDB()
         {
             player.ClearDB();
         }
 
+        /// <summary>
+        /// Calls a method that saves all the parameters below to the Player database.
+        /// </summary>
+        /// <param name="X">X-coordinate of the player in the overworld.</param>
+        /// <param name="Y">Y-coordinate of the player in the overworld.</param>
+        /// <param name="zone">Name of the current zone.</param>
+        /// <param name="currentHealth">Current health of the player.</param>
+        /// <param name="soulWeapon">id of the </param>
+        /// <param name="soulArmour"></param>
+        /// <param name="soulTrinket1"></param>
+        /// <param name="soulTrinket2"></param>
+        /// <param name="soulTrinket3"></param>
         public void SaveToPlayerDB(float X, float Y, string zone, int currentHealth, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
         {
             player.SavePlayer(X, Y, zone, currentHealth, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3);
@@ -127,18 +167,42 @@ namespace Warlock_The_Soulbinder
         }
 
         #endregion
-      
+
         #region Enemy
+        /// <summary>
+        /// Calls a method that clears the Enemy table in current savefile.
+        /// </summary>
         public void DeleteEnemyDB()
         {
             enemy.ClearDB();
         }
 
+        /// <summary>
+        /// Calls a method that saves all the parameters below to the Enemy database.
+        /// </summary>
+        /// <param name="level">Level of the enemy.</param>
+        /// <param name="X">X-coordiante of the enemy in the overworld.</param>
+        /// <param name="Y">Y-coordiante of the enemy in the overworld.</param>
+        /// <param name="defense">Defense stat of the enemy.</param>
+        /// <param name="damage">Damage stat of the enemy.</param>
+        /// <param name="maxHealth">Max health of the enemy.</param>
+        /// <param name="attackSpeed">Attack speed of the enemy.</param>
+        /// <param name="metalResistance">Metal resistance of the enemy.</param>
+        /// <param name="earthResistance">Earth resistance of the enemy.</param>
+        /// <param name="airResistance">Air resistance of the enemy.</param>
+        /// <param name="fireResistance">Fire resistance of the enemy.</param>
+        /// <param name="darkResistance">Dark resistance of the enemy.</param>
+        /// <param name="waterResistance">Water resistance of the enemy.</param>
+        /// <param name="monster">Name of the monster.</param>
         public void SaveToEnemyDB(int level, float X, float Y, int defense, int damage, int maxHealth, float attackSpeed, float metalResistance, float earthResistance, float airResistance, float fireResistance, float darkResistance, float waterResistance, string monster)
         {
             enemy.SaveEnemy(level, X, Y, defense, damage, maxHealth, attackSpeed, metalResistance, earthResistance, airResistance, fireResistance, darkResistance, waterResistance, monster);
         }
 
+        /// <summary>
+        /// Calls a method that loads all enemies from the database and returns it as a list.
+        /// </summary>
+        /// <returns>A list of enemies, if any, from the databse</returns>
         public List<Enemy> LoadFromEnemyDB()
         {
             return enemy.LoadEnemy();

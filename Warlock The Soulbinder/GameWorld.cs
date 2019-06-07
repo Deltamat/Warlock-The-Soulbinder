@@ -594,8 +594,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void SaveToDBThreadMaker()
         {
-            if (saveThread != null)
+            if (!saving)
             {
+                saving = true;
                 saveThread = new Thread(() => SaveToDB())
                 {
                     IsBackground = true
@@ -609,8 +610,6 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void SaveToDB()
         {
-            saving = true;
-
             Controller.Instance.OpenTheGates();
 
             Controller.Instance.DeleteEnemyDB();
