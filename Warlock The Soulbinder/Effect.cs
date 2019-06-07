@@ -438,7 +438,7 @@ namespace Warlock_The_Soulbinder
                             Shield = 1; 
                             if (characterCombat != null)
                             {
-                                Shield = (characterCombat.MaxHealth - characterCombat.CurrentHealth);
+                                Shield = (int)Math.Round((characterCombat.MaxHealth - characterCombat.CurrentHealth) * 0.25);
                             }
                             Cooldown = 10;
                             break;
@@ -464,9 +464,9 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Causes you to enter a defensive \nstance, increasing your defences \nbut lowers your damage";
                             TargetsSelf = true;
                             DamageMod = 0.25f;
-                            DamageReduction = 0.3f;
+                            DamageReduction = 0.4f;
                             EffectLength = 5;
-                            Cooldown = 9;
+                            Cooldown = 11;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
                             break;
                         case 14: //sentry

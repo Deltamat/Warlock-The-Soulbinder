@@ -186,7 +186,7 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.CurrentZone().Enemies.Remove(Target);
                 ExitCombat();
             }
-
+            
             //Scrolls playerText
             foreach (GameObject stringObject in playerText)
             {
@@ -343,14 +343,21 @@ namespace Warlock_The_Soulbinder
             
             for (int i = 0; i < playerText.Count; i++)
             {
+                if (playerText.Count > i + 1 && playerText[i].StringPosition.Y >= playerText[i + 1].StringPosition.Y) 
+                {
+                    playerText[i].StringPosition += new Vector2(0, -50);
+                }
                 spriteBatch.DrawString(CombatFont, playerText[i].StringText, playerText[i].StringPosition, playerText[i].StringColor);
             }
 
             for (int i = 0; i < enemyText.Count; i++)
             {
+                if (enemyText.Count > i + 1 && enemyText[i].StringPosition.Y >= enemyText[i + 1].StringPosition.Y)
+                {
+                    enemyText[i].StringPosition += new Vector2(0, -50);
+                }
                 spriteBatch.DrawString(CombatFont, enemyText[i].StringText, enemyText[i].StringPosition, enemyText[i].StringColor);
             }
-
         }
 
         //Goes up and down on the button list
@@ -840,20 +847,24 @@ namespace Warlock_The_Soulbinder
                                     break;
                             }
                         }
-                        
+
                         //shield
-                        if (enemyShield - totalDamageToDeal <= 0)
+                        if (enemyShield > 0)
                         {
-                            EnemyScrolling($"Shield -{enemyShield}", Color.Gray);
-                            totalDamageToDeal -= enemyShield;
-                            enemyShield = 0;
+                            if (enemyShield - totalDamageToDeal <= 0)
+                            {
+                                EnemyScrolling($"Shield -{enemyShield}", Color.Gray);
+                                totalDamageToDeal -= enemyShield;
+                                enemyShield = 0;
+                            }
+                            else
+                            {
+                                EnemyScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
+                                enemyShield -= totalDamageToDeal;
+                                totalDamageToDeal = 0;
+                            }
                         }
-                        else
-                        {
-                            EnemyScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
-                            enemyShield -= totalDamageToDeal;
-                            totalDamageToDeal = 0;
-                        }
+                        
 
                         if (playerConfused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
                         {
@@ -1131,18 +1142,22 @@ namespace Warlock_The_Soulbinder
                     }
 
                     //shield
-                    if (playerShield - totalDamageToDeal <= 0)
+                    if (playerShield > 0)
                     {
-                        PlayerScrolling($"Shield -{playerShield}", Color.Gray);
-                        totalDamageToDeal -= playerShield;
-                        playerShield = 0;
+                        if (playerShield - totalDamageToDeal <= 0)
+                        {
+                            PlayerScrolling($"Shield -{playerShield}", Color.Gray);
+                            totalDamageToDeal -= playerShield;
+                            playerShield = 0;
+                        }
+                        else
+                        {
+                            PlayerScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
+                            playerShield -= totalDamageToDeal;
+                            totalDamageToDeal = 0;
+                        }
                     }
-                    else
-                    {
-                        PlayerScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
-                        playerShield -= totalDamageToDeal;
-                        totalDamageToDeal = 0;
-                    }
+                    
 
                     if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
                     {
@@ -1370,18 +1385,22 @@ namespace Warlock_The_Soulbinder
                     }
 
                     //shield
-                    if (playerShield - totalDamageToDeal <= 0)
+                    if (playerShield > 0)
                     {
-                        PlayerScrolling($"Shield -{playerShield}", Color.Gray);
-                        totalDamageToDeal -= playerShield;
-                        playerShield = 0;
+                        if (playerShield - totalDamageToDeal <= 0)
+                        {
+                            PlayerScrolling($"Shield -{playerShield}", Color.Gray);
+                            totalDamageToDeal -= playerShield;
+                            playerShield = 0;
+                        }
+                        else
+                        {
+                            PlayerScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
+                            playerShield -= totalDamageToDeal;
+                            totalDamageToDeal = 0;
+                        }
                     }
-                    else
-                    {
-                        PlayerScrolling($"Shield -{totalDamageToDeal}", Color.Gray);
-                        playerShield -= totalDamageToDeal;
-                        totalDamageToDeal = 0;
-                    }
+                    
 
                     if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
                     {
