@@ -633,10 +633,10 @@ namespace Warlock_The_Soulbinder
             float modifier = 0.2f;
 
             //base stats
-            Damage = (int)((10 * (Level + 2.5) * 0.6f) * modifier);
-            maxHealth = (int)((5 * (Level + 3) * 2.5f) * modifier);
-            attackSpeed = (int)((3 * (Level + 5.5)) * modifier);
-            Defense = (int)((10 * (Level + 2.5f) * 0.2f) * modifier);
+            Damage = (int)((Level + 2.5) * 4 * modifier);
+            maxHealth = (int)((Level + 3) * 10 * modifier);
+            attackSpeed = (int)((Level + 5.5) * 3 * modifier);
+            Defense = (int)((Level + 2.5f) * 0.8f * modifier);
 
             earthResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
             waterResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);
@@ -648,7 +648,7 @@ namespace Warlock_The_Soulbinder
             switch (Element)
             {
                 case "neutral":
-                    Defense = (int)(Defense * (Level * 0.75f) * modifier + Level);
+                    Defense = (int)(Defense * (Level * 0.75f) * modifier);
                     earthResistance *= 2;
                     waterResistance *= 2;
                     darkResistance *= 2;
