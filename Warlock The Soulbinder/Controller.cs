@@ -131,14 +131,36 @@ namespace Warlock_The_Soulbinder
         {
             log.ClearDB();
         }
-
+        /// <summary>
+        /// Calls a method that saves all the parameters to the Log database.
+        /// </summary>
+        /// <param name="sheepLog">Progress towards scanning the sheep.</param>
+        /// <param name="wolfLog">Progress towards scanning the wolves.</param>
+        /// <param name="bearLog">Progress towards scanning the bears.</param>
+        /// <param name="plantEaterLog">Progress towards scanning the sheep.</param>
+        /// <param name="insectSoldierLog">Progress towards scanning the insect soldiers.</param>
+        /// <param name="slimeSnakeLog">Progress towards scanning the slime snakes.</param>
+        /// <param name="tentacleLog">Progress towards scanning the tentacles.</param>
+        /// <param name="frogLog">Progress towards scanning the frogs.</param>
+        /// <param name="fishLog">Progress towards scanning the fish.</param>
+        /// <param name="mummyLog">Progress towards scanning the mummies.</param>
+        /// <param name="vampireLog">Progress towards scanning the vampires.</param>
+        /// <param name="bansheeLog">Progress towards scanning the banshees.</param>
+        /// <param name="bucketManLog">Progress towards scanning the bucket men.</param>
+        /// <param name="defenderLog">Progress towards scanning the defenders.</param>
+        /// <param name="sentryLog">Progress towards scanning the sentries.</param>
+        /// <param name="fireGolemLog">Progress towards scanning the fire golems.</param>
+        /// <param name="infernalDemonLog">Progress towards scanning the infernal demons.</param>
+        /// <param name="ashZombieLog">Progress towards scanning the ash zombies.</param>
+        /// <param name="falconLog">Progress towards scanning the falcons.</param>
+        /// <param name="batLog">Progress towards scanning the bats.</param>
+        /// <param name="ravenLog">Progress towards scanning the ravens.</param>
         public void SaveToLogDB(int sheepLog, int wolfLog, int bearLog, int plantEaterLog, int insectSoldierLog, int slimeSnakeLog, int tentacleLog,
             int frogLog, int fishLog, int mummyLog, int vampireLog, int bansheeLog, int bucketManLog, int defenderLog, int sentryLog, int fireGolemLog,
             int infernalDemonLog, int ashZombieLog, int falconLog, int batLog, int ravenLog)
         {
             log.SaveLog(sheepLog, wolfLog, bearLog, plantEaterLog, insectSoldierLog, slimeSnakeLog, tentacleLog, frogLog, fishLog, mummyLog, vampireLog, bansheeLog, bucketManLog, defenderLog, sentryLog, fireGolemLog, infernalDemonLog, ashZombieLog, falconLog, batLog, ravenLog);
         }
-
         /// <summary>
         /// Calls a method that loads the progress of scanning for each creature from the Log database.
         /// </summary>
