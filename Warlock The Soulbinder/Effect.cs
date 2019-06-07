@@ -93,7 +93,7 @@ namespace Warlock_The_Soulbinder
                             UpperChanceBounds = 7;
                             Damage = (int)Math.Round(1.75 * (stone.Level + 4));
                             EffectLength = 4;
-                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackUp");
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 7: //frog
                             EffectString = "Has a chance to slow your\nenemy's speed";
@@ -373,7 +373,7 @@ namespace Warlock_The_Soulbinder
                             Damage = (int)Math.Round(3d * (stone.Level + 4));
                             EffectLength = 3;
                             Cooldown = 5;
-                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackUp");
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 3: //plant eater
                             EffectString = "Steal health from the enemy";
@@ -430,7 +430,7 @@ namespace Warlock_The_Soulbinder
                             AccuracyMod = 0.6f;
                             EffectLength = 5;
                             Cooldown = 7;
-                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
                             break;
                         case 10: //vampire
                             EffectString = "Creates a bloodshield blocking \ndamage equal to 1/4 of your missing health";

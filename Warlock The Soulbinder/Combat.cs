@@ -218,6 +218,13 @@ namespace Warlock_The_Soulbinder
             {
                 EnemyText.Remove(stringObject);
             }
+
+            if (Player.Instance.CurrentHealth <= 0)
+            {
+                ExitCombat();
+                Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
+            }
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -1429,7 +1436,7 @@ namespace Warlock_The_Soulbinder
                             {
                                 if (!itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add negative effects to the player
                                 {
-                                    if (itemEffect != null)
+                                    if (itemEffect.SkillIcon != null)
                                     {
                                         skillIconPlayer.Add(itemEffect.SkillIcon);
                                     }
@@ -1438,7 +1445,7 @@ namespace Warlock_The_Soulbinder
                                 }
                                 else if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add positive effects to the enemy
                                 {
-                                    if (itemEffect != null)
+                                    if (itemEffect.SkillIcon != null)
                                     {
                                         skillIconEnemy.Add(itemEffect.SkillIcon);
                                     }
