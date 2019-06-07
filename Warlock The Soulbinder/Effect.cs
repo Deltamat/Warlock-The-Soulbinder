@@ -460,8 +460,8 @@ namespace Warlock_The_Soulbinder
                         case 18: //falcon
                             EffectString = "Increases your speed for\na few rounds";
                             TargetsSelf = true;
-                            SpeedMod = 1.55f;
-                            EffectLength = 3;
+                            SpeedMod = 1.75f;
+                            EffectLength = 4;
                             Cooldown = 4;
                             break;
                         case 19: //bat
