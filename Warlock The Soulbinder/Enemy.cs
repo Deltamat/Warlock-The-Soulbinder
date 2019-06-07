@@ -77,6 +77,7 @@ namespace Warlock_The_Soulbinder
             if (index >= 21)
             {
                 scale = 0.75f;
+                dragon = true;
             }
             else
             {
@@ -87,9 +88,8 @@ namespace Warlock_The_Soulbinder
             Position = startPos;
 
             //if the enemy is a dragon, sets their level to 25, else their level is based on their index +/- 1
-            if (index >= 21)
+            if (dragon)
             {
-                dragon = true;
                 Level = 25;
             }
             else if (GameWorld.Instance.currentZone == "DragonRealm")
@@ -319,6 +319,7 @@ namespace Warlock_The_Soulbinder
             if (ReturnMonsterIndex(Monster) >= 21)
             {
                 scale = 0.75f;
+                Dragon = true;
             }
             else
             {
@@ -327,11 +328,6 @@ namespace Warlock_The_Soulbinder
 
             movementSpeed = 10;
             Position = startPos;
-
-            if (ReturnMonsterIndex(Monster) >= 21)
-            {
-                Dragon = true;
-            }
 
             Level = level;
             

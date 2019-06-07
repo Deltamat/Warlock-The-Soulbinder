@@ -941,7 +941,7 @@ namespace Warlock_The_Soulbinder
                         }
                         break;
                     case 5:
-                        GameWorld.Instance.SaveToDB();
+                        GameWorld.Instance.SaveToDBThreadMaker();
                         break;
                     case 6:
                         InventoryState = "Options";
@@ -964,6 +964,8 @@ namespace Warlock_The_Soulbinder
                         Equipment.Instance.Skill2 = null;
                         Equipment.Instance.Skill3 = null;
                         FilledStone.StoneListPages = 0;
+                        Log.Instance.ResetForMainMenu();
+                        Log.Instance.CalculateBonus();
                         GameWorld.Instance.currentZone = "Town";
                         Player.Instance.BaseStats();
                         Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
@@ -974,7 +976,6 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
             }
-
             else if (InventoryState == "FilledStones")
             {
                 if (equipping == true)
@@ -1025,32 +1026,47 @@ namespace Warlock_The_Soulbinder
                         //Checks all of the equipment slots and makes them null if the item is no longer equipped to them
                         if (Equipment.Instance.Weapon != null && Equipment.Instance.Weapon.Equipped == false)
                         {
+                            Equipment.Instance.Weapon.EquipmentSlot = null;
+                            Equipment.Instance.EquippedEquipment[0].EquipmentSlot = null;
                             Equipment.Instance.Weapon = null;
                             Equipment.Instance.EquippedEquipment[0] = null;
+
                         }
                             
                         if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.Equipped == false)
                         {
+                            Equipment.Instance.Armor.EquipmentSlot = null;
+                            Equipment.Instance.EquippedEquipment[1].EquipmentSlot = null;
                             Equipment.Instance.Armor = null;
                             Equipment.Instance.EquippedEquipment[1] = null;
+                            
                         }
                             
                         if (Equipment.Instance.Skill1 != null && Equipment.Instance.Skill1.Equipped == false)
                         {
+                            Equipment.Instance.Skill1.EquipmentSlot = null;
+                            Equipment.Instance.EquippedEquipment[2].EquipmentSlot = null;
                             Equipment.Instance.Skill1 = null;
                             Equipment.Instance.EquippedEquipment[2] = null;
+
                         }
                             
                         if (Equipment.Instance.Skill2 != null && Equipment.Instance.Skill2.Equipped == false)
                         {
+                            Equipment.Instance.Skill2.EquipmentSlot = null;
+                            Equipment.Instance.EquippedEquipment[3].EquipmentSlot = null;
                             Equipment.Instance.Skill2 = null;
                             Equipment.Instance.EquippedEquipment[3] = null;
+
                         }
                             
                         if (Equipment.Instance.Skill3 != null && Equipment.Instance.Skill3.Equipped == false)
                         {
+                            Equipment.Instance.Skill3.EquipmentSlot = null;
+                            Equipment.Instance.EquippedEquipment[4].EquipmentSlot = null;
                             Equipment.Instance.Skill3 = null;
                             Equipment.Instance.EquippedEquipment[4] = null;
+
                         }
                         
                         Equipment.Instance.EquipStone(EquippingTo, FilledStone.StoneList[selectedInt + currentPage * 9]);

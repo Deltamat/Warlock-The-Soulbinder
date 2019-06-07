@@ -25,7 +25,7 @@ namespace Warlock_The_Soulbinder
             if (!Dialogue.Instance.InDialogue && Dialogue.Instance.exitDialogueTimer > 1)
             {
                 Dialogue.Instance.exitDialogueTimer = 0;
-                foreach (var npc in GameWorld.Instance.CurrentZone().NPCs)
+                foreach (NPC npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
                     // if close to an npc enter dialogue
                     if (npc.DrawInteract == true)
@@ -49,7 +49,6 @@ namespace Warlock_The_Soulbinder
                 Dialogue.Instance.NextDialogue();
                 
             }
-
         }
     }
 }

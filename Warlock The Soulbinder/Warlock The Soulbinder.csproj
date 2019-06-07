@@ -86,7 +86,7 @@
     <Compile Include="Menu.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModelEnemy.cs" />
-    <Compile Include="ModelNPC.cs" />
+    <Compile Include="ModelLog.cs" />
     <Compile Include="ModelPlayer.cs" />
     <Compile Include="ModelQuest.cs" />
     <Compile Include="ModelSoulStone.cs" />
@@ -142,7 +142,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="app.manifest" />
-    <MonoGameContentReference Include="Content\Content.mgcb" />
+    <MonoGameContentReference Include="Content\Content.mgcb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MonoGameContentReference>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

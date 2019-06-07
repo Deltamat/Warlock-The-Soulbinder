@@ -33,17 +33,17 @@ namespace Warlock_The_Soulbinder
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
         private Random rng = new Random();
         public NumberFormatInfo replaceComma = new NumberFormatInfo();
-        //private bool loading = false; // temporary
         Song overworldMusic;
         Song combatMusic;
         Song dragonMusic;
-        private bool currentKeyH = true; //temporary
-        private bool previousKeyH = true; //temporary
         TimeSpan songPosition;
         private float musicVolume;
         private Texture2D background;
         private bool saved;
-        private double saveTextTime;
+        private bool saving;
+        private double savedTextTime;
+        private double savingTextTime;
+        private Thread saveThread;
 
         //Tiled fields
         private Zone town, neutral, earth, water, dragon, metal, dark, fire, air, dragonRealm;
@@ -138,7 +138,8 @@ namespace Warlock_The_Soulbinder
         public Song DragonMusic { get => dragonMusic; set => dragonMusic = value; }
         public Texture2D Background { get => background; set => background = value; }
         public bool Saved { get => saved; set => saved = value; }
-        public double SaveTextTime { get => saveTextTime; set => saveTextTime = value; }
+        public double SavedTextTime { get => savedTextTime; set => savedTextTime = value; }
+        public bool Saving { get => saving; set => saving = value; }
 
         public GameWorld()
         {
@@ -194,7 +195,7 @@ namespace Warlock_The_Soulbinder
             zones.Add(metal);
             zones.Add(dragonRealm);
 
-            foreach (var zone in zones)
+            foreach (Zone zone in zones)
             {
                 zone.Setup();
             }
@@ -238,7 +239,6 @@ namespace Warlock_The_Soulbinder
 
             //LogLoad
             Log.Instance.GenerateLogList();
-            //Log.Instance.FullScans();
             Log.Instance.CalculateBonus();
             // Music
             MusicVolume = 0.04f;
@@ -325,10 +325,10 @@ namespace Warlock_The_Soulbinder
             #endregion
 #endif
 
-            //timer for how long the "Saved" text should be in the top-left of the screen
-            if (Saved)
+            
+            if (Saved) //timer for how long the "Saved" text should be in the top-left of the screen
             {
-                SaveTextTime += deltaTimeMilli;
+                SavedTextTime += deltaTimeMilli;
             }
 
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyMenu) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonMenu)) && delay > 200)
@@ -439,6 +439,7 @@ namespace Warlock_The_Soulbinder
                 GeneralMenu.Instance.Draw(SpriteBatch);
                 
                 SpriteBatch.End();
+                
             }
 
             if (GameState == "Overworld")
@@ -456,17 +457,26 @@ namespace Warlock_The_Soulbinder
 
             //draws "Saved" in the top-left of the screen
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
-            if (SaveTextTime > 0)
+            if (SavedTextTime > 0 && !saving)
             {
-                spriteBatch.DrawString(copperFont, "Saved", Vector2.Zero, Color.BlanchedAlmond, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                spriteBatch.DrawString(copperFont, "Saved!", Vector2.Zero, Color.HotPink, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
             }
 
-            if (SaveTextTime > 2500)
+            if (SavedTextTime > 2500)
             {
                 Saved = false;
-                SaveTextTime = 0;
+                SavedTextTime = 0;
             }
             spriteBatch.End();
+
+            //draws "Saving..." in the top-left of the screen
+            if (saving)
+            {
+                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
+                SpriteBatch.DrawString(copperFont, "Saving...", Vector2.Zero, Color.DeepPink);
+                SpriteBatch.End();
+                Saving = true;
+            }
         }
 
         /// <summary>
@@ -521,7 +531,7 @@ namespace Warlock_The_Soulbinder
         /// <returns>The current Zone</returns>
         public Zone CurrentZone()
         {
-            foreach (var zone in zones)
+            foreach (Zone zone in zones)
             {
                 if (zone.Name == currentZone)
                 {
@@ -566,6 +576,10 @@ namespace Warlock_The_Soulbinder
 
             FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
             Controller.Instance.LoadFromPlayerDB();
+            Controller.Instance.LoadFromLogDB();
+            Player.Instance.GraceStart = false;
+            Player.Instance.GracePeriod = 0;
+            
             CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
             CurrentZone().ChangeDragonPillarSprite(); // updates the pillars so they match the dead dragons
@@ -577,18 +591,36 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
+        /// Starts a thread to save the game
+        /// </summary>
+        public void SaveToDBThreadMaker()
+        {
+            if (!saving)
+            {
+                saveThread = new Thread(() => SaveToDB())
+                {
+                    IsBackground = true
+                };
+                saveThread.Start();
+            }
+        }
+
+        /// <summary>
         /// Saves all the variables to the database
         /// </summary>
         public void SaveToDB()
         {
+            saving = true;
+
             Controller.Instance.OpenTheGates();
-            
+
             Controller.Instance.DeleteEnemyDB();
             Controller.Instance.DeletePlayerDB();
-           
+            Controller.Instance.DeleteLogDB();
             Controller.Instance.DeleteSoulStoneDB();
             Controller.Instance.DeleteStatisticDB();
-            
+
+            //Enemies
             for (int i = 0; i < CurrentZone().Enemies.Count; i++)
             {
                 Controller.Instance.SaveToEnemyDB(CurrentZone().Enemies[i].Level, CurrentZone().Enemies[i].Position.X, CurrentZone().Enemies[i].Position.Y, CurrentZone().Enemies[i].Defense, CurrentZone().Enemies[i].Damage, CurrentZone().Enemies[i].MaxHealth, CurrentZone().Enemies[i].AttackSpeed, CurrentZone().Enemies[i].MetalResistance, CurrentZone().Enemies[i].EarthResistance, CurrentZone().Enemies[i].AirResistance, CurrentZone().Enemies[i].FireResistance, CurrentZone().Enemies[i].DarkResistance, CurrentZone().Enemies[i].WaterResistance, CurrentZone().Enemies[i].Monster);
@@ -598,7 +630,6 @@ namespace Warlock_The_Soulbinder
             {
                 Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
-            
             //Player
             int weapon, armour, skill1, skill2, skill3;
             try
@@ -641,16 +672,18 @@ namespace Warlock_The_Soulbinder
             {
                 skill3 = -1;
             }
-            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, weapon, armour, skill1, skill2, skill3);
-            
+            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth, weapon, armour, skill1, skill2, skill3);
+
             //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
+            //Log for scanned enemies
+            Controller.Instance.SaveToLogDB(Log.Instance.SheepLog, Log.Instance.WolfLog, Log.Instance.BearLog, Log.Instance.PlantEaterLog, Log.Instance.InsectSoldierLog, Log.Instance.SlimeSnakeLog, Log.Instance.TentacleLog, Log.Instance.FrogLog, Log.Instance.FishLog, Log.Instance.MummyLog, Log.Instance.VampireLog, Log.Instance.BansheeLog, Log.Instance.BucketManLog, Log.Instance.DefenderLog, Log.Instance.SentryLog, Log.Instance.FireGolemLog, Log.Instance.InfernalDemonLog, Log.Instance.AshZombieLog, Log.Instance.FalconLog, Log.Instance.BatLog, Log.Instance.RavenLog);
 
             Saved = true;
+            Saving = false;
+            savingTextTime = 0;
 
             Controller.Instance.CloseTheGates();
         }
-
-
     }
 }

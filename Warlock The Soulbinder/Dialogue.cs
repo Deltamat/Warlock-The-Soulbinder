@@ -36,7 +36,6 @@ namespace Warlock_The_Soulbinder
         private Dialogue()
         {
             dialogueBar = GameWorld.ContentManager.Load<Texture2D>("dialogueBar");
-            
         }
 
         public override void Update(GameTime gameTime)
@@ -45,6 +44,7 @@ namespace Warlock_The_Soulbinder
             {
                 dialogueTimer += GameWorld.deltaTimeSecond;
             }
+
             if (!InDialogue && exitDialogueTimer <= 1)
             {
                 exitDialogueTimer += GameWorld.deltaTimeSecond;
@@ -55,7 +55,7 @@ namespace Warlock_The_Soulbinder
             {
                 currentDialogue = 1;
                 InDialogue = false;
-                foreach (var npc in GameWorld.Instance.CurrentZone().NPCs)
+                foreach (NPC npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
                     npc.Talking = false;
                 }
@@ -75,8 +75,6 @@ namespace Warlock_The_Soulbinder
             Vector2 dialogueBarPos = new Vector2(-GameWorld.Instance.camera.viewMatrix.Translation.X + GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.viewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
             spriteBatch.Draw(dialogueBar, dialogueBarPos, Color.White);
             spriteBatch.DrawString(GameWorld.Instance.copperFont, dialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 20, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 15), Color.Black);
-
-            
         }
 
         /// <summary>
@@ -89,7 +87,6 @@ namespace Warlock_The_Soulbinder
                 currentDialogue++;
                 dialogueTimer = 0;
             }
-            
         }
     }
 }
