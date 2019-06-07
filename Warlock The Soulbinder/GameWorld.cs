@@ -585,6 +585,9 @@ namespace Warlock_The_Soulbinder
             FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
             Controller.Instance.LoadFromPlayerDB();
             Controller.Instance.LoadFromLogDB();
+            Player.Instance.GraceStart = false;
+            Player.Instance.GracePeriod = 0;
+            
             CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
             CurrentZone().ChangeDragonPillarSprite(); // updates the pillars so they match the dead dragons
