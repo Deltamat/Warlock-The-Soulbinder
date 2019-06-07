@@ -18,6 +18,8 @@ namespace Warlock_The_Soulbinder
         private Texture2D sheet;
         private List<GameObject> playerText = new List<GameObject>();
         private List<GameObject> enemyText = new List<GameObject>();
+        private List<Texture2D> skillIconPlayer = new List<Texture2D>();
+        private List<Texture2D> skillIconEnemy = new List<Texture2D>();
         private List<GameObject> toBeRemovedPlayerText = new List<GameObject>();
         private List<GameObject> toBeRemovedEnemyText = new List<GameObject>();
         private Texture2D emptyButton;
@@ -296,7 +298,12 @@ namespace Warlock_The_Soulbinder
             //Draws health, healthbars and turn bar for enemy
             if (Target != null)
             {
-                spriteBatch.DrawString(combatFont, $"Level {Target.Level}", new Vector2(1350, 150), Color.White);
+                spriteBatch.DrawString(combatFont, $"Level {Target.Level}", new Vector2(1350, 100), Color.White);
+
+                for (int i = 0; i < skillIconEnemy.Count; i++)
+                {
+                    spriteBatch.Draw(skillIconEnemy[i], new Vector2(1200 + (i*70), 180), null, Color.White, 0f, Vector2.Zero, 0.25f, new SpriteEffects(), 1f);
+                }
                 spriteBatch.Draw(HealthEmpty, new Vector2(1200, 800), Color.White);
                 spriteBatch.Draw(HealthFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(target.CurrentHealth, target.MaxHealth) * 5.9), 70), Color.White);
                 spriteBatch.Draw(BlankFull, new Vector2(1202, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(enemyShield, target.MaxHealth) * 5.9), 70), Color.DarkGray * 0.9f);
@@ -307,6 +314,11 @@ namespace Warlock_The_Soulbinder
             }
 
             //Draws health, healthbars and turn bar for player
+            for (int i = 0; i < skillIconPlayer.Count; i++)
+            {
+                spriteBatch.Draw(skillIconPlayer[i], new Vector2(150 + (i * 70), 130), null, Color.White, 0f, Vector2.Zero, 0.25f, new SpriteEffects(), 1f);
+            }
+
             Player.Instance.ChooseAnimationFrame();
             spriteBatch.Draw(HealthEmpty, new Vector2(100, 800), Color.White);
             spriteBatch.Draw(HealthFull, new Vector2(102, 802), new Rectangle(0, 0, Convert.ToInt32(PercentStat(Player.Instance.CurrentHealth, Player.Instance.MaxHealth) * 5.9), 70), Color.White);
@@ -411,6 +423,11 @@ namespace Warlock_The_Soulbinder
 
                             else if (Equipment.Instance.Skill1.SkillEffect.TargetsSelf)
                             {
+                                if (Equipment.Instance.Skill1.SkillEffect.SkillIcon != null)
+                                {
+                                    skillIconPlayer.Add(Equipment.Instance.Skill1.SkillEffect.SkillIcon);
+                                }
+
                                 playerEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, Player.Instance, 0));
                                 playerDamageReduction *= playerEffects[playerEffects.Count - 1].DamageReduction; //immediately applies damageReduction
                                 playerShield += playerEffects[playerEffects.Count - 1].Shield; //immediately applies shield
@@ -428,6 +445,11 @@ namespace Warlock_The_Soulbinder
                                 }
                                 else
                                 {
+                                    if (Equipment.Instance.Skill1.SkillEffect.SkillIcon != null)
+                                    {
+                                        skillIconEnemy.Add(Equipment.Instance.Skill1.SkillEffect.SkillIcon);
+                                    }
+
                                     enemyEffects.Add(new Effect(Equipment.Instance.Skill1.SkillEffect.Index, Equipment.Instance.Skill1.SkillEffect.Type, Equipment.Instance.Skill1.SkillEffect.Stone, target, 0));
                                 }                                
                             }
@@ -464,6 +486,11 @@ namespace Warlock_The_Soulbinder
                             Effect tempEffect = new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, Player.Instance, 0);
                             if (Equipment.Instance.Skill2.SkillEffect.TargetsSelf)
                             {
+                                if (Equipment.Instance.Skill2.SkillEffect.SkillIcon != null)
+                                {
+                                    skillIconPlayer.Add(Equipment.Instance.Skill2.SkillEffect.SkillIcon);
+                                }
+
                                 playerEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, Player.Instance, 0));
                                 playerDamageReduction *= playerEffects[playerEffects.Count - 1].DamageReduction; //immediately applies damageReduction
                                 playerShield += playerEffects[playerEffects.Count - 1].Shield; //immediately applies shield
@@ -481,6 +508,10 @@ namespace Warlock_The_Soulbinder
                                 }
                                 else
                                 {
+                                    if (Equipment.Instance.Skill2.SkillEffect.SkillIcon != null)
+                                    {
+                                        skillIconEnemy.Add(Equipment.Instance.Skill2.SkillEffect.SkillIcon);
+                                    }
                                     enemyEffects.Add(new Effect(Equipment.Instance.Skill2.SkillEffect.Index, Equipment.Instance.Skill2.SkillEffect.Type, Equipment.Instance.Skill2.SkillEffect.Stone, target, 0));
                                 }
                             }
@@ -516,6 +547,10 @@ namespace Warlock_The_Soulbinder
                             Effect tempEffect = new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, Player.Instance, 0);
                             if (Equipment.Instance.Skill3.SkillEffect.TargetsSelf)
                             {
+                                if (Equipment.Instance.Skill3.SkillEffect.SkillIcon != null)
+                                {
+                                    skillIconPlayer.Add(Equipment.Instance.Skill3.SkillEffect.SkillIcon);
+                                }
                                 playerEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, Player.Instance, 0));
                                 playerDamageReduction *= playerEffects[playerEffects.Count - 1].DamageReduction; //immediately applies damageReduction
                                 playerShield += playerEffects[playerEffects.Count - 1].Shield; //immediately applies shield
@@ -533,6 +568,11 @@ namespace Warlock_The_Soulbinder
                                 }
                                 else
                                 {
+                                    if (Equipment.Instance.Skill3.SkillEffect.SkillIcon != null)
+                                    {
+                                        skillIconEnemy.Add(Equipment.Instance.Skill3.SkillEffect.SkillIcon);
+                                    }
+
                                     enemyEffects.Add(new Effect(Equipment.Instance.Skill3.SkillEffect.Index, Equipment.Instance.Skill3.SkillEffect.Type, Equipment.Instance.Skill3.SkillEffect.Stone, target, 0));
                                 }
                             }
@@ -624,11 +664,18 @@ namespace Warlock_The_Soulbinder
                     playerAttackAmount++;
                 }
 
+                skillIconPlayer.Clear();
+
                 //goes through all active effects on the enemy with an EffectLength greater than 0 and applies their effect
                 foreach (Effect effect in playerEffects)
                 {
                     if (effect.EffectLength > 0)
                     {
+                        if (effect.SkillIcon != null)
+                        {
+                            skillIconPlayer.Add(effect.SkillIcon);
+                        }
+
                         if (effect.Heal > 0)
                         {
                             effect.EffectLength++;
@@ -803,6 +850,10 @@ namespace Warlock_The_Soulbinder
                                     //armor effects of target
                                     if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
                                     {
+                                        if (target.EnemyStone.ArmorEffect.SkillIcon != null)
+                                        {
+                                            skillIconEnemy.Add(target.EnemyStone.ArmorEffect.SkillIcon);
+                                        }
                                         enemyEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
                                     }
                                     else if ((itemEffect.Shield != 0 || itemEffect.DamageReduction != 1) && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0)
@@ -824,6 +875,11 @@ namespace Warlock_The_Soulbinder
                                         }
                                         else
                                         {
+                                            if (target.EnemyStone.ArmorEffect.SkillIcon != null)
+                                            {
+                                                skillIconPlayer.Add(target.EnemyStone.ArmorEffect.SkillIcon);
+                                            }
+
                                             playerEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
                                         }
                                     }
@@ -840,6 +896,10 @@ namespace Warlock_The_Soulbinder
                                 //armor effects of target
                                 if (target.EnemyStone.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0) //has a chance to add positive effects to the enemy
                                 {
+                                    if (target.EnemyStone.ArmorEffect.SkillIcon != null)
+                                    {
+                                        skillIconEnemy.Add(target.EnemyStone.ArmorEffect.SkillIcon);
+                                    }
                                     enemyEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
                                 }
                                 else if ((target.EnemyStone.ArmorEffect.Shield != 0 || target.EnemyStone.ArmorEffect.DamageReduction != 1) && GameWorld.Instance.RandomInt(0, target.EnemyStone.ArmorEffect.UpperChanceBounds) == 0)
@@ -861,6 +921,11 @@ namespace Warlock_The_Soulbinder
                                     }
                                     else
                                     {
+                                        if (target.EnemyStone.ArmorEffect.SkillIcon != null)
+                                        {
+                                            skillIconPlayer.Add(target.EnemyStone.ArmorEffect.SkillIcon);
+                                        }
+
                                         playerEffects.Add(new Effect(target.EnemyStone.ArmorEffect.Index, target.EnemyStone.ArmorEffect.Type, target.EnemyStone, target, totalDamageToDeal));
                                     }
                                 }
@@ -877,10 +942,20 @@ namespace Warlock_The_Soulbinder
                             {
                                 if (!Equipment.Instance.Weapon.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Weapon.WeaponEffect.UpperChanceBounds) == 0 && !Equipment.Instance.Weapon.WeaponEffect.StatBuff) //has a chance to add negative effects to the enemy
                                 {
+                                    if (Equipment.Instance.Weapon.WeaponEffect.SkillIcon != null)
+                                    {
+                                        skillIconEnemy.Add(Equipment.Instance.Weapon.WeaponEffect.SkillIcon);
+                                    }
+
                                     enemyEffects.Add(new Effect(Equipment.Instance.Weapon.WeaponEffect.Index, Equipment.Instance.Weapon.WeaponEffect.Type, Equipment.Instance.Weapon, Player.Instance, totalDamageToDeal));
                                 }
                                 else if (Equipment.Instance.Weapon.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Weapon.WeaponEffect.UpperChanceBounds) == 0 && !Equipment.Instance.Weapon.WeaponEffect.StatBuff) //has a chance to add positive effects to the player
                                 {
+                                    if (Equipment.Instance.Weapon.WeaponEffect.SkillIcon != null)
+                                    {
+                                        skillIconPlayer.Add(Equipment.Instance.Weapon.WeaponEffect.SkillIcon);
+                                    }
+
                                     playerEffects.Add(new Effect(Equipment.Instance.Weapon.WeaponEffect.Index, Equipment.Instance.Weapon.WeaponEffect.Type, Equipment.Instance.Weapon, Player.Instance, totalDamageToDeal));
                                 }
                             }
@@ -939,11 +1014,16 @@ namespace Warlock_The_Soulbinder
                 enemyAttackAmount++;
             }
 
+            skillIconEnemy.Clear();
             //goes through all active effects on the enemy with an EffectLength greater than 0
             foreach (Effect effect in enemyEffects)
             {
                 if (effect.EffectLength > 0)
                 {
+                    if (effect.SkillIcon != null)
+                    {
+                        skillIconEnemy.Add(effect.SkillIcon);
+                    }
                     target.CurrentHealth -= effect.Damage; //applies damage
                     enemyShield += effect.Shield;
                     if (effect.Shield != 0)
@@ -1053,6 +1133,11 @@ namespace Warlock_The_Soulbinder
                         //armor effects of player
                         if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0 && Equipment.Instance.Armor.ArmorEffect.Shield == 0) //has a chance to add positive effects to the enemy
                         {
+                            if (Equipment.Instance.Armor.ArmorEffect.SkillIcon != null)
+                            {
+                                skillIconPlayer.Add(Equipment.Instance.Armor.ArmorEffect.SkillIcon);
+                            }
+
                             playerEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
                         }
                         else if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.ArmorEffect.Shield != 0 && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0) //has a chance to immediately apply shield from armor
@@ -1071,6 +1156,10 @@ namespace Warlock_The_Soulbinder
                             }
                             else
                             {
+                                if (Equipment.Instance.Armor.ArmorEffect.SkillIcon != null)
+                                {
+                                    skillIconEnemy.Add(Equipment.Instance.Armor.ArmorEffect.SkillIcon);
+                                }
                                 enemyEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
                             }
                         }
@@ -1086,10 +1175,20 @@ namespace Warlock_The_Soulbinder
                         {
                             if (!target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0 && !target.EnemyStone.WeaponEffect.StatBuff) //has a chance to add negative effects to the player
                             {
+                                if (target.EnemyStone.WeaponEffect.SkillIcon != null)
+                                {
+                                    skillIconPlayer.Add(target.EnemyStone.WeaponEffect.SkillIcon);
+                                }
+
                                 playerEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
                             }
                             else if (target.EnemyStone.WeaponEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, target.EnemyStone.WeaponEffect.UpperChanceBounds) == 0 && !target.EnemyStone.WeaponEffect.StatBuff) //has a chance to add positive effects to the enemy
                             {
+                                if (target.EnemyStone.WeaponEffect.SkillIcon != null)
+                                {
+                                    skillIconEnemy.Add(target.EnemyStone.WeaponEffect.SkillIcon);
+                                }
+
                                 enemyEffects.Add(new Effect(target.EnemyStone.WeaponEffect.Index, target.EnemyStone.WeaponEffect.Type, target.EnemyStone, target, totalDamageToDeal));
                             }
                         }
@@ -1140,6 +1239,7 @@ namespace Warlock_The_Soulbinder
             enemyDamageAbs = 0;
             Sound.PlaySound($"sound/monsterSounds/dragon");
 
+            skillIconEnemy.Clear();
             foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
             {
                 if (itemEffect.DoubleAttack && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0) //checks for double attack 
@@ -1153,6 +1253,11 @@ namespace Warlock_The_Soulbinder
             {
                 if (effect.EffectLength > 0)
                 {
+                    if (effect.SkillIcon != null)
+                    {
+                        skillIconEnemy.Add(effect.SkillIcon);
+                    }
+
                     target.CurrentHealth -= effect.Damage; //applies damage
                     enemyShield += effect.Shield;
                     if (effect.Shield != 0)
@@ -1265,6 +1370,11 @@ namespace Warlock_The_Soulbinder
                         //armor effects of player
                         if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.ArmorEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0 && Equipment.Instance.Armor.ArmorEffect.Shield == 0) //has a chance to add positive effects to the enemy
                         {
+                            if (Equipment.Instance.Armor.ArmorEffect.SkillIcon != null)
+                            {
+                                skillIconPlayer.Add(Equipment.Instance.Armor.ArmorEffect.SkillIcon);
+                            }
+
                             playerEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
                         }
                         else if (Equipment.Instance.Armor != null && Equipment.Instance.Armor.ArmorEffect.Shield != 0 && GameWorld.Instance.RandomInt(0, Equipment.Instance.Armor.ArmorEffect.UpperChanceBounds) == 0) //has a chance to immediately apply shield from armor
@@ -1283,6 +1393,11 @@ namespace Warlock_The_Soulbinder
                             }
                             else
                             {
+                                if (Equipment.Instance.Armor.ArmorEffect.SkillIcon != null)
+                                {
+                                    skillIconEnemy.Add(Equipment.Instance.Armor.ArmorEffect.SkillIcon);
+                                }
+
                                 enemyEffects.Add(new Effect(Equipment.Instance.Armor.ArmorEffect.Index, Equipment.Instance.Armor.ArmorEffect.Type, Equipment.Instance.Armor, Player.Instance, totalDamageToDeal));
                             }
                         }
@@ -1300,10 +1415,20 @@ namespace Warlock_The_Soulbinder
                             {
                                 if (!itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add negative effects to the player
                                 {
+                                    if (itemEffect != null)
+                                    {
+                                        skillIconPlayer.Add(itemEffect.SkillIcon);
+                                    }
+
                                     playerEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
                                 }
                                 else if (itemEffect.TargetsSelf && GameWorld.Instance.RandomInt(0, itemEffect.UpperChanceBounds) == 0 && !itemEffect.StatBuff) //has a chance to add positive effects to the enemy
                                 {
+                                    if (itemEffect != null)
+                                    {
+                                        skillIconEnemy.Add(itemEffect.SkillIcon);
+                                    }
+
                                     enemyEffects.Add(new Effect(itemEffect.Index, itemEffect.Type, target.DragonStone, target, totalDamageToDeal));
                                 }
                             }
@@ -1402,6 +1527,8 @@ namespace Warlock_The_Soulbinder
             PlayerText.Clear();
             EnemyText.Clear();
             enemyShield = 0;
+            skillIconPlayer.Clear();
+            skillIconEnemy.Clear();
             foreach (FilledStone stone in Equipment.Instance.EquippedEquipment)
             {
                 if (stone != null)

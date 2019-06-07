@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,7 @@ namespace Warlock_The_Soulbinder
         private bool stunImmunity;
         private string effectString;
         private int upperChanceBounds = 1;
+        private Texture2D skillIcon = null;
 
         private int index;
         private string type;
@@ -49,6 +51,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Has a chance to headbutt the\nenemy, stunning them";
                             UpperChanceBounds = 10;
                             Stun = true;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/stun");
                             break;
                         case 1: //wolf
                             EffectString = "Activates your killer instincts,\npassively giving you more damage";
@@ -57,12 +60,14 @@ namespace Warlock_The_Soulbinder
                             {
                                 characterCombat.Damage = (int)Math.Round(characterCombat.Damage * 1.2f);
                             }
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackUp");
                             break;
                         case 2: //bear
                             EffectString = "Has a chance to maul the enemy,\ncausing them to bleed";
                             UpperChanceBounds = 8;
                             Damage = (int)(3 * (stone.Level + 4));
                             EffectLength = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 3: //plant eater
                             EffectString = "Has a chance to steal nutrients\nfrom the enemy, healing you";
@@ -75,34 +80,40 @@ namespace Warlock_The_Soulbinder
                             UpperChanceBounds = 6;
                             Damage = (int)(2.5 * (stone.Level + 3));
                             EffectLength = 5;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 5: //slime snake
                             EffectString = "Has a chance to lower the\ndamage of your enemy";
                             UpperChanceBounds = 9;
                             DamageMod = 0.75f;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackDown");
                             break;
                         case 6: //tentacle
                             EffectString = "Has a chance to constrict your\nenemy with tentacles, crushing them";
                             UpperChanceBounds = 7;
                             Damage = (int)(2.75 * (stone.Level + 3));
                             EffectLength = 4;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackUp");
                             break;
                         case 7: //frog
                             EffectString = "Has a chance to slow your\nenemy's speed";
                             UpperChanceBounds = 5;
                             SpeedMod = 0.7f;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
                             break;
                         case 8: //fish
                             EffectString = "Has a chance to regenerate\nyour health";
                             UpperChanceBounds = 10;
                             TargetsSelf = true;
                             Heal = (int)(2 * (stone.Level + 3));
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/healing");
                             break;
                         case 9: //mummy
                             EffectString = "Has a chance to curse your\nenemy, lowering their accuracy";
                             UpperChanceBounds = 6;
                             AccuracyMod = 0.7f;
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
                             break;
                         case 10: //vampire
                             EffectString = "Has a chance to steal blood from\nyour enemy, healing a percentage\nof the damage you dealt";
@@ -115,6 +126,7 @@ namespace Warlock_The_Soulbinder
                             UpperChanceBounds = 13;
                             Stun = true;
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/stun");
                             break;
                         case 12: //bucket man
                             EffectString = "Has a chance to deal double damage\non your next attack";
@@ -127,6 +139,7 @@ namespace Warlock_The_Soulbinder
                             UpperChanceBounds = 3;
                             DamageReduction = 1.66f;
                             EffectLength = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseDown");
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase\nyour hit rating";
@@ -134,6 +147,7 @@ namespace Warlock_The_Soulbinder
                             TargetsSelf = true;
                             AccuracyMod = 1.25f;
                             EffectLength = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyUp");
                             break;
                         case 15: //fire golem
                             EffectString = "Causes you to attack slower,\nbut deal more damage";
@@ -149,6 +163,7 @@ namespace Warlock_The_Soulbinder
                             UpperChanceBounds = 3;
                             Damage = (int)(4 * (stone.Level + 5));
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 17: //ash zombie
                             EffectString = "Has a chance to quickly deal\ntwo smaller blows to your enemy\non your next turn";
@@ -163,18 +178,21 @@ namespace Warlock_The_Soulbinder
                             TargetsSelf = true;
                             SpeedMod = 1.5f;
                             EffectLength = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedUp");
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse\nyour enemy";
                             UpperChanceBounds = 12;
                             Confuse = true;
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
                             break;
                         case 20: //raven
                             EffectString = "Has a chance to blind\nyour enemy, reducing \ntheir accuracy";
                             UpperChanceBounds = 13;
                             AccuracyMod = 0.25f;
                             EffectLength = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
                             break;
                     }
                     break;
@@ -188,6 +206,7 @@ namespace Warlock_The_Soulbinder
                             {
                                 characterCombat.Defense += (int)(0.5f * stone.Level + 3);
                             }
+
                             break;
                         case 1: //wolf
                             EffectString = "Has a chance to give you more \ndamage after being hit";
@@ -195,6 +214,7 @@ namespace Warlock_The_Soulbinder
                             TargetsSelf = true;
                             DamageMod = 1.5f;
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackUp");
                             break;
                         case 2: //bear
                             EffectString = "Passively gives you more max health";
@@ -217,10 +237,11 @@ namespace Warlock_The_Soulbinder
                             }
                             break;
                         case 4: //insect soldier
-                            EffectString = "Has a chance to posion the \nenemy when attacked";
+                            EffectString = "Has a chance to poison the \nenemy when attacked";
                             UpperChanceBounds = 8;
                             Damage = (int)(2.5 * (stone.Level + 3));
                             EffectLength = 4;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 5: //slime eater
                             EffectString = "Has a chance to give you a \nshield after being hit";
@@ -239,6 +260,7 @@ namespace Warlock_The_Soulbinder
                             UpperChanceBounds = 10;
                             SpeedMod = 0.8f;
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
                             break;
                         case 8: //fish
                             EffectString = "Has a chance to regenerate \nsome health when attacked";
@@ -247,7 +269,7 @@ namespace Warlock_The_Soulbinder
                             Heal = (int)(2 * (stone.Level + 3));
                             break;
                         case 9: //mummy
-                            EffectString = "Gives you immunity to curses";
+                            EffectString = "Gives you immunity to reduced speed";
                             TargetsSelf = true;
                             AccuracyMod = 1000000;
                             EffectLength = 5;
@@ -257,6 +279,7 @@ namespace Warlock_The_Soulbinder
                             UpperChanceBounds = 5;
                             TargetsSelf = true;
                             Shield = damageDealt + 1;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
                             break;
                         case 11: //banshee
                             EffectString = "Grants immunity to all stuns";
@@ -274,24 +297,28 @@ namespace Warlock_The_Soulbinder
                             TargetsSelf = true;
                             DamageAbs = (int)(1.5 * (stone.Level + 3));
                             EffectLength = 1;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase your \ndodge rating after being hit";
                             UpperChanceBounds = 7;
                             AccuracyMod = 0.6f;
                             EffectLength = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedUp");
                             break;
                         case 15: //fire golem
                             EffectString = "Reduces damage taken after being hit";
                             TargetsSelf = true;
                             DamageReduction = 0.8f;
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
                             break;
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your enemy \non fire when attacked";
                             UpperChanceBounds = 6;
                             Damage = (int)(3.5 * (stone.Level + 4));
                             EffectLength = 1;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 17: //ash zombie
                             EffectString = "Passively increases your attack speed";
@@ -300,23 +327,27 @@ namespace Warlock_The_Soulbinder
                             {
                                 characterCombat.AttackSpeed = (int)Math.Round(characterCombat.AttackSpeed * 1.25f);
                             }
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedUp");
                             break;
                         case 18: //falcon
                             EffectString = "Passively increases your\ndodge chance";
                             AccuracyMod = 0.7f;
                             EffectLength = 1;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse \nyour enemy when attacked";
                             UpperChanceBounds = 8;
                             Confuse = true;
                             EffectLength = 2;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/confusion");
                             break;
                         case 20: //raven
                             EffectString = "Has a chance to blind the enemy \nwhen hit";
                             UpperChanceBounds = 20;
                             AccuracyMod = 0.25f;
                             EffectLength = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
                             break;
                     }
                     break;
@@ -327,6 +358,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Headbutt the enemy stunning them";
                             Stun = true;
                             Cooldown = 3;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/stun");
                             break;
                         case 1: //wolf
                             EffectString = "Activate your killer instincts,\nincreasing your damage";
@@ -334,12 +366,14 @@ namespace Warlock_The_Soulbinder
                             DamageMod = 1.5f;
                             EffectLength = 3;
                             Cooldown = 6;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackUp");
                             break;
                         case 2: //bear
                             EffectString = "Maul your enemy causing them\nto bleed";
                             Damage = (int)(3 * (stone.Level + 4));
                             EffectLength = 3;
                             Cooldown = 5;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/attackUp");
                             break;
                         case 3: //plant eater
                             EffectString = "Steal health from the enemy";
@@ -359,25 +393,29 @@ namespace Warlock_The_Soulbinder
                             Damage = (int)(2.75 * (stone.Level + 4));
                             EffectLength = 5;
                             Cooldown = 5;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
-                        case 5: //slime eater
+                        case 5: //slime snake
                             EffectString = "Cover yourself in a thick \nlayer of slime, reducing \ndamage you take";
                             TargetsSelf = true;
                             DamageAbs = (int)(2 * (stone.Level + 3));
                             EffectLength = 4;
                             Cooldown = 5;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
                             break;
                         case 6: //tentacle
                             EffectString = "Wrap tentacles around your \nenemy crushing them \nfor a few rounds";
                             Damage = (int)(3.25 * (stone.Level + 6));
                             EffectLength = 4;
                             Cooldown = 6;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 7: //frog
                             EffectString = "Shoot mucus at you enemy \nslowing them down";
                             SpeedMod = 0.6f;
                             EffectLength = 2;
                             Cooldown = 8;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
                             break;
                         case 8: //fish
                             EffectString = "Regenerate health for a few round";
@@ -385,12 +423,14 @@ namespace Warlock_The_Soulbinder
                             Heal = (int)(1.25 * (stone.Level + 6));
                             EffectLength = 3;
                             Cooldown = 8;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/healing");
                             break;
                         case 9: //mummy
                             EffectString = "Curses your enemy, \nlowering their accuracy";
                             AccuracyMod = 0.6f;
                             EffectLength = 5;
                             Cooldown = 7;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
                             break;
                         case 10: //vampire
                             EffectString = "Creates a bloodshield blocking \ndamage equal to 1/4 of your missing health";
@@ -407,6 +447,7 @@ namespace Warlock_The_Soulbinder
                             Stun = true;
                             EffectLength = 2;
                             Cooldown = 5;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/stun");
                             break;
                         case 12: //bucket man
                             EffectString = "A powerful attack that \nis difficult to land";
@@ -426,6 +467,7 @@ namespace Warlock_The_Soulbinder
                             DamageReduction = 0.3f;
                             EffectLength = 5;
                             Cooldown = 9;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
                             break;
                         case 14: //sentry
                             EffectString = "Scans your enemy, adding \ntheir info to your Log";
@@ -450,6 +492,7 @@ namespace Warlock_The_Soulbinder
                             Damage = (int)(4.25 * (stone.Level + 5));
                             EffectLength = 3;
                             Cooldown = 6;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 17: //ash zombie
                             EffectString = "Causes your next attack to \nstrike twice";
@@ -463,18 +506,21 @@ namespace Warlock_The_Soulbinder
                             SpeedMod = 1.75f;
                             EffectLength = 4;
                             Cooldown = 4;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedUp");
                             break;
                         case 19: //bat
                             EffectString = "Confuses your enemy with a \nsuper sonic screech";
                             Confuse = true;
                             EffectLength = 2;
                             Cooldown = 5;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/confusion");
                             break;
                         case 20: //raven
                             EffectString = "Pecks out your enemy's eyes, \nlowering their accuracy for \na few rounds";
                             AccuracyMod = 0.25f;
                             EffectLength = 3;
                             Cooldown = 10;
+                            SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
                             break;
                     }
                     break;
@@ -581,6 +627,7 @@ namespace Warlock_The_Soulbinder
         /// Whether the effect should take effect immediatly after the character is hit
         /// </summary>
         public bool Retaliate { get => retaliate; set => retaliate = value; }
+        public Texture2D SkillIcon { get => skillIcon; set => skillIcon = value; }
         #endregion
     }
 }

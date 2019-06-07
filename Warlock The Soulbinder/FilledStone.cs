@@ -283,7 +283,7 @@ namespace Warlock_The_Soulbinder
                 case "bat":
                     Name = "Bat";
                     Element = "air";
-                    weaponName = "Confusing Menoeuvre";
+                    weaponName = "Confusing Maneuver";
                     armorName = "Perplexing Retaliation";
                     skillName = "Sonic Scream";
                     break;
@@ -297,42 +297,42 @@ namespace Warlock_The_Soulbinder
             }
 
             //switch case to determine stats
-            switch (Element)
-            {
-                case "neutral":
-                    Defense = (int)(Level * 0.75f);
-                    break;
-                case "earth":
-                    earthResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    darkResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    earthDamage = (int)(damage * 4f);
-                    break;
-                case "water":
-                    waterResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    airResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    waterDamage = (int)(damage * 4f);
-                    break;
-                case "dark":
-                    darkResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    metalResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    darkDamage = (int)(damage * 4f);
-                    break;
-                case "metal":
-                    metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    metalDamage = (int)(damage * 4f);
-                    break;
-                case "fire":
-                    fireResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    waterResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    fireDamage = (int)(damage * 4f);
-                    break;
-                case "air":
-                    airResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
-                    earthResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
-                    airDamage = (int)(damage * 4f);
-                    break;
-            }
+            //switch (Element)
+            //{
+            //    case "neutral":
+            //        Defense = (int)(Level * 0.75f);
+            //        break;
+            //    case "earth":
+            //        earthResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+            //        darkResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+            //        earthDamage = (int)(damage * 4f);
+            //        break;
+            //    case "water":
+            //        waterResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+            //        airResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+            //        waterDamage = (int)(damage * 4f);
+            //        break;
+            //    case "dark":
+            //        darkResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+            //        metalResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+            //        darkDamage = (int)(damage * 4f);
+            //        break;
+            //    case "metal":
+            //        metalResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+            //        fireResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+            //        metalDamage = (int)(damage * 4f);
+            //        break;
+            //    case "fire":
+            //        fireResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+            //        waterResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+            //        fireDamage = (int)(damage * 4f);
+            //        break;
+            //    case "air":
+            //        airResistance = (float)(20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
+            //        earthResistance = (float)(-20 / (1 + Math.Pow(Math.E, -(Level * 0.5f))) + Level * 0.5f);
+            //        airDamage = (int)(damage * 4f);
+            //        break;
+            //}
             
             WeaponSkill();
             ArmorSkill();
