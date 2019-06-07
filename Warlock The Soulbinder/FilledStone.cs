@@ -605,9 +605,9 @@ namespace Warlock_The_Soulbinder
             float modifier = 0.2f;
 
             //base stats
-            Damage = (int)Math.Round((Level + 2.5) * 4 * modifier);            
+            Damage = (int)Math.Round((Level + 2.5) * 5 * modifier);
             maxHealth = (int)Math.Round((Level + 3) * 10 * modifier);
-            attackSpeed = (int)Math.Round((Level + 5.5) * 3 * modifier);
+            attackSpeed = (float)((Level + 5.5) * 3 * modifier);
             Defense = (int)Math.Round((Level + 2.5f) * 0.8f * modifier);
 
             earthResistance = (float)Math.Log(10 * (Level * 0.3f) + 3.5);

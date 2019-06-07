@@ -844,7 +844,7 @@ namespace Warlock_The_Soulbinder
                         }
                         else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
                         {
-                            //does nothing
+                            PlayerScrolling("Miss", Color.White);
                         }
                         else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
                         {
@@ -1131,7 +1131,7 @@ namespace Warlock_The_Soulbinder
                     }
                     else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
                     {
-                        //does nothing
+                        EnemyScrolling("Miss", Color.White);
                     }
                     else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
                     {
@@ -1368,7 +1368,7 @@ namespace Warlock_The_Soulbinder
                     }
                     else if (confused && GameWorld.Instance.RandomInt(0, 50) < 25) //if the enemy is confused, has a chance to miss
                     {
-                        //does nothing
+                        EnemyScrolling("Miss", Color.White);
                     }
                     else if (GameWorld.Instance.RandomInt((int)(100 * accuracyMod), (int)(200 - (100 - (100 * accuracyMod)))) >= 100) //calculates hit chance
                     {
