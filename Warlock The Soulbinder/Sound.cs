@@ -37,7 +37,5 @@ namespace Warlock_The_Soulbinder
             SoundEffect sound = GameWorld.ContentManager.Load<SoundEffect>(soundLocation);
             sound.Play(GameWorld.Instance.SoundEffectVolume, 0f, 0f);
         }
-
-       
     }
 }

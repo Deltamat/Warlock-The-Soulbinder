@@ -73,6 +73,7 @@ namespace Warlock_The_Soulbinder
                     GameWorld.Instance.SongPosition = TimeSpan.Zero;
                     GameWorld.Instance.ChangeMusic();
                     currentHealth = maxHealth;
+                    Combat.Instance.ExitCombat();
                 }
                 else if (currentHealth > maxHealth)
                 {
@@ -85,6 +86,7 @@ namespace Warlock_The_Soulbinder
         public bool GraceStart { get => graceStart; set => graceStart = value; }
         public bool AttackStart { get => attackStart; set => attackStart = value; }
         public bool HurtStart { get => hurtStart; set => hurtStart = value; }
+        public int AniIndex { set => aniIndex = value; }
 
         /// <summary>
         /// Returns the player's collision box. Modified to better suit this game's player sprite
@@ -450,9 +452,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void BaseStats()
         {
-            Damage = 35;
+            Damage = 10;
             Defense = 0;
-            AttackSpeed = 14;
+            AttackSpeed = 10;
             MaxHealth = 100;
 #if DEBUG
             int over9000 = 9001;
