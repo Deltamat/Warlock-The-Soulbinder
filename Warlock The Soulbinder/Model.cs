@@ -17,7 +17,6 @@ namespace Warlock_The_Soulbinder
 
         public Model()
         {
-
             switch (GameWorld.Instance.CurrentSaveFile)
             {
                 case "1":
@@ -40,17 +39,11 @@ namespace Warlock_The_Soulbinder
             {
                 connection.Open();
             }
-            
         }
 
         public void CloseConnection()
         {
-            if (connection.State != System.Data.ConnectionState.Closed)
-            {
-                connection.Close();
-            }
-           
+            connection.Close();
         }
-      
     }
 }

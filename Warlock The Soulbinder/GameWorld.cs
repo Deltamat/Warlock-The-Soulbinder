@@ -631,48 +631,7 @@ namespace Warlock_The_Soulbinder
                 Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
             //Player
-            int weapon, armour, skill1, skill2, skill3;
-            try
-            {
-                weapon = Equipment.Instance.Weapon.Id;
-            }
-            catch (Exception)
-            {
-                weapon = -1;
-            }
-            try
-            {
-                armour = Equipment.Instance.Armor.Id;
-            }
-            catch (Exception)
-            {
-                armour = -1;
-            }
-            try
-            {
-                skill1 = Equipment.Instance.Skill1.Id;
-            }
-            catch (Exception)
-            {
-                skill1 = -1;
-            }
-            try
-            {
-                skill2 = Equipment.Instance.Skill2.Id;
-            }
-            catch (Exception)
-            {
-                skill2 = -1;
-            }
-            try
-            {
-                skill3 = Equipment.Instance.Skill3.Id;
-            }
-            catch (Exception)
-            {
-                skill3 = -1;
-            }
-            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth, weapon, armour, skill1, skill2, skill3);
+            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth);
 
             //Which dragons are dead
             Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);

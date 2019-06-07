@@ -8,12 +8,13 @@ namespace Warlock_The_Soulbinder
 {
     class Controller
     {
-        ModelSoulStone filledStone;
-        ModelEnemy enemy;
-        ModelLog log;
-        ModelPlayer player;
-        ModelStatistic statistic;
-        Model model;
+        Model model = new Model();
+        ModelSoulStone filledStone = new ModelSoulStone();
+        ModelEnemy enemy = new ModelEnemy();
+        ModelPlayer player = new ModelPlayer();
+        ModelLog log = new ModelLog();
+        ModelStatistic statistic = new ModelStatistic();
+        
         
         static Controller instance;
         static public Controller Instance
@@ -34,12 +35,12 @@ namespace Warlock_The_Soulbinder
 
         public Controller()
         {
-            model = new Model();
-            filledStone = new ModelSoulStone();
-            enemy = new ModelEnemy();
-            player = new ModelPlayer();
-            log = new ModelLog();            
-            statistic = new ModelStatistic();            
+            //model = new Model();
+            //filledStone = new ModelSoulStone();
+            //enemy = new ModelEnemy();
+            //player = new ModelPlayer();
+            //log = new ModelLog();            
+            //statistic = new ModelStatistic();            
         }
         
         #region Model
@@ -128,6 +129,9 @@ namespace Warlock_The_Soulbinder
             log.SaveLog(sheepLog, wolfLog, bearLog, plantEaterLog, insectSoldierLog, slimeSnakeLog, tentacleLog, frogLog, fishLog, mummyLog, vampireLog, bansheeLog, bucketManLog, defenderLog, sentryLog, fireGolemLog, infernalDemonLog, ashZombieLog, falconLog, batLog, ravenLog);
         }
 
+        /// <summary>
+        /// Calls a method that loads the progress of scanning for each creature from the Log database.
+        /// </summary>
         public void LoadFromLogDB()
         {
            log.LoadLog();
@@ -151,16 +155,14 @@ namespace Warlock_The_Soulbinder
         /// <param name="Y">Y-coordinate of the player in the overworld.</param>
         /// <param name="zone">Name of the current zone.</param>
         /// <param name="currentHealth">Current health of the player.</param>
-        /// <param name="soulWeapon">id of the </param>
-        /// <param name="soulArmour"></param>
-        /// <param name="soulTrinket1"></param>
-        /// <param name="soulTrinket2"></param>
-        /// <param name="soulTrinket3"></param>
-        public void SaveToPlayerDB(float X, float Y, string zone, int currentHealth, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
+        public void SaveToPlayerDB(float X, float Y, string zone, int currentHealth)
         {
-            player.SavePlayer(X, Y, zone, currentHealth, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3);
+            player.SavePlayer(X, Y, zone, currentHealth);
         }
 
+        /// <summary>
+        /// Calls a method that sets the Player's current health and position in current zone by loading them from the Player database.
+        /// </summary>
         public void LoadFromPlayerDB()
         {
             player.LoadPlayer();
