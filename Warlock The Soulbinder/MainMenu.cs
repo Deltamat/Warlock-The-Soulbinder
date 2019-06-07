@@ -215,7 +215,7 @@ namespace Warlock_The_Soulbinder
 
         private void ChangeMainMenuState()
         {
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
+            if ((InputHandler.Instance.KeyPressed(Keys.E) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
             {
                 switch (selectedIndex)
                 {
@@ -235,7 +235,7 @@ namespace Warlock_The_Soulbinder
         }
         private void ChooseSaveGame()
         {
-            if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
+            if ((InputHandler.Instance.KeyPressed(Keys.E) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
             {
                 switch (selectedIndex)
                 {
