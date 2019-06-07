@@ -941,7 +941,7 @@ namespace Warlock_The_Soulbinder
                         }
                         break;
                     case 5:
-                        GameWorld.Instance.SaveToDB();
+                        GameWorld.Instance.SaveToDBThreadMaker();
                         break;
                     case 6:
                         InventoryState = "Options";
@@ -964,6 +964,8 @@ namespace Warlock_The_Soulbinder
                         Equipment.Instance.Skill2 = null;
                         Equipment.Instance.Skill3 = null;
                         FilledStone.StoneListPages = 0;
+                        Log.Instance.ResetForMainMenu();
+                        Log.Instance.CalculateBonus();
                         GameWorld.Instance.currentZone = "Town";
                         Player.Instance.BaseStats();
                         Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
@@ -974,7 +976,6 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
             }
-
             else if (InventoryState == "FilledStones")
             {
                 if (equipping == true)

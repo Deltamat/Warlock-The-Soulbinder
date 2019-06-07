@@ -94,7 +94,7 @@ namespace Warlock_The_Soulbinder
             if (MainMenuState == "Main")
             {
                 //for mouse
-                foreach (var item in mainMenuButtons)
+                foreach (Button item in mainMenuButtons)
                 {
                     item.Update(gameTime);
                 }
@@ -110,7 +110,7 @@ namespace Warlock_The_Soulbinder
                     MainMenuState = "Main";
                 }
                 //for mouse
-                foreach (var loadSlot in loadSlots)
+                foreach (Button loadSlot in loadSlots)
                 {
                     loadSlot.Update(gameTime);
                 }
@@ -137,14 +137,14 @@ namespace Warlock_The_Soulbinder
 
             if (MainMenuState == "Main")
             {
-                foreach (var item in mainMenuButtons)
+                foreach (Button item in mainMenuButtons)
                 {
                     item.Draw(spriteBatch);
                 }
             }
             else
             {
-                foreach (var loadSlot in loadSlots)
+                foreach (Button loadSlot in loadSlots)
                 {
                     loadSlot.Draw(spriteBatch);
                 }

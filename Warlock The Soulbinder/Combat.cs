@@ -1551,7 +1551,7 @@ namespace Warlock_The_Soulbinder
             Player.Instance.AttackStart = false;
             Player.Instance.Hurt = false;
             Player.Instance.HurtStart = false;
-            GameWorld.Instance.SaveToDB();
+            GameWorld.Instance.SaveToDBThreadMaker();
         }
     }
 }

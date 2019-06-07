@@ -3462,12 +3462,6 @@
 /processorParam:Quality=Best
 /build:sound/overworldMusic.mp3
 
-#begin sound/playerStep.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound/playerStep.wav
-
 #begin sound/testSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
