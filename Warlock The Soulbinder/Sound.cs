@@ -23,15 +23,10 @@ namespace Warlock_The_Soulbinder
 
         }
 
-
         /// <summary>
-        /// Plays the sound with GameWorld.Instance.SoundVolume volume level
+        /// Play a SoundEffect
         /// </summary>
-        public void Play()
-        {
-            sound.Play(GameWorld.Instance.SoundEffectVolume, 0f, 0f);
-        }
-
+        /// <param name="soundLocation">The path and name of the sound file</param>
         public static void PlaySound(string soundLocation)
         {
             SoundEffect sound = GameWorld.ContentManager.Load<SoundEffect>(soundLocation);
