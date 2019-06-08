@@ -15,16 +15,13 @@ namespace Warlock_The_Soulbinder
 
         public int SelectedInt { get => selectedInt; set => selectedInt = value; }
         public Rectangle SelectionRectangle { get => selectionRectangle; set => selectionRectangle = value; }
-
-
+        
         public virtual void Update(GameTime gameTime)
         {
-
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
         }
     }
 }
