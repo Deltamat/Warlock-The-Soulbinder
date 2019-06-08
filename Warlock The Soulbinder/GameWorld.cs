@@ -42,7 +42,6 @@ namespace Warlock_The_Soulbinder
         private bool saved;
         private bool saving;
         private double savedTextTime;
-        private double savingTextTime;
         private Thread saveThread;
 
         //Tiled fields
@@ -50,9 +49,6 @@ namespace Warlock_The_Soulbinder
         public string currentZone = "Town";
         public List<Zone> zones = new List<Zone>();
 
-
-        public int Gold { get; set; }
-        public int SoulCount { get; set; }
 
         private static GameWorld instance;
         public static GameWorld Instance
@@ -634,7 +630,6 @@ namespace Warlock_The_Soulbinder
 
             Saved = true;
             Saving = false;
-            savingTextTime = 0;
 
             Controller.Instance.CloseTheGates();
         }
