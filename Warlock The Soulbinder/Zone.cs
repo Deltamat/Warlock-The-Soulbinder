@@ -14,9 +14,9 @@ namespace Warlock_The_Soulbinder
         List<Rectangle> usedSpawnPoints = new List<Rectangle>();
         int enemiesInZone;
         List<NPC> pillars = new List<NPC>();
+        int dragonsDead = 0;
 
-        public int dragonsDead = 0;
-        public TiledMapRenderer MapRenderer { get; set; }
+        public TiledMapRenderer MapRenderer { get; private set; }
         public List<Enemy> Enemies { get; set; } = new List<Enemy>();
         public string Name { get; private set; }
         public TiledMap Map { get; private set; }
@@ -25,10 +25,10 @@ namespace Warlock_The_Soulbinder
         public List<NPC> NPCs { get; private set; } = new List<NPC>();
         
         /// <summary>
-        /// Creates a Zone with a name that contains the Tiled map and Tiled objects
+        /// Creates a Zone with a name and number of enemies that contains the Tiled map and Tiled objects
         /// </summary>
         /// <param name="zoneName">The name of the Zone</param>
-        /// <param name="enemiesInZone">How many enemies to spawn in the zone. If exceeds spawnpoints get rounded down</param>
+        /// <param name="enemiesInZone">How many enemies to spawn in the zone. Cant exceed number of spawn points </param>
         public Zone(string zoneName, int enemiesInZone)
         {
             Name = zoneName;
@@ -64,20 +64,42 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            if (this.enemiesInZone > spawnPoints.Count) // if the specifed enemies exceeds the toal amount of spawnpoints, set to spawnPoints.Count
+            // if the specifed enemies exceeds the toal amount of spawnpoints, set to spawnPoints.Count
+            if (this.enemiesInZone > spawnPoints.Count) 
             {
                 this.enemiesInZone = spawnPoints.Count;
             }
 
             // based on the name of the zone create the belonging npc's
             if (Name == "Town")
-            {
-                NPCs.Add(new NPC("npc/npc_knight", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake."));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(1800, 2520), false, false, true, false, 0, "")); // healer
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(185, 4160), false, false, false, false, 0, "Cant a man get some privacy!"));
-                NPCs.Add(new NPC("npc/npc_old", new Vector2(600, 1900), false, false, false, false, 0, "Garithos did nothing wrong!"));
-            }
+            {                
+                NPC temp = new NPC("npc/npc_knight", new Vector2(2800, 3000), false, false, false, false, 0, "What a nice little lake.");
+                temp.AddDialogue("I would like to take a swim, but.");
+                temp.AddDialogue("This armour would make me sink like a rock.");
+                NPCs.Add(temp);
 
+                NPCs.Add(new NPC("npc/npc_healer", new Vector2(1800, 2520), false, false, true, false, 0, "")); // healer
+                NPCs.Add(new NPC("npc/npc_monk", new Vector2(185, 4160), false, false, false, false, 0, "Can't a man get some privacy!"));
+
+                temp = new NPC("npc/npc_megaold", new Vector2(1510, 550), false, false, false, false, 0, "At the top of this mountain stands");
+                temp.AddDialogue("the Dragon Shrines. The legends say that");
+                temp.AddDialogue("only a Warlock who has mastered the elements");
+                temp.AddDialogue("can defeat the mighty Dragons.");
+                NPCs.Add(temp);
+
+                NPCs.Add(new NPC("npc/npc_king", new Vector2(1260, 2750), false, false, false, false, 0, "Pay your taxes peasant."));
+
+                temp = new NPC("npc/npc_old", new Vector2(1950, 3630), false, false, false, false, 0, "How could this have happened!?");
+                temp.AddDialogue("My own creations have turned against me!");
+                temp.AddDialogue("My workshop lies beyond the forest.");
+                temp.AddDialogue("If you travel there, be careful.");
+                temp.AddDialogue("Oh! And one more thing Warlock.");
+                temp.AddDialogue("My Sentry's have the ability to scan any");
+                temp.AddDialogue("creature and learn their weakness.");
+                temp.AddDialogue("If you could capture one, it might prove");
+                temp.AddDialogue("useful for a Warlock such as yourself.");
+                NPCs.Add(temp);
+            }
             if (Name == "Dragon")
             {
 
@@ -155,6 +177,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Updates the zone
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void Update(GameTime gameTime)
         {
             MapRenderer.Update(Map, gameTime);
@@ -164,16 +190,17 @@ namespace Warlock_The_Soulbinder
                 // What happpens when player enters a zone trigger
                 if (trigger.IsEntryTrigger == true && trigger.CollisionBox.Intersects(Player.Instance.CollisionBox) && !GameWorld.Instance.Saving)
                 {
-                    if (trigger.TargetZone == "Dragon")
-                    {
-                        MediaPlayer.Play(GameWorld.Instance.DragonMusic, TimeSpan.Zero);
-                        GameWorld.Instance.ChangeMusic();
-                    }
+                    
                     KillEnemiesInZone();
                     GameWorld.Instance.currentZone = trigger.TargetZone;
                     GameWorld.Instance.CurrentZone().GenerateZone(); // Generate the new zone with enemies
                     Player.Instance.Position = new Vector2(trigger.TargetPos.X - 19, trigger.TargetPos.Y - 6);
                     Player.Instance.GracePeriod = 1.5;
+
+                    if (trigger.TargetZone == "Dragon")
+                    {
+                        GameWorld.Instance.ChangeMusic();
+                    }
                 }
             }
 
@@ -181,13 +208,12 @@ namespace Warlock_The_Soulbinder
             {
                 npc.Update(gameTime);
             }
-
-            if (Name == "Dragon")
-            {
-                
-            }
         }
 
+        /// <summary>
+        /// Draws the enemies and npcs in the zone
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Enemy enemy in Enemies)
@@ -262,7 +288,7 @@ namespace Warlock_The_Soulbinder
         {
             int enemyindex = 0;
             
-            for (int i = 0; i < enemiesInZone; i++)
+            for (int i = 0; i < enemiesInZone; i++) // spawn a random enemy of the right type
             {
                 switch (enemyType)
                 {
@@ -289,7 +315,7 @@ namespace Warlock_The_Soulbinder
                         break;
                 }
 
-                Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)];
+                Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)]; // chose a random spawnpoint to spawn the enemy
                 Enemies.Add(new Enemy(enemyindex, new Vector2(temp.X, temp.Y)));
                 usedSpawnPoints.Add(temp);
                 spawnPoints.Remove(temp);
@@ -354,7 +380,8 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Method the checks which dragons are dead and if all are dead create the win game portal thing
+        /// Method the checks which dragons are dead and makes the pillars colored.
+        /// If all are dead create the win game npc
         /// </summary>
         public void ChangeDragonPillarSprite()
         {

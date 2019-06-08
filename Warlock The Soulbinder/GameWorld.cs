@@ -172,17 +172,17 @@ namespace Warlock_The_Soulbinder
             
             replaceComma.NumberDecimalSeparator = ".";
 
-            // zones are created with names and enemies
+            // zones are created with names and number of enemies
             town = new Zone("Town", 0);
-            neutral = new Zone("Neutral", 5);
+            neutral = new Zone("Neutral", 9);
             earth = new Zone("Earth", 15);
-            dragon = new Zone("Dragon", 3);
+            dragon = new Zone("Dragon", 0);
             air = new Zone("Air", 8);
-            fire = new Zone("Fire", 3);
+            fire = new Zone("Fire", 10);
             water = new Zone("Water", 10);
-            dark = new Zone("Dark", 3);
-            metal = new Zone("Metal", 3);
-            dragonRealm = new Zone("DragonRealm", 8);
+            dark = new Zone("Dark", 7);
+            metal = new Zone("Metal", 9);
+            dragonRealm = new Zone("DragonRealm", 10);
             
             zones.Add(town);
             zones.Add(neutral);
@@ -387,7 +387,7 @@ namespace Warlock_The_Soulbinder
 
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
-                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.ViewMatrix);
                 
                 CurrentZone().Draw(SpriteBatch);
 
@@ -395,7 +395,7 @@ namespace Warlock_The_Soulbinder
                 {
                     if (layer.Name != "Top" || layer.Name != "OverTop")
                     {
-                        CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
+                        CurrentZone().MapRenderer.Draw(layer, camera.ViewMatrix, null, null, 0.99f);
                     }
                 }
 
@@ -446,12 +446,12 @@ namespace Warlock_The_Soulbinder
 
             if (GameState == "Overworld")
             {
-                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.ViewMatrix);
                 foreach (var layer in CurrentZone().Map.TileLayers)
                 {
                     if (layer.Name == "Top" || layer.Name == "OverTop")
                     {
-                        CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
+                        CurrentZone().MapRenderer.Draw(layer, camera.ViewMatrix, null, null, 0.99f);
                     }
                 }
                 SpriteBatch.End();

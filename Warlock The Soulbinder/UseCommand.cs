@@ -9,8 +9,6 @@ namespace Warlock_The_Soulbinder
 {
     class UseCommand : ICommand
     {
-        Sound npcTalk = new Sound("npcTalk");
-
         public UseCommand()
         {
 
@@ -32,10 +30,11 @@ namespace Warlock_The_Soulbinder
                     {
                         if (npc.DragonElement == null) // if not a shrine play sound effect
                         {
-                            npcTalk.Play();
+                            Sound.PlaySound("sound/npcTalk");
                         }
                         
-                        npc.EnterDialogue();
+                        npc.EnterDialogue(); // start talking to the npc
+
                         if (npc.HasHeal)
                         {
                             Player.Instance.CurrentHealth = Player.Instance.MaxHealth;

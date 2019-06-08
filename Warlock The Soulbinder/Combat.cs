@@ -50,7 +50,6 @@ namespace Warlock_The_Soulbinder
         private double victoryTimer;
 
         private Color buttonColor = Color.White;
-        Sound victorySound = new Sound("battleVictory");
 
         private List<Effect> enemyEffects = new List<Effect>();
         private List<Effect> playerEffects = new List<Effect>();
@@ -1570,7 +1569,7 @@ namespace Warlock_The_Soulbinder
             enemyEffects.Clear();
             playerText.Clear();
             enemyText.Clear();
-            victorySound.Play();
+            Sound.PlaySound("sound/battleVictory");
             PlayerText.Clear();
             EnemyText.Clear();
             enemyShield = 0;
