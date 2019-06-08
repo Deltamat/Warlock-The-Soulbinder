@@ -174,7 +174,6 @@ namespace Warlock_The_Soulbinder
         {
             GameWorld.Instance.CurrentSaveFile = "1";
             Controller.Instance = new Controller();
-
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -189,7 +188,6 @@ namespace Warlock_The_Soulbinder
         {
             GameWorld.Instance.CurrentSaveFile = "2";
             Controller.Instance = new Controller();
-
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -204,7 +202,6 @@ namespace Warlock_The_Soulbinder
         {
             GameWorld.Instance.CurrentSaveFile = "3";
             Controller.Instance = new Controller();
-
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
