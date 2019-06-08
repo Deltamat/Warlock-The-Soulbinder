@@ -9,6 +9,9 @@ namespace Warlock_The_Soulbinder
 {
     class ModelStatistic : Model
     {
+        /// <summary>
+        /// Creates a table for saving wcich dragons are dead if the table hasn't already been created.
+        /// </summary>
         public ModelStatistic()
         {
             string sqlexp = "CREATE TABLE IF NOT EXISTS Statistic (earthDragonDead boolean primary key, " +
@@ -24,7 +27,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Deletes the database to make it ready for a new save
+        /// Deletes the Statistic database to make it ready for a new save.
         /// </summary>
         public void ClearDB()
         {
