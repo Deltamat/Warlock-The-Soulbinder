@@ -10,7 +10,7 @@ namespace Warlock_The_Soulbinder
     class ModelStatistic : Model
     {
         /// <summary>
-        /// Creates a table for saving wcich dragons are dead if the table hasn't already been created.
+        /// Creates a table for saving which dragons are dead if the table hasn't already been created.
         /// </summary>
         public ModelStatistic()
         {
@@ -34,13 +34,24 @@ namespace Warlock_The_Soulbinder
             cmd.CommandText = "DELETE FROM Statistic";
             cmd.ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Saves the status on which dragons are dead.
+        /// </summary>
+        /// <param name="earthDragonDead">Earth dragon dead?</param>
+        /// <param name="fireDragonDead">Fire dragon dead?</param>
+        /// <param name="darkDragonDead">Dark dragon dead?</param>
+        /// <param name="metalDragonDead">Metal dragon dead?</param>
+        /// <param name="waterDragonDead">Water dragon dead?</param>
+        /// <param name="airDragonDead">Air dragon dead?</param>
+        /// <param name="neutralDragonDead">Neutral dragon dead?</param>
         public void SaveStatistic(bool earthDragonDead, bool fireDragonDead, bool darkDragonDead, bool metalDragonDead, bool waterDragonDead, bool airDragonDead, bool neutralDragonDead)
         {
             cmd.CommandText = $"INSERT INTO Statistic (earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead) VALUES ({earthDragonDead}, {fireDragonDead}, {darkDragonDead}, {metalDragonDead}, {waterDragonDead}, {airDragonDead}, {neutralDragonDead})";
             cmd.ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Loads the status on which dragons are dead.
+        /// </summary>
         public void LoadStatistic()
         {
             cmd.CommandText = "SELECT * FROM Statistic";
