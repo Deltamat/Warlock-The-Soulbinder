@@ -170,15 +170,24 @@ namespace Warlock_The_Soulbinder
                     //Changes sound and music volume for the game
                     if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyRight) || InputHandler.Instance.KeyPressed(Keys.D) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonRight)) && delay > 30)
                     {
+                       
                         if (GameWorld.Instance.SoundEffectVolume < 1 && selectedInt == 0)
                         {
                             GameWorld.Instance.SoundEffectVolume += 0.01f;
+                            if (GameWorld.Instance.SoundEffectVolume > 1)
+                            {
+                                GameWorld.Instance.SoundEffectVolume = 1;
+                            }
 
                         }
 
                         if (GameWorld.Instance.MusicVolume < 1 && selectedInt == 1)
                         {
                             GameWorld.Instance.MusicVolume += 0.01f;
+                            if (GameWorld.Instance.SoundEffectVolume > 1)
+                            {
+                                GameWorld.Instance.SoundEffectVolume = 1;
+                            }
 
                         }
                     }
@@ -189,6 +198,10 @@ namespace Warlock_The_Soulbinder
                         {
                             GameWorld.Instance.SoundEffectVolume -= 0.01f;
 
+                            if (GameWorld.Instance.SoundEffectVolume > 1)
+                            {
+                                GameWorld.Instance.SoundEffectVolume = 1;
+                            }
                             if (GameWorld.Instance.SoundEffectVolume < 0)
                             {
                                 GameWorld.Instance.SoundEffectVolume = 0;
