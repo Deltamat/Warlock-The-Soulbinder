@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="50" height="60" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="128">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="50" height="60" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="130">
  <tileset firstgid="1" name="tilesetGrassland" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="tilesetGrassland.png" width="1024" height="1024"/>
  </tileset>
@@ -19,7 +19,7 @@
  </layer>
  <layer id="8" name="lille sten" width="50" height="60">
   <data encoding="base64" compression="zlib">
-   eJztmssNwjAMhtNd2KcjMEQZoTswQs+wAVw5wQZwAM5IPI4kh4jIalJHzcvBn/RLDU2D/zpu00IrhGgtWo5I78PSW7YVT8Qxtn7ws7FYtcaY62eF6GvzB8cKgcurCx1jD9ouprxjxkgNjMkVY8z4u4hja0LOq1JQnjA1FwqYp6m8XaVuUvc44UTF9PaSekt9BG1PJqYn6nBOyoTzUhe+68JSsK3hU4OtB+yzRy6w9eDz7FEqJa7bGfpQnFcUY/43OEd1sW7wfQ8efVMzNH5eSkWd46ECHwzDzGOR4Dtqup+neM+vgHlJkSeGYfLDtV4fG6mt0U51HwnNTmpvtKn6OEqdxO839ZQ+Qtb3WeoScLycPHIHEABY51SBdW5C6X8osM7HoHANm6pzCh40Zp3DvFDyweSjEzxXcsPnn8nFF5psXPk=
+   eJztmktuAyEMQMlZkvvkCO0dpjdI7tAjZN3eoN121d6glfpZV+pnGZCKZLkYzNgemGSehBImDNj4A8xk65zbEuUiUeJvXPbE98AX4x6qHb6WkjWWFFJ9rhhtKf1wXxrkdM0RZdyjeo6S7pw+NHlltMEy5WS0lH9A9cuV/hiafgWxkJVL0IkTc1pgO+E65s2Xd18+bMQh2RHXa3wA6vbty48vv66dTpDN36fE96BOFmjFBdUPzEeWNtkQ17FcsU75HoRqY22TFGPyYu6eYJe49ljHCpxHrbFS9p7SLqWxWq43tfvCFFQ8WULt4VOE+a2JiZzfYVtxfZR79pCAdazxcW7bmrMHl1r/4eTjHBb7XigTJ55z/mi1r6X6tRjPOidI+482graS9mnhV9Zrw9Rn2IX/lPJZjzYKMmv6JufZxqlwXTFvDw33hiUOqzpdtBjrd9R9YY4PRnpYreVzJsxJyzPP3MjNldU8WubjnmNiirMsdz2H+4Je5yw+U8U6afsltkuLZw6tkZ57IRz7SG245PjzRdNXc7EuyZFrp3O2svJzSb+9rheRG19uQR2/d9T+T4HVfubOl3tQL70/5aIZP5HcnD368gTa1Ogh9f9UfMM+a/p/9uWlcvyWz1dyY38qjaGVn8bkFBznkLVAFox2vsN2wXFeM7ZFLJeg5hbHeYoB3N8iNjhjluJ8TB5utV+FcY7torWezAFq/nfg91M+U0DdSjkDx/fg9Hxlqpjv8b2GhHOK1YW+OAIFyZkw
   </data>
  </layer>
  <layer id="6" name="Top" width="50" height="60">
@@ -160,5 +160,7 @@
   <object id="125" type="Spawn" x="1984" y="1728" width="128" height="128"/>
   <object id="126" x="-64" y="320" width="64" height="320"/>
   <object id="127" x="1792" y="3840" width="320" height="64"/>
+  <object id="128" x="1344" y="768" width="192" height="128"/>
+  <object id="129" x="1856" y="960" width="192" height="128"/>
  </objectgroup>
 </map>
