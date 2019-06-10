@@ -10,6 +10,9 @@ namespace Warlock_The_Soulbinder
 {
     class ModelPlayer : Model
     {
+        /// <summary>
+        /// Creates a table for saving crucial parameters for the player if the table hasn't already been created.
+        /// </summary>
         public ModelPlayer()
         {
             string sqlexp = "CREATE TABLE IF NOT EXISTS Player (X float primary key, " +
@@ -22,7 +25,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Deletes the database to make it ready for a new save
+        /// Deletes the player database to make it ready for a new save.
         /// </summary>
         public void ClearDB()
         {
@@ -30,12 +33,21 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Saves some crucial stats used for recreating the player as he was at the time of saving.
+        /// </summary>
+        /// <param name="X">X-coordiante of the player.</param>
+        /// <param name="Y">Y-coordinate of the player.</param>
+        /// <param name="zone">The current zone the player is in.</param>
+        /// <param name="currentHealth">Current health of the player.</param>
         public void SavePlayer(float X, float Y, string zone, int currentHealth)
         {
             cmd.CommandText = $"INSERT INTO Player (X, Y, zone, currentHealth) VALUES ({X.ToString(GameWorld.Instance.replaceComma)}, {Y.ToString(GameWorld.Instance.replaceComma)}, '{zone}', {currentHealth})";
             cmd.ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Loads some necesary parameters for recreating the Player as he was.
+        /// </summary>
         public void LoadPlayer()
         {
             cmd.CommandText = "SELECT * FROM Player";

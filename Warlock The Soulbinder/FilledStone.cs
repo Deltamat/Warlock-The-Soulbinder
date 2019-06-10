@@ -36,7 +36,6 @@ namespace Warlock_The_Soulbinder
         private Effect dragonArmorEffect3;
         private List<Effect> dragonArmorEffects = new List<Effect>();
         private Effect skillEffect;
-        private int id;
 
         private int maxHealth;
         protected float attackSpeed;
@@ -59,7 +58,6 @@ namespace Warlock_The_Soulbinder
         protected List<float> resistanceTypes = new List<float>();
         #endregion
         #region PROPERTIES
-        public int Id { get => id; private set => id = value; }
         public string WeaponName { get => weaponName; set => weaponName = value; }
         public string ArmorName { get => armorName; set => armorName = value; }
         public string SkillName { get => skillName; set => skillName = value; }

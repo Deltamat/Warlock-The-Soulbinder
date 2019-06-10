@@ -174,6 +174,5 @@ namespace Warlock_The_Soulbinder
             buttonReturn = Buttons.Y;
             buttonMenu = Buttons.Start;
         }
-
     }
 }

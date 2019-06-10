@@ -9,6 +9,9 @@ namespace Warlock_The_Soulbinder
 {
     class ModelStatistic : Model
     {
+        /// <summary>
+        /// Creates a table for saving which dragons are dead if the table hasn't already been created.
+        /// </summary>
         public ModelStatistic()
         {
             string sqlexp = "CREATE TABLE IF NOT EXISTS Statistic (earthDragonDead boolean primary key, " +
@@ -24,20 +27,31 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Deletes the database to make it ready for a new save
+        /// Deletes the Statistic database to make it ready for a new save.
         /// </summary>
         public void ClearDB()
         {
             cmd.CommandText = "DELETE FROM Statistic";
             cmd.ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Saves the status on which dragons are dead.
+        /// </summary>
+        /// <param name="earthDragonDead">Earth dragon dead?</param>
+        /// <param name="fireDragonDead">Fire dragon dead?</param>
+        /// <param name="darkDragonDead">Dark dragon dead?</param>
+        /// <param name="metalDragonDead">Metal dragon dead?</param>
+        /// <param name="waterDragonDead">Water dragon dead?</param>
+        /// <param name="airDragonDead">Air dragon dead?</param>
+        /// <param name="neutralDragonDead">Neutral dragon dead?</param>
         public void SaveStatistic(bool earthDragonDead, bool fireDragonDead, bool darkDragonDead, bool metalDragonDead, bool waterDragonDead, bool airDragonDead, bool neutralDragonDead)
         {
             cmd.CommandText = $"INSERT INTO Statistic (earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead) VALUES ({earthDragonDead}, {fireDragonDead}, {darkDragonDead}, {metalDragonDead}, {waterDragonDead}, {airDragonDead}, {neutralDragonDead})";
             cmd.ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Loads the status on which dragons are dead.
+        /// </summary>
         public void LoadStatistic()
         {
             cmd.CommandText = "SELECT * FROM Statistic";
