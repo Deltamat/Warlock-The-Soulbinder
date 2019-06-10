@@ -667,7 +667,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void PlayerEffects()
         {
-            //local values to apply effects
+            //values to apply effects
             playerStunned = false;
             playerConfused = false;
             playerDamageMod = 1f;
@@ -864,7 +864,6 @@ namespace Warlock_The_Soulbinder
                             }
                         }
                         
-
                         if (playerConfused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
                         {
                             Player.Instance.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
