@@ -224,7 +224,6 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.GameState = "Overworld";
                 Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
             }
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -412,7 +411,6 @@ namespace Warlock_The_Soulbinder
                             playerAttackTimer = 0;
                         }
                         break;
-
                     case 3: //flee
                         playerAttackTimer = 0;
                         if (GameWorld.Instance.RandomInt(0, 4) != 0)
@@ -687,7 +685,6 @@ namespace Warlock_The_Soulbinder
                     {
                         skillIconPlayer.Add(effect.SkillIcon);
                     }
-
                     if (effect.Heal > 0)
                     {
                         effect.EffectLength++;
