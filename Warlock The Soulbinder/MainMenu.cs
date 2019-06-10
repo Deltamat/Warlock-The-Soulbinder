@@ -27,9 +27,7 @@ namespace Warlock_The_Soulbinder
         private float delay = 0;
         private float cX;
         private float cX2;
-        private int selectedIndex = 0;
-        //private float cY;
-        
+        private int selectedIndex = 0;        
 
 
         static MainMenu instance;
@@ -47,7 +45,9 @@ namespace Warlock_The_Soulbinder
 
         public string MainMenuState { get => mainMenuState; set => mainMenuState = value; }
         public float Delay { get => delay; set => delay = value; }
-
+        /// <summary>
+        /// Loads all the content, buttons and x-coordinates used for buttons and the arrow-sprite that indicates which button you are about to choose.
+        /// </summary>
         private MainMenu()
         {
             background = GameWorld.ContentManager.Load<Texture2D>("mainMenuBackground");
@@ -86,7 +86,10 @@ namespace Warlock_The_Soulbinder
             mainMenuButtons.Add(newGameButton);
             mainMenuButtons.Add(exitGameButton);
         }
-
+        /// <summary>
+        /// Updates everything in the main menu.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             Delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -120,6 +123,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Draws everything in the main menu.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(background, Vector2.Zero, Color.White);
@@ -150,30 +157,51 @@ namespace Warlock_The_Soulbinder
                 }
             }
         }
-
+        /// <summary>
+        /// Click-event for choosing to go to the "new game" menu.
+        /// </summary>
+        /// <param name="sender">a Button</param>
+        /// <param name="e"></param>
         private void NewGame(object sender, EventArgs e)
         {
             MainMenuState = "New Game";
         }
-
+        /// <summary>
+        /// Click-event for choosing to open the "load game" menu.
+        /// </summary>
+        /// <param name="sender">a Button</param>
+        /// <param name="e"></param>
         private void LoadGame(object sender, EventArgs e)
         {
             MainMenuState = "Load Game";
         }
-
+        /// <summary>
+        /// Click-event for exiting the game.
+        /// </summary>
+        /// <param name="sender">a Button</param>
+        /// <param name="e"></param>
         private void ExitGame(object sender, EventArgs e)
         {
             GameWorld.Instance.Exit();
         }
+        /// <summary>
+        /// Click-event for returning to the "main" part of the MainMenu.
+        /// </summary>
+        /// <param name="sender">a Button</param>
+        /// <param name="e"></param>
         private void ReturnButton(object sender, EventArgs e)
         {
             MainMenuState = "Main";
         }
-
+        /// <summary>
+        /// This is the click-event for the button that is used for selecting the first savefile for either starting a new game or loading a saved one.
+        /// </summary>
+        /// <param name="sender">a Button</param>
+        /// <param name="e"></param>
         private void SaveSlot1(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "1";
-
+            Controller.Instance = new Controller();
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -184,10 +212,15 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.GameState = "Overworld";
             }
         }
+        /// <summary>
+        /// This is the click-event for the button that is used for selecting the second savefile for either starting a new game or loading a saved one.
+        /// </summary>
+        /// <param name="sender">a Button</param>
+        /// <param name="e"></param>
         private void SaveSlot2(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "2";
-
+            Controller.Instance = new Controller();
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -198,10 +231,15 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.GameState = "Overworld";
             }
         }
+        /// <summary>
+        /// This is the click-event for the button that is used for selecting the third savefile for either starting a new game or loading a saved one.
+        /// </summary>
+        /// <param name="sender">a Button</param>
+        /// <param name="e"></param>
         private void SaveSlot3(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "3";
-
+            Controller.Instance = new Controller();
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -213,6 +251,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Chooses if you wanna start a new game or load one. Also gives the option to exit the game.
+        /// Input devices to use are either a keyboard or gamepad.
+        /// </summary>
         private void ChangeMainMenuState()
         {
             if ((InputHandler.Instance.KeyPressed(Keys.E) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
@@ -233,6 +275,11 @@ namespace Warlock_The_Soulbinder
                 selectedIndex = 0;
             }
         }
+
+        /// <summary>
+        /// This is for choosing which save game file you either want to load or use for starting a new game.
+        /// Input devices to use are keyboard or gamepad.
+        /// </summary>
         private void ChooseSaveGame()
         {
             if ((InputHandler.Instance.KeyPressed(Keys.E) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeySelect) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonSelect)) && Delay > 200)
@@ -241,6 +288,7 @@ namespace Warlock_The_Soulbinder
                 {
                     case 0:
                         GameWorld.Instance.CurrentSaveFile = "1";
+                        Controller.Instance = new Controller();
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
@@ -249,6 +297,7 @@ namespace Warlock_The_Soulbinder
                         break;
                     case 1:
                         GameWorld.Instance.CurrentSaveFile = "2";
+                        Controller.Instance = new Controller();
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
@@ -257,6 +306,7 @@ namespace Warlock_The_Soulbinder
                         break;
                     case 2:
                         GameWorld.Instance.CurrentSaveFile = "3";
+                        Controller.Instance = new Controller();
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
@@ -270,6 +320,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Used to select a specific index in a given list of main menu buttons with either a keyboard or gamepad.
+        /// </summary>
+        /// <param name="maxIndex">The max index of the given list that you wish to use this method for.</param>
         private void ChangeSelectedIndex(int maxIndex)
         {
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyW) || InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && Delay > 150 && selectedIndex > 0)

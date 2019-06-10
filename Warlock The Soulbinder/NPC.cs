@@ -16,13 +16,13 @@ namespace Warlock_The_Soulbinder
         Texture2D interact;
         float interactScale;
         float interactDistance = 100;
-        private bool dragonShrine;
+        bool dragonShrine;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
 
         public string DragonElement { get; set; }
-        public bool HasHeal { get; set; }
-        public bool IsShrine { get; set; }
-        public bool DrawInteract { get; set; }
+        public bool HasHeal { get; private set; }
+        public bool IsShrine { get; private set; }
+        public bool DrawInteract { get; private set; }
         public bool Talking { get; set; } = false;
         public override Rectangle CollisionBox
         {
@@ -44,10 +44,10 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="spriteName">The name of the sprite</param>
         /// <param name="position">The position of the NPC</param>
-        /// <param name="hasQuest">Does the NPC have a quest</param>
-        /// <param name="hasShop">Does the NPC have a shop</param>
+        /// <param name="isPillar">Is the npc a dragon pillar</param>
+        /// <param name="hasShop">Does the NPC have a shop. Now used currently</param>
         /// <param name="isShrine">Is the npc a dragon shrine</param>
-        /// <param name="questID">The id of the quest this NPC has</param>
+        /// <param name="questID">The id of the quest this NPC has. Not used currently</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
         public NPC(string spriteName, Vector2 position, bool isPillar, bool hasShop, bool hasHeal, bool isShrine, int questID, string dialogue)
         {
@@ -82,6 +82,10 @@ namespace Warlock_The_Soulbinder
             UpdateDialogue();
         }
 
+        /// <summary>
+        /// Update the npc and check the distance between the npc and player.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             if (Vector2.Distance(Player.Instance.CollisionBox.Center.ToVector2(), CollisionBox.Center.ToVector2()) < interactDistance)
@@ -99,6 +103,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Draws the npc and if player is within talking range, draw the interact icon.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (IsShrine)
@@ -118,11 +126,11 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Method that assigns the corrrect dialogue to the npc based on if he it has a quest/shop
+        /// Method that assigns the corrrect dialogue to the npc.
         /// </summary>
         public void UpdateDialogue()
         {
-            if (hasQuest || hasShop || HasHeal || IsShrine) // remove the default dialogue if NPC has quest or shop
+            if (hasQuest || hasShop || HasHeal || IsShrine) // remove the default dialogue
             {
                 dialogueLines = new Dictionary<int, string>();
             }
@@ -167,6 +175,15 @@ namespace Warlock_The_Soulbinder
             Talking = true;
             GameWorld.Instance.GameState = "Dialogue";
             Dialogue.Instance.talkingNPC = this;
+        }
+
+        /// <summary>
+        /// Method that adds dialogue to the npc
+        /// </summary>
+        /// <param name="dialogue">The dialogue to be added</param>
+        public void AddDialogue(string dialogue)
+        {
+            dialogueLines.Add(dialogueLines.Count + 1, dialogue);
         }
     }
 }

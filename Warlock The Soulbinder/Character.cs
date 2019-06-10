@@ -18,6 +18,5 @@ namespace Warlock_The_Soulbinder
         public Character()
         {
         }
-
     }
 }

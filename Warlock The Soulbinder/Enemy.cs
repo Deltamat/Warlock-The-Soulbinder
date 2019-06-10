@@ -523,14 +523,25 @@ namespace Warlock_The_Soulbinder
                         }
                     }
 
-                    //enemy collision with enemies
-                    foreach (Enemy enemy in GameWorld.Instance.enemies)
+                    // because the thread can still be alive when the CurrenZone().Enemies list is being overridden
+                    // else you get the "collection changed" exeption
+                    // This can happen when changing zones
+                    try
                     {
-                        if (CollisionBox.Intersects(enemy.CollisionBox) && enemy != this)
+                        //enemy collision with enemies
+                        foreach (Enemy enemy in GameWorld.Instance.CurrentZone().Enemies)
                         {
-                            Position -= direction;
+                            if (CollisionBox.Intersects(enemy.CollisionBox) && enemy != this)
+                            {
+                                Position -= direction;
+                            }
                         }
                     }
+                    catch (Exception)
+                    {
+
+                    }
+                    
                 }
                 Thread.Sleep(1);
             }

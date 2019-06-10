@@ -9,13 +9,12 @@ namespace Warlock_The_Soulbinder
 {
     public class Camera
     {
+        private Vector2 halfScreenSize;
+        private Vector2 position;
         /// <summary>
         /// The matrix used for the camera
         /// </summary>
-        public Matrix viewMatrix;
-        private Vector2 halfScreenSize;
-        private Vector2 position;
-
+        public Matrix ViewMatrix { get; private set; }
         /// <summary>
         /// Property for the position
         /// </summary>
@@ -43,11 +42,11 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Method that updates the camera position to the new position
+        /// Method that updates the camera Matrix to the new position
         /// </summary>
         private void UpdateViewMatrix()
         {
-            viewMatrix = Matrix.CreateTranslation
+            ViewMatrix = Matrix.CreateTranslation
                 (MathHelper.Clamp //Clamps the X position of the viewMatrix translation
                 (halfScreenSize.X - position.X, -GameWorld.Instance.TileMapBounds.Width + GameWorld.Instance.ScreenSize.Width, 0),
                 MathHelper.Clamp //Clamps the Y position of the viewMatrix translation

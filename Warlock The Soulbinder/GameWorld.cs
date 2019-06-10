@@ -42,7 +42,6 @@ namespace Warlock_The_Soulbinder
         private bool saved;
         private bool saving;
         private double savedTextTime;
-        private double savingTextTime;
         private Thread saveThread;
 
         //Tiled fields
@@ -50,9 +49,6 @@ namespace Warlock_The_Soulbinder
         public string currentZone = "Town";
         public List<Zone> zones = new List<Zone>();
 
-
-        public int Gold { get; set; }
-        public int SoulCount { get; set; }
 
         private static GameWorld instance;
         public static GameWorld Instance
@@ -172,17 +168,17 @@ namespace Warlock_The_Soulbinder
             
             replaceComma.NumberDecimalSeparator = ".";
 
-            // zones are created with names and enemies
+            // zones are created with names and number of enemies
             town = new Zone("Town", 0);
-            neutral = new Zone("Neutral", 5);
+            neutral = new Zone("Neutral", 9);
             earth = new Zone("Earth", 15);
-            dragon = new Zone("Dragon", 3);
+            dragon = new Zone("Dragon", 0);
             air = new Zone("Air", 8);
-            fire = new Zone("Fire", 3);
+            fire = new Zone("Fire", 10);
             water = new Zone("Water", 10);
-            dark = new Zone("Dark", 3);
-            metal = new Zone("Metal", 3);
-            dragonRealm = new Zone("DragonRealm", 8);
+            dark = new Zone("Dark", 7);
+            metal = new Zone("Metal", 9);
+            dragonRealm = new Zone("DragonRealm", 10);
             
             zones.Add(town);
             zones.Add(neutral);
@@ -387,7 +383,7 @@ namespace Warlock_The_Soulbinder
 
             if (GameState == "Overworld" || GameState == "Dialogue") //Overworld draw
             {
-                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.ViewMatrix);
                 
                 CurrentZone().Draw(SpriteBatch);
 
@@ -395,7 +391,7 @@ namespace Warlock_The_Soulbinder
                 {
                     if (layer.Name != "Top" || layer.Name != "OverTop")
                     {
-                        CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
+                        CurrentZone().MapRenderer.Draw(layer, camera.ViewMatrix, null, null, 0.99f);
                     }
                 }
 
@@ -446,12 +442,12 @@ namespace Warlock_The_Soulbinder
 
             if (GameState == "Overworld")
             {
-                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.viewMatrix);
+                SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, camera.ViewMatrix);
                 foreach (var layer in CurrentZone().Map.TileLayers)
                 {
                     if (layer.Name == "Top" || layer.Name == "OverTop")
                     {
-                        CurrentZone().MapRenderer.Draw(layer, camera.viewMatrix, null, null, 0.99f);
+                        CurrentZone().MapRenderer.Draw(layer, camera.ViewMatrix, null, null, 0.99f);
                     }
                 }
                 SpriteBatch.End();
@@ -540,36 +536,30 @@ namespace Warlock_The_Soulbinder
                     return zone;
                 }
             }
-
             return zones[0];
-
         }
 
         public void ChangeMusic()
         {
             SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
-           
 
             if ((currentZone == "DragonRealm") && gameState != "Dialogue" && gameState != "GeneralMenu")
             {
                 MediaPlayer.Play(DragonMusic, SongPosition);
             }
-
             else if (GameState == "Overworld" && gameState != "Dialogue" && gameState != "GeneralMenu")
             {
                 MediaPlayer.Play(overworldMusic, SongPosition);
             }
-
             else if (GameState == "Combat" && currentZone != "DragonRealm")
             {
                 SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
                 MediaPlayer.Play(combatMusic, TimeSpan.Zero);
             }
-
         }
 
         /// <summary>
-        /// Loads all the variables from the database
+        /// Loads everything from the database depending on which savefile was chosen in MainMenu.
         /// </summary>
         public void LoadDB()
         {
@@ -583,7 +573,7 @@ namespace Warlock_The_Soulbinder
             
             CurrentZone().Enemies = Controller.Instance.LoadFromEnemyDB();
             Controller.Instance.LoadFromStatisticDB();
-            CurrentZone().ChangeDragonPillarSprite(); // updates the pillars so they match the dead dragons
+            dragon.ChangeDragonPillarSprite(); // updates the pillars so they match the dead dragons
 
             Equipment.Instance.LoadEquipment();
             Equipment.Instance.UpdateExperienceRequired();
@@ -596,8 +586,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void SaveToDBThreadMaker()
         {
-            if (saveThread != null)
+            if (!saving)
             {
+                saving = true;
                 saveThread = new Thread(() => SaveToDB())
                 {
                     IsBackground = true
@@ -607,12 +598,10 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Saves all the variables to the database
+        /// Saves all the necesary variables to the database
         /// </summary>
         public void SaveToDB()
         {
-            saving = true;
-
             Controller.Instance.OpenTheGates();
 
             Controller.Instance.DeleteEnemyDB();
@@ -632,57 +621,15 @@ namespace Warlock_The_Soulbinder
                 Controller.Instance.SaveToSoulStoneDB(FilledStone.StoneList[i].Monster, FilledStone.StoneList[i].Experience, FilledStone.StoneList[i].EquipmentSlot, FilledStone.StoneList[i].Level, FilledStone.StoneList[i].Damage, FilledStone.StoneList[i].MaxHealth, FilledStone.StoneList[i].AttackSpeed);
             }
             //Player
-            int weapon, armour, skill1, skill2, skill3;
-            try
-            {
-                weapon = Equipment.Instance.Weapon.Id;
-            }
-            catch (Exception)
-            {
-                weapon = -1;
-            }
-            try
-            {
-                armour = Equipment.Instance.Armor.Id;
-            }
-            catch (Exception)
-            {
-                armour = -1;
-            }
-            try
-            {
-                skill1 = Equipment.Instance.Skill1.Id;
-            }
-            catch (Exception)
-            {
-                skill1 = -1;
-            }
-            try
-            {
-                skill2 = Equipment.Instance.Skill2.Id;
-            }
-            catch (Exception)
-            {
-                skill2 = -1;
-            }
-            try
-            {
-                skill3 = Equipment.Instance.Skill3.Id;
-            }
-            catch (Exception)
-            {
-                skill3 = -1;
-            }
-            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth, weapon, armour, skill1, skill2, skill3);
+            Controller.Instance.SaveToPlayerDB(Player.Instance.Position.X, Player.Instance.Position.Y, currentZone, Player.Instance.CurrentHealth);
 
             //Which dragons are dead
-            Controller.Instance.SaveToStatisticDB(Gold, SoulCount, Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
+            Controller.Instance.SaveToStatisticDB(Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
             //Log for scanned enemies
             Controller.Instance.SaveToLogDB(Log.Instance.SheepLog, Log.Instance.WolfLog, Log.Instance.BearLog, Log.Instance.PlantEaterLog, Log.Instance.InsectSoldierLog, Log.Instance.SlimeSnakeLog, Log.Instance.TentacleLog, Log.Instance.FrogLog, Log.Instance.FishLog, Log.Instance.MummyLog, Log.Instance.VampireLog, Log.Instance.BansheeLog, Log.Instance.BucketManLog, Log.Instance.DefenderLog, Log.Instance.SentryLog, Log.Instance.FireGolemLog, Log.Instance.InfernalDemonLog, Log.Instance.AshZombieLog, Log.Instance.FalconLog, Log.Instance.BatLog, Log.Instance.RavenLog);
 
             Saved = true;
             Saving = false;
-            savingTextTime = 0;
 
             Controller.Instance.CloseTheGates();
         }

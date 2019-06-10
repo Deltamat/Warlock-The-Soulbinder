@@ -9,6 +9,9 @@ namespace Warlock_The_Soulbinder
 {
     class ModelLog : Model
     {
+        /// <summary>
+        /// Creates a table for saving scanning progress for each enemy type if the table hasn't already been created.
+        /// </summary>
         public ModelLog()
         {
             string sqlexp = "CREATE TABLE IF NOT EXISTS Log (sheep integer primary key, " +
@@ -37,12 +40,39 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Clears the Log database to make it ready for a new save.
+        /// </summary>
         public void ClearDB()
         {
             cmd.CommandText = "DELETE FROM Log";
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Saves the progress of scanning each type of monster.
+        /// </summary>
+        /// <param name="sheepLog">sheep</param>
+        /// <param name="wolfLog">wolf</param>
+        /// <param name="bearLog">bear</param>
+        /// <param name="plantEaterLog">plant eater</param>
+        /// <param name="insectSoldierLog">insect soldier</param>
+        /// <param name="slimeSnakeLog">slime snake</param>
+        /// <param name="tentacleLog">tentacle</param>
+        /// <param name="frogLog">frog</param>
+        /// <param name="fishLog">fish</param>
+        /// <param name="mummyLog">mummy</param>
+        /// <param name="vampireLog">vampire</param>
+        /// <param name="bansheeLog">banshee</param>
+        /// <param name="bucketManLog">bucket man</param>
+        /// <param name="defenderLog">defender</param>
+        /// <param name="sentryLog">sentry</param>
+        /// <param name="fireGolemLog">fire golem</param>
+        /// <param name="infernalDemonLog">infernal demon</param>
+        /// <param name="ashZombieLog">ash zombie</param>
+        /// <param name="falconLog">falcon</param>
+        /// <param name="batLog">bat</param>
+        /// <param name="ravenLog">raven</param>
         public void SaveLog(int sheepLog, int wolfLog, int bearLog, int plantEaterLog, int insectSoldierLog, int slimeSnakeLog, int tentacleLog, 
             int frogLog, int fishLog, int mummyLog, int vampireLog, int bansheeLog, int bucketManLog, int defenderLog, int sentryLog, int fireGolemLog, 
             int infernalDemonLog, int ashZombieLog, int falconLog, int batLog, int ravenLog)
@@ -51,6 +81,9 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Loads the progress on scanning each monster type.
+        /// </summary>
         public void LoadLog()
         {
             cmd.CommandText = "SELECT * FROM Log";

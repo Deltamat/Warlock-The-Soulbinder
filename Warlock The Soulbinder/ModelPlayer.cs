@@ -10,29 +10,22 @@ namespace Warlock_The_Soulbinder
 {
     class ModelPlayer : Model
     {
+        /// <summary>
+        /// Creates a table for saving crucial parameters for the player if the table hasn't already been created.
+        /// </summary>
         public ModelPlayer()
         {
             string sqlexp = "CREATE TABLE IF NOT EXISTS Player (X float primary key, " +
                 "Y float, " +
                 "zone string, " +
-                "currentHealth integer," +
-                "soulWeapon integer," +
-                "soulArmour integer," +
-                "soulTrinket1 integer," +
-                "soulTrinket2 integer," +
-                "soulTrinket3 integer," +
-                "FOREIGN KEY(soulWeapon) REFERENCES SoulStone(id)," +
-                "FOREIGN KEY(soulArmour) REFERENCES SoulStone(id)," +
-                "FOREIGN KEY(soulTrinket1) REFERENCES SoulStone(id)," +
-                "FOREIGN KEY(soulTrinket2) REFERENCES SoulStone(id)," +
-                "FOREIGN KEY(soulTrinket3) REFERENCES SoulStone(id))";
+                "currentHealth integer)";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
             cmd.ExecuteNonQuery();
         }
 
         /// <summary>
-        /// Deletes the database to make it ready for a new save
+        /// Deletes the player database to make it ready for a new save.
         /// </summary>
         public void ClearDB()
         {
@@ -40,12 +33,21 @@ namespace Warlock_The_Soulbinder
             cmd.ExecuteNonQuery();
         }
 
-        public void SavePlayer(float X, float Y, string zone, int currentHealth, int soulWeapon, int soulArmour, int soulTrinket1, int soulTrinket2, int soulTrinket3)
+        /// <summary>
+        /// Saves some crucial stats used for recreating the player as he was at the time of saving.
+        /// </summary>
+        /// <param name="X">X-coordiante of the player.</param>
+        /// <param name="Y">Y-coordinate of the player.</param>
+        /// <param name="zone">The current zone the player is in.</param>
+        /// <param name="currentHealth">Current health of the player.</param>
+        public void SavePlayer(float X, float Y, string zone, int currentHealth)
         {
-            cmd.CommandText = $"INSERT INTO Player (X, Y, zone, currentHealth, soulWeapon, soulArmour, soulTrinket1, soulTrinket2, soulTrinket3) VALUES ({X.ToString(GameWorld.Instance.replaceComma)}, {Y.ToString(GameWorld.Instance.replaceComma)}, '{zone}', {currentHealth}, {soulWeapon}, {soulArmour}, {soulTrinket1}, {soulTrinket2}, {soulTrinket3})";
+            cmd.CommandText = $"INSERT INTO Player (X, Y, zone, currentHealth) VALUES ({X.ToString(GameWorld.Instance.replaceComma)}, {Y.ToString(GameWorld.Instance.replaceComma)}, '{zone}', {currentHealth})";
             cmd.ExecuteNonQuery();
         }
-
+        /// <summary>
+        /// Loads some necesary parameters for recreating the Player as he was.
+        /// </summary>
         public void LoadPlayer()
         {
             cmd.CommandText = "SELECT * FROM Player";
@@ -53,49 +55,6 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                #region TryCatch
-                try
-                {
-                    Equipment.Instance.Weapon = FilledStone.StoneList[reader.GetInt32(4)];
-                }
-                catch (Exception)
-                {
-                    Equipment.Instance.Weapon = null;
-                }
-                try
-                {
-                    Equipment.Instance.Armor = FilledStone.StoneList[reader.GetInt32(5)];
-                }
-                catch (Exception)
-                {
-                    Equipment.Instance.Armor = null;
-                }
-                try
-                {
-                    Equipment.Instance.Skill1 = FilledStone.StoneList[reader.GetInt32(6)];
-                }
-                catch (Exception)
-                {
-                    Equipment.Instance.Skill1 = null;
-                }
-                try
-                {
-                    Equipment.Instance.Skill2 = FilledStone.StoneList[reader.GetInt32(7)];
-                }
-                catch (Exception)
-                {
-                    Equipment.Instance.Skill2 = null;
-                }
-                try
-                {
-                    Equipment.Instance.Skill3 = FilledStone.StoneList[reader.GetInt32(8)];
-                }
-                catch (Exception)
-                {
-                    Equipment.Instance.Skill3 = null;
-                }
-                #endregion
-
                 Player.Instance.Position = new Vector2(reader.GetFloat(0), reader.GetFloat(1));
                 GameWorld.Instance.currentZone = $"{reader.GetString(2)}";
                 Player.Instance.CurrentHealth = reader.GetInt32(3);
