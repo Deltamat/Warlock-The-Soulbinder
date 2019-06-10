@@ -446,7 +446,7 @@ namespace Warlock_The_Soulbinder
                             EffectString = "Paralyse your enemy";
                             Stun = true;
                             EffectLength = 2;
-                            Cooldown = 5;
+                            Cooldown = 7;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/stun");
                             break;
                         case 12: //bucket man
