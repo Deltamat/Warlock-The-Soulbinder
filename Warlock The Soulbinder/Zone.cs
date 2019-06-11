@@ -169,7 +169,7 @@ namespace Warlock_The_Soulbinder
         {
             if (Name == "DragonRealm")
             {
-                GenerateEnemies(Dialogue.Instance.talkingNPC.DragonElement);
+                GenerateEnemies(Dialogue.Instance.TalkingNPC.DragonElement);
             }
             else
             {

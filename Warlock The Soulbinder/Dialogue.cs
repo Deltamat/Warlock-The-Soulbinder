@@ -14,11 +14,11 @@ namespace Warlock_The_Soulbinder
         int currentDialogue = 1;
         Texture2D dialogueBar;
 
-        public NPC talkingNPC { get; set; }
-        public Dictionary<int, string> dialogueLines { get; set; } = new Dictionary<int, string>();
-        public double dialogueTimer { get; private set; }
+        public NPC TalkingNPC { get; set; }
+        public Dictionary<int, string> DialogueLines { get; set; } = new Dictionary<int, string>();
+        public double DialogueTimer { get; private set; }
         public bool InDialogue { get; set; } = false;
-        public double exitDialogueTimer { get; set; }
+        public double ExitDialogueTimer { get; set; }
 
         static Dialogue instance;
         public static Dialogue Instance
@@ -42,16 +42,16 @@ namespace Warlock_The_Soulbinder
         {
             if (InDialogue)
             {
-                dialogueTimer += GameWorld.deltaTimeSecond;
+                DialogueTimer += GameWorld.deltaTimeSecond;
             }
 
-            if (!InDialogue && exitDialogueTimer <= 1)
+            if (!InDialogue && ExitDialogueTimer <= 1)
             {
-                exitDialogueTimer += GameWorld.deltaTimeSecond;
+                ExitDialogueTimer += GameWorld.deltaTimeSecond;
             }
 
             // if the dialogue cycles through all lines exit dialogue and reset
-            if (currentDialogue > dialogueLines.Count && dialogueLines.Count > 0)
+            if (currentDialogue > DialogueLines.Count && DialogueLines.Count > 0)
             {
                 currentDialogue = 1;
                 InDialogue = false;
@@ -59,9 +59,9 @@ namespace Warlock_The_Soulbinder
                 {
                     npc.Talking = false;
                 }
-                dialogueTimer = 0;
+                DialogueTimer = 0;
                 GameWorld.Instance.GameState = "Overworld";
-                if (talkingNPC.IsShrine == true)
+                if (TalkingNPC.IsShrine == true)
                 {
                     GameWorld.Instance.currentZone = "DragonRealm";
                     GameWorld.Instance.CurrentZone().GenerateZone();
@@ -78,7 +78,7 @@ namespace Warlock_The_Soulbinder
         {
             Vector2 dialogueBarPos = new Vector2(-GameWorld.Instance.camera.ViewMatrix.Translation.X + GameWorld.Instance.ScreenSize.Width * 0.5f - dialogueBar.Width * 0.5f, -GameWorld.Instance.camera.ViewMatrix.Translation.Y + GameWorld.Instance.ScreenSize.Height - dialogueBar.Height);
             spriteBatch.Draw(dialogueBar, dialogueBarPos, Color.White);
-            spriteBatch.DrawString(GameWorld.Instance.copperFont, dialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 20, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 15), Color.Black);
+            spriteBatch.DrawString(GameWorld.Instance.copperFont, DialogueLines[currentDialogue], new Vector2(dialogueBarPos.X + 20, dialogueBarPos.Y + dialogueBar.Height * 0.5f - 15), Color.Black);
         }
 
         /// <summary>
@@ -86,10 +86,10 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void NextDialogue()
         {
-            if (dialogueTimer >= 1)
+            if (DialogueTimer >= 1)
             {
                 currentDialogue++;
-                dialogueTimer = 0;
+                DialogueTimer = 0;
             }
         }
     }
