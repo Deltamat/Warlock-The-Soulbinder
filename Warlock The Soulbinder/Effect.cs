@@ -137,7 +137,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 13: //defender
                             EffectString = "Has a chance to break your\nenemy's armor";
-                            UpperChanceBounds = 3;
+                            UpperChanceBounds = 6;
                             DamageReduction = 1.5f;
                             EffectLength = 3;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseDown");
