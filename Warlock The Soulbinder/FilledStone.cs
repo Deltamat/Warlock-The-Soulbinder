@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class FilledStone : Item
+    class FilledStone : GameObject
     {
         #region VARIABLES
         private string monster;
@@ -56,8 +56,12 @@ namespace Warlock_The_Soulbinder
         protected float airResistance;
         protected List<int> damageTypes = new List<int>();
         protected List<float> resistanceTypes = new List<float>();
+        private string name;
+        private static List<FilledStone> stoneList = new List<FilledStone>();
         #endregion
+
         #region PROPERTIES
+        public string Name { get => name; set => name = value; }
         public string WeaponName { get => weaponName; set => weaponName = value; }
         public string ArmorName { get => armorName; set => armorName = value; }
         public string SkillName { get => skillName; set => skillName = value; }
@@ -80,16 +84,16 @@ namespace Warlock_The_Soulbinder
         public string EquipmentSlot { get => equipmentSlot; set => equipmentSlot = value; }
         public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
         public int ExperienceLastEncounter { get => experienceLastEncounter; set => experienceLastEncounter = value; }
-        internal Effect DragonWeaponEffect1 { get => dragonWeaponEffect1; set => dragonWeaponEffect1 = value; }
-        internal Effect DragonWeaponEffect2 { get => dragonWeaponEffect2; set => dragonWeaponEffect2 = value; }
-        internal Effect DragonWeaponEffect3 { get => dragonWeaponEffect3; set => dragonWeaponEffect3 = value; }
-        internal Effect DragonArmorEffect1 { get => dragonArmorEffect1; set => dragonArmorEffect1 = value; }
-        internal Effect DragonArmorEffect2 { get => dragonArmorEffect2; set => dragonArmorEffect2 = value; }
-        internal Effect DragonArmorEffect3 { get => dragonArmorEffect3; set => dragonArmorEffect3 = value; }
-        internal List<Effect> DragonWeaponEffects { get => dragonWeaponEffects; set => dragonWeaponEffects = value; }
-        internal List<Effect> DragonArmorEffects { get => dragonArmorEffects; set => dragonArmorEffects = value; }
-        private static List<FilledStone> stoneList = new List<FilledStone>();
+        public Effect DragonWeaponEffect1 { get => dragonWeaponEffect1; set => dragonWeaponEffect1 = value; }
+        public Effect DragonWeaponEffect2 { get => dragonWeaponEffect2; set => dragonWeaponEffect2 = value; }
+        public Effect DragonWeaponEffect3 { get => dragonWeaponEffect3; set => dragonWeaponEffect3 = value; }
+        public Effect DragonArmorEffect1 { get => dragonArmorEffect1; set => dragonArmorEffect1 = value; }
+        public Effect DragonArmorEffect2 { get => dragonArmorEffect2; set => dragonArmorEffect2 = value; }
+        public Effect DragonArmorEffect3 { get => dragonArmorEffect3; set => dragonArmorEffect3 = value; }
+        public List<Effect> DragonWeaponEffects { get => dragonWeaponEffects; set => dragonWeaponEffects = value; }
+        public List<Effect> DragonArmorEffects { get => dragonArmorEffects; set => dragonArmorEffects = value; }
         #endregion
+
         public int Level
         {
             get => level;
