@@ -81,7 +81,6 @@
     <Compile Include="ImpassableTerrain.cs" />
     <Compile Include="Inputhandler.cs" />
     <Compile Include="Interactable.cs" />
-    <Compile Include="Item.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Model.cs" />

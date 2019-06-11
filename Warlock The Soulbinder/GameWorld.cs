@@ -565,7 +565,7 @@ namespace Warlock_The_Soulbinder
         {
             Controller.Instance.OpenTheGates();
 
-            FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
+            FilledStone.StoneList = Controller.Instance.LoadFromSoulStoneDB();
             Controller.Instance.LoadFromPlayerDB();
             Controller.Instance.LoadFromLogDB();
             Player.Instance.GraceStart = false;
