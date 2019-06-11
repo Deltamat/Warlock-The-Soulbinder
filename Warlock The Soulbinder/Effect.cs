@@ -49,7 +49,7 @@ namespace Warlock_The_Soulbinder
                     {
                         case 0: //sheep
                             EffectString = "Has a chance to headbutt the\nenemy, stunning them";
-                            UpperChanceBounds = 10;
+                            UpperChanceBounds = 8;
                             Stun = true;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/stun");
                             break;
@@ -103,7 +103,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 8: //fish
                             EffectString = "Has a chance to regenerate\nyour health";
-                            UpperChanceBounds = 10;
+                            UpperChanceBounds = 7;
                             TargetsSelf = true;
                             Heal = (int)Math.Round(2d * (stone.Level + 3));
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/healing");
@@ -143,7 +143,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 14: //sentry
                             EffectString = "Has a chance to increase\nyour hit rating";
-                            UpperChanceBounds = 3;
+                            UpperChanceBounds = 2;
                             TargetsSelf = true;
                             AccuracyMod = 1.25f;
                             EffectLength = 3;
@@ -182,14 +182,14 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 19: //bat
                             EffectString = "Has a chance to confuse\nyour enemy";
-                            UpperChanceBounds = 12;
+                            UpperChanceBounds = 10;
                             Confuse = true;
                             EffectLength = 2;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/speedDown");
                             break;
                         case 20: //raven
                             EffectString = "Has a chance to blind\nyour enemy, reducing \ntheir accuracy";
-                            UpperChanceBounds = 13;
+                            UpperChanceBounds = 11;
                             AccuracyMod = 0.25f;
                             EffectLength = 3;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/accuracyDown");
@@ -308,8 +308,8 @@ namespace Warlock_The_Soulbinder
                         case 15: //fire golem
                             EffectString = "Reduces damage taken after being hit";
                             TargetsSelf = true;
-                            DamageReduction = 0.8f;
-                            EffectLength = 2;
+                            DamageReduction = 0.75f;
+                            EffectLength = 1;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
                             break;
                         case 16: //infernal golem

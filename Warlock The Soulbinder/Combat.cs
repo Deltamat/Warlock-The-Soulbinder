@@ -1153,7 +1153,6 @@ namespace Warlock_The_Soulbinder
                         }
                     }
                     
-
                     if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
                     {
                         Target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
@@ -1242,15 +1241,16 @@ namespace Warlock_The_Soulbinder
                                 }
                             }
                         }
+
+                        if (totalDamageToDeal <= 0)
+                        {
+                            PlayerScrolling($"HP -0", Color.Red);
+                        }
                     }
                     else
                     {
                         EnemyScrolling("Miss", Color.White);
                     }
-                }
-                if (totalDamageToDeal <= 0)
-                {
-                    PlayerScrolling($"HP -0", Color.Red);
                 }
             }
             else if (stunned)
@@ -1341,7 +1341,7 @@ namespace Warlock_The_Soulbinder
 
             toBeRemovedEffects.Clear();
 
-            foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
+            foreach (Effect itemEffect in target.DragonStone.DragonArmorEffects)
             {
                 if (itemEffect.StunImmunity) //checks if the enemy is immune to stuns
                 {
@@ -1350,6 +1350,7 @@ namespace Warlock_The_Soulbinder
             }
                 
             enemyAttackTimer = 0;
+
             if (!stunned && target.CurrentHealth > 0)
             {
                 List<int> damageToDeal = new List<int>();
@@ -1396,7 +1397,6 @@ namespace Warlock_The_Soulbinder
                         }
                     }
                     
-
                     if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
                     {
                         Target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
@@ -1485,15 +1485,16 @@ namespace Warlock_The_Soulbinder
                                 effect.EffectLength--;
                             }
                         }
+
+                        if (totalDamageToDeal <= 0)
+                        {
+                            PlayerScrolling($"HP -0", Color.Red);
+                        }
                     }
                     else
                     {
                         EnemyScrolling("Miss", Color.White);
                     }
-                }
-                if (totalDamageToDeal <= 0)
-                {
-                    PlayerScrolling($"HP -0", Color.Red);
                 }
             }
             else if (stunned)
