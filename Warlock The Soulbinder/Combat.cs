@@ -673,6 +673,7 @@ namespace Warlock_The_Soulbinder
             playerSpeedMod = 1f;
             playerDamageReduction = 1;
             playerDamageAbs = 0;
+            playerAttackAmount = 1; //resets how many times the player attacks
 
             skillIconPlayer.Clear();
 
@@ -1018,7 +1019,6 @@ namespace Warlock_The_Soulbinder
                 {
                     PlayerScrolling("Stunned", Color.White);
                 }
-                playerAttackAmount = 1; //resets how many times the player attacks
                 combatDelay = 0; //resets combat delay
             }
         }
