@@ -456,7 +456,7 @@ namespace Warlock_The_Soulbinder
                             Damage = 1;
                             if (characterCombat != null)
                             {
-                                Damage = (characterCombat.Damage + characterCombat.DamageTypes[3]) * 15;
+                                Damage = (characterCombat.Damage + characterCombat.DamageTypes[3]) * 20;
                             }
                             Cooldown = 0;
                             break;
