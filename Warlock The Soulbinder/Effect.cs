@@ -28,6 +28,7 @@ namespace Warlock_The_Soulbinder
         private bool doubleAttack;
         private bool retaliate;
         private bool stunImmunity;
+        private bool accuracyImmunity;
         private string effectString;
         private int upperChanceBounds = 1;
         private Texture2D skillIcon = null;
@@ -270,12 +271,12 @@ namespace Warlock_The_Soulbinder
                         case 9: //mummy
                             EffectString = "Gives you immunity to reduced accuracy";
                             TargetsSelf = true;
-                            AccuracyMod = 1000000;
-                            EffectLength = 5;
+                            AccuracyImmunity = true;
+                            EffectLength = 3;
                             break;
                         case 10: //vampire
                             EffectString = "Has a chance to block the \nnext hit after being attacked";
-                            UpperChanceBounds = 5;
+                            UpperChanceBounds = 7;
                             TargetsSelf = true;
                             Shield = damageDealt + 1;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/defenseUp");
@@ -627,6 +628,10 @@ namespace Warlock_The_Soulbinder
         /// Whether the effect should take effect immediatly after the character is hit
         /// </summary>
         public bool Retaliate { get => retaliate; set => retaliate = value; }
+        /// <summary>
+        /// Set the character's accuracyMod to 1
+        /// </summary>
+        public bool AccuracyImmunity { get => accuracyImmunity; set => accuracyImmunity = value; }
         public Texture2D SkillIcon { get => skillIcon; set => skillIcon = value; }
         #endregion
     }

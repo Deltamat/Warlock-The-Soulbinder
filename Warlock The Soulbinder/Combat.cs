@@ -740,6 +740,10 @@ namespace Warlock_The_Soulbinder
             {
                 playerStunned = false;
             }
+            if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.AccuracyImmunity) //checks if the player is immune to stuns
+            {
+                playerAccuracyMod = 1;
+            }
 
             playerAttackTimer = 0; //resets attack timer
         }
@@ -1105,6 +1109,10 @@ namespace Warlock_The_Soulbinder
             {
                 stunned = false;
             }
+            if (target.EnemyStone.ArmorEffect.AccuracyImmunity) //checks if the enemy is immune to reduced accuracy
+            {
+                accuracyMod = 1;
+            }
 
             enemyAttackTimer = 0;
             if (!stunned && target.CurrentHealth > 0)
@@ -1347,8 +1355,12 @@ namespace Warlock_The_Soulbinder
                 {
                     stunned = false;
                 }
+                if (itemEffect.AccuracyImmunity) //checks if the enemy is immune to reduced accuracy
+                {
+                    accuracyMod = 1;
+                }
             }
-                
+
             enemyAttackTimer = 0;
 
             if (!stunned && target.CurrentHealth > 0)
