@@ -494,9 +494,10 @@ namespace Warlock_The_Soulbinder
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
                         case 17: //ash zombie
-                            EffectString = "Causes your next attack to \nstrike twice";
+                            EffectString = "Causes your attack on the \nnext round to strike twice";
                             TargetsSelf = true;
                             DoubleAttack = true;
+                            EffectLength = 2;
                             Cooldown = 7;
                             break;
                         case 18: //falcon
