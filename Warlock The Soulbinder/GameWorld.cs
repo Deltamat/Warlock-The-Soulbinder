@@ -23,7 +23,6 @@ namespace Warlock_The_Soulbinder
         public SpriteFont font;
         public SpriteFont copperFont;
         private Texture2D collisionTexture;
-        public List<Enemy> enemies = new List<Enemy>();
         public Camera camera;
         private Texture2D fullScreen;
         private float delay;
@@ -400,14 +399,6 @@ namespace Warlock_The_Soulbinder
 #endif
 
                 Player.Instance.Draw(SpriteBatch);
-
-                foreach (Enemy enemy in enemies)
-                {
-                    enemy.Draw(SpriteBatch);
-#if DEBUG
-                    DrawCollisionBox(enemy);
-#endif
-                }
 
                 //collisionboxes
 #if DEBUG
