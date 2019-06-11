@@ -649,7 +649,7 @@ namespace Warlock_The_Soulbinder
                 case "metal":
                     metalResistance *= (float)(bounds / (1 + Math.Pow(Math.E, -(Level * 0.5f))));
                     fireResistance = (float)(fireResistance * (-bounds / (1 + Math.Pow(Math.E, -(Level * 0.5f)))) + Level * 0.5f);
-                    earthDamage = (int)Math.Round(damage * 1.8f);
+                    metalDamage = (int)Math.Round(damage * 1.8f);
                     damage = (int)Math.Round(damage * 0.2f);
                     break;
                 case "fire":
