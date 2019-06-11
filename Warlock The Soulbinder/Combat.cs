@@ -758,7 +758,7 @@ namespace Warlock_The_Soulbinder
 
                 PlayerEffects();
 
-                if (!playerStunned)
+                if (!playerStunned && Player.Instance.CurrentHealth > 0)
                 {
                     Player.Instance.AttackStart = true; //starts attack animation
 

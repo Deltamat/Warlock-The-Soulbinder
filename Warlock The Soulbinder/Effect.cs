@@ -206,7 +206,6 @@ namespace Warlock_The_Soulbinder
                             {
                                 characterCombat.Defense += (int)Math.Round(0.5f * stone.Level + 3);
                             }
-
                             break;
                         case 1: //wolf
                             EffectString = "Has a chance to give you more \ndamage after being hit";
