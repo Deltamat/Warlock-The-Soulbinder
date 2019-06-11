@@ -170,11 +170,11 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void EnterDialogue()
         {
-            Dialogue.Instance.dialogueLines = dialogueLines;
+            Dialogue.Instance.DialogueLines = dialogueLines;
             Dialogue.Instance.InDialogue = true;
             Talking = true;
             GameWorld.Instance.GameState = "Dialogue";
-            Dialogue.Instance.talkingNPC = this;
+            Dialogue.Instance.TalkingNPC = this;
         }
 
         /// <summary>

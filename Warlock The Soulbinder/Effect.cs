@@ -206,7 +206,6 @@ namespace Warlock_The_Soulbinder
                             {
                                 characterCombat.Defense += (int)Math.Round(0.5f * stone.Level + 3);
                             }
-
                             break;
                         case 1: //wolf
                             EffectString = "Has a chance to give you more \ndamage after being hit";
@@ -442,7 +441,7 @@ namespace Warlock_The_Soulbinder
                             }
                             Cooldown = 10;
                             break;
-                        case 11: //banshee
+                        case 11: //bansheex
                             EffectString = "Paralyse your enemy";
                             Stun = true;
                             EffectLength = 2;

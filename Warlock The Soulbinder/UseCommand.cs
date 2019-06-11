@@ -20,9 +20,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void Execute()
         {
-            if (!Dialogue.Instance.InDialogue && Dialogue.Instance.exitDialogueTimer > 1)
+            if (!Dialogue.Instance.InDialogue && Dialogue.Instance.ExitDialogueTimer > 1)
             {
-                Dialogue.Instance.exitDialogueTimer = 0;
+                Dialogue.Instance.ExitDialogueTimer = 0;
                 foreach (NPC npc in GameWorld.Instance.CurrentZone().NPCs)
                 {
                     // if close to an npc enter dialogue
