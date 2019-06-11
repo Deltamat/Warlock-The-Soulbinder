@@ -442,7 +442,7 @@ namespace Warlock_The_Soulbinder
                             }
                             Cooldown = 10;
                             break;
-                        case 11: //banshee
+                        case 11: //bansheex
                             EffectString = "Paralyse your enemy";
                             Stun = true;
                             EffectLength = 2;
