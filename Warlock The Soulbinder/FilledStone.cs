@@ -12,6 +12,7 @@ namespace Warlock_The_Soulbinder
     class FilledStone : GameObject
     {
         #region VARIABLES
+        private string name;
         private string monster;
         private string element;
         private int level;
@@ -56,7 +57,6 @@ namespace Warlock_The_Soulbinder
         protected float airResistance;
         protected List<int> damageTypes = new List<int>();
         protected List<float> resistanceTypes = new List<float>();
-        private string name;
         private static List<FilledStone> stoneList = new List<FilledStone>();
         #endregion
 
