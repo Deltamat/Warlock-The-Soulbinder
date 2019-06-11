@@ -589,10 +589,7 @@ namespace Warlock_The_Soulbinder
             if (!saving)
             {
                 saving = true;
-                saveThread = new Thread(() => SaveToDB())
-                {
-                    IsBackground = true
-                };
+                saveThread = new Thread(() => SaveToDB());
                 saveThread.Start();
             }
         }
