@@ -160,8 +160,8 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your\nenemy on fire";
-                            UpperChanceBounds = 5;
-                            Damage = (int)Math.Round(2.8 * (stone.Level + 5));
+                            UpperChanceBounds = 6;
+                            Damage = (int)Math.Round(2.5 * (stone.Level + 4));
                             EffectLength = 2;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
                             break;
@@ -314,7 +314,7 @@ namespace Warlock_The_Soulbinder
                             break;
                         case 16: //infernal golem
                             EffectString = "Has a chance to set your enemy \non fire when attacked";
-                            UpperChanceBounds = 6;
+                            UpperChanceBounds = 7;
                             Damage = (int)Math.Round(2.5 * (stone.Level + 4));
                             EffectLength = 1;
                             SkillIcon = GameWorld.Instance.Content.Load<Texture2D>("Status/DOT");
