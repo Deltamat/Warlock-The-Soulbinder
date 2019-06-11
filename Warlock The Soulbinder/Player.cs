@@ -450,7 +450,7 @@ namespace Warlock_The_Soulbinder
             MaxHealth = 100;
             totalDamage = 10;
 #if DEBUG
-            int over9000 = 9001;
+            //int over9000 = 9001;
             //Damage += over9000;
             //Defense += over9000;
             //AttackSpeed += over9000;
