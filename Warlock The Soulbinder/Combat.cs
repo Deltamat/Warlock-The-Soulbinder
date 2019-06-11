@@ -224,7 +224,6 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.GameState = "Overworld";
                 Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
             }
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -412,7 +411,6 @@ namespace Warlock_The_Soulbinder
                             playerAttackTimer = 0;
                         }
                         break;
-
                     case 3: //flee
                         playerAttackTimer = 0;
                         if (GameWorld.Instance.RandomInt(0, 4) != 0)
@@ -667,7 +665,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void PlayerEffects()
         {
-            //local values to apply effects
+            //values to apply effects
             playerStunned = false;
             playerConfused = false;
             playerDamageMod = 1f;
@@ -687,7 +685,6 @@ namespace Warlock_The_Soulbinder
                     {
                         skillIconPlayer.Add(effect.SkillIcon);
                     }
-
                     if (effect.Heal > 0)
                     {
                         effect.EffectLength++;
@@ -761,7 +758,7 @@ namespace Warlock_The_Soulbinder
 
                 PlayerEffects();
 
-                if (!playerStunned)
+                if (!playerStunned && Player.Instance.CurrentHealth > 0)
                 {
                     Player.Instance.AttackStart = true; //starts attack animation
 
@@ -864,7 +861,6 @@ namespace Warlock_The_Soulbinder
                             }
                         }
                         
-
                         if (playerConfused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
                         {
                             Player.Instance.CurrentHealth -= (int)(totalDamageToDeal * 0.5);

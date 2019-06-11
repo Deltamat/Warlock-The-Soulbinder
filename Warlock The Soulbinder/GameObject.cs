@@ -64,7 +64,6 @@ namespace Warlock_The_Soulbinder
         /// <param name="content"></param>
         public GameObject(Vector2 position, string SpriteName, ContentManager content)
         {
-
             Position = position;
             spriteName = SpriteName;
             Sprite = content.Load<Texture2D>(SpriteName);
@@ -72,7 +71,6 @@ namespace Warlock_The_Soulbinder
 
         public virtual void Update(GameTime gameTime)
         {
-
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
