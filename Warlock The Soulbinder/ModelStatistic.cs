@@ -34,6 +34,7 @@ namespace Warlock_The_Soulbinder
             cmd.CommandText = "DELETE FROM Statistic";
             cmd.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Saves the status on which dragons are dead.
         /// </summary>
@@ -49,6 +50,7 @@ namespace Warlock_The_Soulbinder
             cmd.CommandText = $"INSERT INTO Statistic (earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead) VALUES ({earthDragonDead}, {fireDragonDead}, {darkDragonDead}, {metalDragonDead}, {waterDragonDead}, {airDragonDead}, {neutralDragonDead})";
             cmd.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Loads the status on which dragons are dead.
         /// </summary>
