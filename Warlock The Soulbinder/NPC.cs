@@ -10,7 +10,6 @@ namespace Warlock_The_Soulbinder
 {
     public class NPC : Character
     {
-        int questID;
         Texture2D interact;
         float interactScale;
         float interactDistance = 100;
