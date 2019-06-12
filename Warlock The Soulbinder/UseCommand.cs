@@ -9,6 +9,9 @@ namespace Warlock_The_Soulbinder
 {
     class UseCommand : ICommand
     {
+        /// <summary>
+        /// Creates a new UseCommand
+        /// </summary>
         public UseCommand()
         {
 

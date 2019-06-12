@@ -16,11 +16,29 @@ namespace Warlock_The_Soulbinder
         bool dragonShrine;
         Dictionary<int, string> dialogueLines = new Dictionary<int, string>();
 
+        /// <summary>
+        /// Only used if the npc is a shrine. Specifies the element of the shrine
+        /// </summary>
         public string DragonElement { get; set; }
+        /// <summary>
+        /// Does the npc heal the player
+        /// </summary>
         public bool HasHeal { get; private set; }
+        /// <summary>
+        /// is the NPC a shrine
+        /// </summary>
         public bool IsShrine { get; private set; }
+        /// <summary>
+        /// Used to specify when the interact icon should be drawed 
+        /// </summary>
         public bool DrawInteract { get; private set; }
+        /// <summary>
+        /// Used to specify if the NPC is currently talking to the player
+        /// </summary>
         public bool Talking { get; set; } = false;
+        /// <summary>
+        /// Returns a collisionbox of the NPC
+        /// </summary>
         public override Rectangle CollisionBox
         {
             get
@@ -42,9 +60,8 @@ namespace Warlock_The_Soulbinder
         /// <param name="spriteName">The name of the sprite</param>
         /// <param name="position">The position of the NPC</param>
         /// <param name="isPillar">Is the npc a dragon pillar</param>
-        /// <param name="hasShop">Does the NPC have a shop. Now used currently</param>
+        /// <param name="hasHeal">Do the NPC heal the player</param>
         /// <param name="isShrine">Is the npc a dragon shrine</param>
-        /// <param name="questID">The id of the quest this NPC has. Not used currently</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
         public NPC(string spriteName, Vector2 position, bool isPillar, bool hasHeal, bool isShrine, string dialogue)
         {
@@ -77,7 +94,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// Update the npc and check the distance between the npc and player.
+        /// Update the npc and check the distance between the npc and player to draw the interact icón if the player is close.
         /// </summary>
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
