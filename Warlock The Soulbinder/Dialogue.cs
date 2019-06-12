@@ -13,14 +13,32 @@ namespace Warlock_The_Soulbinder
     {
         int currentDialogue = 1;
         Texture2D dialogueBar;
+        static Dialogue instance;
 
+        /// <summary>
+        /// The NPC that is talking
+        /// </summary>
         public NPC TalkingNPC { get; set; }
+        /// <summary>
+        /// A collection of dialogue to cycle through
+        /// </summary>
         public Dictionary<int, string> DialogueLines { get; set; } = new Dictionary<int, string>();
+        /// <summary>
+        /// Used to limit the speed the player can cycle thorugh dialogue
+        /// </summary>
         public double DialogueTimer { get; private set; }
+        /// <summary>
+        /// Is the player in dialogue
+        /// </summary>
         public bool InDialogue { get; set; } = false;
+        /// <summary>
+        /// Used to set a time limit to enter dialogue
+        /// </summary>
         public double ExitDialogueTimer { get; set; }
 
-        static Dialogue instance;
+        /// <summary>
+        /// Returns an instance of the Dialogue class
+        /// </summary>
         public static Dialogue Instance
         {
             get
@@ -33,11 +51,18 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Creates a new Dialogue
+        /// </summary>
         private Dialogue()
         {
             dialogueBar = GameWorld.ContentManager.Load<Texture2D>("dialogueBar");
         }
 
+        /// <summary>
+        /// Updates the Dialogue
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             if (InDialogue)
@@ -61,7 +86,7 @@ namespace Warlock_The_Soulbinder
                 }
                 DialogueTimer = 0;
                 GameWorld.Instance.GameState = "Overworld";
-                if (TalkingNPC.IsShrine == true)
+                if (TalkingNPC.IsShrine == true) // if the player is talking to a shrine, teleport to the dragonRealm
                 {
                     GameWorld.Instance.currentZone = "DragonRealm";
                     GameWorld.Instance.CurrentZone().GenerateZone();

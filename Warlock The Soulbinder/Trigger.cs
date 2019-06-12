@@ -9,12 +9,33 @@ namespace Warlock_The_Soulbinder
 {
     public class Trigger
     {
+        /// <summary>
+        /// The name of the Trigger
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// The name of the exitTrigger this Trigger points to. Only used by entryTriggers
+        /// </summary>
         public string TargetName { get; private set; }
+        /// <summary>
+        /// The position of the Trigger
+        /// </summary>
         public Vector2 Position { get; private set; }
+        /// <summary>
+        /// A Collisionbox of the Trigger
+        /// </summary>
         public Rectangle CollisionBox { get; private set; }
+        /// <summary>
+        /// Is this Trigger a entryTrigger
+        /// </summary>
         public bool IsEntryTrigger { get; private set; }
+        /// <summary>
+        /// The position of the exitTrigger this Trigger connects to
+        /// </summary>
         public Vector2 TargetPos { get; set; }
+        /// <summary>
+        /// The zone the exitTrigger is located in
+        /// </summary>
         public string TargetZone { get; set; }
 
         /// <summary>
