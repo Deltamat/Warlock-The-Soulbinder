@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class FilledStone : GameObject
+    public class FilledStone : GameObject
     {
         #region VARIABLES
         private string name;

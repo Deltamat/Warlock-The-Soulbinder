@@ -136,7 +136,7 @@ namespace Warlock_The_Soulbinder
         public double SavedTextTime { get => savedTextTime; set => savedTextTime = value; }
         public bool Saving { get => saving; set => saving = value; }
 
-        public GameWorld()
+        private GameWorld()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -160,8 +160,6 @@ namespace Warlock_The_Soulbinder
         {
             IsMouseVisible = true;
             
-            Quest.Instance.OngoingQuests.Add(1, "Kill");
-            Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
             SmallFont = Content.Load<SpriteFont>("smallFont");
             fullScreen = Content.Load<Texture2D>("fullScreen");
             

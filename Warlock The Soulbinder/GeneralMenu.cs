@@ -13,7 +13,7 @@ namespace Warlock_The_Soulbinder
 {
     class GeneralMenu : Menu
     {
-        static GeneralMenu instance;
+        private static GeneralMenu instance;
         private Texture2D book;
         private Texture2D weaponRing;
         private Texture2D skillRing;

@@ -64,9 +64,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        internal FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
+        public FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
         public bool Dragon { get => dragon; set => dragon = value; }
-        internal FilledStone DragonStone { get => dragonStone; set => dragonStone = value; }
+        public FilledStone DragonStone { get => dragonStone; set => dragonStone = value; }
 
         public Enemy(int index, Vector2 startPos)
         {
