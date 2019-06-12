@@ -28,8 +28,7 @@ namespace Warlock_The_Soulbinder
         private float cX;
         private float cX2;
         private int selectedIndex = 0;        
-
-
+        
         static MainMenu instance;
         public static MainMenu Instance
         {
