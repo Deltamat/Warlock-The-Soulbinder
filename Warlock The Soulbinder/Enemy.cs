@@ -64,9 +64,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        internal FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
+        public FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
         public bool Dragon { get => dragon; set => dragon = value; }
-        internal FilledStone DragonStone { get => dragonStone; set => dragonStone = value; }
+        public FilledStone DragonStone { get => dragonStone; set => dragonStone = value; }
 
         public Enemy(int index, Vector2 startPos)
         {
@@ -185,7 +185,7 @@ namespace Warlock_The_Soulbinder
                     //dragons
                 case "neutralDragon":
                     Defense = (int)(Defense * 1.25f);
-                    damage = (int)Math.Round(damage * 0.3);
+                    damage = (int)Math.Round(damage * 0.55);
                     break;
                 case "earthDragon":
                     EarthResistance *= (float)(20 / (1 + Math.Pow(Math.E, -Level)));

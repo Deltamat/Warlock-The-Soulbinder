@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Controller
+    public class Controller
     {
-        Model model = new Model();
-        ModelSoulStone filledStone = new ModelSoulStone();
-        ModelEnemy enemy = new ModelEnemy();
-        ModelPlayer player = new ModelPlayer();
-        ModelLog log = new ModelLog();
-        ModelStatistic statistic = new ModelStatistic();
+        private Model model = new Model();
+        private ModelSoulStone filledStone = new ModelSoulStone();
+        private ModelEnemy enemy = new ModelEnemy();
+        private ModelPlayer player = new ModelPlayer();
+        private ModelLog log = new ModelLog();
+        private ModelStatistic statistic = new ModelStatistic();
         
-        
-        static Controller instance;
+        private static Controller instance;
         static public Controller Instance
         {
             get
@@ -29,14 +28,15 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                instance = value;
+                instance = new Controller();
+                //instance = value;
             }
         }
 
         /// <summary>
-        /// Tumbleweed.
+        /// Creates a new Controller.
         /// </summary>
-        public Controller()
+        private Controller()
         {       
         }
         
@@ -86,7 +86,7 @@ namespace Warlock_The_Soulbinder
         /// Calls a method that returns a list of soulstones via the SoulStone table and a special constructor in the FilledStones class.
         /// </summary>
         /// <returns></returns>
-        public List<FilledStone> LoadFromFilledStoneDB()
+        public List<FilledStone> LoadFromSoulStoneDB()
         {
             return filledStone.LoadSoulStone();
         }
@@ -134,32 +134,32 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Calls a method that saves all the parameters to the Log database.
         /// </summary>
-        /// <param name="sheepLog">Progress towards scanning the sheep.</param>
-        /// <param name="wolfLog">Progress towards scanning the wolves.</param>
-        /// <param name="bearLog">Progress towards scanning the bears.</param>
-        /// <param name="plantEaterLog">Progress towards scanning the sheep.</param>
-        /// <param name="insectSoldierLog">Progress towards scanning the insect soldiers.</param>
-        /// <param name="slimeSnakeLog">Progress towards scanning the slime snakes.</param>
-        /// <param name="tentacleLog">Progress towards scanning the tentacles.</param>
-        /// <param name="frogLog">Progress towards scanning the frogs.</param>
-        /// <param name="fishLog">Progress towards scanning the fish.</param>
-        /// <param name="mummyLog">Progress towards scanning the mummies.</param>
-        /// <param name="vampireLog">Progress towards scanning the vampires.</param>
-        /// <param name="bansheeLog">Progress towards scanning the banshees.</param>
-        /// <param name="bucketManLog">Progress towards scanning the bucket men.</param>
-        /// <param name="defenderLog">Progress towards scanning the defenders.</param>
-        /// <param name="sentryLog">Progress towards scanning the sentries.</param>
-        /// <param name="fireGolemLog">Progress towards scanning the fire golems.</param>
-        /// <param name="infernalDemonLog">Progress towards scanning the infernal demons.</param>
-        /// <param name="ashZombieLog">Progress towards scanning the ash zombies.</param>
-        /// <param name="falconLog">Progress towards scanning the falcons.</param>
-        /// <param name="batLog">Progress towards scanning the bats.</param>
-        /// <param name="ravenLog">Progress towards scanning the ravens.</param>
-        public void SaveToLogDB(int sheepLog, int wolfLog, int bearLog, int plantEaterLog, int insectSoldierLog, int slimeSnakeLog, int tentacleLog,
-            int frogLog, int fishLog, int mummyLog, int vampireLog, int bansheeLog, int bucketManLog, int defenderLog, int sentryLog, int fireGolemLog,
-            int infernalDemonLog, int ashZombieLog, int falconLog, int batLog, int ravenLog)
+        /// <param name="sheep">Progress towards scanning the sheep.</param>
+        /// <param name="wolf">Progress towards scanning the wolves.</param>
+        /// <param name="bear">Progress towards scanning the bears.</param>
+        /// <param name="plantEater">Progress towards scanning the sheep.</param>
+        /// <param name="insectSoldier">Progress towards scanning the insect soldiers.</param>
+        /// <param name="slimeSnake">Progress towards scanning the slime snakes.</param>
+        /// <param name="tentacle">Progress towards scanning the tentacles.</param>
+        /// <param name="frog">Progress towards scanning the frogs.</param>
+        /// <param name="fish">Progress towards scanning the fish.</param>
+        /// <param name="mummy">Progress towards scanning the mummies.</param>
+        /// <param name="vampire">Progress towards scanning the vampires.</param>
+        /// <param name="banshee">Progress towards scanning the banshees.</param>
+        /// <param name="bucketMan">Progress towards scanning the bucket men.</param>
+        /// <param name="defender">Progress towards scanning the defenders.</param>
+        /// <param name="sentry">Progress towards scanning the sentries.</param>
+        /// <param name="fireGolem">Progress towards scanning the fire golems.</param>
+        /// <param name="infernalDemon">Progress towards scanning the infernal demons.</param>
+        /// <param name="ashZombie">Progress towards scanning the ash zombies.</param>
+        /// <param name="falcon">Progress towards scanning the falcons.</param>
+        /// <param name="bat">Progress towards scanning the bats.</param>
+        /// <param name="raven">Progress towards scanning the ravens.</param>
+        public void SaveToLogDB(int sheep, int wolf, int bear, int plantEater, int insectSoldier, int slimeSnake, int tentacle,
+            int frog, int fish, int mummy, int vampire, int banshee, int bucketMan, int defender, int sentry, int fireGolem,
+            int infernalDemon, int ashZombie, int falcon, int bat, int raven)
         {
-            log.SaveLog(sheepLog, wolfLog, bearLog, plantEaterLog, insectSoldierLog, slimeSnakeLog, tentacleLog, frogLog, fishLog, mummyLog, vampireLog, bansheeLog, bucketManLog, defenderLog, sentryLog, fireGolemLog, infernalDemonLog, ashZombieLog, falconLog, batLog, ravenLog);
+            log.SaveLog(sheep, wolf, bear, plantEater, insectSoldier, slimeSnake, tentacle, frog, fish, mummy, vampire, banshee, bucketMan, defender, sentry, fireGolem, infernalDemon, ashZombie, falcon, bat, raven);
         }
         /// <summary>
         /// Calls a method that loads the progress of scanning for each creature from the Log database.

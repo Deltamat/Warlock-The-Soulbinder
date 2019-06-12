@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
     {
         private Enemy target;
 
-        static Combat instance;
+        private static Combat instance;
         private Texture2D sheet;
         private List<GameObject> playerText = new List<GameObject>();
         private List<GameObject> enemyText = new List<GameObject>();
@@ -224,7 +224,6 @@ namespace Warlock_The_Soulbinder
                 GameWorld.Instance.GameState = "Overworld";
                 Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
             }
-            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -412,7 +411,6 @@ namespace Warlock_The_Soulbinder
                             playerAttackTimer = 0;
                         }
                         break;
-
                     case 3: //flee
                         playerAttackTimer = 0;
                         if (GameWorld.Instance.RandomInt(0, 4) != 0)
@@ -667,7 +665,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void PlayerEffects()
         {
-            //local values to apply effects
+            //values to apply effects
             playerStunned = false;
             playerConfused = false;
             playerDamageMod = 1f;
@@ -675,6 +673,7 @@ namespace Warlock_The_Soulbinder
             playerSpeedMod = 1f;
             playerDamageReduction = 1;
             playerDamageAbs = 0;
+            playerAttackAmount = 1; //resets how many times the player attacks
 
             skillIconPlayer.Clear();
 
@@ -687,7 +686,6 @@ namespace Warlock_The_Soulbinder
                     {
                         skillIconPlayer.Add(effect.SkillIcon);
                     }
-
                     if (effect.Heal > 0)
                     {
                         effect.EffectLength++;
@@ -742,6 +740,10 @@ namespace Warlock_The_Soulbinder
             {
                 playerStunned = false;
             }
+            if (Equipment.Instance.EquippedEquipment[1] != null && Equipment.Instance.EquippedEquipment[1].ArmorEffect.AccuracyImmunity) //checks if the player is immune to stuns
+            {
+                playerAccuracyMod = 1;
+            }
 
             playerAttackTimer = 0; //resets attack timer
         }
@@ -761,7 +763,7 @@ namespace Warlock_The_Soulbinder
 
                 PlayerEffects();
 
-                if (!playerStunned)
+                if (!playerStunned && Player.Instance.CurrentHealth > 0)
                 {
                     Player.Instance.AttackStart = true; //starts attack animation
 
@@ -864,7 +866,6 @@ namespace Warlock_The_Soulbinder
                             }
                         }
                         
-
                         if (playerConfused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the player is confused, has a chance to damage themselves
                         {
                             Player.Instance.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
@@ -1022,7 +1023,6 @@ namespace Warlock_The_Soulbinder
                 {
                     PlayerScrolling("Stunned", Color.White);
                 }
-                playerAttackAmount = 1; //resets how many times the player attacks
                 combatDelay = 0; //resets combat delay
             }
         }
@@ -1109,6 +1109,10 @@ namespace Warlock_The_Soulbinder
             {
                 stunned = false;
             }
+            if (target.EnemyStone.ArmorEffect.AccuracyImmunity) //checks if the enemy is immune to reduced accuracy
+            {
+                accuracyMod = 1;
+            }
 
             enemyAttackTimer = 0;
             if (!stunned && target.CurrentHealth > 0)
@@ -1157,7 +1161,6 @@ namespace Warlock_The_Soulbinder
                         }
                     }
                     
-
                     if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
                     {
                         Target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
@@ -1246,15 +1249,16 @@ namespace Warlock_The_Soulbinder
                                 }
                             }
                         }
+
+                        if (totalDamageToDeal <= 0)
+                        {
+                            PlayerScrolling($"HP -0", Color.Red);
+                        }
                     }
                     else
                     {
                         EnemyScrolling("Miss", Color.White);
                     }
-                }
-                if (totalDamageToDeal <= 0)
-                {
-                    PlayerScrolling($"HP -0", Color.Red);
                 }
             }
             else if (stunned)
@@ -1345,15 +1349,20 @@ namespace Warlock_The_Soulbinder
 
             toBeRemovedEffects.Clear();
 
-            foreach (Effect itemEffect in target.DragonStone.DragonWeaponEffects)
+            foreach (Effect itemEffect in target.DragonStone.DragonArmorEffects)
             {
                 if (itemEffect.StunImmunity) //checks if the enemy is immune to stuns
                 {
                     stunned = false;
                 }
+                if (itemEffect.AccuracyImmunity) //checks if the enemy is immune to reduced accuracy
+                {
+                    accuracyMod = 1;
+                }
             }
-                
+
             enemyAttackTimer = 0;
+
             if (!stunned && target.CurrentHealth > 0)
             {
                 List<int> damageToDeal = new List<int>();
@@ -1400,7 +1409,6 @@ namespace Warlock_The_Soulbinder
                         }
                     }
                     
-
                     if (confused && GameWorld.Instance.RandomInt(0, 100) < 50) //if the enemy is confused, has a chance to damage themselves
                     {
                         Target.CurrentHealth -= (int)(totalDamageToDeal * 0.5);
@@ -1489,15 +1497,16 @@ namespace Warlock_The_Soulbinder
                                 effect.EffectLength--;
                             }
                         }
+
+                        if (totalDamageToDeal <= 0)
+                        {
+                            PlayerScrolling($"HP -0", Color.Red);
+                        }
                     }
                     else
                     {
                         EnemyScrolling("Miss", Color.White);
                     }
-                }
-                if (totalDamageToDeal <= 0)
-                {
-                    PlayerScrolling($"HP -0", Color.Red);
                 }
             }
             else if (stunned)

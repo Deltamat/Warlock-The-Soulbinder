@@ -23,7 +23,6 @@ namespace Warlock_The_Soulbinder
         public SpriteFont font;
         public SpriteFont copperFont;
         private Texture2D collisionTexture;
-        public List<Enemy> enemies = new List<Enemy>();
         public Camera camera;
         private Texture2D fullScreen;
         private float delay;
@@ -137,7 +136,7 @@ namespace Warlock_The_Soulbinder
         public double SavedTextTime { get => savedTextTime; set => savedTextTime = value; }
         public bool Saving { get => saving; set => saving = value; }
 
-        public GameWorld()
+        private GameWorld()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -161,8 +160,6 @@ namespace Warlock_The_Soulbinder
         {
             IsMouseVisible = true;
             
-            Quest.Instance.OngoingQuests.Add(1, "Kill");
-            Quest.Instance.QuestDescription.Add(1, "yippi kai yay"); //motherfucker
             SmallFont = Content.Load<SpriteFont>("smallFont");
             fullScreen = Content.Load<Texture2D>("fullScreen");
             
@@ -401,14 +398,6 @@ namespace Warlock_The_Soulbinder
 
                 Player.Instance.Draw(SpriteBatch);
 
-                foreach (Enemy enemy in enemies)
-                {
-                    enemy.Draw(SpriteBatch);
-#if DEBUG
-                    DrawCollisionBox(enemy);
-#endif
-                }
-
                 //collisionboxes
 #if DEBUG
                 DrawCollisionBox(Player.Instance);
@@ -565,7 +554,7 @@ namespace Warlock_The_Soulbinder
         {
             Controller.Instance.OpenTheGates();
 
-            FilledStone.StoneList = Controller.Instance.LoadFromFilledStoneDB();
+            FilledStone.StoneList = Controller.Instance.LoadFromSoulStoneDB();
             Controller.Instance.LoadFromPlayerDB();
             Controller.Instance.LoadFromLogDB();
             Player.Instance.GraceStart = false;
@@ -589,10 +578,7 @@ namespace Warlock_The_Soulbinder
             if (!saving)
             {
                 saving = true;
-                saveThread = new Thread(() => SaveToDB())
-                {
-                    IsBackground = true
-                };
+                saveThread = new Thread(() => SaveToDB());
                 saveThread.Start();
             }
         }
@@ -627,11 +613,11 @@ namespace Warlock_The_Soulbinder
             Controller.Instance.SaveToStatisticDB(Combat.Instance.EarthDragonDead, Combat.Instance.FireDragonDead, Combat.Instance.DarkDragonDead, Combat.Instance.MetalDragonDead, Combat.Instance.WaterDragonDead, Combat.Instance.AirDragonDead, Combat.Instance.NeutralDragonDead);
             //Log for scanned enemies
             Controller.Instance.SaveToLogDB(Log.Instance.SheepLog, Log.Instance.WolfLog, Log.Instance.BearLog, Log.Instance.PlantEaterLog, Log.Instance.InsectSoldierLog, Log.Instance.SlimeSnakeLog, Log.Instance.TentacleLog, Log.Instance.FrogLog, Log.Instance.FishLog, Log.Instance.MummyLog, Log.Instance.VampireLog, Log.Instance.BansheeLog, Log.Instance.BucketManLog, Log.Instance.DefenderLog, Log.Instance.SentryLog, Log.Instance.FireGolemLog, Log.Instance.InfernalDemonLog, Log.Instance.AshZombieLog, Log.Instance.FalconLog, Log.Instance.BatLog, Log.Instance.RavenLog);
+            
+            Controller.Instance.CloseTheGates();
 
             Saved = true;
             Saving = false;
-
-            Controller.Instance.CloseTheGates();
         }
     }
 }

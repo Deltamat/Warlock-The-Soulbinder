@@ -31,8 +31,6 @@ namespace Warlock_The_Soulbinder
 
         public event EventHandler Click;
 
-        public bool Clicked { get; private set; }
-
         public Color FontColor { get; set; }
 
         public Rectangle Rectangle
@@ -52,11 +50,11 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="texture">loads the image as texture for the Button</param>
         /// <param name="font">loads the font</param>
-        public Button(Texture2D texture, SpriteFont font, Vector2 position, ContentManager content)
+        public Button(Texture2D texture, SpriteFont font, Vector2 position)
         {
             this.texture = texture;
             this.font = font;
-            this.positionButton = position;
+            positionButton = position;
             FontColor = Color.White;
         }
 

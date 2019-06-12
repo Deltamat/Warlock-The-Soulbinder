@@ -54,24 +54,24 @@ namespace Warlock_The_Soulbinder
             arrow = GameWorld.ContentManager.Load<Texture2D>("Arrow");
             emptyButton = GameWorld.ContentManager.Load<Texture2D>("buttons/emptyButton");
             cX = GameWorld.Instance.ScreenSize.Width * 0.5f - emptyButton.Width * 0.5f;
-            newGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 300), GameWorld.ContentManager);
+            newGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 300));
             newGameButton.TextForButton = "New game";
-            loadGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 400), GameWorld.ContentManager);
+            loadGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 400));
             loadGameButton.TextForButton = "Load";
-            exitGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 500), GameWorld.ContentManager);
+            exitGameButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 500));
             exitGameButton.TextForButton = "Exit game";
             cX2 = cX - arrow.Width;
             loadGameButton.Click += LoadGame;
             newGameButton.Click += NewGame;
             exitGameButton.Click += ExitGame;
 
-            loadSlot1 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 500), GameWorld.ContentManager);
+            loadSlot1 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 500));
             loadSlot1.TextForButton = "Save slot 1";
-            loadSlot2 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 600), GameWorld.ContentManager);
+            loadSlot2 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 600));
             loadSlot2.TextForButton = "Save slot 2";
-            loadSlot3 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 700), GameWorld.ContentManager);
+            loadSlot3 = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 700));
             loadSlot3.TextForButton = "Save slot 3";
-            returnButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 800), GameWorld.ContentManager);
+            returnButton = new Button(emptyButton, GameWorld.Instance.copperFont, new Vector2(cX, 800));
             returnButton.TextForButton = "Return";
 
             loadSlot1.Click += SaveSlot1;
@@ -201,7 +201,7 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot1(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "1";
-            Controller.Instance = new Controller();
+            Controller.Instance = Controller.Instance;
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -220,7 +220,7 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot2(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "2";
-            Controller.Instance = new Controller();
+            Controller.Instance = Controller.Instance;
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -239,7 +239,7 @@ namespace Warlock_The_Soulbinder
         private void SaveSlot3(object sender, EventArgs e)
         {
             GameWorld.Instance.CurrentSaveFile = "3";
-            Controller.Instance = new Controller();
+            Controller.Instance = Controller.Instance;
             if (MainMenuState == "New Game")
             {
                 GameWorld.Instance.GameState = "Overworld";
@@ -288,7 +288,7 @@ namespace Warlock_The_Soulbinder
                 {
                     case 0:
                         GameWorld.Instance.CurrentSaveFile = "1";
-                        Controller.Instance = new Controller();
+                        Controller.Instance = Controller.Instance;
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
@@ -297,7 +297,7 @@ namespace Warlock_The_Soulbinder
                         break;
                     case 1:
                         GameWorld.Instance.CurrentSaveFile = "2";
-                        Controller.Instance = new Controller();
+                        Controller.Instance = Controller.Instance;
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
@@ -306,7 +306,7 @@ namespace Warlock_The_Soulbinder
                         break;
                     case 2:
                         GameWorld.Instance.CurrentSaveFile = "3";
-                        Controller.Instance = new Controller();
+                        Controller.Instance = Controller.Instance;
                         if (MainMenuState == "Load Game")
                         {
                             GameWorld.Instance.LoadDB();
