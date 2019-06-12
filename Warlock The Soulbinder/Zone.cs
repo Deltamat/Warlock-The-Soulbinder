@@ -11,17 +11,36 @@ namespace Warlock_The_Soulbinder
     public class Zone
     {
         List<Rectangle> spawnPoints = new List<Rectangle>();
-        List<Rectangle> usedSpawnPoints = new List<Rectangle>();
         int enemiesInZone;
         List<NPC> pillars = new List<NPC>();
-        int dragonsDead = 0;
 
+        /// <summary>
+        /// A MonoGame Extended Class that is used to draw and update the TileMap
+        /// </summary>
         public TiledMapRenderer MapRenderer { get; private set; }
+        /// <summary>
+        /// A list of Enemies in the Zone
+        /// </summary>
         public List<Enemy> Enemies { get; set; } = new List<Enemy>();
+        /// <summary>
+        /// The name of the Zone
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// A MonoGame Extended Class that contains the TileMap
+        /// </summary>
         public TiledMap Map { get; private set; }
+        /// <summary>
+        /// A list of Rectangle's that is collidable
+        /// </summary>
         public List<Rectangle> CollisionRects { get; private set; } = new List<Rectangle>();
+        /// <summary>
+        /// A list of the Trigger's in the Zone
+        /// </summary>
         public List<Trigger> Triggers { get; private set; } = new List<Trigger>();
+        /// <summary>
+        /// A list of the NPC's in the Zone
+        /// </summary>
         public List<NPC> NPCs { get; private set; } = new List<NPC>();
         
         /// <summary>
@@ -258,7 +277,7 @@ namespace Warlock_The_Soulbinder
         }
 
         /// <summary>
-        /// The Setup is called after ALL the zones have been created. It then runs through all the triggers and set the targets.
+        /// The Setup is called after ALL the zones have been created. It then runs through all the triggers to change zones and set the targets.
         /// This is done because the triggers are located in the seperate zones.
         /// </summary>
         public void Setup()
@@ -287,7 +306,8 @@ namespace Warlock_The_Soulbinder
         private void GenerateEnemies(string enemyType)
         {
             int enemyindex = 0;
-            
+            List<Rectangle> usedSpawnPoints = new List<Rectangle>();
+
             for (int i = 0; i < enemiesInZone; i++) // spawn a random enemy of the right type
             {
                 switch (enemyType)
@@ -316,8 +336,8 @@ namespace Warlock_The_Soulbinder
                 }
 
                 Rectangle temp = spawnPoints[GameWorld.Instance.RandomInt(0, spawnPoints.Count)]; // chose a random spawnpoint to spawn the enemy
-                Enemies.Add(new Enemy(enemyindex, new Vector2(temp.X, temp.Y)));
-                usedSpawnPoints.Add(temp);
+                Enemies.Add(new Enemy(enemyindex, new Vector2(temp.X, temp.Y))); // add a enemy on the chosen spawnpoint
+                usedSpawnPoints.Add(temp); // remove the spawnpoints so it isnt used twice
                 spawnPoints.Remove(temp);
             }
             spawnPoints.AddRange(usedSpawnPoints);
@@ -385,7 +405,7 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void ChangeDragonPillarSprite()
         {
-            dragonsDead = 0;
+            int dragonsDead = 0;
             if (Combat.Instance.FireDragonDead)
             {
                 pillars[0].Sprite = GameWorld.ContentManager.Load<Texture2D>("pillars/FirePillar");
@@ -422,9 +442,9 @@ namespace Warlock_The_Soulbinder
                 dragonsDead++;
             }
 
+            // if all dragons are dead, spawn the npc that says the game is won.
             if (dragonsDead == 7)
-            {
-                
+            {                
                 NPC wizard = new NPC("npc/npc_Wizard", new Vector2(2375, 900), false, false, false, false, 0, "Congratulations. You have beaten the Game!");
                 NPCs.Add(wizard);
                 CollisionRects.Add(wizard.CollisionBox);
