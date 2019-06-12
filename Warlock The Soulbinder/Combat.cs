@@ -14,7 +14,7 @@ namespace Warlock_The_Soulbinder
     {
         private Enemy target;
 
-        static Combat instance;
+        private static Combat instance;
         private Texture2D sheet;
         private List<GameObject> playerText = new List<GameObject>();
         private List<GameObject> enemyText = new List<GameObject>();

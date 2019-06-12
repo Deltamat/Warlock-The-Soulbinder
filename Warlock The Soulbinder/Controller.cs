@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Controller
+    public class Controller
     {
         private Model model = new Model();
         private ModelSoulStone filledStone = new ModelSoulStone();
@@ -28,14 +28,15 @@ namespace Warlock_The_Soulbinder
             }
             set
             {
-                instance = value;
+                instance = new Controller();
+                //instance = value;
             }
         }
 
         /// <summary>
-        /// Tumbleweed.
+        /// Creates a new Controller.
         /// </summary>
-        public Controller()
+        private Controller()
         {       
         }
         

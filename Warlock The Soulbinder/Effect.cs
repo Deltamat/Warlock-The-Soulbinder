@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
-    class Effect
+    public class Effect
     {
         #region VARIABLES
         private bool targetsSelf;

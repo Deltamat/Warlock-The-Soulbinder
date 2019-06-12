@@ -10,9 +10,6 @@ namespace Warlock_The_Soulbinder
 {
     public class NPC : Character
     {
-        bool hasQuest;
-        bool hasShop;
-        int questID;
         Texture2D interact;
         float interactScale;
         float interactDistance = 100;
@@ -49,11 +46,8 @@ namespace Warlock_The_Soulbinder
         /// <param name="isShrine">Is the npc a dragon shrine</param>
         /// <param name="questID">The id of the quest this NPC has. Not used currently</param>
         /// <param name="dialogue">If the NPC does not have a quest or a shop it will say this dialogue</param>
-        public NPC(string spriteName, Vector2 position, bool isPillar, bool hasShop, bool hasHeal, bool isShrine, int questID, string dialogue)
+        public NPC(string spriteName, Vector2 position, bool isPillar, bool hasHeal, bool isShrine, string dialogue)
         {
-
-            this.hasShop = hasShop;
-            this.questID = questID;
             IsShrine = isShrine;
             dragonShrine = isShrine;
             HasHeal = hasHeal;
@@ -130,32 +124,11 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         public void UpdateDialogue()
         {
-            if (hasQuest || hasShop || HasHeal || IsShrine) // remove the default dialogue
+            if (HasHeal || IsShrine) // remove the default dialogue
             {
                 dialogueLines = new Dictionary<int, string>();
             }
-
-            if (hasQuest && Quest.Instance.Quests.ContainsKey(questID)) // if the quest has not been completed
-            {
-                dialogueLines.Add(1, "Warlock! I have dire need of your assistance!");
-                dialogueLines.Add(2, "The future of the world is at stake!");
-                dialogueLines.Add(3, Quest.Instance.QuestDescription[questID]);
-            }
-            else if (hasQuest && Quest.Instance.OngoingQuests.ContainsKey(questID)) // if the quest is ongoing
-            {
-                dialogueLines.Add(1, "How is it going with that quest Warlock?");
-                dialogueLines.Add(2, "Let me refresh your memory.");
-                dialogueLines.Add(3, Quest.Instance.QuestDescription[questID]);
-            }
-            else if (hasQuest && Quest.Instance.Completed.ContainsKey(questID)) // if  the quest is completed
-            {
-                dialogueLines.Add(1, "Thank you for your help Warlock.");
-            }
-            else if (hasShop) // if has a shop
-            {
-                dialogueLines.Add(1, "Khajit has wares, if you have coins.");
-            }
-            else if (HasHeal) // if a healer
+            if (HasHeal) // if a healer
             {
                 dialogueLines.Add(1, "You look hurt. Let me heal you right up!");
             }

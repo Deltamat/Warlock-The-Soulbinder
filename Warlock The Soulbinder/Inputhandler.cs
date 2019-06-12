@@ -153,26 +153,5 @@ namespace Warlock_The_Soulbinder
 
             return oldKey;
         }
-
-        public void ResetKeybinds()
-        {
-            keyDown = Keys.Down;
-            keyUp = Keys.Up;
-            keyRight = Keys.Right;
-            keyLeft = Keys.Left;
-            keySelect = Keys.Enter;
-            keyCancel = Keys.RightShift;
-            keyReturn = Keys.Back;
-            keyMenu = Keys.Escape;
-
-            buttonDown = Buttons.DPadDown;
-            buttonUp = Buttons.DPadUp;
-            buttonRight = Buttons.DPadRight;
-            buttonLeft = Buttons.DPadLeft;
-            buttonSelect = Buttons.A;
-            buttonCancel = Buttons.B;
-            buttonReturn = Buttons.Y;
-            buttonMenu = Buttons.Start;
-        }
     }
 }
