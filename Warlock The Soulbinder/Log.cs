@@ -89,6 +89,9 @@ namespace Warlock_The_Soulbinder
         {
         }
 
+        /// <summary>
+        /// resets the log
+        /// </summary>
         public void ResetForMainMenu()
         {
             sheepLog = 0;
@@ -114,6 +117,9 @@ namespace Warlock_The_Soulbinder
             ravenLog = 0;
         }
 
+        /// <summary>
+        /// Generates the list of creatures for the list.
+        /// </summary>
         public void GenerateLogList()
         {
             LogList.Clear();
@@ -155,6 +161,11 @@ namespace Warlock_The_Soulbinder
             spriteBatch.DrawString(Combat.Instance.CombatFont, $"Scan 10:", new Vector2(1050, 310), Color.White);
         }
 
+
+        /// <summary>
+        /// Code to check how many creatures has been scanned fully AKA 10 times
+        /// </summary>
+        /// <returns></returns>
         public int FullScans()
         {
             int fullScans = 0;
@@ -170,6 +181,9 @@ namespace Warlock_The_Soulbinder
 
         }
 
+        /// <summary>
+        /// Calculates all bonuses from the elemental scans, and starts to draw log if log list isnt empty
+        /// </summary>
         public void CalculateBonus()
         {
             GenerateLogList();
@@ -190,6 +204,11 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Method to draw the 21 different monstesrs by using a switchcase of monster index,
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
+        /// <param name="monsterIndex"> what index number the monster has </param>
         public void DrawLog(SpriteBatch spriteBatch, int monsterIndex)
         {
             int monsterLog = 0;
@@ -416,6 +435,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Entire code for scalling the target increasing its scan count by 1
+        /// </summary>
+        /// <param name="target"> target that is being scanned </param>
         public void ScanCreature(Enemy target)
         {
             switch (target.Monster)
