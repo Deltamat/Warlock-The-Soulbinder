@@ -15,9 +15,9 @@ namespace Warlock_The_Soulbinder
         private bool graceStart = true;
         private int graceSwitch = 0;
         private Vector2 lastDirection = new Vector2(0, 1);
-        private double aniIndex;
+        private int aniIndex;
         private double elapsedTime;
-        private const int animationFPS = 30;
+        private const int AnimationFPS = 30;
         private bool walking;
         private bool attacking;
         private bool attackStart;
@@ -344,7 +344,7 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            aniIndex = (int)(elapsedTime * animationFPS);
+            aniIndex = (int)(elapsedTime * AnimationFPS);
             elapsedTime += GameWorld.deltaTimeSecond;
         }
 
