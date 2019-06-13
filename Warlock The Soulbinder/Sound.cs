@@ -8,21 +8,7 @@ using System.Threading.Tasks;
 namespace Warlock_The_Soulbinder
 {
     public class Sound 
-
     {
-        SoundEffect sound;
-
-       /// <summary>
-       /// base, monster, menu
-       /// </summary>
-       /// <param name="sound"></param>
-       /// <param name="type"></param>
-        public Sound(string sound)
-        {
-            this.sound = GameWorld.ContentManager.Load<SoundEffect>($"sound/{sound}");
-
-        }
-
         /// <summary>
         /// Play a SoundEffect
         /// </summary>

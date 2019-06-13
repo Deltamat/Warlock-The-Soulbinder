@@ -352,7 +352,7 @@ namespace Warlock_The_Soulbinder
             { 
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Character", new Vector2(200, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(200, 200), Color.White);
-                spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(200, 280), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Soul Stones", new Vector2(200, 280), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Help", new Vector2(200, 360), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Log", new Vector2(200, 440), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Save", new Vector2(200, 520), Color.White);
@@ -905,7 +905,7 @@ namespace Warlock_The_Soulbinder
 
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Equipment").X / 2), 120), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto equip them upon yourself to use their power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determines its protection. So make \nsure to take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped monster stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped soul stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
                         break;
 
                     case 4:
