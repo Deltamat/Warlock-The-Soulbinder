@@ -528,6 +528,9 @@ namespace Warlock_The_Soulbinder
             return zones[0];
         }
 
+        /// <summary>
+        /// Changes the music depending on the zone or if state is combat or not
+        /// </summary>
         public void ChangeMusic()
         {
             SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position

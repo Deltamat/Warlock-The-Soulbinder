@@ -148,6 +148,9 @@ namespace Warlock_The_Soulbinder
             tempList.Clear();
         }
 
+        /// <summary>
+        /// Updates how much experience is required for the next level of a stone based on its current level.
+        /// </summary>
         public void UpdateExperienceRequired()
         {
             foreach (FilledStone stone in FilledStone.StoneList)
@@ -156,6 +159,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Called when starting the game, looks through the database of stones and equips the right ones
+        /// </summary>
         public void LoadEquipment()
         {
             foreach (FilledStone stone in FilledStone.StoneList)

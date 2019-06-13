@@ -16,6 +16,9 @@ namespace Warlock_The_Soulbinder
             this.direction = direction;
         }
 
+        /// <summary>
+        /// Executes movement for the player
+        /// </summary>
         public void Execute()
         {
             if (GameWorld.Instance.GameState == "Overworld")

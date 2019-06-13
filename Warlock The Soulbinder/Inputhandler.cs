@@ -92,6 +92,9 @@ namespace Warlock_The_Soulbinder
             buttonbinds.Add(ButtonSelect, new UseCommand());
         }
 
+        /// <summary>
+        /// Looks through if the predetermined keys and buttons are currently being held down
+        /// </summary>
         public void Execute()
         {
             KeyboardState keystate = Keyboard.GetState();

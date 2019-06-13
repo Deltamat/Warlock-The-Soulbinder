@@ -19,7 +19,9 @@ namespace Warlock_The_Soulbinder
         private Vector2 stringPosition;
         private Color stringColor;
 
-
+        /// <summary>
+        /// Creates a CollissionBox
+        /// </summary>
         public virtual Rectangle CollisionBox
         {
             get
@@ -69,15 +71,29 @@ namespace Warlock_The_Soulbinder
             Sprite = content.Load<Texture2D>(SpriteName);
         }
 
+        /// <summary>
+        /// Empty
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
         }
 
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Sprite, Position, Color.White);
         }
 
+
+        /// <summary>
+        /// Draw method where the color of the object can be specified
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="color"> color of the object </param>
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
             spriteBatch.Draw(Sprite, Position, color);

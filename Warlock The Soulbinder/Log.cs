@@ -146,6 +146,11 @@ namespace Warlock_The_Soulbinder
             LogList.Add(ravenLog);
         }
 
+        /// <summary>
+        /// Draws the log
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        /// <param name="monsterIndex">An integer from general menu that will determine what monster log is being drawn</param>
         public void Draw(SpriteBatch spriteBatch, int monsterIndex)
         {
             DrawLog(spriteBatch, monsterIndex);

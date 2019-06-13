@@ -494,7 +494,10 @@ namespace Warlock_The_Soulbinder
             };
             thread.Start();
         }
-        
+        /// <summary>
+        /// Update method
+        /// </summary>
+        /// <param name="gameTime"> allows the use of time based code</param>
         public void Update()
         {
             Thread.Sleep(GameWorld.Instance.RandomInt(1, 1000));
@@ -546,7 +549,11 @@ namespace Warlock_The_Soulbinder
                 Thread.Sleep(1);
             }
         }
-        
+
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);

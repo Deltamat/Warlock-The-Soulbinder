@@ -18,6 +18,9 @@ namespace Warlock_The_Soulbinder
             combatCommand = new CombatCommand(i);
         }
 
+        /// <summary>
+        /// Executes a moveCommand and a combatCommand
+        /// </summary>
         public void Execute()
         {
             moveCommand.Execute();

@@ -694,21 +694,34 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// What weaponskill the creature has
+        /// </summary>
         public void WeaponSkill()
         {
             WeaponEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Weapon", this, null, 0);
         }
 
+        /// <summary>
+        /// What armorskill the creature has
+        /// </summary>
         public void ArmorSkill()
         {
             ArmorEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Armor", this, null, 0);
         }
 
+        /// <summary>
+        /// What skill the creature has
+        /// </summary>
         public void Skill()
         {
             SkillEffect = new Effect(Enemy.ReturnMonsterIndex(Monster), "Skill", this, null, 0);
         }
 
+        /// <summary>
+        /// Creates a new filledStone from the target
+        /// </summary>
+        /// <param name="target">target that will be created a stone from</param>
         public static void CatchMonster(Enemy target)
         {
             stoneList.Add(new FilledStone(target));

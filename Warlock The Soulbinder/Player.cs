@@ -144,6 +144,12 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Update method to be called in GameWorld
+        /// </summary>
+        /// <param name="gameTime"> allows the use of time based code</param>
+
         public override void Update(GameTime gameTime)
         {
             if (graceStart && GameWorld.Instance.GameState == "Overworld")
@@ -208,6 +214,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             ChooseAnimationFrame();
