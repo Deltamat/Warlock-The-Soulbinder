@@ -12,6 +12,11 @@ namespace Warlock_The_Soulbinder
         private MoveCommand moveCommand;
         private CombatCommand combatCommand;
 
+        /// <summary>
+        /// exectues movecommand and combatcommand
+        /// </summary>
+        /// <param name="direction"></param>
+        /// <param name="i"></param>
         public MultiCommand(Vector2 direction, int i)
         {
             moveCommand = new MoveCommand(direction);

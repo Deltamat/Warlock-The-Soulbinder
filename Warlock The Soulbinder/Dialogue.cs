@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Class for Dialogue
+    /// </summary>
     public class Dialogue : Menu
     {
         int currentDialogue = 1;

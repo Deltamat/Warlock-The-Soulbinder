@@ -24,15 +24,24 @@ namespace Warlock_The_Soulbinder
         private bool isHovering;
         private Texture2D texture;
         private SpriteFont font;
-        
+
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// public event Click
+        /// </summary>
         public event EventHandler Click;
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Color FontColor { get; set; }
 
+        /// <summary>
+        /// makes a new rectangle
+        /// </summary>
         public Rectangle Rectangle
         {
             get
@@ -40,7 +49,9 @@ namespace Warlock_The_Soulbinder
                 return new Rectangle((int)positionButton.X, (int)positionButton.Y, texture.Width, texture.Height);
             }
         }
-
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string TextForButton { get; set; }
         #endregion
 

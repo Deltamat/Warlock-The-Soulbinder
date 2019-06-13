@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Obbject that needs to be updated and drawn
+    /// </summary>
     public class GameObject
     {
         protected Random rng = new Random();
@@ -30,10 +33,25 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Vector2 Position { get => position; set => position = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D Sprite { get => sprite; set => sprite = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string StringText { get => stringText; set => stringText = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Vector2 StringPosition { get => stringPosition; set => stringPosition = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Color StringColor { get => stringColor; set => stringColor = value; }
 
         /// <summary>

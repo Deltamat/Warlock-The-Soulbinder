@@ -11,6 +11,10 @@ namespace Warlock_The_Soulbinder
     public class Menu
     {
         protected int selectedInt = 0;
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int SelectedInt { get => selectedInt; set => selectedInt = value; }
         
         /// <summary>

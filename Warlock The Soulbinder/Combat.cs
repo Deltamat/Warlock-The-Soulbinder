@@ -60,15 +60,38 @@ namespace Warlock_The_Soulbinder
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
-
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool FireDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool WaterDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool EarthDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool MetalDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool NeutralDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool AirDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool DarkDragonDead { get; set; } = false;
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public SpriteFont CombatFont { get => combatFont; private set => combatFont = value; }
 
         /// <summary>
@@ -86,11 +109,29 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D HealthEmpty { get => healthEmpty; set => healthEmpty = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D HealthFull { get => healthFull; set => healthFull = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D BlankFull { get => blankFull; set => blankFull = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<GameObject> PlayerText { get => playerText; set => playerText = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<GameObject> EnemyText { get => enemyText; set => enemyText = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Enemy Target { get => target; set => target = value; }
 
         private Combat()

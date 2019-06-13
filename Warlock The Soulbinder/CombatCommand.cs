@@ -11,11 +11,17 @@ namespace Warlock_The_Soulbinder
     {
         private int select;
 
+        /// <summary>
+        /// Commbat command
+        /// </summary>
         public CombatCommand(int i)
         {
             select = i;
         }
 
+        /// <summary>
+        /// Execute combatCommand
+        /// </summary>
         public void Execute()
         {
             if (GameWorld.Instance.GameState == "Combat" && !GameWorld.Instance.Saving)

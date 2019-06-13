@@ -48,11 +48,25 @@ namespace Warlock_The_Soulbinder
                 return instance;
             }
         }
-
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int CurrentPage { get => currentPage; set => currentPage = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int EquippingTo { get => equippingTo; set => equippingTo = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Equipping { get => equipping; set => equipping = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string InventoryState { get => inventoryState; set => inventoryState = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool FullscreenState { get => fullscreenState; set => fullscreenState = value; }
 
         private GeneralMenu()

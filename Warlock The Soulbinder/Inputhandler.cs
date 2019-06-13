@@ -8,12 +8,19 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Inputhandler
+    /// </summary>
     public class InputHandler
     {
         private Dictionary<Keys, ICommand> keybinds = new Dictionary<Keys, ICommand>();
         private Dictionary<Buttons, ICommand> buttonbinds = new Dictionary<Buttons, ICommand>();
 
         static InputHandler instance;
+
+        /// <summary>
+        /// Creates an instance for the singleton
+        /// </summary>
         public static InputHandler Instance
         {
             get
@@ -49,23 +56,95 @@ namespace Warlock_The_Soulbinder
 
         private Keys keyW = Keys.W;
         private Keys keyS = Keys.S;
-        public  Keys KeyDown { get => keyDown; set => keyDown = value; }
-        public  Keys KeyUp { get => keyUp; set => keyUp = value; }
-        public  Keys KeyRight { get => keyRight; set => keyRight = value; }
-        public  Keys KeyLeft { get => keyLeft; set => keyLeft = value; }
-        public  Keys KeySelect { get => keySelect; set => keySelect = value; }
-        public  Keys KeyCancel { get => keyCancel; set => keyCancel = value; }
-        public  Keys KeyReturn { get => keyReturn; set => keyReturn = value; }
-        public  Keys KeyMenu { get => keyMenu; set => keyMenu = value; }
-        public  Buttons ButtonDown { get => buttonDown; set => buttonDown = value; }
-        public  Buttons ButtonUp { get => buttonUp; set => buttonUp = value; }
-        public  Buttons ButtonRight { get => buttonRight; set => buttonRight = value; }
-        public  Buttons ButtonLeft { get => buttonLeft; set => buttonLeft = value; }
-        public  Buttons ButtonSelect { get => buttonSelect; set => buttonSelect = value; }
-        public  Buttons ButtonCancel { get => buttonCancel; set => buttonCancel = value; }
-        public  Buttons ButtonReturn { get => buttonReturn; set => buttonReturn = value; }
-        public  Buttons ButtonMenu { get => buttonMenu; set => buttonMenu = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeyDown { get => keyDown; set => keyDown = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeyUp { get => keyUp; set => keyUp = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeyRight { get => keyRight; set => keyRight = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeyLeft { get => keyLeft; set => keyLeft = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeySelect { get => keySelect; set => keySelect = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeyCancel { get => keyCancel; set => keyCancel = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeyReturn { get => keyReturn; set => keyReturn = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Keys KeyMenu { get => keyMenu; set => keyMenu = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonDown { get => buttonDown; set => buttonDown = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonUp { get => buttonUp; set => buttonUp = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonRight { get => buttonRight; set => buttonRight = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonLeft { get => buttonLeft; set => buttonLeft = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonSelect { get => buttonSelect; set => buttonSelect = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonCancel { get => buttonCancel; set => buttonCancel = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonReturn { get => buttonReturn; set => buttonReturn = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
+        public Buttons ButtonMenu { get => buttonMenu; set => buttonMenu = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Keys KeyS { get => keyS; set => keyS = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Keys KeyW { get => keyW; set => keyW = value; }
 
         private InputHandler()

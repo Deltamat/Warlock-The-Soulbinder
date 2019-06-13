@@ -61,39 +61,138 @@ namespace Warlock_The_Soulbinder
         #endregion
 
         #region PROPERTIES
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string Name { get => name; set => name = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string WeaponName { get => weaponName; set => weaponName = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string ArmorName { get => armorName; set => armorName = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string SkillName { get => skillName; set => skillName = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int ExperienceRequired { get => experienceRequired; set => experienceRequired = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect WeaponEffect { get => weaponEffect; set => weaponEffect = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect ArmorEffect { get => armorEffect; set => armorEffect = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect SkillEffect { get => skillEffect; set => skillEffect = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int Damage { get => damage; set => damage = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int Defense { get => defense; set => defense = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<int> DamageTypes { get => damageTypes; set => damageTypes = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<float> ResistanceTypes { get => resistanceTypes; set => resistanceTypes = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int InternalCooldown { get => internalCooldown; set => internalCooldown = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string SpriteName { get => spriteName; set => spriteName = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string Monster { get => monster; set => monster = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string Element { get => element; set => element = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int Experience { get => experience; set => experience = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Equipped { get => equipped; set => equipped = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string EquipmentSlot { get => equipmentSlot; set => equipmentSlot = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public static int StoneListPages { get => stoneListPages; set => stoneListPages = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int ExperienceLastEncounter { get => experienceLastEncounter; set => experienceLastEncounter = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect DragonWeaponEffect1 { get => dragonWeaponEffect1; set => dragonWeaponEffect1 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect DragonWeaponEffect2 { get => dragonWeaponEffect2; set => dragonWeaponEffect2 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect DragonWeaponEffect3 { get => dragonWeaponEffect3; set => dragonWeaponEffect3 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect DragonArmorEffect1 { get => dragonArmorEffect1; set => dragonArmorEffect1 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect DragonArmorEffect2 { get => dragonArmorEffect2; set => dragonArmorEffect2 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Effect DragonArmorEffect3 { get => dragonArmorEffect3; set => dragonArmorEffect3 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<Effect> DragonWeaponEffects { get => dragonWeaponEffects; set => dragonWeaponEffects = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<Effect> DragonArmorEffects { get => dragonArmorEffects; set => dragonArmorEffects = value; }
         #endregion
 
+
+        /// <summary>
+        /// Get-Set for field of same name and updates the stats
+        /// </summary>
         public int Level
         {
             get => level;
@@ -104,6 +203,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Get-Set for stonelists and updates how many pages it has.
+        /// </summary>
         public static List<FilledStone> StoneList
         {
             get
@@ -128,6 +231,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int TotalDamage { get => totalDamage; set => totalDamage = value; }
 
 
@@ -309,6 +416,10 @@ namespace Warlock_The_Soulbinder
             Skill();
         }
 
+        /// <summary>
+        /// FilledStone constructor that uses enemy.
+        /// </summary>
+        /// <param name="enemy"></param>
         public FilledStone(Enemy enemy)
         {
             Monster = enemy.Monster;

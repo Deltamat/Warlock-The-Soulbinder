@@ -42,6 +42,9 @@ namespace Warlock_The_Soulbinder
         private float airBonus = 0;
         private bool logBegun = false;
 
+        /// <summary>
+        /// Creates an instance for the singleton
+        /// </summary>
         public static Log Instance
         {
             get
@@ -55,34 +58,121 @@ namespace Warlock_The_Soulbinder
         }
 
         public List<int> LogList { get => logList; set => logList = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int SheepLog { get => sheepLog; set => sheepLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int WolfLog { get => wolfLog; set => wolfLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int BearLog { get => bearLog; set => bearLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int PlantEaterLog { get => plantEaterLog; set => plantEaterLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int InsectSoldierLog { get => insectSoldierLog; set => insectSoldierLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int SlimeSnakeLog { get => slimeSnakeLog; set => slimeSnakeLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int TentacleLog { get => tentacleLog; set => tentacleLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int FrogLog { get => frogLog; set => frogLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int FishLog { get => fishLog; set => fishLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int MummyLog { get => mummyLog; set => mummyLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int VampireLog { get => vampireLog; set => vampireLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int BansheeLog { get => bansheeLog; set => bansheeLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int BucketManLog { get => bucketManLog; set => bucketManLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int DefenderLog { get => defenderLog; set => defenderLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int SentryLog { get => sentryLog; set => sentryLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int FireGolemLog { get => fireGolemLog; set => fireGolemLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int InfernalDemonLog { get => infernalDemonLog; set => infernalDemonLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int AshZombieLog { get => ashZombieLog; set => ashZombieLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int FalconLog { get => falconLog; set => falconLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int BatLog { get => batLog; set => batLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int RavenLog { get => ravenLog; set => ravenLog = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float NeutralBonus { get => neutralBonus; set => neutralBonus = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float EarthBonus { get => earthBonus; set => earthBonus = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float WaterBonus { get => waterBonus; set => waterBonus = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float DarkBonus { get => darkBonus; set => darkBonus = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float MetalBonus { get => metalBonus; set => metalBonus = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float FireBonus { get => fireBonus; set => fireBonus = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float AirBonus { get => airBonus; set => airBonus = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool LogBegun { get => logBegun; set => logBegun = value; }
 
         private Log()
