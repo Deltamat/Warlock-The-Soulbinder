@@ -963,29 +963,32 @@ namespace Warlock_The_Soulbinder
                         GameWorld.Instance.Exit();
                         break;
                     case 8:
-                        Combat.Instance.EarthDragonDead = false;
-                        Combat.Instance.FireDragonDead = false;
-                        Combat.Instance.DarkDragonDead = false;
-                        Combat.Instance.MetalDragonDead = false;
-                        Combat.Instance.WaterDragonDead = false;
-                        Combat.Instance.AirDragonDead = false; 
-                        Combat.Instance.NeutralDragonDead = false;
-                        FilledStone.StoneList.Clear();
-                        Equipment.Instance.Weapon = null;
-                        Equipment.Instance.Armor = null;
-                        Equipment.Instance.Skill1 = null;
-                        Equipment.Instance.Skill2 = null;
-                        Equipment.Instance.Skill3 = null;
-                        FilledStone.StoneListPages = 0;
-                        Log.Instance.ResetForMainMenu();
-                        Log.Instance.CalculateBonus();
-                        GameWorld.Instance.currentZone = "Town";
-                        Player.Instance.BaseStats();
-                        Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
-                        Player.Instance.Position = new Vector2(1200);
-                        MainMenu.Instance.MainMenuState = "Main";
-                        GameWorld.Instance.GameState = "MainMenu";
-                        MainMenu.Instance.Delay = 0;
+                        if (!GameWorld.Instance.Saving)
+                        {
+                            Combat.Instance.EarthDragonDead = false;
+                            Combat.Instance.FireDragonDead = false;
+                            Combat.Instance.DarkDragonDead = false;
+                            Combat.Instance.MetalDragonDead = false;
+                            Combat.Instance.WaterDragonDead = false;
+                            Combat.Instance.AirDragonDead = false;
+                            Combat.Instance.NeutralDragonDead = false;
+                            FilledStone.StoneList.Clear();
+                            Equipment.Instance.Weapon = null;
+                            Equipment.Instance.Armor = null;
+                            Equipment.Instance.Skill1 = null;
+                            Equipment.Instance.Skill2 = null;
+                            Equipment.Instance.Skill3 = null;
+                            FilledStone.StoneListPages = 0;
+                            Log.Instance.ResetForMainMenu();
+                            Log.Instance.CalculateBonus();
+                            GameWorld.Instance.currentZone = "Town";
+                            Player.Instance.BaseStats();
+                            Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
+                            Player.Instance.Position = new Vector2(1200);
+                            MainMenu.Instance.MainMenuState = "Main";
+                            GameWorld.Instance.GameState = "MainMenu";
+                            MainMenu.Instance.Delay = 0;
+                        }                        
                         break;
                 }
             }
