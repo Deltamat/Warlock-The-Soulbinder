@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// This model is used for saving and loading the player's position and current health.
+    /// </summary>
     class ModelPlayer : Model
     {
         /// <summary>
