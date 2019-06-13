@@ -34,6 +34,9 @@ namespace Warlock_The_Soulbinder
         private int helpPage = 0;
         private bool changingKey = false;
 
+        /// <summary>
+        /// Creates an instance for the singleton
+        /// </summary>
         public static GeneralMenu Instance
         {
             get
@@ -45,18 +48,36 @@ namespace Warlock_The_Soulbinder
                 return instance;
             }
         }
-
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int CurrentPage { get => currentPage; set => currentPage = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int EquippingTo { get => equippingTo; set => equippingTo = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Equipping { get => equipping; set => equipping = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string InventoryState { get => inventoryState; set => inventoryState = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool FullscreenState { get => fullscreenState; set => fullscreenState = value; }
 
         private GeneralMenu()
         {
 
         }
-        
+
+        /// <summary>
+        /// Loads assets
+        /// </summary>
+        /// <param name="content">connects to the content folder</param>
         public void LoadContent(ContentManager content)
         {
             book = content.Load<Texture2D>("Book");
@@ -70,6 +91,10 @@ namespace Warlock_The_Soulbinder
             expFull = content.Load<Texture2D>("buttons/expFull");
         }
 
+        /// <summary>
+        /// Update method to be called in GameWorld
+        /// </summary>
+        /// <param name="gameTime"> allows the use of time based code</param>
         public override void Update(GameTime gameTime)
         {
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -343,6 +368,11 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(GameWorld.Instance.Background, Vector2.Zero, Color.White);
@@ -926,7 +956,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        //What happens when you press enter in various states
+        /// <summary>
+        /// Determines what happens when the "keySelect" is pressed depending on what inventory state is currently in
+        /// </summary>
         public void ChangeState()
         { 
             if (InventoryState == "GeneralMenu")
@@ -1179,7 +1211,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        //Changes selectedInt which determines what item you are going to press
+        /// <summary>
+        /// Changes the selected menu item depending on the key pressed
+        /// </summary>
+        /// <param name="max">determines max selection to avoid crashing due to being out of index range</param>
         public void ChangeSelected(int max)
         {
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.KeyPressed(Keys.W) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && delay > 150 && SelectedInt > 0)

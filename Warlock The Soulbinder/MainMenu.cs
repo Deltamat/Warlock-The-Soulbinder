@@ -30,6 +30,10 @@ namespace Warlock_The_Soulbinder
         private int selectedIndex = 0;        
         
         static MainMenu instance;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static MainMenu Instance
         {
             get
@@ -42,7 +46,14 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string MainMenuState { get => mainMenuState; set => mainMenuState = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float Delay { get => delay; set => delay = value; }
         /// <summary>
         /// Loads all the content, buttons and x-coordinates used for buttons and the arrow-sprite that indicates which button you are about to choose.

@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Zone Class
+    /// </summary>
     public class Zone
     {
         List<Rectangle> spawnPoints = new List<Rectangle>();

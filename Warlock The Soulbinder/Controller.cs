@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Controller class
+    /// </summary>
     public class Controller
     {
         private Model model = new Model();
@@ -16,6 +19,10 @@ namespace Warlock_The_Soulbinder
         private ModelStatistic statistic = new ModelStatistic();
         
         private static Controller instance;
+        /// <summary>
+        /// Creates an instance for the singleton
+        /// </summary>
+
         static public Controller Instance
         {
             get

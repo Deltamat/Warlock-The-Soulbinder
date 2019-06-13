@@ -11,12 +11,24 @@ namespace Warlock_The_Soulbinder
     public class Menu
     {
         protected int selectedInt = 0;
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int SelectedInt { get => selectedInt; set => selectedInt = value; }
         
+        /// <summary>
+        /// Empty
+        /// </summary>
+        /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
         }
 
+        /// <summary>
+        /// Empty
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
         }
