@@ -10,6 +10,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Class to control everything combat related
+    /// </summary>
     public class Combat : Menu
     {
         private Enemy target;
@@ -57,17 +60,43 @@ namespace Warlock_The_Soulbinder
         //For use when you have to change forexample in skills or items
         private string buttonType = "Normal";
         private List<GameObject> emptyButtonList = new List<GameObject>();
-
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool FireDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool WaterDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool EarthDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool MetalDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool NeutralDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool AirDragonDead { get; set; } = false;
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool DarkDragonDead { get; set; } = false;
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public SpriteFont CombatFont { get => combatFont; private set => combatFont = value; }
 
+        /// <summary>
+        /// Creates an instance for the singleton
+        /// </summary>
         public static Combat Instance
         {
             get
@@ -80,11 +109,29 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D HealthEmpty { get => healthEmpty; set => healthEmpty = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D HealthFull { get => healthFull; set => healthFull = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D BlankFull { get => blankFull; set => blankFull = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<GameObject> PlayerText { get => playerText; set => playerText = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<GameObject> EnemyText { get => enemyText; set => enemyText = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Enemy Target { get => target; set => target = value; }
 
         private Combat()
@@ -92,7 +139,10 @@ namespace Warlock_The_Soulbinder
             
         }
 
-        //Loads the assets and list of buttons
+        /// <summary>
+        /// Loads assets
+        /// </summary>
+        /// <param name="content">connects to the content folder</param>
         public void LoadContent(ContentManager content)
         {
             sheet = content.Load<Texture2D>("Sheet");
@@ -108,6 +158,10 @@ namespace Warlock_The_Soulbinder
             turnFull = content.Load<Texture2D>("TurnFull");
         }
 
+        /// <summary>
+        /// Update method to be called in GameWorld
+        /// </summary>
+        /// <param name="gameTime"> allows the use of time based code</param>
         public override void Update(GameTime gameTime)
         {
             combatDelay += gameTime.ElapsedGameTime.Milliseconds;
@@ -226,6 +280,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(GameWorld.Instance.Background, Vector2.Zero, Color.White);
@@ -358,7 +416,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        //Goes up and down on the button list
+        /// <summary>
+        /// Changes the selected for combat
+        /// </summary>
+        /// <param name="i">++ selected int</param>
         public void ChangeSelected(int i)
         {
             if (SelectedInt >= 0 && SelectedInt <= 3 && combatDelay > 200)

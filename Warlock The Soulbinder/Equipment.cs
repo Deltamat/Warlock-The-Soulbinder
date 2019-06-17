@@ -16,6 +16,10 @@ namespace Warlock_The_Soulbinder
         private FilledStone skill3;
         private List<FilledStone> equippedEquipment = new List<FilledStone>();
 
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public static Equipment Instance
         {
             get
@@ -28,11 +32,30 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public FilledStone Weapon { get => weapon; set => weapon = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public FilledStone Armor { get => armor; set => armor = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public FilledStone Skill1 { get => skill1; set => skill1 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public FilledStone Skill2 { get => skill2; set => skill2 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public FilledStone Skill3 { get => skill3; set => skill3 = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public List<FilledStone> EquippedEquipment { get => equippedEquipment; set => equippedEquipment = value; }
 
         private Equipment()
@@ -148,6 +171,9 @@ namespace Warlock_The_Soulbinder
             tempList.Clear();
         }
 
+        /// <summary>
+        /// Updates how much experience is required for the next level of a stone based on its current level.
+        /// </summary>
         public void UpdateExperienceRequired()
         {
             foreach (FilledStone stone in FilledStone.StoneList)
@@ -155,6 +181,10 @@ namespace Warlock_The_Soulbinder
                 stone.ExperienceRequired =  (int)(10 * Math.Pow(1.3, stone.Level));
             }
         }
+
+        /// <summary>
+        /// Called when starting the game, looks through the database of stones and equips the right ones
+        /// </summary>
 
         public void LoadEquipment()
         {

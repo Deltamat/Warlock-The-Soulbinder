@@ -215,18 +215,6 @@
 /processorParam:TextureFormat=Color
 /build:Frame.png
 
-#begin fullScreen.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:fullScreen.png
-
 #begin HealthEmpty.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3174,42 +3162,6 @@
 /processorParam:TextureFormat=Compressed
 /build:smallFont.spritefont
 
-#begin sound/ambience/beach_waves_ocean_calm_loop_01_long_version.WAV
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound/ambience/beach_waves_ocean_calm_loop_01_long_version.WAV
-
-#begin sound/ambience/cave_ambience_loop_01.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound/ambience/cave_ambience_loop_01.wav
-
-#begin sound/ambience/cave_ambience_loop_02.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound/ambience/cave_ambience_loop_02.wav
-
-#begin sound/ambience/grasshopper_birds_background_loop.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound/ambience/grasshopper_birds_background_loop.wav
-
-#begin sound/ambience/swamp_bayou_frogs_birds_daytime_loop1.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound/ambience/swamp_bayou_frogs_birds_daytime_loop1.wav
-
-#begin sound/ambience/wind_cold_howling_haunted_night_loop_01.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:sound/ambience/wind_cold_howling_haunted_night_loop_01.wav
-
 #begin sound/attack.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -3659,30 +3611,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Status/stun.png
-
-#begin tempPlayer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:tempPlayer.png
-
-#begin tileset3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:tileset3.png
 
 #begin TurnFull.png
 /importer:TextureImporter

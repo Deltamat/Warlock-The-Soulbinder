@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Public class for NPC
+    /// </summary>
     public class NPC : Character
     {
         Texture2D interact;

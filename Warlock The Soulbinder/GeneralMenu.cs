@@ -34,6 +34,9 @@ namespace Warlock_The_Soulbinder
         private int helpPage = 0;
         private bool changingKey = false;
 
+        /// <summary>
+        /// Creates an instance for the singleton
+        /// </summary>
         public static GeneralMenu Instance
         {
             get
@@ -45,18 +48,36 @@ namespace Warlock_The_Soulbinder
                 return instance;
             }
         }
-
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int CurrentPage { get => currentPage; set => currentPage = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int EquippingTo { get => equippingTo; set => equippingTo = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Equipping { get => equipping; set => equipping = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string InventoryState { get => inventoryState; set => inventoryState = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool FullscreenState { get => fullscreenState; set => fullscreenState = value; }
 
         private GeneralMenu()
         {
 
         }
-        
+
+        /// <summary>
+        /// Loads assets
+        /// </summary>
+        /// <param name="content">connects to the content folder</param>
         public void LoadContent(ContentManager content)
         {
             book = content.Load<Texture2D>("Book");
@@ -70,6 +91,10 @@ namespace Warlock_The_Soulbinder
             expFull = content.Load<Texture2D>("buttons/expFull");
         }
 
+        /// <summary>
+        /// Update method to be called in GameWorld
+        /// </summary>
+        /// <param name="gameTime"> allows the use of time based code</param>
         public override void Update(GameTime gameTime)
         {
             delay += gameTime.ElapsedGameTime.Milliseconds;
@@ -343,6 +368,11 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(GameWorld.Instance.Background, Vector2.Zero, Color.White);
@@ -352,7 +382,7 @@ namespace Warlock_The_Soulbinder
             { 
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Character", new Vector2(200, 120), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(200, 200), Color.White);
-                spriteBatch.DrawString(Combat.Instance.CombatFont, "Monster Stones", new Vector2(200, 280), Color.White);
+                spriteBatch.DrawString(Combat.Instance.CombatFont, "Soul Stones", new Vector2(200, 280), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Help", new Vector2(200, 360), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Log", new Vector2(200, 440), Color.White);
                 spriteBatch.DrawString(Combat.Instance.CombatFont, "Save", new Vector2(200, 520), Color.White);
@@ -905,7 +935,7 @@ namespace Warlock_The_Soulbinder
 
                         spriteBatch.DrawString(Combat.Instance.CombatFont, "Equipment", new Vector2(1400 - (Combat.Instance.CombatFont.MeasureString("Equipment").X / 2), 120), Color.White);
                         spriteBatch.DrawString(GameWorld.Instance.SmallFont, "Since you are only a novice warlock you cannot \ndirectly control the monsters, you need \nto equip them upon yourself to use their power. \nHowever when you have, you will gain the \ndamage, speed, health, defenses, and depending \non the thing you equip it to, different ways of \nusing their skills, the monsters element for \nyour weapon determines its damage element, and \nfor the armor determines its protection. So make \nsure to take into acount what you are fighting, \nwhen selecting armor and weapon stones.", new Vector2(990, 200), Color.White);
-                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped monster stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
+                        spriteBatch.DrawString(GameWorld.Instance.SmallFont, "In addition, all equipped soul stones \ngains experience whenever you kill a monster, the \nstronger the monster the higher the experience, this \nis how you will gain enough power to defeat \nthe dragons!", new Vector2(990, 700), Color.White);
                         break;
 
                     case 4:
@@ -926,7 +956,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        //What happens when you press enter in various states
+        /// <summary>
+        /// Determines what happens when the "keySelect" is pressed depending on what inventory state is currently in
+        /// </summary>
         public void ChangeState()
         { 
             if (InventoryState == "GeneralMenu")
@@ -963,29 +995,32 @@ namespace Warlock_The_Soulbinder
                         GameWorld.Instance.Exit();
                         break;
                     case 8:
-                        Combat.Instance.EarthDragonDead = false;
-                        Combat.Instance.FireDragonDead = false;
-                        Combat.Instance.DarkDragonDead = false;
-                        Combat.Instance.MetalDragonDead = false;
-                        Combat.Instance.WaterDragonDead = false;
-                        Combat.Instance.AirDragonDead = false; 
-                        Combat.Instance.NeutralDragonDead = false;
-                        FilledStone.StoneList.Clear();
-                        Equipment.Instance.Weapon = null;
-                        Equipment.Instance.Armor = null;
-                        Equipment.Instance.Skill1 = null;
-                        Equipment.Instance.Skill2 = null;
-                        Equipment.Instance.Skill3 = null;
-                        FilledStone.StoneListPages = 0;
-                        Log.Instance.ResetForMainMenu();
-                        Log.Instance.CalculateBonus();
-                        GameWorld.Instance.currentZone = "Town";
-                        Player.Instance.BaseStats();
-                        Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
-                        Player.Instance.Position = new Vector2(1200);
-                        MainMenu.Instance.MainMenuState = "Main";
-                        GameWorld.Instance.GameState = "MainMenu";
-                        MainMenu.Instance.Delay = 0;
+                        if (!GameWorld.Instance.Saving)
+                        {
+                            Combat.Instance.EarthDragonDead = false;
+                            Combat.Instance.FireDragonDead = false;
+                            Combat.Instance.DarkDragonDead = false;
+                            Combat.Instance.MetalDragonDead = false;
+                            Combat.Instance.WaterDragonDead = false;
+                            Combat.Instance.AirDragonDead = false;
+                            Combat.Instance.NeutralDragonDead = false;
+                            FilledStone.StoneList.Clear();
+                            Equipment.Instance.Weapon = null;
+                            Equipment.Instance.Armor = null;
+                            Equipment.Instance.Skill1 = null;
+                            Equipment.Instance.Skill2 = null;
+                            Equipment.Instance.Skill3 = null;
+                            FilledStone.StoneListPages = 0;
+                            Log.Instance.ResetForMainMenu();
+                            Log.Instance.CalculateBonus();
+                            GameWorld.Instance.currentZone = "Town";
+                            Player.Instance.BaseStats();
+                            Player.Instance.CurrentHealth = Player.Instance.MaxHealth;
+                            Player.Instance.Position = new Vector2(1200);
+                            MainMenu.Instance.MainMenuState = "Main";
+                            GameWorld.Instance.GameState = "MainMenu";
+                            MainMenu.Instance.Delay = 0;
+                        }                        
                         break;
                 }
             }
@@ -1176,7 +1211,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
-        //Changes selectedInt which determines what item you are going to press
+        /// <summary>
+        /// Changes the selected menu item depending on the key pressed
+        /// </summary>
+        /// <param name="max">determines max selection to avoid crashing due to being out of index range</param>
         public void ChangeSelected(int max)
         {
             if ((InputHandler.Instance.KeyPressed(InputHandler.Instance.KeyUp) || InputHandler.Instance.KeyPressed(Keys.W) || InputHandler.Instance.ButtonPressed(InputHandler.Instance.ButtonUp)) && delay > 150 && SelectedInt > 0)

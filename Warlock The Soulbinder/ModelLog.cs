@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// This model is used for saving and loading the current progress on scanning the enemies (with the Sentry's ability).
+    /// </summary>
     class ModelLog : Model
     {
         /// <summary>

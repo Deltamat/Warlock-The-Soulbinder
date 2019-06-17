@@ -8,16 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
-{
+{        /// <summary>
+         /// Class for the player character
+         /// </summary>
     public class Player : CharacterCombat
     {
         private double gracePeriod = 5;
         private bool graceStart = true;
         private int graceSwitch = 0;
         private Vector2 lastDirection = new Vector2(0, 1);
-        private double aniIndex;
+        private int aniIndex;
         private double elapsedTime;
-        private const int animationFPS = 30;
+        private const int AnimationFPS = 30;
         private bool walking;
         private bool attacking;
         private bool attackStart;
@@ -27,6 +29,10 @@ namespace Warlock_The_Soulbinder
         private int totalDamage;
         
         static Player instance;
+
+        /// <summary>
+        /// creates new player if none exists
+        /// </summary>
         public static Player Instance
         {
             get
@@ -39,6 +45,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Get-Set for field of same name, if health is equal to or under 0 sets alive to false
+        /// </summary>
         public override int CurrentHealth
         {
             get
@@ -77,10 +86,25 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public double GracePeriod { get => gracePeriod; set => gracePeriod = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool GraceStart { get => graceStart; set => graceStart = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool AttackStart { get => attackStart; set => attackStart = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool HurtStart { get => hurtStart; set => hurtStart = value; }
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int AniIndex { set => aniIndex = value; }
 
         /// <summary>
@@ -94,10 +118,27 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Attacking { get => attacking; set => attacking = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Hurt { get => hurt; set => hurt = value; }
+
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int TotalDamage { get => totalDamage; set => totalDamage = value; }
 
+
+        /// <summary>
+        /// public constructor
+        /// </summary>
         public Player()
         {
             Sprite = GameWorld.ContentManager.Load<Texture2D>("Player/Front - Idle/Front - Idle_0");
@@ -143,6 +184,12 @@ namespace Warlock_The_Soulbinder
                 direction.Normalize();
             }
         }
+
+
+        /// <summary>
+        /// Update method to be called in GameWorld
+        /// </summary>
+        /// <param name="gameTime"> allows the use of time based code</param>
 
         public override void Update(GameTime gameTime)
         {
@@ -208,6 +255,10 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             ChooseAnimationFrame();
@@ -344,7 +395,7 @@ namespace Warlock_The_Soulbinder
                 }
             }
 
-            aniIndex = (int)(elapsedTime * animationFPS);
+            aniIndex = (int)(elapsedTime * AnimationFPS);
             elapsedTime += GameWorld.deltaTimeSecond;
         }
 

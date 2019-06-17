@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// This model is used for saving and loading the filled soulstones. 
+    /// On loading it checks if they are equipped and proceeds to equip them in the right slot.
+    /// </summary>
     class ModelSoulStone : Model
     {
         /// <summary>

@@ -11,11 +11,19 @@ namespace Warlock_The_Soulbinder
     {
         private Vector2 direction;
 
+
+        /// <summary>
+        /// moves the player
+        /// </summary>
+        /// <param name="direction"></param>
         public MoveCommand(Vector2 direction)
         {
             this.direction = direction;
         }
 
+        /// <summary>
+        /// Executes movement for the player
+        /// </summary>
         public void Execute()
         {
             if (GameWorld.Instance.GameState == "Overworld")

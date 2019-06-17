@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Public class for enemies
+    /// </summary>
     public class Enemy : CharacterCombat
     {
         private string monster;
@@ -17,6 +20,10 @@ namespace Warlock_The_Soulbinder
         private float movingTimer;
         private FilledStone enemyStone;
         private FilledStone dragonStone;
+
+        /// <summary>
+        /// Scrolls text for damage
+        /// </summary>
         public override int CurrentHealth
         {
             get => base.CurrentHealth;
@@ -50,7 +57,16 @@ namespace Warlock_The_Soulbinder
             neutralDragon, earthDragon, waterDragon, darkDragon, metalDragon, fireDragon, airDragon //dragons (21,22,23,24,25,26,27)
         };
 
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public int Level { get => level; set => level = value; }
+
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string Monster { get => monster; set => monster = value; }
 
         /// <summary>
@@ -64,10 +80,29 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public FilledStone EnemyStone { get => enemyStone; set => enemyStone = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Dragon { get => dragon; set => dragon = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public FilledStone DragonStone { get => dragonStone; set => dragonStone = value; }
 
+
+
+        /// <summary>
+        /// Constructor for enemy with index determining what enemy is created, and its start position
+        /// </summary>
+        /// <param name="index">index determines monster type</param>
+        /// <param name="startPos"> starting position</param>
         public Enemy(int index, Vector2 startPos)
         {
             Monster = Enum.GetName(typeof(EMonster), index); //gets the string value of the enum with the index, index
@@ -494,7 +529,10 @@ namespace Warlock_The_Soulbinder
             };
             thread.Start();
         }
-        
+        /// <summary>
+        /// Update method
+        /// </summary>
+        /// <param name="gameTime"> allows the use of time based code</param>
         public void Update()
         {
             Thread.Sleep(GameWorld.Instance.RandomInt(1, 1000));
@@ -546,7 +584,11 @@ namespace Warlock_The_Soulbinder
                 Thread.Sleep(1);
             }
         }
-        
+
+        /// <summary>
+        /// Draw method with the base color of whatever is being drawn
+        /// </summary>
+        /// <param name="spriteBatch"> spritebatch </param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, Position, null, Color.White, 0f, Vector2.Zero, scale, new SpriteEffects(), 1f);
@@ -570,6 +612,11 @@ namespace Warlock_The_Soulbinder
             Position += direction; //moves the enemy based on direction
         }
 
+        /// <summary>
+        /// Returns the index of specific monster string.
+        /// </summary>
+        /// <param name="monster"></param>
+        /// <returns></returns>
         public static int ReturnMonsterIndex(string monster)
         {
             return System.Convert.ToInt32(Enum.Parse(typeof(EMonster), monster));

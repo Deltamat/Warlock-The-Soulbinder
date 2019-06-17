@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// class for effects of filledStones
+    /// </summary>
     public class Effect
     {
         #region VARIABLES
@@ -38,6 +41,14 @@ namespace Warlock_The_Soulbinder
         private FilledStone stone;
         #endregion
 
+        /// <summary>
+        /// Constructor for stone effect
+        /// </summary>
+        /// <param name="index">Monster index</param>
+        /// <param name="type">Weapon, armor or skill</param>
+        /// <param name="stone">Generates a stone with it</param>
+        /// <param name="characterCombat">,stats from character combat</param>
+        /// <param name="damageDealt">how much damage dealt</param>
         public Effect(int index, string type, FilledStone stone, CharacterCombat characterCombat, int damageDealt)
         {
             Index = index;

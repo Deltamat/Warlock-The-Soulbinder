@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// This model is used for saving and loading which dragons are dead in the current save.
+    /// </summary>
     class ModelStatistic : Model
     {
         /// <summary>
@@ -34,6 +37,7 @@ namespace Warlock_The_Soulbinder
             cmd.CommandText = "DELETE FROM Statistic";
             cmd.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Saves the status on which dragons are dead.
         /// </summary>
@@ -49,6 +53,7 @@ namespace Warlock_The_Soulbinder
             cmd.CommandText = $"INSERT INTO Statistic (earthDragonDead, fireDragonDead, darkDragonDead, metalDragonDead, waterDragonDead, airDragonDead, neutralDragonDead) VALUES ({earthDragonDead}, {fireDragonDead}, {darkDragonDead}, {metalDragonDead}, {waterDragonDead}, {airDragonDead}, {neutralDragonDead})";
             cmd.ExecuteNonQuery();
         }
+
         /// <summary>
         /// Loads the status on which dragons are dead.
         /// </summary>

@@ -7,11 +7,17 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Character class
+    /// </summary>
     public class Character : GameObject
     {
         protected float movementSpeed;
         protected float scale = 1;
-        
+    
+        /// <summary>
+        /// Empty
+        /// </summary>
         public Character()
         {
         }

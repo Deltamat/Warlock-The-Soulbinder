@@ -18,19 +18,38 @@ namespace Warlock_The_Soulbinder
     {
         private GraphicsDeviceManager graphics; 
         private SpriteBatch spriteBatch;
+        /// <summary>
+        /// public double
+        /// </summary>
         public static double deltaTimeSecond;
+        /// public double
+        /// </summary>
         public static double deltaTimeMilli;
+        /// public spritefont
+        /// </summary>
         public SpriteFont font;
+        /// public spritfont
+        /// </summary>
         public SpriteFont copperFont;
         private Texture2D collisionTexture;
+        /// public camera
+        /// </summary>
         public Camera camera;
-        private Texture2D fullScreen;
         private float delay;
         private string gameState = "MainMenu";
         private SpriteFont smallFont;
         private string currentSaveFile = "1";
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public string CurrentSaveFile { get => currentSaveFile; set => currentSaveFile = value; }
         private Random rng = new Random();
+
+
+        /// <summary>
+        /// changes number format
+        /// </summary>
         public NumberFormatInfo replaceComma = new NumberFormatInfo();
         Song overworldMusic;
         Song combatMusic;
@@ -45,11 +64,23 @@ namespace Warlock_The_Soulbinder
 
         //Tiled fields
         private Zone town, neutral, earth, water, dragon, metal, dark, fire, air, dragonRealm;
+
+        /// <summary>
+        /// Shows currentZone
+        /// </summary>
         public string currentZone = "Town";
+
+        /// <summary>
+        /// public list of zones
+        /// </summary>
         public List<Zone> zones = new List<Zone>();
 
 
         private static GameWorld instance;
+
+        /// <summary>
+        /// Creates Gameworld if it doesnt exist
+        /// </summary>
         public static GameWorld Instance
         {
             get
@@ -69,6 +100,9 @@ namespace Warlock_The_Soulbinder
         private static ContentManager content;
 
 
+        /// <summary>
+        /// Gets content
+        /// </summary>
         public static ContentManager ContentManager
         {
             get
@@ -99,6 +133,9 @@ namespace Warlock_The_Soulbinder
             }
         }
 
+        /// <summary>
+        /// Get-Set for gameState and calls ChangeMusic
+        /// </summary>
         public string GameState
         {
             get
@@ -112,7 +149,11 @@ namespace Warlock_The_Soulbinder
                 ChangeMusic();
             }
         }
-        
+
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float MusicVolume
         {
             get
@@ -125,15 +166,55 @@ namespace Warlock_The_Soulbinder
                 MediaPlayer.Volume = musicVolume;
             }
         }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public float SoundEffectVolume { get; set; } = 0.3f;
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public SpriteFont SmallFont { get => smallFont; set => smallFont = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public SpriteBatch SpriteBatch { get => spriteBatch; set => spriteBatch = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public GraphicsDeviceManager Graphics { get => graphics; set => graphics = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public TimeSpan SongPosition { get => songPosition; set => songPosition = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Song DragonMusic { get => dragonMusic; set => dragonMusic = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public Texture2D Background { get => background; set => background = value; }
+        
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Saved { get => saved; set => saved = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public double SavedTextTime { get => savedTextTime; set => savedTextTime = value; }
+
+        /// <summary>
+        /// Get-Set for field of same name
+        /// </summary>
         public bool Saving { get => saving; set => saving = value; }
 
         private GameWorld()
@@ -161,7 +242,6 @@ namespace Warlock_The_Soulbinder
             IsMouseVisible = true;
             
             SmallFont = Content.Load<SpriteFont>("smallFont");
-            fullScreen = Content.Load<Texture2D>("fullScreen");
             
             replaceComma.NumberDecimalSeparator = ".";
 
@@ -528,6 +608,9 @@ namespace Warlock_The_Soulbinder
             return zones[0];
         }
 
+        /// <summary>
+        /// Changes the music depending on the zone or if state is combat or not
+        /// </summary>
         public void ChangeMusic()
         {
             SongPosition = MediaPlayer.PlayPosition; // save the overworld song playback position
