@@ -787,6 +787,7 @@ namespace Warlock_The_Soulbinder
                 if (effect.EffectLength <= 0)
                 {
                     toBeRemovedEffects.Add(effect);
+                    skillIconPlayer.Remove(effect.SkillIcon);
                 }
             }
 
@@ -1155,6 +1156,7 @@ namespace Warlock_The_Soulbinder
                 if (effect.EffectLength <= 0)
                 {
                     toBeRemovedEffects.Add(effect);
+                    skillIconEnemy.Remove(effect.SkillIcon);
                 }
             }
 
@@ -1399,6 +1401,7 @@ namespace Warlock_The_Soulbinder
                 if (effect.EffectLength <= 0)
                 {
                     toBeRemovedEffects.Add(effect);
+                    skillIconEnemy.Remove(effect.SkillIcon);
                 }
             }
 
