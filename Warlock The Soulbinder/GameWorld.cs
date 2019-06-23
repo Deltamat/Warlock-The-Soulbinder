@@ -35,7 +35,6 @@ namespace Warlock_The_Soulbinder
         /// public camera
         /// </summary>
         public Camera camera;
-        private Texture2D fullScreen;
         private float delay;
         private string gameState = "MainMenu";
         private SpriteFont smallFont;
@@ -243,7 +242,6 @@ namespace Warlock_The_Soulbinder
             IsMouseVisible = true;
             
             SmallFont = Content.Load<SpriteFont>("smallFont");
-            fullScreen = Content.Load<Texture2D>("fullScreen");
             
             replaceComma.NumberDecimalSeparator = ".";
 
