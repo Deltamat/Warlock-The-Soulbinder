@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// Superclass for all the models.
+    /// </summary>
     class Model
     {
         protected SQLiteConnection connection;

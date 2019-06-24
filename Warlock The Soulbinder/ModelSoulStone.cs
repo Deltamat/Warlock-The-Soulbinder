@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// This model is used for saving and loading the filled soulstones. 
+    /// On loading it checks if they are equipped and proceeds to equip them in the right slot.
+    /// </summary>
     class ModelSoulStone : Model
     {
         /// <summary>
@@ -19,10 +23,7 @@ namespace Warlock_The_Soulbinder
                 "monster string, " +
                 "experience integer, " +
                 "equipmentSlot string, " +
-                "level integer, " +
-                "damage integer, " +
-                "maxHealth string, " +
-                "attackSpeed float )";
+                "level integer)";
             cmd = connection.CreateCommand();
             cmd.CommandText = sqlexp;
             cmd.ExecuteNonQuery();
@@ -44,12 +45,9 @@ namespace Warlock_The_Soulbinder
         /// <param name="experience">Current experience on the soulstone.</param>
         /// <param name="equipmentSlot">The slot the soulstone is equipped to if any.</param>
         /// <param name="level">Current level of the soulstone.</param>
-        /// <param name="damage">The damage boost of the soulstone.</param>
-        /// <param name="maxHealth">Max health boost of the soulstone.</param>
-        /// <param name="attackSpeed">Attackspeed boost of the soulstone.</param>
-        public void SaveSoulStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, float attackSpeed)
+        public void SaveSoulStone(string monster, int experience, string equipmentSlot, int level)
         {
-            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, experience, equipmentSlot, level, damage, maxhealth, attackSpeed) VALUES (null, '{monster}', {experience}, '{equipmentSlot}', {level}, {damage}, {maxHealth}, {attackSpeed.ToString(GameWorld.Instance.replaceComma)})";
+            cmd.CommandText = $"INSERT INTO SoulStone (id, monster, experience, equipmentSlot, level) VALUES (null, '{monster}', {experience}, '{equipmentSlot}', {level})";
             cmd.ExecuteNonQuery();
         }
 
@@ -64,7 +62,7 @@ namespace Warlock_The_Soulbinder
             SQLiteDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                FilledStone stone = new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetFloat(7));
+                FilledStone stone = new FilledStone(reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetInt32(4));
                 switch (reader.GetString(3))
                 {
                     case "Weapon":

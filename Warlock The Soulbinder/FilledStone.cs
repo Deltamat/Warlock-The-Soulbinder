@@ -243,8 +243,9 @@ namespace Warlock_The_Soulbinder
         /// </summary>
         /// <param name="monster"></param>
         /// <param name="experience"></param>
+        /// <param name="equipmentSlot"></param>
         /// <param name="level"></param>
-        public FilledStone(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, float attackSpeed)
+        public FilledStone(string monster, int experience, string equipmentSlot, int level)
         {
             EquipmentSlot = equipmentSlot;
             
@@ -252,10 +253,6 @@ namespace Warlock_The_Soulbinder
             Monster = monster;
             spriteName = $"monsters/Orbs/{Monster}";
             sprite = GameWorld.ContentManager.Load<Texture2D>(spriteName);
-
-            Damage = damage;
-            MaxHealth = maxHealth;
-            AttackSpeed = attackSpeed;
 
             //switch case to determine the element, and name of abilities, based on the monster type
             switch (Monster)

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Warlock_The_Soulbinder
 {
+    /// <summary>
+    /// This model is used for saving and loading which dragons are dead in the current save.
+    /// </summary>
     class ModelStatistic : Model
     {
         /// <summary>
