@@ -81,12 +81,9 @@ namespace Warlock_The_Soulbinder
         /// <param name="experience">Current experience gathered on that stone.</param>
         /// <param name="equipmentSlot">Name of the equipment slot that it's currently in, if any.</param>
         /// <param name="level">Level of the soulstone.</param>
-        /// <param name="damage">Damage bonus stat of the soulstone.</param>
-        /// <param name="maxHealth">max health bonus of the soulstone.</param>
-        /// <param name="attackSpeed">attackspeed of the soulstone.</param>
-        public void SaveToSoulStoneDB(string monster, int experience, string equipmentSlot, int level, int damage, int maxHealth, float attackSpeed)
+        public void SaveToSoulStoneDB(string monster, int experience, string equipmentSlot, int level)
         {
-            filledStone.SaveSoulStone(monster, experience, equipmentSlot, level, damage, maxHealth, attackSpeed);
+            filledStone.SaveSoulStone(monster, experience, equipmentSlot, level);
         }
 
         /// <summary>
