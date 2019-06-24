@@ -63,27 +63,27 @@ namespace Warlock_The_Soulbinder
         /// <summary>
         /// Get-Set for field of same name
         /// </summary>
-        public bool FireDragonDead { get; set; } = false;
+        public bool FireDragonDead { get; set; } = true;
         /// <summary>
         /// Get-Set for field of same name
         /// </summary>
-        public bool WaterDragonDead { get; set; } = false;
+        public bool WaterDragonDead { get; set; } = true;
         /// <summary>
         /// Get-Set for field of same name
         /// </summary>
-        public bool EarthDragonDead { get; set; } = false;
+        public bool EarthDragonDead { get; set; } = true;
         /// <summary>
         /// Get-Set for field of same name
         /// </summary>
-        public bool MetalDragonDead { get; set; } = false;
+        public bool MetalDragonDead { get; set; } = true;
         /// <summary>
         /// Get-Set for field of same name
         /// </summary>
-        public bool NeutralDragonDead { get; set; } = false;
+        public bool NeutralDragonDead { get; set; } = true;
         /// <summary>
         /// Get-Set for field of same name
         /// </summary>
-        public bool AirDragonDead { get; set; } = false;
+        public bool AirDragonDead { get; set; } = true;
         /// <summary>
         /// Get-Set for field of same name
         /// </summary>

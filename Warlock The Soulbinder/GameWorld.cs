@@ -388,7 +388,7 @@ namespace Warlock_The_Soulbinder
 
             if (Keyboard.GetState().IsKeyDown(Keys.U) && delay > 100)
             {
-                foreach (FilledStone stone in Equipment.Instance.EquippedEquipment)
+                foreach (FilledStone stone in FilledStone.StoneList)
                 {
                     if (stone != null)
                     {
